@@ -1,0 +1,35 @@
+{
+  "extends": "@folio/eslint-config-stripes",
+  "parser": "babel-eslint",
+  "env": {
+    "jest/globals": true
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.js"],
+      "rules": {
+        "max-classes-per-file": "off",
+        "no-unused-expressions": "off",
+        "react/prop-types": "off"
+      }
+    }, {
+      "files": ["test/jest/**/*"],
+      "rules": {
+        "react/prop-types": "off"
+      }
+    }
+  ],
+  "rules": {
+    "arrow-body-style": "off",
+    "import/prefer-default-export": "off",
+    "comma-dangle": ["error", "always-multiline"],
+    "import/no-extraneous-dependencies": "off",
+    "jsx-quotes": ["error", "prefer-double"],
+    "no-console": "warn",
+    "react/forbid-prop-types": "off",
+    "react/destructuring-assignment": "off",
+    "react/sort-prop-types": ["error"],
+    "no-unused-vars": ["error", { "ignoreRestSiblings": true }]
+  },
+  "plugins": ["jest"]
+}
