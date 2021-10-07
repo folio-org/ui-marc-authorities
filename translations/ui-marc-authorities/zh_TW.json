@@ -1,4 +1,5 @@
 {
     "meta.title": "MARC 權威控制",
-    "permission.app.enabled": "使用者介面：已啟用 MARC 權威控制模組"
+    "permission.app.enabled": "使用者介面：已啟用 MARC 權威控制模組",
+    "permission.authority-record.view": "View MARC authority record"
 }

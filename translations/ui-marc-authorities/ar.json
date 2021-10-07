@@ -1,4 +1,5 @@
 {
     "meta.title": "استنادات مارك",
-    "permission.app.enabled": "واجهة المستخدم: تم تفعيل وحدة استنادات مارك"
+    "permission.app.enabled": "واجهة المستخدم: تم تفعيل وحدة استنادات مارك",
+    "permission.authority-record.view": "عرض تسجيلة استناد مارك"
 }

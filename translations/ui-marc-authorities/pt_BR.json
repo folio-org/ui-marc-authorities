@@ -1,4 +1,5 @@
 {
     "meta.title": "Autoridades MARC",
-    "permission.app.enabled": "UI: O módulo Autoridades MARC está habilitado"
+    "permission.app.enabled": "UI: O módulo Autoridades MARC está habilitado",
+    "permission.authority-record.view": "View MARC authority record"
 }

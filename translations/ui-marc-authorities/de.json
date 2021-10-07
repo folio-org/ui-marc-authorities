@@ -1,4 +1,5 @@
 {
     "meta.title": "MARC Normdaten",
-    "permission.app.enabled": "UI: MARC Normdaten-Modul ist aktiviert"
+    "permission.app.enabled": "UI: MARC Normdaten-Modul ist aktiviert",
+    "permission.authority-record.view": "View MARC authority record"
 }
