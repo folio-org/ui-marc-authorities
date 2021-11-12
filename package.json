@@ -80,6 +80,22 @@
         "permissionName": "module.marc-authorities.enabled",
         "displayName": "UI: MARC Authorities module is enabled",
         "visible": false
+      },
+      {
+        "permissionName": "ui-marc-authorities.authority-record.view",
+        "displayName": "View MARC authority record",
+        "subPermissions": [
+          "records-editor.records.item.get"
+        ],
+        "visible": true
+      },
+      {
+        "permissionName": "ui-marc-authorities.authority-record.edit",
+        "displayName": "Edit MARC authority record",
+        "subPermissions": [
+          "records-editor.records.item.put"
+        ],
+        "visible": true
       }
     ]
   }

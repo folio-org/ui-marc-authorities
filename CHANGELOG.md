@@ -4,3 +4,4 @@
 
 * New app created with stripes-cli
 * Add View MARC authority record permission. (UIMARCAUTH-6)
+* Add Edit MARC authority record permission. (UIMARCAUTH-5)
