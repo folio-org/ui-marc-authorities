@@ -51,6 +51,7 @@ const SearchResultsList = ({
 
   return (
     <Pane
+      id="authority-search-results-pane"
       appIcon={<AppIcon app="marc-authorities" />}
       defaultWidth="fill"
       paneTitle={<FormattedMessage id="ui-marc-authorities.meta.title" />}
