@@ -2,5 +2,18 @@
   "meta.title": "MARC Authorities",
   "permission.app.enabled": "UI: MARC Authorities module is enabled",
   "permission.authority-record.view": "View MARC authority record",
-  "permission.authority-record.edit": "Edit MARC authority record"
+  "permission.authority-record.edit": "Edit MARC authority record",
+  "label.search": "Search",
+  "search.searchAndFilter": "Search & filter",
+  "keyword": "Keyword",
+  "identifier": "Identifier (all)",
+  "personalName": "Personal name",
+  "corporateConferenceName": "Corporate/Conference name",
+  "geographicName": "Geographic name",
+  "nameTitle": "Name-title",
+  "uniformTitle": "Uniform title",
+  "subject": "Subject",
+  "childrensSubjectHeading": "Children's subject heading",
+  "genre": "Genre",
+  "authorityUUID": "Authority UUID"
 }

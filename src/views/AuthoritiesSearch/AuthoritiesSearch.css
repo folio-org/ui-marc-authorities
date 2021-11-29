@@ -1,0 +1,9 @@
+@import "@folio/stripes-components/lib/variables";
+
+.searchGroupWrap {
+  margin-bottom: calc(var(--control-margin-bottom) / 2);
+}
+
+.searchField {
+  margin-bottom: calc(var(--control-margin-bottom) / -2);
+}

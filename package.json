@@ -50,7 +50,9 @@
     "regenerator-runtime": "^0.13.3"
   },
   "dependencies": {
-    "prop-types": "^15.6.0"
+    "@rehooks/local-storage": "^2.4.3",
+    "prop-types": "^15.6.0",
+    "query-string": "^7.0.1"
   },
   "peerDependencies": {
     "@folio/stripes": "^7.0.0",

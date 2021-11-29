@@ -2,9 +2,11 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 import PropTypes from 'prop-types';
-import Switch from 'react-router-dom/Switch';
-import Route from 'react-router-dom/Route';
-import { Search } from './routes/search';
+import {
+  Route,
+  Switch,
+} from 'react-router-dom';
+import SearchRoute from './routes/search-route';
 
 const propTypes = {
   match: PropTypes.object.isRequired,
@@ -23,7 +25,7 @@ const MarcAuthorities = ({
       <Route
         path={path}
         exact
-        component={Search}
+        component={SearchRoute}
       />
     </Switch>
   );
