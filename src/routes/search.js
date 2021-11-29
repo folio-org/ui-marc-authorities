@@ -1,43 +1,26 @@
-import { useIntl } from 'react-intl';
-import { Link } from 'react-router-dom';
-import ReactRouterPropTypes from 'react-router-prop-types';
+import { useState } from 'react';
 
-import { Pane, Paneset } from '@folio/stripes/components';
+import {
+  SearchResultsList,
+} from '../components';
 
-const propTypes = {
-  match: ReactRouterPropTypes.match.isRequired,
-};
+import authoritiesMock from '../../mocks/authorities.json';
 
-const Search = ({ match }) => {
-  const intl = useIntl();
+const propTypes = {};
+
+const Search = () => {
+  const pageSize = 15;
+  const [authorities] = useState(authoritiesMock);
+
+  const onFetchNextPage = () => {};
 
   return (
-    <Paneset>
-      <Pane
-        defaultWidth="fill"
-        fluidContentWidth
-        paneTitle={intl.formatMessage({ id: 'ui-marc-authorities.meta.title' })}
-      >
-        <ul>
-          <li data-test-application-examples>
-            View the
-            {' '}
-            <Link to={`${match.path}/examples`}>examples page</Link>
-            {' '}
-            to see some useful components.
-          </li>
-          <li data-test-application-guide>
-            Please refer to the
-            {' '}
-            <a href="https://github.com/folio-org/stripes/blob/master/doc/dev-guide.md">
-              Stripes Module Developer&apos;s Guide
-            </a>
-            {' '}
-            for more information.
-          </li>
-        </ul>
-      </Pane>
-    </Paneset>
+    <SearchResultsList
+      authorities={authorities}
+      totalResults={authorities.length}
+      pageSize={pageSize}
+      onNeedMoreData={onFetchNextPage}
+    />
   );
 };
 
