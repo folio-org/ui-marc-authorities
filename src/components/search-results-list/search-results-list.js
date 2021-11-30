@@ -23,6 +23,12 @@ const propTypes = {
 
 const authRef = 'Auth/Ref';
 
+const searchResultListColumns = {
+  AUTH_REF_TYPE: 'authRefType',
+  HEADING_REF: 'headingRef',
+  HEADING_TYPE: 'headingType',
+};
+
 const SearchResultsList = ({
   authorities,
   totalResults,
@@ -31,14 +37,14 @@ const SearchResultsList = ({
   onNeedMoreData,
 }) => {
   const columnMapping = {
-    authRefType: <FormattedMessage id="ui-marc-authorities.search-results-list.authRefType" />,
-    headingRef: <FormattedMessage id="ui-marc-authorities.search-results-list.headingRef" />,
-    headingType: <FormattedMessage id="ui-marc-authorities.search-results-list.headingType" />,
+    [searchResultListColumns.AUTH_REF_TYPE]: <FormattedMessage id="ui-marc-authorities.search-results-list.authRefType" />,
+    [searchResultListColumns.HEADING_REF]: <FormattedMessage id="ui-marc-authorities.search-results-list.headingRef" />,
+    [searchResultListColumns.HEADING_TYPE]: <FormattedMessage id="ui-marc-authorities.search-results-list.headingType" />,
   };
   const columnWidths = {
-    authRefType: '25%',
-    headingRef: '40%',
-    headingType: '35%',
+    [searchResultListColumns.AUTH_REF_TYPE]: '25%',
+    [searchResultListColumns.HEADING_REF]: '40%',
+    [searchResultListColumns.HEADING_TYPE]: '35%',
   };
   const formatter = {
     authRefType: (authority) => {
@@ -47,7 +53,11 @@ const SearchResultsList = ({
         : authority.authRefType;
     },
   };
-  const visibleColumns = ['authRefType', 'headingRef', 'headingType'];
+  const visibleColumns = [
+    searchResultListColumns.AUTH_REF_TYPE,
+    searchResultListColumns.HEADING_REF,
+    searchResultListColumns.HEADING_TYPE,
+  ];
 
   return (
     <Pane
