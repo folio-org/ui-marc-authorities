@@ -1,18 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
+import queryString from 'query-string';
 import { useLocalStorage, writeStorage } from '@rehooks/local-storage';
-
-import {
-  get,
-} from 'lodash';
 
 import {
   Button,
   Icon,
   Pane,
   PaneMenu,
-  SearchField,
 } from '@folio/stripes/components';
 
 import {
@@ -21,30 +17,46 @@ import {
   PersistedPaneset,
 } from '@folio/stripes/smart-components';
 
-import css from './AuthoritiesSearch.css';
+import { AppIcon } from '@folio/stripes/core';
 
-const rawSearchableIndexes = [
-  { label: 'ui-marc-authorities.keyword', value: '' },
-  { label: 'ui-marc-authorities.identifier', value: 'identifier' },
-  { label: 'ui-marc-authorities.personalName', value: 'personal-name' },
-  { label: 'ui-marc-authorities.corporateConferenceName', value: 'corporate-conference-name' },
-  { label: 'ui-marc-authorities.geographicName', value: 'geographic-name' },
-  { label: 'ui-marc-authorities.nameTitle', value: 'name-title' },
-  { label: 'ui-marc-authorities.uniformTitle', value: 'uniform-title' },
-  { label: 'ui-marc-authorities.subject', value: 'subject' },
-  { label: 'ui-marc-authorities.childrensSubjectHeading', value: 'childrens-subject-heading' },
-  { label: 'ui-marc-authorities.genre', value: 'genre' },
-  { label: 'ui-marc-authorities.authorityUUID', value: 'authority-uuid' },
-];
+import { SearchTextareaField, SearchResultsList } from '../../components';
+import { useAuthorities } from '../../hooks/useAuthorities';
+import { rawSearchableIndexes } from '../../constants';
+
+import css from './AuthoritiesSearch.css';
 
 const filterPaneVisibilityKey = '@folio/marc-authorities/marcAuthoritiesFilterPaneVisibility';
 
 const AuthoritiesSearch = ({
-  mutator,
+  history,
   location,
-  resources,
 }) => {
   const intl = useIntl();
+
+  const [searchInputValue, setSearchInputValue] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchDropdownValue, setSearchDropdownValue] = useState('');
+  const [searchIndex, setSearchIndex] = useState('');
+
+  useEffect(() => {
+    const locationSearchParams = queryString.parse(location.search);
+
+    if (Object.keys(locationSearchParams).length > 0) {
+      if (locationSearchParams.query && locationSearchParams.query !== searchQuery) {
+        setSearchInputValue(locationSearchParams.query);
+        setSearchQuery(locationSearchParams.query);
+      }
+
+      if (locationSearchParams.qindex && locationSearchParams.qindex !== searchIndex) {
+        setSearchDropdownValue(locationSearchParams.qindex);
+        setSearchIndex(locationSearchParams.qindex);
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+
+  const { authorities, isLoading, totalRecords } = useAuthorities({ searchQuery, searchIndex, location, history });
 
   const [storedFilterPaneVisibility] = useLocalStorage(filterPaneVisibilityKey, true);
   const [isFilterPaneVisible, setIsFilterPaneVisible] = useState(storedFilterPaneVisibility);
@@ -54,23 +66,32 @@ const AuthoritiesSearch = ({
     writeStorage(filterPaneVisibilityKey, !isFilterPaneVisible);
   };
 
-  const onChangeIndex = (e) => {
-    const index = e.target.value;
+  const onChangeIndex = (value) => setSearchDropdownValue(value);
 
-    mutator.query.update({ qindex: index });
+  const onSubmitSearch = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-    console.log('onChangeIndex index', index);
+    setSearchQuery(searchInputValue);
+    setSearchIndex(searchDropdownValue);
   };
 
-  const onSubmitSearch = () => {
-    // e.preventDefault();
+  const updateSearchValue = (value) => setSearchInputValue(value);
 
-    console.log('onSubmitSearch');
+  const resetAll = () => {
+    setSearchInputValue('');
+    setSearchDropdownValue('');
+
+    history.replace({
+      pathname: location.pathname,
+    });
   };
+
+  const pageSize = 15;
+
+  const onFetchNextPage = () => {};
 
   const renderResultsFirstMenu = () => {
-    console.log('isFilterPaneVisible', isFilterPaneVisible);
-
     if (isFilterPaneVisible) {
       return null;
     }
@@ -108,23 +129,17 @@ const AuthoritiesSearch = ({
         >
           <form onSubmit={onSubmitSearch}>
             <div className={css.searchGroupWrap}>
-              <SearchField
-                // value={searchValue.query}
-                // onChange={(e) => {
-                //   if (e.target.value) {
-                //     getSearchHandlers().query(e);
-                //   } else {
-                //     getSearchHandlers().reset();
-                //   }
-                // }}
+              <SearchTextareaField
+                value={searchInputValue}
+                onChange={(e) => updateSearchValue(e.target.value)}
                 autoFocus
-                autoComplete="off"
+                rows="1"
                 name="query"
                 id="input-authorities-search"
                 className={css.searchField}
                 searchableIndexes={searchableIndexes}
-                onChangeIndex={onChangeIndex}
-                selectedIndex={get(resources.query, 'qindex')}
+                onChangeIndex={(e) => onChangeIndex(e.target.value)}
+                selectedIndex={searchDropdownValue}
               />
               <Button
                 id="submit-authorities-search"
@@ -132,7 +147,7 @@ const AuthoritiesSearch = ({
                 buttonStyle="primary"
                 fullWidth
                 marginBottom0
-                // disabled={(!searchValue.query || searchValue.query === '')}
+                disabled={!searchInputValue || isLoading}
               >
                 {intl.formatMessage({ id: 'ui-marc-authorities.label.search' })}
               </Button>
@@ -140,9 +155,8 @@ const AuthoritiesSearch = ({
             <Button
               buttonStyle="none"
               id="clickable-reset-all"
-              // disabled={!location.search || isLoading}
-              disabled={!location.search}
-              // onClick={resetAll}
+              disabled={!searchInputValue || isLoading}
+              onClick={resetAll}
             >
               <Icon icon="times-circle-solid">
                 {intl.formatMessage({ id: 'stripes-smart-components.resetAll' })}
@@ -152,28 +166,26 @@ const AuthoritiesSearch = ({
         </Pane>
       }
       <Pane
+        id="authority-search-results-pane"
+        appIcon={<AppIcon app="marc-authorities" />}
         defaultWidth="fill"
-        id="search-results"
+        paneTitle={intl.formatMessage({ id: 'ui-marc-authorities.meta.title' })}
         firstMenu={renderResultsFirstMenu()}
       >
-        <p>Results</p>
+        <SearchResultsList
+          authorities={authorities}
+          totalResults={totalRecords}
+          pageSize={pageSize}
+          onNeedMoreData={onFetchNextPage}
+        />
       </Pane>
     </PersistedPaneset>
   );
 };
 
 AuthoritiesSearch.propTypes = {
+  history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  mutator: PropTypes.shape({
-    query: PropTypes.shape({
-      update: PropTypes.func.isRequired,
-    }).isRequired,
-  }).isRequired,
-  resources: PropTypes.shape({
-    query: PropTypes.shape({
-      qindex: PropTypes.string,
-    }).isRequired,
-  }).isRequired,
 };
 
 export default AuthoritiesSearch;

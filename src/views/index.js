@@ -1,1 +1,1 @@
-export { default as AuthoritiesSearch } from './AuthoritiesSearch';
+export * from './AuthoritiesSearch';

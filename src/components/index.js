@@ -1,1 +1,2 @@
-export * from './search-results-list';
+export * from './SearchResultsList';
+export * from './SearchTextareaField';

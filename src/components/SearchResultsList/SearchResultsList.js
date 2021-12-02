@@ -1,17 +1,9 @@
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import {
-  MultiColumnList,
-  Pane,
-} from '@folio/stripes/components';
-import {
-  AppIcon,
-} from '@folio/stripes/core';
+import { MultiColumnList } from '@folio/stripes/components';
 
-import {
-  AuthorityShape,
-} from '../../constants/shapes';
+import { AuthorityShape } from '../../constants/shapes';
 
 const propTypes = {
   authorities: PropTypes.arrayOf(AuthorityShape).isRequired,
@@ -60,26 +52,19 @@ const SearchResultsList = ({
   ];
 
   return (
-    <Pane
-      id="authority-search-results-pane"
-      appIcon={<AppIcon app="marc-authorities" />}
-      defaultWidth="fill"
-      paneTitle={<FormattedMessage id="ui-marc-authorities.meta.title" />}
-    >
-      <MultiColumnList
-        columnMapping={columnMapping}
-        columnWidths={columnWidths}
-        contentData={authorities}
-        formatter={formatter}
-        id="authority-result-list"
-        onNeedMoreData={onNeedMoreData}
-        visibleColumns={visibleColumns}
-        totalCount={totalResults}
-        pagingType="prev-next"
-        pageAmount={pageSize}
-        loading={loading}
-      />
-    </Pane>
+    <MultiColumnList
+      columnMapping={columnMapping}
+      columnWidths={columnWidths}
+      contentData={authorities}
+      formatter={formatter}
+      id="authority-result-list"
+      onNeedMoreData={onNeedMoreData}
+      visibleColumns={visibleColumns}
+      totalCount={totalResults}
+      pagingType="prev-next"
+      pageAmount={pageSize}
+      loading={loading}
+    />
   );
 };
 

@@ -1,1 +1,1 @@
-export * from './authority-shape';
+export * from './authority';

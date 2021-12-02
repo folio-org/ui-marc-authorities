@@ -6,7 +6,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import SearchRoute from './routes/search-route';
+import SearchRoute from './routes/SearchRoute';
 
 const propTypes = {
   match: PropTypes.object.isRequired,

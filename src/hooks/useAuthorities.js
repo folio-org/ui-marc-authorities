@@ -1,23 +1,27 @@
 import { useQuery } from 'react-query';
-import { useLocation } from 'react-router';
 import queryString from 'query-string';
 
-import { useOkapiKy } from '@folio/stripes/core';
-
 import {
-  template,
-} from 'lodash';
+  useOkapiKy,
+  useNamespace,
+} from '@folio/stripes/core';
+
+import { template } from 'lodash';
+
+import { buildQuery } from './utils';
 
 const AUTHORITIES_API = 'search/authorities';
 
-export const useAuthorities = () => {
+export const useAuthorities = ({ searchQuery, searchIndex, location, history }) => {
   const ky = useOkapiKy();
+  const [namespace] = useNamespace();
 
-  const { search } = useLocation();
-  const queryParams = queryString.parse(search);
+  const queryParams = {
+    query: searchQuery,
+  };
 
   const compileQuery = template(
-    '(personalName=="%{query}*" or sftPersonalName=="sft %{query}*" or saftPersonalName=="saft %{query}*")',
+    buildQuery(searchIndex),
     { interpolate: /%{([\s\S]+?)}/g },
   );
 
@@ -30,11 +34,20 @@ export const useAuthorities = () => {
   };
 
   const { isFetching, data } = useQuery(
-    ['ui-marc-authorities'],
+    [namespace, searchParams],
     async () => {
-      if (!queryParams.query) {
+      if (!searchQuery) {
         return { authorities: [], totalRecords: 0 };
       }
+
+      const locationSearchParams = queryString.parse(location.search);
+      locationSearchParams.query = searchQuery;
+      locationSearchParams.qindex = searchIndex;
+      location.search = queryString.stringify(locationSearchParams);
+      history.replace({
+        pathname: location.pathname,
+        search: location.search,
+      });
 
       return ky.get(AUTHORITIES_API, { searchParams }).json();
     },
