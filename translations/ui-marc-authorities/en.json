@@ -1,5 +1,10 @@
 {
-  "meta.title": "MARC Authorities",
+  "meta.title": "MARC Authority",
+
+  "search-results-list.authRefType": "Authorized/Reference",
+  "search-results-list.headingRef": "Heading/Reference",
+  "search-results-list.headingType": "Type of heading",
+
   "permission.app.enabled": "UI: MARC Authorities module is enabled",
   "permission.authority-record.view": "View MARC authority record",
   "permission.authority-record.edit": "Edit MARC authority record",
