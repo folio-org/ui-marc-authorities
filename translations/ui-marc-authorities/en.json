@@ -20,5 +20,7 @@
   "subject": "Subject",
   "childrenSubjectHeading": "Children's subject heading",
   "genre": "Genre",
-  "authorityUUID": "Authority UUID"
+  "authorityUUID": "Authority UUID",
+  "marcHeading": "MARC authority record",
+  "authorityRecordSubtitle": "{heading} • Last updated: {lastUpdatedDate}"
 }

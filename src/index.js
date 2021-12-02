@@ -3,10 +3,15 @@ import 'regenerator-runtime/runtime';
 
 import PropTypes from 'prop-types';
 import {
-  Route,
   Switch,
 } from 'react-router-dom';
-import SearchRoute from './routes/SearchRoute';
+
+import { Route } from '@folio/stripes/core';
+
+import {
+  SearchRoute,
+  AuthorityViewRoute,
+} from './routes';
 
 const propTypes = {
   match: PropTypes.object.isRequired,
@@ -24,9 +29,10 @@ const MarcAuthorities = ({
     <Switch>
       <Route
         path={path}
-        exact
         component={SearchRoute}
-      />
+      >
+        <Route path={`${path}/authorities/:id`} component={AuthorityViewRoute} />
+      </Route>
     </Switch>
   );
 };

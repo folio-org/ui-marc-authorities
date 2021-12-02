@@ -12,6 +12,7 @@ import {
   useLocalStorage,
   writeStorage,
 } from '@rehooks/local-storage';
+import PropTypes from 'prop-types';
 
 import {
   Button,
@@ -35,12 +36,16 @@ import {
   SearchTextareaField,
   SearchResultsList,
 } from '../../components';
-import { useAuthorities } from '../../hooks/useAuthorities';
+import { useAuthorities } from '../../queries';
 import { rawSearchableIndexes } from '../../constants';
 
 import css from './AuthoritiesSearch.css';
 
-const AuthoritiesSearch = () => {
+const propTypes = {
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
+};
+
+const AuthoritiesSearch = ({ children }) => {
   const intl = useIntl();
   const [, getNamespace] = useNamespace();
 
@@ -197,8 +202,11 @@ const AuthoritiesSearch = () => {
           onNeedMoreData={onFetchNextPage}
         />
       </Pane>
+      {children}
     </PersistedPaneset>
   );
 };
+
+AuthoritiesSearch.propTypes = propTypes;
 
 export default AuthoritiesSearch;
