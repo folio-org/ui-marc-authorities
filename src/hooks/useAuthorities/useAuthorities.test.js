@@ -4,7 +4,7 @@ import {
 } from 'react-query';
 import { renderHook } from '@testing-library/react-hooks';
 
-import '../../test/jest/__mock__';
+import '../../../test/jest/__mock__';
 
 import { useOkapiKy } from '@folio/stripes/core';
 
