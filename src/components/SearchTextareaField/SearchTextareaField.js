@@ -17,10 +17,7 @@ const propTypes = {
   onChange: PropTypes.func,
   onChangeIndex: PropTypes.func,
   searchableIndexes: PropTypes.arrayOf(PropTypes.shape({
-    disabled: PropTypes.bool,
-    id: PropTypes.string,
     label: PropTypes.string,
-    placeholder: PropTypes.string,
     value: PropTypes.string,
   })).isRequired,
   selectedIndex: PropTypes.string,
@@ -43,19 +40,6 @@ const SearchTextareaField = ({
 
   const indexLabel = intl.formatMessage({ id: 'stripes-components.searchFieldIndex' });
 
-  const searchableIndexesDropdown = (
-    <Select
-      aria-label={indexLabel}
-      dataOptions={searchableIndexes}
-      disabled={loading}
-      id={`${id}-qindex`}
-      marginBottom0
-      onChange={onChangeIndex}
-      selectClass={css.select}
-      value={selectedIndex}
-    />
-  );
-
   const rootStyles = classNames(
     css.searchFieldWrap,
     className,
@@ -63,11 +47,21 @@ const SearchTextareaField = ({
 
   return (
     <div className={rootStyles}>
-      {searchableIndexesDropdown}
+      <Select
+        aria-label={indexLabel}
+        dataOptions={searchableIndexes}
+        disabled={loading}
+        id={`${id}-qindex`}
+        marginBottom0
+        onChange={onChangeIndex}
+        selectClass={css.select}
+        value={selectedIndex}
+      />
       <TextArea
         {...rest}
         disabled={disabled}
         id={id}
+        data-testid="search-textarea"
         loading={loading}
         onChange={onChange}
         type="search"

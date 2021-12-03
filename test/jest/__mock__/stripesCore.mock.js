@@ -72,6 +72,10 @@ jest.mock('@folio/stripes/core', () => {
     return <Component {...rest} mutator={fakeMutator} resources={fakeResources} stripes={fakeStripes} />;
   };
 
+  const useOkapiKy = jest.fn();
+
+  const useNamespace = () => ['@folio/marc-authorities'];
+
   // eslint-disable-next-line react/prop-types
   const withStripes = (Component) => ({ stripes, ...rest }) => {
     const fakeStripes = stripes || STRIPES;
@@ -92,6 +96,8 @@ jest.mock('@folio/stripes/core', () => {
     withStripes,
     IfPermission,
     AppContextMenu,
+    useOkapiKy,
+    useNamespace,
   };
 }, { virtual: true });
 

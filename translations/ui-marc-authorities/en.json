@@ -18,7 +18,7 @@
   "nameTitle": "Name-title",
   "uniformTitle": "Uniform title",
   "subject": "Subject",
-  "childrensSubjectHeading": "Children's subject heading",
+  "childrenSubjectHeading": "Children's subject heading",
   "genre": "Genre",
   "authorityUUID": "Authority UUID"
 }

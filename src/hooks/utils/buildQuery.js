@@ -1,9 +1,9 @@
 import {
   searchableIndexesValues,
   searchableIndexesMap,
-} from '../constants';
+} from '../../constants';
 
-export const buildQuery = (searchIndex) => {
+const buildQuery = (searchIndex) => {
   const indexData = searchableIndexesMap[searchIndex || searchableIndexesValues.KEYWORD];
 
   const queryStrings = indexData.map(data => {
@@ -55,3 +55,5 @@ export const buildQuery = (searchIndex) => {
 
   return `(${joinedQueryParts})`;
 };
+
+export default buildQuery;

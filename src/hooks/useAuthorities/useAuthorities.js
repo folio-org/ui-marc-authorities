@@ -8,11 +8,11 @@ import {
 
 import { template } from 'lodash';
 
-import { buildQuery } from './utils';
+import { buildQuery } from '../utils';
 
 const AUTHORITIES_API = 'search/authorities';
 
-export const useAuthorities = ({ searchQuery, searchIndex, location, history }) => {
+const useAuthorities = ({ searchQuery, searchIndex, location, history }) => {
   const ky = useOkapiKy();
   const [namespace] = useNamespace();
 
@@ -59,3 +59,5 @@ export const useAuthorities = ({ searchQuery, searchIndex, location, history }) 
     query: cqlQuery,
   });
 };
+
+export default useAuthorities;

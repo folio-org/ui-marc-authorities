@@ -35,6 +35,7 @@ const AuthoritiesSearch = ({
 
   const [searchInputValue, setSearchInputValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+
   const [searchDropdownValue, setSearchDropdownValue] = useState('');
   const [searchIndex, setSearchIndex] = useState('');
 
@@ -54,7 +55,6 @@ const AuthoritiesSearch = ({
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   const { authorities, isLoading, totalRecords } = useAuthorities({ searchQuery, searchIndex, location, history });
 
@@ -114,11 +114,13 @@ const AuthoritiesSearch = ({
     <PersistedPaneset
       appId="@folio/marc-authorities"
       id="marc-authorities-paneset"
+      data-testid="marc-authorities-paneset"
     >
       {isFilterPaneVisible &&
         <Pane
           defaultWidth="320px"
           id="pane-authorities-filters"
+          data-testid="pane-authorities-filters"
           fluidContentWidth
           paneTitle={intl.formatMessage({ id: 'ui-marc-authorities.search.searchAndFilter' })}
           lastMenu={(
@@ -135,7 +137,8 @@ const AuthoritiesSearch = ({
                 autoFocus
                 rows="1"
                 name="query"
-                id="input-authorities-search"
+                id="textarea-authorities-search"
+                data-testid="textarea-authorities-search"
                 className={css.searchField}
                 searchableIndexes={searchableIndexes}
                 onChangeIndex={(e) => onChangeIndex(e.target.value)}

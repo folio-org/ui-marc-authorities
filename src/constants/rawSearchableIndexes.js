@@ -9,7 +9,7 @@ export const rawSearchableIndexes = [
   { label: 'ui-marc-authorities.nameTitle', value: searchableIndexesValues.NAME_TITLE },
   { label: 'ui-marc-authorities.uniformTitle', value: searchableIndexesValues.UNIFORM_TITLE },
   { label: 'ui-marc-authorities.subject', value: searchableIndexesValues.SUBJECT },
-  { label: 'ui-marc-authorities.childrensSubjectHeading', value: searchableIndexesValues.CHILDREN_SUBJECT_HEADING },
+  { label: 'ui-marc-authorities.childrenSubjectHeading', value: searchableIndexesValues.CHILDREN_SUBJECT_HEADING },
   { label: 'ui-marc-authorities.genre', value: searchableIndexesValues.GENRE },
   { label: 'ui-marc-authorities.authorityUUID', value: searchableIndexesValues.AUTHORITY_UUID },
 ];
