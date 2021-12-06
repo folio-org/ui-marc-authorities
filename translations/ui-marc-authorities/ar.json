@@ -1,6 +1,9 @@
 {
-    "meta.title": "استنادات مارك",
+    "meta.title": "استناد مارك",
     "permission.app.enabled": "واجهة المستخدم: تم تفعيل وحدة استنادات مارك",
     "permission.authority-record.view": "عرض تسجيلة استناد مارك",
-    "permission.authority-record.edit": "تحرير تسجيلة استناد مارك"
+    "permission.authority-record.edit": "تحرير تسجيلة استناد مارك",
+    "search-results-list.authRefType": "مصرح به/مرجع",
+    "search-results-list.headingRef": "الرأس/المرجع",
+    "search-results-list.headingType": "نوع الرأس"
 }

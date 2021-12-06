@@ -2,5 +2,8 @@
     "meta.title": "MARC Normdaten",
     "permission.app.enabled": "UI: MARC Normdaten-Modul ist aktiviert",
     "permission.authority-record.view": "MARC Normdatensatz anzeigen",
-    "permission.authority-record.edit": "Edit MARC authority record"
+    "permission.authority-record.edit": "Edit MARC authority record",
+    "search-results-list.authRefType": "Authorized/Reference",
+    "search-results-list.headingRef": "Heading/Reference",
+    "search-results-list.headingType": "Type of heading"
 }
