@@ -1,3 +1,7 @@
+import {
+  useHistory,
+  useLocation,
+} from 'react-router-dom';
 import { useQuery } from 'react-query';
 import queryString from 'query-string';
 
@@ -12,9 +16,12 @@ import { buildQuery } from '../utils';
 
 const AUTHORITIES_API = 'search/authorities';
 
-const useAuthorities = ({ searchQuery, searchIndex, location, history }) => {
+const useAuthorities = ({ searchQuery, searchIndex }) => {
   const ky = useOkapiKy();
   const [namespace] = useNamespace();
+
+  const history = useHistory();
+  const location = useLocation();
 
   const queryParams = {
     query: searchQuery,

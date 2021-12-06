@@ -1,8 +1,17 @@
-import { useState, useEffect } from 'react';
+import {
+  useState,
+  useEffect,
+} from 'react';
+import {
+  useHistory,
+  useLocation,
+} from 'react-router-dom';
 import { useIntl } from 'react-intl';
-import PropTypes from 'prop-types';
 import queryString from 'query-string';
-import { useLocalStorage, writeStorage } from '@rehooks/local-storage';
+import {
+  useLocalStorage,
+  writeStorage,
+} from '@rehooks/local-storage';
 
 import {
   Button,
@@ -17,21 +26,28 @@ import {
   PersistedPaneset,
 } from '@folio/stripes/smart-components';
 
-import { AppIcon } from '@folio/stripes/core';
+import {
+  AppIcon,
+  useNamespace,
+} from '@folio/stripes/core';
 
-import { SearchTextareaField, SearchResultsList } from '../../components';
+import {
+  SearchTextareaField,
+  SearchResultsList,
+} from '../../components';
 import { useAuthorities } from '../../hooks/useAuthorities';
 import { rawSearchableIndexes } from '../../constants';
 
 import css from './AuthoritiesSearch.css';
 
-const filterPaneVisibilityKey = '@folio/marc-authorities/marcAuthoritiesFilterPaneVisibility';
-
-const AuthoritiesSearch = ({
-  history,
-  location,
-}) => {
+const AuthoritiesSearch = () => {
   const intl = useIntl();
+  const [, getNamespace] = useNamespace();
+
+  const history = useHistory();
+  const location = useLocation();
+
+  const filterPaneVisibilityKey = getNamespace({ key: 'marcAuthoritiesFilterPaneVisibility' });
 
   const [searchInputValue, setSearchInputValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -56,7 +72,7 @@ const AuthoritiesSearch = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const { authorities, isLoading, totalRecords } = useAuthorities({ searchQuery, searchIndex, location, history });
+  const { authorities, isLoading, totalRecords } = useAuthorities({ searchQuery, searchIndex });
 
   const [storedFilterPaneVisibility] = useLocalStorage(filterPaneVisibilityKey, true);
   const [isFilterPaneVisible, setIsFilterPaneVisible] = useState(storedFilterPaneVisibility);
@@ -184,11 +200,6 @@ const AuthoritiesSearch = ({
       </Pane>
     </PersistedPaneset>
   );
-};
-
-AuthoritiesSearch.propTypes = {
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
 };
 
 export default AuthoritiesSearch;
