@@ -63,6 +63,9 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0"
   },
+  "resolutions": {
+    "@rehooks/local-storage": "2.4.0"
+  },
   "stripes": {
     "actsAs": [
       "app"
