@@ -154,7 +154,6 @@ const AuthoritiesSearch = () => {
                 rows="1"
                 name="query"
                 id="textarea-authorities-search"
-                data-testid="textarea-authorities-search"
                 className={css.searchField}
                 searchableIndexes={searchableIndexes}
                 onChangeIndex={(e) => onChangeIndex(e.target.value)}

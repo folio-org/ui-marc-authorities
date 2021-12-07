@@ -5,30 +5,26 @@ import {
   fireEvent,
 } from '@testing-library/react';
 
+import routeData from 'react-router';
+
+import { createMemoryHistory } from 'history';
+
+import '../../../test/jest/__mock__';
+
 import Harness from '../../../test/jest/helpers/harness';
 import AuthoritiesSearch from './AuthoritiesSearch';
 import { searchableIndexesValues } from '../../constants';
+
+const history = createMemoryHistory();
+const historyReplaceSpy = jest.spyOn(history, 'replace');
 
 jest.mock('../../hooks/useAuthorities', () => ({
   useAuthorities: () => ({ authorities: [] }),
 }));
 
-const history = {
-  replace: jest.fn(),
-};
-
-const location = {
-  pathname: 'pathname',
-  search: '',
-};
-
 const renderAuthoritiesSearch = (props = {}) => render(
-  <Harness>
-    <AuthoritiesSearch
-      history={history}
-      location={location}
-      {...props}
-    />
+  <Harness history={history}>
+    <AuthoritiesSearch {...props} />
   </Harness>,
 );
 
@@ -56,7 +52,7 @@ describe('Given AuthoritiesSearch', () => {
   it('should display textarea', () => {
     const { getByTestId } = renderAuthoritiesSearch();
 
-    expect(getByTestId('textarea-authorities-search')).toBeDefined();
+    expect(getByTestId('search-textarea')).toBeDefined();
   });
 
   it('should display Search button', () => {
@@ -78,7 +74,7 @@ describe('Given AuthoritiesSearch', () => {
         getByTestId,
       } = renderAuthoritiesSearch();
 
-      const textarea = getByTestId('textarea-authorities-search');
+      const textarea = getByTestId('search-textarea');
       const resetAllButton = getByRole('button', { name: 'stripes-smart-components.resetAll' });
 
       fireEvent.change(textarea, { target: { value: 'test search' } });
@@ -96,7 +92,7 @@ describe('Given AuthoritiesSearch', () => {
         getByTestId,
       } = renderAuthoritiesSearch();
 
-      const textarea = getByTestId('textarea-authorities-search');
+      const textarea = getByTestId('search-textarea');
       const resetAllButton = getByRole('button', { name: 'stripes-smart-components.resetAll' });
 
       fireEvent.change(textarea, { target: { value: 'test search' } });
@@ -105,13 +101,18 @@ describe('Given AuthoritiesSearch', () => {
 
       fireEvent.click(resetAllButton);
 
-      expect(history.replace).toHaveBeenCalled();
+      expect(historyReplaceSpy).toHaveBeenCalled();
     });
   });
 
   describe('when click on toggle filter pane button', () => {
     describe('when filters were shown', () => {
       it('should hide filters', async () => {
+        jest.spyOn(routeData, 'useLocation').mockReturnValue({
+          pathname: 'pathname',
+          search: '?qindex=test',
+        });
+
         let getByRoleFunction;
         let getByTestIdFunction;
         let queryByTestIdFunction;
@@ -121,12 +122,7 @@ describe('Given AuthoritiesSearch', () => {
             getByRole,
             getByTestId,
             queryByTestId,
-          } = await renderAuthoritiesSearch({
-            location: {
-              ...location,
-              search: '?qindex=test',
-            },
-          });
+          } = await renderAuthoritiesSearch();
 
           getByRoleFunction = getByRole;
           getByTestIdFunction = getByTestId;
@@ -148,6 +144,11 @@ describe('Given AuthoritiesSearch', () => {
 
     describe('when filters were hidden', () => {
       it('should show filters', async () => {
+        jest.spyOn(routeData, 'useLocation').mockReturnValue({
+          pathname: 'pathname',
+          search: '?query=test',
+        });
+
         let getByRoleFunction;
         let getByTestIdFunction;
         let queryByTestIdFunction;
@@ -157,12 +158,7 @@ describe('Given AuthoritiesSearch', () => {
             getByRole,
             getByTestId,
             queryByTestId,
-          } = await renderAuthoritiesSearch({
-            location: {
-              ...location,
-              search: '?query=test',
-            },
-          });
+          } = await renderAuthoritiesSearch();
 
           getByRoleFunction = getByRole;
           getByTestIdFunction = getByTestId;

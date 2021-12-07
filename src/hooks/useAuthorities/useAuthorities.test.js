@@ -4,27 +4,27 @@ import {
 } from 'react-query';
 import { renderHook } from '@testing-library/react-hooks';
 
+import routeData from 'react-router';
+
+import { createMemoryHistory } from 'history';
+
 import '../../../test/jest/__mock__';
 
 import { useOkapiKy } from '@folio/stripes/core';
 
-import { useAuthorities } from './useAuthorities';
+import Harness from '../../../test/jest/helpers/harness';
+import useAuthorities from './useAuthorities';
 
-const history = {
-  replace: jest.fn(),
-};
-
-const location = {
-  pathname: 'pathname',
-  search: '',
-};
+const history = createMemoryHistory();
 
 const queryClient = new QueryClient();
 
 const wrapper = ({ children }) => (
-  <QueryClientProvider client={queryClient}>
-    {children}
-  </QueryClientProvider>
+  <Harness history={history}>
+    <QueryClientProvider client={queryClient}>
+      {children}
+    </QueryClientProvider>
+  </Harness>
 );
 
 describe('Given useAuthorities', () => {
@@ -39,13 +39,18 @@ describe('Given useAuthorities', () => {
     useOkapiKy.mockClear().mockReturnValue({
       get: mockGet,
     });
+
+    jest.spyOn(routeData, 'useLocation').mockReturnValue({
+      pathname: 'pathname',
+      search: '',
+    });
   });
 
   it('fetches authorities records', async () => {
     const searchQuery = 'test';
     const searchIndex = 'identifier';
 
-    const { result, waitFor } = renderHook(() => useAuthorities({ searchQuery, searchIndex, location, history }), { wrapper });
+    const { result, waitFor } = renderHook(() => useAuthorities({ searchQuery, searchIndex }), { wrapper });
 
     await waitFor(() => !result.current.isLoading);
 

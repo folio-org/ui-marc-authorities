@@ -1,4 +1,4 @@
-import { buildQuery } from './buildQuery';
+import buildQuery from './buildQuery';
 import { searchableIndexesValues } from '../../constants';
 
 describe('Given buildQuery', () => {

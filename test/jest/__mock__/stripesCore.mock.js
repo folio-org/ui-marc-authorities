@@ -74,7 +74,7 @@ jest.mock('@folio/stripes/core', () => {
 
   const useOkapiKy = jest.fn();
 
-  const useNamespace = () => ['@folio/marc-authorities'];
+  const useNamespace = () => ['@folio/marc-authorities', jest.fn()];
 
   // eslint-disable-next-line react/prop-types
   const withStripes = (Component) => ({ stripes, ...rest }) => {
