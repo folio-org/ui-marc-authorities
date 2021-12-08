@@ -5,7 +5,7 @@ import noop from 'lodash/noop';
 
 import Harness from '../../../test/jest/helpers/harness';
 import SearchResultsList from './SearchResultsList';
-import authorities from '../../../mocks/authorities.json';
+import authorities from '../../../mocks/authorities';
 
 const renderSearchResultsList = (props = {}) => render(
   <Harness>
