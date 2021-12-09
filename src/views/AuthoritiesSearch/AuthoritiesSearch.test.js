@@ -5,6 +5,7 @@ import {
   fireEvent,
 } from '@testing-library/react';
 
+import mockMapValues from 'lodash/mapValues';
 import routeData from 'react-router';
 
 import { createMemoryHistory } from 'history';
@@ -13,13 +14,25 @@ import '../../../test/jest/__mock__';
 
 import Harness from '../../../test/jest/helpers/harness';
 import AuthoritiesSearch from './AuthoritiesSearch';
-import { searchableIndexesValues } from '../../constants';
+import {
+  searchableIndexesValues,
+  searchResultListColumns,
+} from '../../constants';
 
 const history = createMemoryHistory();
 const historyReplaceSpy = jest.spyOn(history, 'replace');
 
 jest.mock('../../hooks/useAuthorities', () => ({
   useAuthorities: () => ({ authorities: [] }),
+}));
+
+jest.mock('../../components', () => ({
+  ...jest.requireActual('../../components'),
+  SearchResultsList: (props) => {
+    const mapedProps = mockMapValues(props, (prop) => ((typeof prop === 'object') ? JSON.stringify(prop) : prop));
+
+    return (<div data-testid="SearchResultsList" {...mapedProps} />);
+  },
 }));
 
 const renderAuthoritiesSearch = (props = {}) => render(
@@ -65,6 +78,12 @@ describe('Given AuthoritiesSearch', () => {
     const { getByRole } = renderAuthoritiesSearch();
 
     expect(getByRole('button', { name: 'stripes-smart-components.resetAll' })).toBeDefined();
+  });
+
+  it('display "Action" button', () => {
+    const { getByRole } = renderAuthoritiesSearch();
+
+    expect(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' })).toBeDefined();
   });
 
   describe('when textarea is not empty and Reset all button is clicked', () => {
@@ -175,6 +194,54 @@ describe('Given AuthoritiesSearch', () => {
         await waitFor(() => {
           expect(getByTestIdFunction(filterPaneTestId)).toBeDefined();
         });
+      });
+    });
+  });
+
+  describe('when click on "Action" button', () => {
+    it('should display "Show columns" section', () => {
+      const {
+        getByRole,
+        getByText,
+      } = renderAuthoritiesSearch();
+
+      fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+
+      expect(getByText('stripes-smart-components.columnManager.showColumns')).toBeDefined();
+    });
+
+    it('should display "Authorized/Reference" and "Type of heading" checkboxes', () => {
+      const { getByRole } = renderAuthoritiesSearch();
+
+      fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+
+      expect(getByRole('checkbox', { name: 'ui-marc-authorities.search-results-list.authRefType' })).toBeDefined();
+      expect(getByRole('checkbox', { name: 'ui-marc-authorities.search-results-list.headingType' })).toBeDefined();
+    });
+
+    it('should be checked by the default', () => {
+      const { getByRole } = renderAuthoritiesSearch();
+
+      fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+
+      expect(getByRole('checkbox', { name: 'ui-marc-authorities.search-results-list.authRefType' })).toBeChecked();
+      expect(getByRole('checkbox', { name: 'ui-marc-authorities.search-results-list.headingType' })).toBeChecked();
+    });
+
+    describe('when click on "Type of Heading" checkbox', () => {
+      it('should hide "Type of Heading" column', () => {
+        const {
+          getByRole,
+          getByTestId,
+        } = renderAuthoritiesSearch();
+
+        fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+        fireEvent.click(getByRole('checkbox', { name: 'ui-marc-authorities.search-results-list.headingType' }));
+
+        expect(getByTestId('SearchResultsList')).toHaveAttribute('visibleColumns', JSON.stringify([
+          searchResultListColumns.AUTH_REF_TYPE,
+          searchResultListColumns.HEADING_REF,
+        ]));
       });
     });
   });
