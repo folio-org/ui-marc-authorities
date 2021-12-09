@@ -10,12 +10,12 @@ import {
   FormattedMessage,
   useIntl,
 } from 'react-intl';
+import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import {
   useLocalStorage,
   writeStorage,
 } from '@rehooks/local-storage';
-import PropTypes from 'prop-types';
 
 import {
   Button,
@@ -49,10 +49,12 @@ import {
 import css from './AuthoritiesSearch.css';
 
 const prefix = 'authorities';
+const PAGE_SIZE = 10;
 
 const propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
 };
+
 
 const AuthoritiesSearch = ({ children }) => {
   const intl = useIntl();
@@ -60,8 +62,6 @@ const AuthoritiesSearch = ({ children }) => {
 
   const history = useHistory();
   const location = useLocation();
-
-  const filterPaneVisibilityKey = getNamespace({ key: 'marcAuthoritiesFilterPaneVisibility' });
 
   const [searchInputValue, setSearchInputValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -78,6 +78,8 @@ const AuthoritiesSearch = ({ children }) => {
     visibleColumns,
     toggleColumn,
   } = useColumnManager(prefix, columnMapping);
+
+  const filterPaneVisibilityKey = getNamespace({ key: 'marcAuthoritiesFilterPaneVisibility' });
 
   useEffect(() => {
     const locationSearchParams = queryString.parse(location.search);
@@ -96,7 +98,16 @@ const AuthoritiesSearch = ({ children }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const { authorities, isLoading, totalRecords } = useAuthorities({ searchQuery, searchIndex });
+  const {
+    authorities,
+    isLoading,
+    totalRecords,
+    setOffset,
+  } = useAuthorities({
+    searchQuery,
+    searchIndex,
+    pageSize: PAGE_SIZE,
+  });
 
   const [storedFilterPaneVisibility] = useLocalStorage(filterPaneVisibilityKey, true);
   const [isFilterPaneVisible, setIsFilterPaneVisible] = useState(storedFilterPaneVisibility);
@@ -127,9 +138,9 @@ const AuthoritiesSearch = ({ children }) => {
     });
   };
 
-  const pageSize = 15;
-
-  const onFetchNextPage = () => {};
+  const handleLoadMore = (_pageAmount, offset) => {
+    setOffset(offset);
+  };
 
   const renderResultsFirstMenu = () => {
     if (isFilterPaneVisible) {
@@ -230,8 +241,9 @@ const AuthoritiesSearch = ({ children }) => {
         <SearchResultsList
           authorities={authorities}
           totalResults={totalRecords}
-          pageSize={pageSize}
-          onNeedMoreData={onFetchNextPage}
+          pageSize={PAGE_SIZE}
+          onNeedMoreData={handleLoadMore}
+          loading={isLoading}
           visibleColumns={visibleColumns}
         />
       </Pane>

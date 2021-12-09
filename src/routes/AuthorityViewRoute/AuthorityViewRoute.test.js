@@ -16,9 +16,6 @@ const renderAuthorityViewRoute = () => render(
 );
 
 describe('Given AuthorityViewRoute', () => {
-  beforeEach(() => {
-  });
-
   it('should render view component', () => {
     const { getByText } = renderAuthorityViewRoute();
 

@@ -49,8 +49,9 @@ describe('Given useAuthorities', () => {
   it('fetches authorities records', async () => {
     const searchQuery = 'test';
     const searchIndex = 'identifier';
+    const pageSize = 20;
 
-    const { result, waitFor } = renderHook(() => useAuthorities({ searchQuery, searchIndex }), { wrapper });
+    const { result, waitFor } = renderHook(() => useAuthorities({ searchQuery, searchIndex, pageSize }), { wrapper });
 
     await waitFor(() => !result.current.isLoading);
 
@@ -59,6 +60,8 @@ describe('Given useAuthorities', () => {
       {
         searchParams: {
           query: '(identifier=="test*")',
+          limit: pageSize,
+          offset: 0,
         },
       },
     );
