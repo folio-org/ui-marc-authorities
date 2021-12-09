@@ -3,12 +3,13 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import queryString from 'query-string';
 
 import {
   useOkapiKy,
   useNamespace,
 } from '@folio/stripes/core';
+
+import { buildSearch } from '@folio/stripes-acq-components';
 
 import { template } from 'lodash';
 
@@ -16,7 +17,28 @@ import { buildQuery } from '../utils';
 
 const AUTHORITIES_API = 'search/authorities';
 
-const useAuthorities = ({ searchQuery, searchIndex }) => {
+const buildDateRangeQuery = name => values => {
+  const [startDateString, endDateString] = values[0]?.split(':') || [];
+
+  if (!startDateString || !endDateString) return '';
+
+  return `(metadata.${name}>="${startDateString}" and metadata.${name}<="${endDateString}")`;
+};
+
+const filterConfig = [
+  {
+    name: 'updatedDate',
+    cql: 'metadata.updatedDate',
+    values: [],
+    parse: buildDateRangeQuery('updatedDate'),
+  },
+];
+
+const useAuthorities = ({
+  searchQuery,
+  searchIndex,
+  filters,
+}) => {
   const ky = useOkapiKy();
   const [namespace] = useNamespace();
 
@@ -25,6 +47,8 @@ const useAuthorities = ({ searchQuery, searchIndex }) => {
 
   const queryParams = {
     query: searchQuery,
+    qindex: searchIndex,
+    ...filters,
   };
 
   const compileQuery = template(
@@ -32,9 +56,18 @@ const useAuthorities = ({ searchQuery, searchIndex }) => {
     { interpolate: /%{([\s\S]+?)}/g },
   );
 
-  const cqlQuery = queryParams.query?.trim().replace('*', '').split(/\s+/)
-    .map(query => compileQuery({ query }))
-    .join(' and ');
+  const cqlSearch = queryParams.query?.trim().replace('*', '').split(/\s+/)
+    .map(query => compileQuery({ query }));
+
+  const cqlFilters = Object.entries(filters)
+    .filter(([, filterValues]) => filterValues.length)
+    .map(([filterName, filterValues]) => {
+      const filterData = filterConfig.find(filter => filter.name === filterName);
+
+      return filterData.parse(filterValues);
+    });
+
+  const cqlQuery = [...cqlSearch, ...cqlFilters].join(' and ');
 
   const searchParams = {
     query: cqlQuery,
@@ -43,17 +76,15 @@ const useAuthorities = ({ searchQuery, searchIndex }) => {
   const { isFetching, data } = useQuery(
     [namespace, searchParams],
     async () => {
-      if (!searchQuery) {
+      if (!searchQuery && Object.keys(filters).length === 0) {
         return { authorities: [], totalRecords: 0 };
       }
 
-      const locationSearchParams = queryString.parse(location.search);
-      locationSearchParams.query = searchQuery;
-      locationSearchParams.qindex = searchIndex;
-      location.search = queryString.stringify(locationSearchParams);
+      const searchString = `${buildSearch(queryParams, location.search)}`;
+
       history.replace({
         pathname: location.pathname,
-        search: location.search,
+        search: searchString,
       });
 
       return ky.get(AUTHORITIES_API, { searchParams }).json();

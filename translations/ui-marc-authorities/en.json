@@ -20,5 +20,6 @@
   "subject": "Subject",
   "childrenSubjectHeading": "Children's subject heading",
   "genre": "Genre",
-  "authorityUUID": "Authority UUID"
+  "authorityUUID": "Authority UUID",
+  "updatedDate": "Date updated"
 }

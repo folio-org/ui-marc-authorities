@@ -1,6 +1,7 @@
 import {
   useState,
   useEffect,
+  useMemo,
 } from 'react';
 import {
   useHistory,
@@ -32,6 +33,11 @@ import {
 } from '@folio/stripes/core';
 
 import {
+  AcqDateRangeFilter,
+  buildFiltersObj,
+} from '@folio/stripes-acq-components';
+
+import {
   SearchTextareaField,
   SearchResultsList,
 } from '../../components';
@@ -39,6 +45,8 @@ import { useAuthorities } from '../../hooks/useAuthorities';
 import { rawSearchableIndexes } from '../../constants';
 
 import css from './AuthoritiesSearch.css';
+
+const DATE_FORMAT = 'YYYY-MM-DD';
 
 const AuthoritiesSearch = () => {
   const intl = useIntl();
@@ -55,9 +63,11 @@ const AuthoritiesSearch = () => {
   const [searchDropdownValue, setSearchDropdownValue] = useState('');
   const [searchIndex, setSearchIndex] = useState('');
 
-  useEffect(() => {
-    const locationSearchParams = queryString.parse(location.search);
+  const [filters, setFilters] = useState({});
 
+  const locationSearchParams = queryString.parse(location.search);
+
+  useEffect(() => {
     if (Object.keys(locationSearchParams).length > 0) {
       if (locationSearchParams.query && locationSearchParams.query !== searchQuery) {
         setSearchInputValue(locationSearchParams.query);
@@ -72,7 +82,11 @@ const AuthoritiesSearch = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const { authorities, isLoading, totalRecords } = useAuthorities({ searchQuery, searchIndex });
+  const { authorities, isLoading, totalRecords } = useAuthorities({
+    searchQuery,
+    searchIndex,
+    filters,
+  });
 
   const [storedFilterPaneVisibility] = useLocalStorage(filterPaneVisibilityKey, true);
   const [isFilterPaneVisible, setIsFilterPaneVisible] = useState(storedFilterPaneVisibility);
@@ -106,6 +120,17 @@ const AuthoritiesSearch = () => {
   const pageSize = 15;
 
   const onFetchNextPage = () => {};
+
+  const applyFilters = ({ name, values }) => {
+    setFilters(currentFilters => {
+      return {
+        ...currentFilters,
+        [name]: values,
+      };
+    });
+  };
+
+  const activeFilters = useMemo(() => buildFiltersObj(location.search), [location.search]);
 
   const renderResultsFirstMenu = () => {
     if (isFilterPaneVisible) {
@@ -181,6 +206,17 @@ const AuthoritiesSearch = () => {
               </Icon>
             </Button>
           </form>
+
+          <AcqDateRangeFilter
+            activeFilters={activeFilters?.updatedDate}
+            labelId="ui-marc-authorities.updatedDate"
+            id="updatedDate"
+            name="updatedDate"
+            onChange={applyFilters}
+            disabled={isLoading}
+            closedByDefault
+            dateFormat={DATE_FORMAT}
+          />
         </Pane>
       }
       <Pane
