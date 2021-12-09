@@ -1,6 +1,7 @@
 import {
   useState,
   useEffect,
+  useCallback,
   useMemo,
 } from 'react';
 import {
@@ -111,6 +112,9 @@ const AuthoritiesSearch = () => {
   const resetAll = () => {
     setSearchInputValue('');
     setSearchDropdownValue('');
+    setSearchQuery('');
+    setSearchIndex('');
+    setFilters('');
 
     history.replace({
       pathname: location.pathname,
@@ -121,14 +125,14 @@ const AuthoritiesSearch = () => {
 
   const onFetchNextPage = () => {};
 
-  const applyFilters = ({ name, values }) => {
+  const applyFilters = useCallback(({ name, values }) => {
     setFilters(currentFilters => {
       return {
         ...currentFilters,
         [name]: values,
       };
     });
-  };
+  }, []);
 
   const activeFilters = useMemo(() => buildFiltersObj(location.search), [location.search]);
 

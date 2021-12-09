@@ -15,24 +15,9 @@ import { template } from 'lodash';
 
 import { buildQuery } from '../utils';
 
+import { filterConfig } from '../../constants';
+
 const AUTHORITIES_API = 'search/authorities';
-
-const buildDateRangeQuery = name => values => {
-  const [startDateString, endDateString] = values[0]?.split(':') || [];
-
-  if (!startDateString || !endDateString) return '';
-
-  return `(metadata.${name}>="${startDateString}" and metadata.${name}<="${endDateString}")`;
-};
-
-const filterConfig = [
-  {
-    name: 'updatedDate',
-    cql: 'metadata.updatedDate',
-    values: [],
-    parse: buildDateRangeQuery('updatedDate'),
-  },
-];
 
 const useAuthorities = ({
   searchQuery,
