@@ -6,7 +6,10 @@ import {
   useHistory,
   useLocation,
 } from 'react-router-dom';
-import { useIntl } from 'react-intl';
+import {
+  FormattedMessage,
+  useIntl,
+} from 'react-intl';
 import queryString from 'query-string';
 import {
   useLocalStorage,
@@ -25,6 +28,8 @@ import {
   CollapseFilterPaneButton,
   ExpandFilterPaneButton,
   PersistedPaneset,
+  useColumnManager,
+  ColumnManagerMenu,
 } from '@folio/stripes/smart-components';
 
 import {
@@ -37,9 +42,13 @@ import {
   SearchResultsList,
 } from '../../components';
 import { useAuthorities } from '../../queries';
-import { rawSearchableIndexes } from '../../constants';
-
+import {
+  rawSearchableIndexes,
+  searchResultListColumns,
+} from '../../constants';
 import css from './AuthoritiesSearch.css';
+
+const prefix = 'authorities';
 
 const propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
@@ -59,6 +68,16 @@ const AuthoritiesSearch = ({ children }) => {
 
   const [searchDropdownValue, setSearchDropdownValue] = useState('');
   const [searchIndex, setSearchIndex] = useState('');
+
+  const columnMapping = {
+    [searchResultListColumns.AUTH_REF_TYPE]: <FormattedMessage id="ui-marc-authorities.search-results-list.authRefType" />,
+    [searchResultListColumns.HEADING_REF]: <FormattedMessage id="ui-marc-authorities.search-results-list.headingRef" />,
+    [searchResultListColumns.HEADING_TYPE]: <FormattedMessage id="ui-marc-authorities.search-results-list.headingType" />,
+  };
+  const {
+    visibleColumns,
+    toggleColumn,
+  } = useColumnManager(prefix, columnMapping);
 
   useEffect(() => {
     const locationSearchParams = queryString.parse(location.search);
@@ -123,6 +142,18 @@ const AuthoritiesSearch = ({ children }) => {
           onClick={toggleFilterPane}
         />
       </PaneMenu>
+    );
+  };
+
+  const renderActionMenu = () => {
+    return (
+      <ColumnManagerMenu
+        prefix={prefix}
+        visibleColumns={visibleColumns}
+        toggleColumn={toggleColumn}
+        columnMapping={columnMapping}
+        excludeColumns={[searchResultListColumns.HEADING_REF]}
+      />
     );
   };
 
@@ -194,12 +225,14 @@ const AuthoritiesSearch = ({ children }) => {
         defaultWidth="fill"
         paneTitle={intl.formatMessage({ id: 'ui-marc-authorities.meta.title' })}
         firstMenu={renderResultsFirstMenu()}
+        actionMenu={renderActionMenu}
       >
         <SearchResultsList
           authorities={authorities}
           totalResults={totalRecords}
           pageSize={pageSize}
           onNeedMoreData={onFetchNextPage}
+          visibleColumns={visibleColumns}
         />
       </Pane>
       {children}

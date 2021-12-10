@@ -9,6 +9,7 @@ import {
 import { MultiColumnList } from '@folio/stripes/components';
 
 import { AuthorityShape } from '../../constants/shapes';
+import { searchResultListColumns } from '../../constants';
 
 const propTypes = {
   authorities: PropTypes.arrayOf(AuthorityShape).isRequired,
@@ -16,15 +17,10 @@ const propTypes = {
   onNeedMoreData: PropTypes.func.isRequired,
   pageSize: PropTypes.number.isRequired,
   totalResults: PropTypes.number,
+  visibleColumns: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const authRef = 'Auth/Ref';
-
-const searchResultListColumns = {
-  AUTH_REF_TYPE: 'authRefType',
-  HEADING_REF: 'headingRef',
-  HEADING_TYPE: 'headingType',
-};
 
 const SearchResultsList = ({
   authorities,
@@ -32,6 +28,7 @@ const SearchResultsList = ({
   loading,
   pageSize,
   onNeedMoreData,
+  visibleColumns,
 }) => {
   const location = useLocation();
   const match = useRouteMatch();
@@ -41,11 +38,13 @@ const SearchResultsList = ({
     [searchResultListColumns.HEADING_REF]: <FormattedMessage id="ui-marc-authorities.search-results-list.headingRef" />,
     [searchResultListColumns.HEADING_TYPE]: <FormattedMessage id="ui-marc-authorities.search-results-list.headingType" />,
   };
+
   const columnWidths = {
     [searchResultListColumns.AUTH_REF_TYPE]: '25%',
     [searchResultListColumns.HEADING_REF]: '40%',
     [searchResultListColumns.HEADING_TYPE]: '35%',
   };
+
   const formatter = {
     authRefType: (authority) => {
       return authority.authRefType === authRef
@@ -53,11 +52,7 @@ const SearchResultsList = ({
         : authority.authRefType;
     },
   };
-  const visibleColumns = [
-    searchResultListColumns.AUTH_REF_TYPE,
-    searchResultListColumns.HEADING_REF,
-    searchResultListColumns.HEADING_TYPE,
-  ];
+
   const rowFormatter = (row) => {
     const {
       rowIndex,
