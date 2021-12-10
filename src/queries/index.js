@@ -1,3 +1,4 @@
-export { useAuthorities } from './useAuthorities';
-export { useMarcSource } from './useMarcSource';
-export { useAuthority } from './useAuthority';
+export * from './useAuthorities';
+export * from './useFacets';
+export * from './useAuthority';
+export * from './useMarcSource';

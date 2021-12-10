@@ -40,6 +40,7 @@ import {
 import {
   SearchTextareaField,
   SearchResultsList,
+  SearchFilters,
 } from '../../components';
 import { useAuthorities } from '../../queries';
 import {
@@ -228,6 +229,8 @@ const AuthoritiesSearch = ({ children }) => {
               </Icon>
             </Button>
           </form>
+
+          <SearchFilters />
         </Pane>
       }
       <Pane
