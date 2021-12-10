@@ -25,7 +25,7 @@ describe('MARC Authorities utils', () => {
         it('should return empty string', () => {
           const resultFunc = utils.buildDateRangeQuery('testname');
 
-          const dateRangeQuery = resultFunc(['notExpectedValue']);
+          const dateRangeQuery = resultFunc([]);
 
           expect(dateRangeQuery).toBe('');
         });
