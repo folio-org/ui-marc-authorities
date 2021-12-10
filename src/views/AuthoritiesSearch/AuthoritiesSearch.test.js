@@ -4,16 +4,14 @@ import {
   render,
   fireEvent,
 } from '@testing-library/react';
-
-import mockMapValues from 'lodash/mapValues';
 import routeData from 'react-router';
-
 import { createMemoryHistory } from 'history';
+import mockMapValues from 'lodash/mapValues';
+
+import AuthoritiesSearch from './AuthoritiesSearch';
 
 import '../../../test/jest/__mock__';
-
 import Harness from '../../../test/jest/helpers/harness';
-import AuthoritiesSearch from './AuthoritiesSearch';
 import {
   searchableIndexesValues,
   searchResultListColumns,
@@ -22,7 +20,7 @@ import {
 const history = createMemoryHistory();
 const historyReplaceSpy = jest.spyOn(history, 'replace');
 
-jest.mock('../../hooks/useAuthorities', () => ({
+jest.mock('../../queries/useAuthorities', () => ({
   useAuthorities: () => ({ authorities: [] }),
 }));
 

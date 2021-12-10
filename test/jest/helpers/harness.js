@@ -1,5 +1,9 @@
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query';
 
 import { StripesContext } from '@folio/stripes-core/src/StripesContext';
 
@@ -10,15 +14,19 @@ const STRIPES = buildStripes();
 
 const defaultHistory = createMemoryHistory();
 
+const queryClient = new QueryClient();
+
 const Harness = ({ stripes, children, history = defaultHistory }) => {
   return (
-    <StripesContext.Provider value={stripes || STRIPES}>
-      <Router history={history}>
-        <IntlProvider>
-          {children}
-        </IntlProvider>
-      </Router>
-    </StripesContext.Provider>
+    <QueryClientProvider client={queryClient}>
+      <StripesContext.Provider value={stripes || STRIPES}>
+        <Router history={history}>
+          <IntlProvider>
+            {children}
+          </IntlProvider>
+        </Router>
+      </StripesContext.Provider>
+    </QueryClientProvider>
   );
 };
 

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   useHistory,
   useLocation,
@@ -23,12 +24,15 @@ const useAuthorities = ({
   searchQuery,
   searchIndex,
   filters,
+  pageSize,
 }) => {
   const ky = useOkapiKy();
   const [namespace] = useNamespace();
 
   const history = useHistory();
   const location = useLocation();
+
+  const [offset, setOffset] = useState(0);
 
   const queryParams = {
     query: searchQuery,
@@ -56,6 +60,16 @@ const useAuthorities = ({
 
   const searchParams = {
     query: cqlQuery,
+    limit: pageSize,
+    offset,
+  };
+
+  const fillOffsetWithNull = (authorities = []) => {
+    const authoritiesArray = new Array(offset);
+
+    authoritiesArray.splice(offset, 0, ...authorities);
+
+    return authoritiesArray;
   };
 
   const { isFetching, data } = useQuery(
@@ -73,13 +87,17 @@ const useAuthorities = ({
       });
 
       return ky.get(AUTHORITIES_API, { searchParams }).json();
+    }, {
+      keepPreviousData: true,
     },
   );
 
   return ({
-    ...data,
+    totalRecords: data?.totalRecords || 0,
+    authorities: fillOffsetWithNull(data?.authorities),
     isLoading: isFetching,
     query: cqlQuery,
+    setOffset,
   });
 };
 

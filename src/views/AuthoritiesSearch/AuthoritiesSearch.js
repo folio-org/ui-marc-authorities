@@ -12,6 +12,7 @@ import {
   FormattedMessage,
   useIntl,
 } from 'react-intl';
+import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import {
   useLocalStorage,
@@ -47,26 +48,29 @@ import {
   SearchTextareaField,
   SearchResultsList,
 } from '../../components';
-import { useAuthorities } from '../../hooks/useAuthorities';
+import { useAuthorities } from '../../queries';
 import {
   rawSearchableIndexes,
   searchResultListColumns,
 } from '../../constants';
-
 import css from './AuthoritiesSearch.css';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 
 const prefix = 'authorities';
+const PAGE_SIZE = 10;
 
-const AuthoritiesSearch = () => {
+const propTypes = {
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
+};
+
+
+const AuthoritiesSearch = ({ children }) => {
   const intl = useIntl();
   const [, getNamespace] = useNamespace();
 
   const history = useHistory();
   const location = useLocation();
-
-  const filterPaneVisibilityKey = getNamespace({ key: 'marcAuthoritiesFilterPaneVisibility' });
 
   const [searchInputValue, setSearchInputValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -86,6 +90,8 @@ const AuthoritiesSearch = () => {
     toggleColumn,
   } = useColumnManager(prefix, columnMapping);
 
+  const filterPaneVisibilityKey = getNamespace({ key: 'marcAuthoritiesFilterPaneVisibility' });
+
   useEffect(() => {
     const locationSearchParams = queryString.parse(location.search);
 
@@ -103,10 +109,16 @@ const AuthoritiesSearch = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const { authorities, isLoading, totalRecords } = useAuthorities({
+  const {
+    authorities,
+    isLoading,
+    totalRecords,
+    setOffset,
+  } = useAuthorities({
     searchQuery,
     searchIndex,
     filters,
+    pageSize: PAGE_SIZE,
   });
 
   const [storedFilterPaneVisibility] = useLocalStorage(filterPaneVisibilityKey, true);
@@ -141,9 +153,9 @@ const AuthoritiesSearch = () => {
     });
   };
 
-  const pageSize = 15;
-
-  const onFetchNextPage = () => {};
+  const handleLoadMore = (_pageAmount, offset) => {
+    setOffset(offset);
+  };
 
   const applyFilters = useCallback(({ name, values }) => {
     setFilters(currentFilters => {
@@ -266,13 +278,17 @@ const AuthoritiesSearch = () => {
         <SearchResultsList
           authorities={authorities}
           totalResults={totalRecords}
-          pageSize={pageSize}
-          onNeedMoreData={onFetchNextPage}
+          pageSize={PAGE_SIZE}
+          onNeedMoreData={handleLoadMore}
+          loading={isLoading}
           visibleColumns={visibleColumns}
         />
       </Pane>
+      {children}
     </PersistedPaneset>
   );
 };
+
+AuthoritiesSearch.propTypes = propTypes;
 
 export default AuthoritiesSearch;

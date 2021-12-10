@@ -52,11 +52,13 @@ describe('Given useAuthorities', () => {
     const filters = {
       updatedDate: ['2021-01-01:2021-12-31'],
     };
+    const pageSize = 20;
 
     const { result, waitFor } = renderHook(() => useAuthorities({
       searchQuery,
       searchIndex,
       filters,
+      pageSize,
     }), { wrapper });
 
     await waitFor(() => !result.current.isLoading);
@@ -66,6 +68,8 @@ describe('Given useAuthorities', () => {
       {
         searchParams: {
           query: '(identifier=="test*") and (metadata.updatedDate>="2021-01-01" and metadata.updatedDate<="2021-12-31")',
+          limit: pageSize,
+          offset: 0,
         },
       },
     );
