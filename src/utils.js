@@ -3,7 +3,7 @@ export const buildDateRangeQuery = name => values => {
 
   if (!startDateString || !endDateString) {
     return '';
-  };
+  }
 
   return `(metadata.${name}>="${startDateString}" and metadata.${name}<="${endDateString}")`;
 };
