@@ -256,7 +256,7 @@ const AuthoritiesSearch = ({ children }) => {
           </form>
 
           <AcqDateRangeFilter
-            activeFilters={activeFilters?.updatedDate}
+            activeFilters={activeFilters?.updatedDate || []}
             labelId="ui-marc-authorities.updatedDate"
             id="updatedDate"
             name="updatedDate"
