@@ -51,7 +51,9 @@ const useAuthorities = ({
 
   const fillOffsetWithNull = (authorities = []) => {
     const authoritiesArray = new Array(offset);
+
     authoritiesArray.splice(offset, 0, ...authorities);
+
     return authoritiesArray;
   };
 
@@ -78,7 +80,7 @@ const useAuthorities = ({
   );
 
   return ({
-    totalRecords: data?.totalRecords,
+    totalRecords: data?.totalRecords || 0,
     authorities: fillOffsetWithNull(data?.authorities),
     isLoading: isFetching,
     query: cqlQuery,
