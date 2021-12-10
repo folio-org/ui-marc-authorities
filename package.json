@@ -54,6 +54,7 @@
   },
   "dependencies": {
     "@folio/quick-marc": "^4.0.1",
+    "@folio/stripes-acq-components": "^3.0.2",
     "@rehooks/local-storage": "2.4.0",
     "prop-types": "^15.6.0",
     "query-string": "^7.0.1"
@@ -81,6 +82,9 @@
       }
     ],
     "okapiInterfaces": {},
+    "stripesDeps": [
+      "@folio/stripes-acq-components"
+    ],
     "permissionSets": [
       {
         "permissionName": "module.marc-authorities.enabled",

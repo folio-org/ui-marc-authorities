@@ -70,6 +70,8 @@ const AuthoritiesSearch = ({ children }) => {
   const [searchDropdownValue, setSearchDropdownValue] = useState('');
   const [searchIndex, setSearchIndex] = useState('');
 
+  const [filters, setFilters] = useState({});
+
   const columnMapping = {
     [searchResultListColumns.AUTH_REF_TYPE]: <FormattedMessage id="ui-marc-authorities.search-results-list.authRefType" />,
     [searchResultListColumns.HEADING_REF]: <FormattedMessage id="ui-marc-authorities.search-results-list.headingRef" />,
@@ -107,6 +109,7 @@ const AuthoritiesSearch = ({ children }) => {
   } = useAuthorities({
     searchQuery,
     searchIndex,
+    filters,
     pageSize: PAGE_SIZE,
   });
 
@@ -133,6 +136,9 @@ const AuthoritiesSearch = ({ children }) => {
   const resetAll = () => {
     setSearchInputValue('');
     setSearchDropdownValue('');
+    setSearchQuery('');
+    setSearchIndex('');
+    setFilters('');
 
     history.replace({
       pathname: location.pathname,
@@ -230,7 +236,10 @@ const AuthoritiesSearch = ({ children }) => {
             </Button>
           </form>
 
-          <SearchFilters />
+          <SearchFilters
+            isSearching={isLoading}
+            setFilters={setFilters}
+          />
         </Pane>
       }
       <Pane

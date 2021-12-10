@@ -22,5 +22,6 @@
   "genre": "Genre",
   "authorityUUID": "Authority UUID",
   "marcHeading": "MARC authority record",
-  "authorityRecordSubtitle": "{heading} • Last updated: {lastUpdatedDate}"
+  "authorityRecordSubtitle": "{heading} • Last updated: {lastUpdatedDate}",
+  "updatedDate": "Date updated"
 }

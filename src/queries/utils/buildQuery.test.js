@@ -26,7 +26,7 @@ describe('Given buildQuery', () => {
     });
   });
 
-  describe('when index keyword index provided', () => {
+  describe('when keyword index provided', () => {
     it('should return correct query for keyword index', () => {
       const query = buildQuery('');
 

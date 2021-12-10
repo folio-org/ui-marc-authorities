@@ -49,9 +49,17 @@ describe('Given useAuthorities', () => {
   it('fetches authorities records', async () => {
     const searchQuery = 'test';
     const searchIndex = 'identifier';
+    const filters = {
+      updatedDate: ['2021-01-01:2021-12-31'],
+    };
     const pageSize = 20;
 
-    const { result, waitFor } = renderHook(() => useAuthorities({ searchQuery, searchIndex, pageSize }), { wrapper });
+    const { result, waitFor } = renderHook(() => useAuthorities({
+      searchQuery,
+      searchIndex,
+      filters,
+      pageSize,
+    }), { wrapper });
 
     await waitFor(() => !result.current.isLoading);
 
@@ -59,7 +67,7 @@ describe('Given useAuthorities', () => {
       'search/authorities',
       {
         searchParams: {
-          query: '(identifier=="test*")',
+          query: '(identifier=="test*") and (metadata.updatedDate>="2021-01-01" and metadata.updatedDate<="2021-12-31")',
           limit: pageSize,
           offset: 0,
         },

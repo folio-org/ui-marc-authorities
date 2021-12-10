@@ -4,22 +4,26 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import queryString from 'query-string';
 
 import {
   useOkapiKy,
   useNamespace,
 } from '@folio/stripes/core';
 
+import { buildSearch } from '@folio/stripes-acq-components';
+
 import { template } from 'lodash';
 
 import { buildQuery } from '../utils';
+
+import { filterConfig } from '../../constants';
 
 const AUTHORITIES_API = 'search/authorities';
 
 const useAuthorities = ({
   searchQuery,
   searchIndex,
+  filters,
   pageSize,
 }) => {
   const ky = useOkapiKy();
@@ -32,6 +36,8 @@ const useAuthorities = ({
 
   const queryParams = {
     query: searchQuery,
+    qindex: searchIndex,
+    ...filters,
   };
 
   const compileQuery = template(
@@ -39,9 +45,20 @@ const useAuthorities = ({
     { interpolate: /%{([\s\S]+?)}/g },
   );
 
-  const cqlQuery = queryParams.query?.trim().replace('*', '').split(/\s+/)
-    .map(query => compileQuery({ query }))
-    .join(' and ');
+  const cqlSearch = queryParams.query
+    ? queryParams.query?.trim().replace('*', '').split(/\s+/)
+      .map(query => compileQuery({ query }))
+    : [];
+
+  const cqlFilters = Object.entries(filters)
+    .filter(([, filterValues]) => filterValues.length)
+    .map(([filterName, filterValues]) => {
+      const filterData = filterConfig.find(filter => filter.name === filterName);
+
+      return filterData.parse(filterValues);
+    });
+
+  const cqlQuery = [...cqlSearch, ...cqlFilters].join(' and ');
 
   const searchParams = {
     query: cqlQuery,
@@ -60,18 +77,16 @@ const useAuthorities = ({
   const { isFetching, data } = useQuery(
     [namespace, searchParams],
     async () => {
-      if (!searchQuery) {
-        return { authorities: [], totalRecords: 0 };
-      }
+      const searchString = `${buildSearch(queryParams, location.search)}`;
 
-      const locationSearchParams = queryString.parse(location.search);
-      locationSearchParams.query = searchQuery;
-      locationSearchParams.qindex = searchIndex;
-      location.search = queryString.stringify(locationSearchParams);
       history.replace({
         pathname: location.pathname,
-        search: location.search,
+        search: searchString,
       });
+
+      if (!cqlSearch.length && !cqlFilters.length) {
+        return { authorities: [], totalRecords: 0 };
+      }
 
       return ky.get(AUTHORITIES_API, { searchParams }).json();
     }, {
