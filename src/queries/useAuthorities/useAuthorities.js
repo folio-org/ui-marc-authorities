@@ -45,8 +45,10 @@ const useAuthorities = ({
     { interpolate: /%{([\s\S]+?)}/g },
   );
 
-  const cqlSearch = queryParams.query?.trim().replace('*', '').split(/\s+/)
-    .map(query => compileQuery({ query }));
+  const cqlSearch = queryParams.query
+    ? queryParams.query?.trim().replace('*', '').split(/\s+/)
+      .map(query => compileQuery({ query }))
+    : [];
 
   const cqlFilters = Object.entries(filters)
     .filter(([, filterValues]) => filterValues.length)
@@ -75,16 +77,16 @@ const useAuthorities = ({
   const { isFetching, data } = useQuery(
     [namespace, searchParams],
     async () => {
-      if (!searchQuery && Object.keys(filters).length === 0) {
-        return { authorities: [], totalRecords: 0 };
-      }
-
       const searchString = `${buildSearch(queryParams, location.search)}`;
 
       history.replace({
         pathname: location.pathname,
         search: searchString,
       });
+
+      if (!cqlSearch.length && !cqlFilters.length) {
+        return { authorities: [], totalRecords: 0 };
+      }
 
       return ky.get(AUTHORITIES_API, { searchParams }).json();
     }, {
