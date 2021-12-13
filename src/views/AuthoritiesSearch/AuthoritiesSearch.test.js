@@ -66,19 +66,19 @@ describe('Given AuthoritiesSearch', () => {
     expect(getByTestId('search-textarea')).toBeDefined();
   });
 
-  it('should display Search button', () => {
+  it('should display "Search" button', () => {
     const { getByRole } = renderAuthoritiesSearch();
 
     expect(getByRole('button', { name: 'ui-marc-authorities.label.search' })).toBeDefined();
   });
 
-  it('should display Reset all button', () => {
+  it('should display "Reset all" button', () => {
     const { getByRole } = renderAuthoritiesSearch();
 
     expect(getByRole('button', { name: 'stripes-smart-components.resetAll' })).toBeDefined();
   });
 
-  it('display "Action" button', () => {
+  it('should display "Actions" button', () => {
     const { getByRole } = renderAuthoritiesSearch();
 
     expect(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' })).toBeDefined();
@@ -196,7 +196,7 @@ describe('Given AuthoritiesSearch', () => {
     });
   });
 
-  describe('when click on "Action" button', () => {
+  describe('when click on "Actions" button', () => {
     it('should display "Show columns" section', () => {
       const {
         getByRole,
