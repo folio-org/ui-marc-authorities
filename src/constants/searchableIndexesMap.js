@@ -40,7 +40,6 @@ export const searchableIndexesMap = {
     name: 'personalNameTitle',
     plain: true,
     sft: true,
-    saft: true,
   }],
   [searchableIndexesValues.UNIFORM_TITLE]: [{
     name: 'uniformTitle',

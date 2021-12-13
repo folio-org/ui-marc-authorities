@@ -4,7 +4,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { useQuery } from 'react-query';
-
+import queryString from 'query-string';
 import {
   useOkapiKy,
   useNamespace,
@@ -46,7 +46,7 @@ const useAuthorities = ({
   );
 
   const cqlSearch = queryParams.query
-    ? queryParams.query?.trim().replace('*', '').split(/\s+/)
+    ? queryParams.query?.trim().split(/\s+/)
       .map(query => compileQuery({ query }))
     : [];
 
@@ -88,7 +88,9 @@ const useAuthorities = ({
         return { authorities: [], totalRecords: 0 };
       }
 
-      return ky.get(AUTHORITIES_API, { searchParams }).json();
+      const path = `${AUTHORITIES_API}?${queryString.stringify(searchParams)}`;
+
+      return ky.get(path).json();
     }, {
       keepPreviousData: true,
     },

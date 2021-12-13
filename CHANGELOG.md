@@ -8,3 +8,4 @@
 * [UIMARCAUTH-16](https://issues.folio.org/browse/UIMARCAUTH-16) Implement MARC Authorities Search Box.
 * [UIMARCAUTH-20](https://issues.folio.org/browse/UIMARCAUTH-20) Implement Results List Column Chooser.
 * [UIMARCAUTH-15](https://issues.folio.org/browse/UIMARCAUTH-15) Display a Date Updated filter.
+* [UIMARCAUTH-31](https://issues.folio.org/browse/UIMARCAUTH-31) Fix formatting of search query string.
