@@ -1,6 +1,7 @@
 import {
   useState,
   useEffect,
+  useMemo,
 } from 'react';
 import {
   useHistory,
@@ -31,11 +32,11 @@ import {
   useColumnManager,
   ColumnManagerMenu,
 } from '@folio/stripes/smart-components';
-
 import {
   AppIcon,
   useNamespace,
 } from '@folio/stripes/core';
+import { buildFiltersObj } from '@folio/stripes-acq-components';
 
 import {
   SearchTextareaField,
@@ -56,7 +57,6 @@ const propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
 };
 
-
 const AuthoritiesSearch = ({ children }) => {
   const intl = useIntl();
   const [, getNamespace] = useNamespace();
@@ -70,7 +70,7 @@ const AuthoritiesSearch = ({ children }) => {
   const [searchDropdownValue, setSearchDropdownValue] = useState('');
   const [searchIndex, setSearchIndex] = useState('');
 
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState(buildFiltersObj(location.search));
 
   const columnMapping = {
     [searchResultListColumns.AUTH_REF_TYPE]: <FormattedMessage id="ui-marc-authorities.search-results-list.authRefType" />,
@@ -106,6 +106,7 @@ const AuthoritiesSearch = ({ children }) => {
     isLoading,
     totalRecords,
     setOffset,
+    query,
   } = useAuthorities({
     searchQuery,
     searchIndex,
@@ -237,8 +238,10 @@ const AuthoritiesSearch = ({ children }) => {
           </form>
 
           <SearchFilters
+            activeFilters={filters}
             isSearching={isLoading}
             setFilters={setFilters}
+            query={query}
           />
         </Pane>
       }

@@ -4,18 +4,16 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { useQuery } from 'react-query';
+import queryString from 'query-string';
+import template from 'lodash/template';
 
 import {
   useOkapiKy,
   useNamespace,
 } from '@folio/stripes/core';
-
 import { buildSearch } from '@folio/stripes-acq-components';
 
-import { template } from 'lodash';
-
 import { buildQuery } from '../utils';
-
 import { filterConfig } from '../../constants';
 
 const AUTHORITIES_API = 'search/authorities';
@@ -77,6 +75,10 @@ const useAuthorities = ({
   const { isFetching, data } = useQuery(
     [namespace, searchParams],
     async () => {
+      if (!searchQuery && Object.keys(filters).length === 0) {
+        return { authorities: [], totalRecords: 0 };
+      }
+
       const searchString = `${buildSearch(queryParams, location.search)}`;
 
       history.replace({
@@ -84,13 +86,9 @@ const useAuthorities = ({
         search: searchString,
       });
 
-      if (!cqlSearch.length && !cqlFilters.length) {
-        return { authorities: [], totalRecords: 0 };
-      }
+      const path = `${AUTHORITIES_API}?${queryString.stringify(searchParams)}`.replace(/\+/g, '%20');
 
-      return ky.get(AUTHORITIES_API, { searchParams }).json();
-    }, {
-      keepPreviousData: true,
+      return ky.get(path).json();
     },
   );
 

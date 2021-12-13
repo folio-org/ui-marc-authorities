@@ -1,15 +1,11 @@
 import {
   useState,
   useCallback,
-  useMemo,
 } from 'react';
 import PropTypes from 'prop-types';
 import {
   FormattedMessage,
 } from 'react-intl';
-import {
-  useLocation,
-} from 'react-router-dom';
 
 import {
   AccordionSet,
@@ -18,11 +14,11 @@ import {
 } from '@folio/stripes-components';
 import {
   AcqDateRangeFilter,
-  buildFiltersObj,
 } from '@folio/stripes-acq-components';
 
 import { MultiSelectionFacet } from '../../components';
 import { useSectionToggle } from '../../hooks';
+import { useFacets } from '../../queries';
 
 const FACETS = {
   HEADING_TYPE: 'headingType',
@@ -35,14 +31,19 @@ const propTypes = {
 };
 
 const SearchFilters = ({
+  activeFilters,
   isSearching,
   setFilters,
+  query,
 }) => {
-  const location = useLocation();
   const [accordions, {
     handleSectionToggle,
   }] = useSectionToggle({
     headingType: false,
+  });
+  const { isLoading, facets = {} } = useFacets({
+    query,
+    selectedFacets: ['headingType'],
   });
 
   const applyFilters = useCallback(({ name, values }) => {
@@ -54,9 +55,9 @@ const SearchFilters = ({
     });
   }, []);
 
-  const activeFilters = useMemo(() => buildFiltersObj(location.search), [location.search]);
-
   const onClearFilter = (filter) => {};
+
+  console.log(activeFilters);
 
   return (
     <AccordionSet accordionStatus={accordions} onToggle={handleSectionToggle}>
@@ -69,16 +70,16 @@ const SearchFilters = ({
         displayClearButton={true}
         onClearFilter={() => onClearFilter(FACETS.HEADING_TYPE)}
       >
-        {/* <MultiSelectionFacet
+        <MultiSelectionFacet
+          id="headingTypeSelect"
           name={FACETS.HEADING_TYPE}
-          dataOptions={facetsOptions[FACETS_OPTIONS.HEADING_TYPE_OPTIONS]}
+          options={facets[FACETS.HEADING_TYPE]?.values || []}
+          value={activeFilters[FACETS.HEADING_TYPE]}
           selectedValues={activeFilters[FACETS.HEADING_TYPE]}
-          onChange={onChange}
-          onSearch={handleFilterSearch}
-          isFilterable
-          isPending={getIsPending(FACETS.HEADING_TYPE)}
-          onFetch={handleFetchFacets}
-        /> */}
+          onFilterChange={applyFilters}
+          isPending={isLoading}
+          // onFetch={handleFetchFacets}
+        />
       </Accordion>
 
       <AcqDateRangeFilter
