@@ -16,17 +16,13 @@ const useFacets = ({
   const [namespace] = useNamespace({ key: 'useFacets' });
 
   const searchParams = {
-    query,
+    query: query || 'id=*', // if no filters are selected need to pass a valid cql string. this will return any record
     facet: selectedFacets.join(','),
   };
 
   const { isFetching, data } = useQuery(
     [namespace, searchParams],
     async () => {
-      if (!query) {
-        return { facets: {} };
-      }
-
       const path = `${FACETS_API}?${queryString.stringify(searchParams)}`.replace(/\+/g, '%20');
 
       return ky.get(path).json();

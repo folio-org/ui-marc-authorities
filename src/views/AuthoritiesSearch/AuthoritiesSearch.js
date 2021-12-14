@@ -24,7 +24,6 @@ import {
   Pane,
   PaneMenu,
 } from '@folio/stripes/components';
-
 import {
   CollapseFilterPaneButton,
   ExpandFilterPaneButton,
@@ -36,7 +35,10 @@ import {
   AppIcon,
   useNamespace,
 } from '@folio/stripes/core';
-import { buildFiltersObj } from '@folio/stripes-acq-components';
+import {
+  buildFiltersObj,
+  buildSearch,
+} from '@folio/stripes-acq-components';
 
 import {
   SearchTextareaField,
@@ -100,6 +102,21 @@ const AuthoritiesSearch = ({ children }) => {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const queryParams = {
+      query: searchQuery,
+      qindex: searchIndex,
+      ...filters,
+    };
+
+    const searchString = `${buildSearch(queryParams)}`;
+
+    history.replace({
+      pathname: location.pathname,
+      search: searchString,
+    });
+  }, [searchQuery, searchIndex, filters]);
 
   const {
     authorities,

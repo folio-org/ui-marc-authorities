@@ -1,8 +1,4 @@
 import { useState } from 'react';
-import {
-  useHistory,
-  useLocation,
-} from 'react-router-dom';
 import { useQuery } from 'react-query';
 import queryString from 'query-string';
 import template from 'lodash/template';
@@ -11,7 +7,6 @@ import {
   useOkapiKy,
   useNamespace,
 } from '@folio/stripes/core';
-import { buildSearch } from '@folio/stripes-acq-components';
 
 import { buildQuery } from '../utils';
 import { filterConfig } from '../../constants';
@@ -26,9 +21,6 @@ const useAuthorities = ({
 }) => {
   const ky = useOkapiKy();
   const [namespace] = useNamespace();
-
-  const history = useHistory();
-  const location = useLocation();
 
   const [offset, setOffset] = useState(0);
 
@@ -78,13 +70,6 @@ const useAuthorities = ({
       if (!searchQuery && Object.keys(filters).length === 0) {
         return { authorities: [], totalRecords: 0 };
       }
-
-      const searchString = `${buildSearch(queryParams, location.search)}`;
-
-      history.replace({
-        pathname: location.pathname,
-        search: searchString,
-      });
 
       const path = `${AUTHORITIES_API}?${queryString.stringify(searchParams)}`.replace(/\+/g, '%20');
 

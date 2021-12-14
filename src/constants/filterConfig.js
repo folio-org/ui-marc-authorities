@@ -7,6 +7,6 @@ export const filterConfig = [
   },
   {
     name: 'headingType',
-    parse: (values) => `headingType=${values.join(',')}`,
+    parse: (values) => `(headingType==(${values.map(value => `"${value}"`).join(' or ')}))`,
   },
 ];

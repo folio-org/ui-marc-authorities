@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { OptionSegment } from '@folio/stripes-components';
+import { OptionSegment } from '@folio/stripes/components';
 
 import styles from './FacetOptionFormatter.css';
 

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 import {
   MultiSelection,
-} from '@folio/stripes-components';
+} from '@folio/stripes/components';
 
 import { FacetOptionFormatter } from '../../components';
 
@@ -14,14 +14,13 @@ const MultiSelectionFacet = ({
   name,
   onFilterChange,
   options,
+  selectedValues,
   ...props
 }) => {
-  const onChange = (values) => {
-    const valueIds = values.map(value => value.value);
-
+  const onChange = (selectedOptions) => {
     onFilterChange({
       name,
-      values: valueIds,
+      values: selectedOptions.map(option => option.value),
     });
   };
 
@@ -35,16 +34,24 @@ const MultiSelectionFacet = ({
     return option?.label || '';
   };
 
+  const selectedOptions = dataOptions.filter(option => selectedValues.includes(option.value));
+
   return (
     <MultiSelection
       name={name}
       formatter={FacetOptionFormatter}
+      valueFormatter={({ option }) => option.label}
       onChange={onChange}
       dataOptions={dataOptions}
       itemToString={itemToString}
+      value={selectedOptions}
       {...props}
     />
   );
+};
+
+MultiSelectionFacet.defaultProps = {
+  selectedValues: [],
 };
 
 MultiSelectionFacet.propTypes = propTypes;
