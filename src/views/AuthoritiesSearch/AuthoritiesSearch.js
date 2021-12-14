@@ -53,7 +53,7 @@ import {
 import css from './AuthoritiesSearch.css';
 
 const prefix = 'authorities';
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 100;
 
 const propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),

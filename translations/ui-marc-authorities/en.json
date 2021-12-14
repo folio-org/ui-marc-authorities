@@ -20,6 +20,7 @@
   "authorityUUID": "Authority UUID",
   "marcHeading": "MARC authority record",
   "authorityRecordSubtitle": "{heading} • Last updated: {lastUpdatedDate}",
+  "createdDate": "Date created",
   "updatedDate": "Date updated",
   "filters.headingType": "Type of heading",
   

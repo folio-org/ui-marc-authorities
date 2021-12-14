@@ -44,7 +44,7 @@ const SearchFilters = ({
     openFilters,
   } = useFacetFilters({
     query,
-    filters: {
+    accordions: {
       [FACETS.HEADING_TYPE]: false,
     },
   });
@@ -85,6 +85,17 @@ const SearchFilters = ({
           // onFetch={handleFetchFacets}
         />
       </Accordion>
+
+      <AcqDateRangeFilter
+        activeFilters={activeFilters?.createdDate || []}
+        labelId="ui-marc-authorities.createdDate"
+        id="createdDate"
+        name="createdDate"
+        onChange={applyFilters}
+        disabled={isLoading}
+        closedByDefault
+        dateFormat={DATE_FORMAT}
+      />
 
       <AcqDateRangeFilter
         activeFilters={activeFilters?.updatedDate || []}
