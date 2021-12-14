@@ -15,6 +15,7 @@ import Harness from '../../../test/jest/helpers/harness';
 import {
   searchableIndexesValues,
   searchResultListColumns,
+  sortOrders,
 } from '../../constants';
 
 const history = createMemoryHistory();
@@ -82,6 +83,18 @@ describe('Given AuthoritiesSearch', () => {
     const { getByRole } = renderAuthoritiesSearch();
 
     expect(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' })).toBeDefined();
+  });
+
+  it('should be default sort order', () => {
+    const { getByTestId } = renderAuthoritiesSearch();
+
+    expect(getByTestId('SearchResultsList')).toHaveAttribute('sortOrder', '');
+  });
+
+  it('should not be sorted by any column', () => {
+    const { getByTestId } = renderAuthoritiesSearch();
+
+    expect(getByTestId('SearchResultsList')).toHaveAttribute('sortedColumn', '');
   });
 
   describe('when textarea is not empty and Reset all button is clicked', () => {
@@ -197,6 +210,28 @@ describe('Given AuthoritiesSearch', () => {
   });
 
   describe('when click on "Actions" button', () => {
+    it('should display "Sort by" section', () => {
+      const {
+        getByRole,
+        getByText,
+      } = renderAuthoritiesSearch();
+
+      fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+
+      expect(getByText('ui-marc-authorities.actions.menuSection.sortBy')).toBeDefined();
+    });
+
+    it('should display selection', () => {
+      const {
+        getByRole,
+        getByText,
+      } = renderAuthoritiesSearch();
+
+      fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+
+      expect(getByText('ui-marc-authorities.actions.menuSection.sortBy.relevance')).toBeDefined();
+    });
+
     it('should display "Show columns" section', () => {
       const {
         getByRole,
@@ -224,6 +259,39 @@ describe('Given AuthoritiesSearch', () => {
 
       expect(getByRole('checkbox', { name: 'ui-marc-authorities.search-results-list.authRefType' })).toBeChecked();
       expect(getByRole('checkbox', { name: 'ui-marc-authorities.search-results-list.headingType' })).toBeChecked();
+    });
+
+    describe('when change sorted column throught selection to "Type of heading"', () => {
+      it('should sort by "Type of Heading" column in descending order', () => {
+        const {
+          getByRole,
+          getByTestId,
+        } = renderAuthoritiesSearch();
+
+        fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+
+        fireEvent.change(getByTestId('sort-by-selection'), { target: { value: 'headingType' } });
+
+        expect(getByTestId('SearchResultsList')).toHaveAttribute('sortedColumn', searchResultListColumns.HEADING_TYPE);
+        expect(getByTestId('SearchResultsList')).toHaveAttribute('sortOrder', sortOrders.DES);
+      });
+
+      describe('when change back to "Relevance" option', () => {
+        it('should not sorted by any column', () => {
+          const {
+            getByRole,
+            getByTestId,
+          } = renderAuthoritiesSearch();
+
+          fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+
+          fireEvent.change(getByTestId('sort-by-selection'), { target: { value: 'headingType' } });
+          fireEvent.change(getByTestId('sort-by-selection'), { target: { value: '' } });
+
+          expect(getByTestId('SearchResultsList')).toHaveAttribute('sortedColumn', '');
+          expect(getByTestId('SearchResultsList')).toHaveAttribute('sortOrder', '');
+        });
+      });
     });
 
     describe('when click on "Type of Heading" checkbox', () => {

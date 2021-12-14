@@ -24,6 +24,8 @@ import {
   Icon,
   Pane,
   PaneMenu,
+  MenuSection,
+  Select,
 } from '@folio/stripes/components';
 
 import {
@@ -49,6 +51,7 @@ import {
   SearchResultsList,
 } from '../../components';
 import { useAuthorities } from '../../queries';
+import { useSortColumnManager } from '../../hooks';
 import {
   rawSearchableIndexes,
   searchResultListColumns,
@@ -63,7 +66,6 @@ const PAGE_SIZE = 10;
 const propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
 };
-
 
 const AuthoritiesSearch = ({ children }) => {
   const intl = useIntl();
@@ -91,6 +93,13 @@ const AuthoritiesSearch = ({ children }) => {
   } = useColumnManager(prefix, columnMapping);
 
   const filterPaneVisibilityKey = getNamespace({ key: 'marcAuthoritiesFilterPaneVisibility' });
+
+  const {
+    sortOrder,
+    sortedColumn,
+    onChangeSortOption,
+    onHeaderClick,
+  } = useSortColumnManager();
 
   useEffect(() => {
     const locationSearchParams = queryString.parse(location.search);
@@ -147,6 +156,7 @@ const AuthoritiesSearch = ({ children }) => {
     setSearchQuery('');
     setSearchIndex('');
     setFilters('');
+    onChangeSortOption('');
 
     history.replace({
       pathname: location.pathname,
@@ -182,15 +192,41 @@ const AuthoritiesSearch = ({ children }) => {
     );
   };
 
+  const options = Object.values(searchResultListColumns).map((option) => ({
+    value: option,
+    label: intl.formatMessage({ id: `ui-marc-authorities.search-results-list.${option}` }),
+  }));
+
+  const sortByOptions = [
+    {
+      value: '',
+      label: intl.formatMessage({ id: 'ui-marc-authorities.actions.menuSection.sortBy.relevance' }),
+    },
+    ...options,
+  ];
+
   const renderActionMenu = () => {
     return (
-      <ColumnManagerMenu
-        prefix={prefix}
-        visibleColumns={visibleColumns}
-        toggleColumn={toggleColumn}
-        columnMapping={columnMapping}
-        excludeColumns={[searchResultListColumns.HEADING_REF]}
-      />
+      <>
+        <MenuSection
+          data-testid="menu-section-sort-by"
+          label={intl.formatMessage({ id: 'ui-marc-authorities.actions.menuSection.sortBy' })}
+        >
+          <Select
+            data-testid="sort-by-selection"
+            dataOptions={sortByOptions}
+            value={sortedColumn}
+            onChange={e => onChangeSortOption(e.target.value)}
+          />
+        </MenuSection>
+        <ColumnManagerMenu
+          prefix={prefix}
+          visibleColumns={visibleColumns}
+          toggleColumn={toggleColumn}
+          columnMapping={columnMapping}
+          excludeColumns={[searchResultListColumns.HEADING_REF]}
+        />
+      </>
     );
   };
 
@@ -293,6 +329,9 @@ const AuthoritiesSearch = ({ children }) => {
           onNeedMoreData={handleLoadMore}
           loading={isLoading}
           visibleColumns={visibleColumns}
+          sortedColumn={sortedColumn}
+          sortOrder={sortOrder}
+          onHeaderClick={onHeaderClick}
         />
       </Pane>
       {children}

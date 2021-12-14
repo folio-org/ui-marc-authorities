@@ -9,3 +9,4 @@
 * [UIMARCAUTH-20](https://issues.folio.org/browse/UIMARCAUTH-20) Implement Results List Column Chooser.
 * [UIMARCAUTH-15](https://issues.folio.org/browse/UIMARCAUTH-15) Display a Date Updated filter.
 * [UIMARCAUTH-14](https://issues.folio.org/browse/UIMARCAUTH-14) Display a Date Created filter.
+* [UIMARCAUTH-19](https://issues.folio.org/browse/UIMARCAUTH-19) Implement Results List Sort options.

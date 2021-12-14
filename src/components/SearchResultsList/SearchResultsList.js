@@ -9,13 +9,19 @@ import {
 import { MultiColumnList } from '@folio/stripes/components';
 
 import { AuthorityShape } from '../../constants/shapes';
-import { searchResultListColumns } from '../../constants';
+import {
+  searchResultListColumns,
+  sortOrders,
+} from '../../constants';
 
 const propTypes = {
   authorities: PropTypes.arrayOf(AuthorityShape).isRequired,
   loading: PropTypes.bool,
+  onHeaderClick: PropTypes.func.isRequired,
   onNeedMoreData: PropTypes.func.isRequired,
   pageSize: PropTypes.number.isRequired,
+  sortedColumn: PropTypes.string.isRequired,
+  sortOrder: PropTypes.string.isRequired,
   totalResults: PropTypes.number,
   visibleColumns: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
@@ -29,6 +35,9 @@ const SearchResultsList = ({
   pageSize,
   onNeedMoreData,
   visibleColumns,
+  sortedColumn,
+  sortOrder,
+  onHeaderClick,
 }) => {
   const location = useLocation();
   const match = useRouteMatch();
@@ -79,11 +88,19 @@ const SearchResultsList = ({
     );
   };
 
+  const sortedAuthorities = sortedColumn
+    ? [...authorities].sort((a, b) => {
+      return sortOrder === sortOrders.DES
+        ? a[sortedColumn].localeCompare(b[sortedColumn])
+        : b[sortedColumn].localeCompare(a[sortedColumn]);
+    })
+    : authorities;
+
   return (
     <MultiColumnList
       columnMapping={columnMapping}
       columnWidths={columnWidths}
-      contentData={authorities}
+      contentData={sortedAuthorities}
       formatter={formatter}
       id="authority-result-list"
       onNeedMoreData={onNeedMoreData}
@@ -93,6 +110,9 @@ const SearchResultsList = ({
       pagingType="prev-next"
       pageAmount={pageSize}
       loading={loading}
+      sortedColumn={sortedColumn}
+      sortOrder={sortOrder}
+      onHeaderClick={onHeaderClick}
     />
   );
 };

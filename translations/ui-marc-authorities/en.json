@@ -5,6 +5,9 @@
   "search-results-list.headingRef": "Heading/Reference",
   "search-results-list.headingType": "Type of heading",
 
+  "actions.menuSection.sortBy": "Sort by",
+  "actions.menuSection.sortBy.relevance": "Relevance",
+
   "permission.app.enabled": "UI: MARC Authorities module is enabled",
   "permission.authority-record.view": "View MARC authority record",
   "permission.authority-record.edit": "Edit MARC authority record",
