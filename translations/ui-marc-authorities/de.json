@@ -5,5 +5,22 @@
     "permission.authority-record.edit": "Edit MARC authority record",
     "search-results-list.authRefType": "Authorized/Reference",
     "search-results-list.headingRef": "Heading/Reference",
-    "search-results-list.headingType": "Type of heading"
+    "search-results-list.headingType": "Type of heading",
+    "label.search": "Search",
+    "search.searchAndFilter": "Search & filter",
+    "keyword": "Keyword",
+    "identifier": "Identifier (all)",
+    "personalName": "Personal name",
+    "corporateConferenceName": "Corporate/Conference name",
+    "geographicName": "Geographic name",
+    "nameTitle": "Name-title",
+    "uniformTitle": "Uniform title",
+    "subject": "Subject",
+    "childrenSubjectHeading": "Children's subject heading",
+    "genre": "Genre",
+    "authorityUUID": "Authority UUID",
+    "marcHeading": "MARC authority record",
+    "authorityRecordSubtitle": "{heading} • Last updated: {lastUpdatedDate}",
+    "updatedDate": "Date updated",
+    "createdDate": "Date created"
 }

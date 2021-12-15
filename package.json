@@ -95,6 +95,7 @@
         "permissionName": "ui-marc-authorities.authority-record.view",
         "displayName": "View MARC authority record",
         "subPermissions": [
+          "module.marc-authorities.enabled",
           "records-editor.records.item.get",
           "search.authorities.collection.get"
         ],
@@ -104,6 +105,7 @@
         "permissionName": "ui-marc-authorities.authority-record.edit",
         "displayName": "Edit MARC authority record",
         "subPermissions": [
+          "ui-marc-authorities.authority-record.view",
           "records-editor.records.item.put"
         ],
         "visible": true

@@ -256,6 +256,17 @@ const AuthoritiesSearch = ({ children }) => {
           </form>
 
           <AcqDateRangeFilter
+            activeFilters={activeFilters?.createdDate || []}
+            labelId="ui-marc-authorities.createdDate"
+            id="createdDate"
+            name="createdDate"
+            onChange={applyFilters}
+            disabled={isLoading}
+            closedByDefault
+            dateFormat={DATE_FORMAT}
+          />
+
+          <AcqDateRangeFilter
             activeFilters={activeFilters?.updatedDate || []}
             labelId="ui-marc-authorities.updatedDate"
             id="updatedDate"

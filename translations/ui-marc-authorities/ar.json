@@ -5,5 +5,22 @@
     "permission.authority-record.edit": "تحرير تسجيلة استناد مارك",
     "search-results-list.authRefType": "مصرح به/مرجع",
     "search-results-list.headingRef": "الرأس/المرجع",
-    "search-results-list.headingType": "نوع الرأس"
+    "search-results-list.headingType": "نوع الرأس",
+    "label.search": "بحث",
+    "search.searchAndFilter": "بحث وتنقيح",
+    "keyword": "الكلمة الرئيسية",
+    "identifier": "المعرف (الكل)",
+    "personalName": "الاسم الشخصي",
+    "corporateConferenceName": "الاسم المؤسسي",
+    "geographicName": "الاسم الجغرافي",
+    "nameTitle": "الاسم-العنوان",
+    "uniformTitle": "العنوان الموحد",
+    "subject": "الموضوع",
+    "childrenSubjectHeading": "رؤوس موضوعات الأطفال",
+    "genre": "النوع",
+    "authorityUUID": "المعرّف الفريد العمومي للاستناد",
+    "marcHeading": "تسجيلة استناد مارك",
+    "authorityRecordSubtitle": "{heading} • آخر تحديث: {lastUpdatedDate}",
+    "updatedDate": "تاريخ التحديث",
+    "createdDate": "تاريخ الإنشاء"
 }
