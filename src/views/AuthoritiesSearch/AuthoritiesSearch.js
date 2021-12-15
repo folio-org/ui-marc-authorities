@@ -1,7 +1,6 @@
 import {
   useState,
   useEffect,
-  useMemo,
 } from 'react';
 import {
   useHistory,
@@ -157,10 +156,6 @@ const AuthoritiesSearch = ({ children }) => {
     setSearchQuery('');
     setSearchIndex('');
     setFilters('');
-
-    history.replace({
-      pathname: location.pathname,
-    });
   };
 
   const handleLoadMore = (_pageAmount, offset) => {

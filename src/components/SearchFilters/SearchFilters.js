@@ -16,10 +16,9 @@ import {
   AcqDateRangeFilter,
 } from '@folio/stripes-acq-components';
 
-import { MultiSelectionFacet } from '../../components';
-import {
-  useFacetFilters,
-} from '../../hooks';
+import { MultiSelectionFacet } from '../MultiSelectionFacet';
+import { useSectionToggle } from '../../hooks';
+import { useFacets } from '../../queries';
 
 const FACETS = {
   HEADING_TYPE: 'headingType',
@@ -37,16 +36,15 @@ const SearchFilters = ({
   setFilters,
   query,
 }) => {
-  const {
-    isLoading,
-    facets = {},
-    onFilterToggle,
-    openFilters,
-  } = useFacetFilters({
+  const [filterAccordions, { handleSectionToggle }] = useSectionToggle({
+    [FACETS.HEADING_TYPE]: false,
+  });
+
+  const selectedFacets = Object.keys(filterAccordions).filter(accordion => filterAccordions[accordion]);
+
+  const { isLoading, facets = {} } = useFacets({
     query,
-    accordions: {
-      [FACETS.HEADING_TYPE]: false,
-    },
+    selectedFacets,
   });
 
   const applyFilters = useCallback(({ name, values }) => {
@@ -67,8 +65,8 @@ const SearchFilters = ({
       <Accordion
         label={<FormattedMessage id={`ui-marc-authorities.filters.${FACETS.HEADING_TYPE}`} />}
         id={FACETS.HEADING_TYPE}
-        open={openFilters[FACETS.HEADING_TYPE]}
-        onToggle={onFilterToggle}
+        open={filterAccordions[FACETS.HEADING_TYPE]}
+        onToggle={handleSectionToggle}
         name={FACETS.HEADING_TYPE}
         separator={false}
         header={FilterAccordionHeader}
@@ -82,7 +80,6 @@ const SearchFilters = ({
           selectedValues={activeFilters[FACETS.HEADING_TYPE]}
           onFilterChange={applyFilters}
           isPending={isLoading}
-          // onFetch={handleFetchFacets}
         />
       </Accordion>
 
