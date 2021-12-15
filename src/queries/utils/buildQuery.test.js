@@ -6,7 +6,7 @@ describe('Given buildQuery', () => {
     it('should return correct query', () => {
       const query = buildQuery(searchableIndexesValues.IDENTIFIER);
 
-      expect(query).toBe('(identifier=="%{query}*")');
+      expect(query).toBe('(identifier=="%{query}")');
     });
   });
 
@@ -14,7 +14,7 @@ describe('Given buildQuery', () => {
     it('should return correct query', () => {
       const query = buildQuery(searchableIndexesValues.PERSONAL_NAME);
 
-      expect(query).toBe('(personalName=="%{query}*" or sftPersonalName=="sft %{query}*" or saftPersonalName=="saft %{query}*")');
+      expect(query).toBe('(personalName=="%{query}" or sftPersonalName=="%{query}" or saftPersonalName=="%{query}")');
     });
   });
 
@@ -22,7 +22,7 @@ describe('Given buildQuery', () => {
     it('should return correct query', () => {
       const query = buildQuery(searchableIndexesValues.GEOGRAPHIC_NAME);
 
-      expect(query).toBe('(geographicName=="%{query}*" or sftGeographicTerm=="sft %{query}*" or saftGeographicTerm=="saft %{query}*")');
+      expect(query).toBe('(geographicName=="%{query}" or sftGeographicTerm=="%{query}" or saftGeographicTerm=="%{query}")');
     });
   });
 
@@ -30,7 +30,7 @@ describe('Given buildQuery', () => {
     it('should return correct query for keyword index', () => {
       const query = buildQuery('');
 
-      expect(query).toBe('(keyword=="%{query}*")');
+      expect(query).toBe('(keyword=="%{query}")');
     });
   });
 });

@@ -9,7 +9,7 @@ const buildQuery = (searchIndex) => {
   const queryStrings = indexData.map(data => {
     const queryParts = [];
 
-    const queryTemplate = (name, prefix) => `${name}=="${prefix ? prefix + ' ' : ''}%{query}*"`;
+    const queryTemplate = name => `${name}=="%{query}"`;
 
     const capitalizeFirstLetter = ([first, ...rest]) => first.toUpperCase() + rest.join('');
 
@@ -23,26 +23,26 @@ const buildQuery = (searchIndex) => {
       const name = capitalizeFirstLetter(data.name);
 
       if (data.sft) {
-        const query = queryTemplate(`sft${name}`, 'sft');
+        const query = queryTemplate(`sft${name}`);
 
         queryParts.push(query);
       }
 
       if (data.saft) {
-        const query = queryTemplate(`saft${name}`, 'saft');
+        const query = queryTemplate(`saft${name}`);
 
         queryParts.push(query);
       }
     }
 
     if (data.sft && !data.plain) {
-      const query = queryTemplate(data.name, 'sft');
+      const query = queryTemplate(data.name);
 
       queryParts.push(query);
     }
 
     if (data.saft && !data.plain) {
-      const query = queryTemplate(data.name, 'saft');
+      const query = queryTemplate(data.name);
 
       queryParts.push(query);
     }
