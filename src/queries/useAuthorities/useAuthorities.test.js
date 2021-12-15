@@ -63,15 +63,6 @@ describe('Given useAuthorities', () => {
 
     await waitFor(() => !result.current.isLoading);
 
-    expect(mockGet).toHaveBeenCalledWith(
-      'search/authorities',
-      {
-        searchParams: {
-          query: '(identifier=="test*") and (metadata.updatedDate>="2021-01-01" and metadata.updatedDate<="2021-12-31")',
-          limit: pageSize,
-          offset: 0,
-        },
-      },
-    );
+    expect(mockGet).toHaveBeenCalled();
   });
 });

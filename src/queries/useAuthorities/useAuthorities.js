@@ -36,7 +36,7 @@ const useAuthorities = ({
   );
 
   const cqlSearch = queryParams.query
-    ? queryParams.query?.trim().replace('*', '').split(/\s+/)
+    ? queryParams.query?.trim().split(/\s+/)
       .map(query => compileQuery({ query }))
     : [];
 
@@ -74,6 +74,8 @@ const useAuthorities = ({
       const path = `${AUTHORITIES_API}?${queryString.stringify(searchParams)}`.replace(/\+/g, '%20');
 
       return ky.get(path).json();
+    }, {
+      keepPreviousData: true,
     },
   );
 
