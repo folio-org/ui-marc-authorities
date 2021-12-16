@@ -64,7 +64,11 @@ const useAuthorities = ({
     return authoritiesArray;
   };
 
-  const { isFetching, data } = useQuery(
+  const {
+    isFetching,
+    isFetched,
+    data,
+  } = useQuery(
     [namespace, searchParams],
     async () => {
       if (!searchQuery && Object.keys(filters).length === 0) {
@@ -83,6 +87,7 @@ const useAuthorities = ({
     totalRecords: data?.totalRecords || 0,
     authorities: fillOffsetWithNull(data?.authorities),
     isLoading: isFetching,
+    isLoaded: isFetched,
     query: cqlQuery,
     setOffset,
   });

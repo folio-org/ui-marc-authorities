@@ -4,6 +4,7 @@
   "search-results-list.authRefType": "Authorized/Reference",
   "search-results-list.headingRef": "Heading/Reference",
   "search-results-list.headingType": "Type of heading",
+  "search-results-list.paneSub": "{totalRecords, number} {totalRecords, plural, one {record found} other {records found}}",
 
   "label.search": "Search",
   "search.searchAndFilter": "Search & filter",

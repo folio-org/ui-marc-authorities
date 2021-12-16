@@ -72,7 +72,13 @@ const AuthoritiesSearch = ({ children }) => {
   const [searchDropdownValue, setSearchDropdownValue] = useState('');
   const [searchIndex, setSearchIndex] = useState('');
 
-  const [filters, setFilters] = useState(omit(buildFiltersObj(location.search), 'query'));
+  const nonFilterUrlParams = ['query', 'qindex'];
+
+  const getInitialFilters = () => {
+    return omit(buildFiltersObj(location.search), nonFilterUrlParams);
+  };
+
+  const [filters, setFilters] = useState(getInitialFilters());
 
   const columnMapping = {
     [searchResultListColumns.AUTH_REF_TYPE]: <FormattedMessage id="ui-marc-authorities.search-results-list.authRefType" />,
@@ -121,6 +127,7 @@ const AuthoritiesSearch = ({ children }) => {
   const {
     authorities,
     isLoading,
+    isLoaded,
     totalRecords,
     setOffset,
     query,
@@ -263,6 +270,13 @@ const AuthoritiesSearch = ({ children }) => {
         appIcon={<AppIcon app="marc-authorities" />}
         defaultWidth="fill"
         paneTitle={intl.formatMessage({ id: 'ui-marc-authorities.meta.title' })}
+        paneSub={(
+          intl.formatMessage({
+            id: 'ui-marc-authorities.search-results-list.paneSub',
+          }, {
+            totalRecords,
+          })
+        )}
         firstMenu={renderResultsFirstMenu()}
         actionMenu={renderActionMenu}
       >
@@ -272,7 +286,12 @@ const AuthoritiesSearch = ({ children }) => {
           pageSize={PAGE_SIZE}
           onNeedMoreData={handleLoadMore}
           loading={isLoading}
+          loaded={isLoaded}
           visibleColumns={visibleColumns}
+          isFilterPaneVisible={isFilterPaneVisible}
+          toggleFilterPane={toggleFilterPane}
+          hasFilters={!!filters.length}
+          query={searchQuery}
         />
       </Pane>
       {children}

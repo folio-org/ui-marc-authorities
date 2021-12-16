@@ -46,27 +46,27 @@ const MultiSelectionFacet = ({
     });
   };
 
-  const dataOptions = options.map(option => ({
+  const missingValuesInOptions = selectedValues
+    .filter(selectedValue => !options.find(option => option.id === selectedValue))
+    .map(value => ({
+      label: value,
+      value,
+      totalRecords: 0,
+    }));
+
+  // include options returned from backend
+  // if some selected options are missing from response we're adding them here with 0 results
+  const dataOptions = [...options.map(option => ({
     label: option.id,
     value: option.id,
     totalRecords: option.totalRecords,
-  }));
+  })), ...missingValuesInOptions];
 
   const itemToString = (option) => {
     return option?.label || '';
   };
 
-  let selectedOptions = [];
-
-  if (!dataOptions.length) {
-    selectedOptions = selectedValues.map(value => ({
-      label: value,
-      value,
-      totalRecords: 0,
-    }));
-  } else {
-    selectedOptions = dataOptions.filter(option => selectedValues.includes(option.value));
-  }
+  const selectedOptions = dataOptions.filter(option => selectedValues.includes(option.value));
 
   return (
     <Accordion
