@@ -61,30 +61,4 @@ describe('Given SearchResultsList', () => {
       expect(queryByText('ui-marc-authorities.search-results-list.headingType')).toBeNull();
     });
   });
-
-  describe('when sort by select value is "Authorizes/Reference"', () => {
-    it('should sort list by "Authorizes/Reference" in descending order', () => {
-      const { container } = renderSearchResultsList({
-        sortedColumn: 'authRefType',
-        sortOrder: sortOrders.DES,
-      });
-
-      const firstRowCell = container.querySelectorAll('[data-row-index="row-0"] [role="gridcell"]')[0];
-
-      expect(firstRowCell.textContent).toBe('A test');
-    });
-  });
-
-  describe('when "Authorizes/Reference" is sorted column in ascending order', () => {
-    it('should sort list by "Authorizes/Reference" in ascending order', () => {
-      const { container } = renderSearchResultsList({
-        sortedColumn: 'authRefType',
-        sortOrder: sortOrders.ASC,
-      });
-
-      const firstRowCell = container.querySelectorAll('[data-row-index="row-0"] [role="gridcell"]')[0];
-
-      expect(firstRowCell.textContent).toBe('Z test');
-    });
-  });
 });

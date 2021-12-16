@@ -273,7 +273,7 @@ describe('Given AuthoritiesSearch', () => {
         fireEvent.change(getByTestId('sort-by-selection'), { target: { value: 'headingType' } });
 
         expect(getByTestId('SearchResultsList')).toHaveAttribute('sortedColumn', searchResultListColumns.HEADING_TYPE);
-        expect(getByTestId('SearchResultsList')).toHaveAttribute('sortOrder', sortOrders.DES);
+        expect(getByTestId('SearchResultsList')).toHaveAttribute('sortOrder', sortOrders.ASC);
       });
 
       describe('when change back to "Relevance" option', () => {

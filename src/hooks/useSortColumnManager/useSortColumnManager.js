@@ -13,7 +13,7 @@ const useSortColumnManager = () => {
 
     if (name !== sortedColumn) {
       setSortedColumn(name);
-      newOrder = sortOrders.DES;
+      newOrder = sortOrders.ASC;
     } else {
       newOrder = sortOrder === sortOrders.ASC
         ? sortOrders.DES
@@ -23,11 +23,17 @@ const useSortColumnManager = () => {
     setSortOrder(newOrder);
   };
 
-  const onChangeSortOption = (option) => {
-    const currentSortOrder = option ? sortOrders.DES : '';
+  const onChangeSortOption = (option, order = '') => {
+    let currentOrder;
+    
+    if (!order) {
+      currentOrder = option ? sortOrders.ASC : '';
+    } else {
+      currentOrder = order;
+    }
 
     setSortedColumn(option);
-    setSortOrder(currentSortOrder);
+    setSortOrder(currentOrder);
   };
 
   return {

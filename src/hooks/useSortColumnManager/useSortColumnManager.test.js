@@ -29,7 +29,7 @@ describe('Given useSortColumnManager', () => {
         result.current.onHeaderClick('', { name: searchResultListColumns.AUTH_REF_TYPE });
       });
 
-      expect(result.current.sortOrder).toBe(sortOrders.DES);
+      expect(result.current.sortOrder).toBe(sortOrders.ASC);
       expect(result.current.sortedColumn).toBe(searchResultListColumns.AUTH_REF_TYPE);
     });
 
@@ -45,7 +45,7 @@ describe('Given useSortColumnManager', () => {
           result.current.onHeaderClick('', { name: searchResultListColumns.AUTH_REF_TYPE });
         });
 
-        expect(result.current.sortOrder).toBe(sortOrders.ASC);
+        expect(result.current.sortOrder).toBe(sortOrders.DES);
         expect(result.current.sortedColumn).toBe(searchResultListColumns.AUTH_REF_TYPE);
       });
     });

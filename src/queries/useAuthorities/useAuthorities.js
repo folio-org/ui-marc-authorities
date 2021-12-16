@@ -5,6 +5,8 @@ import {
 } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import queryString from 'query-string';
+import { template } from 'lodash';
+
 import {
   useOkapiKy,
   useNamespace,
@@ -12,11 +14,12 @@ import {
 
 import { buildSearch } from '@folio/stripes-acq-components';
 
-import { template } from 'lodash';
-
 import { buildQuery } from '../utils';
 
-import { filterConfig } from '../../constants';
+import {
+  filterConfig,
+  sortOrders,
+} from '../../constants';
 
 const AUTHORITIES_API = 'search/authorities';
 
@@ -25,6 +28,8 @@ const useAuthorities = ({
   searchIndex,
   filters,
   pageSize,
+  sortOrder,
+  sortedColumn,
 }) => {
   const ky = useOkapiKy();
   const [namespace] = useNamespace();
@@ -37,6 +42,7 @@ const useAuthorities = ({
   const queryParams = {
     query: searchQuery,
     qindex: searchIndex,
+    sort: '',
     ...filters,
   };
 
@@ -58,7 +64,14 @@ const useAuthorities = ({
       return filterData.parse(filterValues);
     });
 
-  const cqlQuery = [...cqlSearch, ...cqlFilters].join(' and ');
+  let cqlQuery = [...cqlSearch, ...cqlFilters].join(' and ');
+
+  if (sortOrder && sortedColumn) {
+    const order = sortOrder === sortOrders.ASC ? '' : '-';
+
+    queryParams.sort = `${order}${sortedColumn}`
+    cqlQuery += ` sortBy ${sortedColumn}/sort.${sortOrder}`;
+  }
 
   const searchParams = {
     query: cqlQuery,

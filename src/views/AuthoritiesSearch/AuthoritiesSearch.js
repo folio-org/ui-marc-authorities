@@ -55,6 +55,7 @@ import { useSortColumnManager } from '../../hooks';
 import {
   rawSearchableIndexes,
   searchResultListColumns,
+  sortOrders,
 } from '../../constants';
 import css from './AuthoritiesSearch.css';
 
@@ -114,6 +115,14 @@ const AuthoritiesSearch = ({ children }) => {
         setSearchDropdownValue(locationSearchParams.qindex);
         setSearchIndex(locationSearchParams.qindex);
       }
+
+      if (locationSearchParams.sort) {
+        if (locationSearchParams.sort[0] === '-') {
+          onChangeSortOption(locationSearchParams.sort.substring(1), sortOrders.DES);
+        } else {
+          onChangeSortOption(locationSearchParams.sort, sortOrders.ASC);
+        }
+      }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -127,6 +136,8 @@ const AuthoritiesSearch = ({ children }) => {
     searchQuery,
     searchIndex,
     filters,
+    sortOrder,
+    sortedColumn,
     pageSize: PAGE_SIZE,
   });
 

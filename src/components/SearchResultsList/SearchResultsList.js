@@ -11,7 +11,6 @@ import { MultiColumnList } from '@folio/stripes/components';
 import { AuthorityShape } from '../../constants/shapes';
 import {
   searchResultListColumns,
-  sortOrders,
 } from '../../constants';
 
 const propTypes = {
@@ -88,19 +87,11 @@ const SearchResultsList = ({
     );
   };
 
-  const sortedAuthorities = sortedColumn
-    ? [...authorities].sort((a, b) => {
-      return sortOrder === sortOrders.DES
-        ? a[sortedColumn].localeCompare(b[sortedColumn])
-        : b[sortedColumn].localeCompare(a[sortedColumn]);
-    })
-    : authorities;
-
   return (
     <MultiColumnList
       columnMapping={columnMapping}
       columnWidths={columnWidths}
-      contentData={sortedAuthorities}
+      contentData={authorities}
       formatter={formatter}
       id="authority-result-list"
       onNeedMoreData={onNeedMoreData}
