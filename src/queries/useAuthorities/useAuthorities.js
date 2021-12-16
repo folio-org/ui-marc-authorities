@@ -1,11 +1,7 @@
 import { useState } from 'react';
-import {
-  useHistory,
-  useLocation,
-} from 'react-router-dom';
 import { useQuery } from 'react-query';
 import queryString from 'query-string';
-import { template } from 'lodash';
+import template from 'lodash/template';
 
 import {
   useOkapiKy,
@@ -15,7 +11,6 @@ import {
 import { buildSearch } from '@folio/stripes-acq-components';
 
 import { buildQuery } from '../utils';
-
 import {
   filterConfig,
   sortOrders,
@@ -33,9 +28,6 @@ const useAuthorities = ({
 }) => {
   const ky = useOkapiKy();
   const [namespace] = useNamespace();
-
-  const history = useHistory();
-  const location = useLocation();
 
   const [offset, setOffset] = useState(0);
 
@@ -87,21 +79,18 @@ const useAuthorities = ({
     return authoritiesArray;
   };
 
-  const { isFetching, data } = useQuery(
+  const {
+    isFetching,
+    isFetched,
+    data,
+  } = useQuery(
     [namespace, searchParams],
     async () => {
-      const searchString = `${buildSearch(queryParams, location.search)}`;
-
-      history.replace({
-        pathname: location.pathname,
-        search: searchString,
-      });
-
-      if (!cqlSearch.length && !cqlFilters.length) {
+      if (!searchQuery && Object.keys(filters).length === 0) {
         return { authorities: [], totalRecords: 0 };
       }
 
-      const path = `${AUTHORITIES_API}?${queryString.stringify(searchParams)}`;
+      const path = `${AUTHORITIES_API}?${queryString.stringify(searchParams)}`.replace(/\+/g, '%20');
 
       return ky.get(path).json();
     }, {
@@ -113,6 +102,7 @@ const useAuthorities = ({
     totalRecords: data?.totalRecords || 0,
     authorities: fillOffsetWithNull(data?.authorities),
     isLoading: isFetching,
+    isLoaded: isFetched,
     query: cqlQuery,
     setOffset,
   });

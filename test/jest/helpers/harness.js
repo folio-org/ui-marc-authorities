@@ -1,4 +1,4 @@
-import { Router } from 'react-router-dom';
+import { Router as DefaultRouter } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import {
   QueryClient,
@@ -16,7 +16,7 @@ const defaultHistory = createMemoryHistory();
 
 const queryClient = new QueryClient();
 
-const Harness = ({ stripes, children, history = defaultHistory }) => {
+const Harness = ({ Router = DefaultRouter, stripes, children, history = defaultHistory }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <StripesContext.Provider value={stripes || STRIPES}>

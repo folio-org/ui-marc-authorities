@@ -4,8 +4,7 @@ import {
   render,
   fireEvent,
 } from '@testing-library/react';
-import routeData from 'react-router';
-import { createMemoryHistory } from 'history';
+import routeData, { MemoryRouter } from 'react-router';
 import mockMapValues from 'lodash/mapValues';
 
 import AuthoritiesSearch from './AuthoritiesSearch';
@@ -18,8 +17,17 @@ import {
   sortOrders,
 } from '../../constants';
 
-const history = createMemoryHistory();
-const historyReplaceSpy = jest.spyOn(history, 'replace');
+const mockHistoryReplace = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useHistory: () => ({
+    replace: mockHistoryReplace,
+  }),
+  useLocation: () => ({
+    pathname: '',
+  }),
+}));
 
 jest.mock('../../queries/useAuthorities', () => ({
   useAuthorities: () => ({ authorities: [] }),
@@ -32,10 +40,11 @@ jest.mock('../../components', () => ({
 
     return (<div data-testid="SearchResultsList" {...mapedProps} />);
   },
+  SearchFilters: () => <div>SearchFilters</div>,
 }));
 
 const renderAuthoritiesSearch = (props = {}) => render(
-  <Harness history={history}>
+  <Harness Router={MemoryRouter}>
     <AuthoritiesSearch {...props} />
   </Harness>,
 );
@@ -131,7 +140,7 @@ describe('Given AuthoritiesSearch', () => {
 
       fireEvent.click(resetAllButton);
 
-      expect(historyReplaceSpy).toHaveBeenCalled();
+      expect(mockHistoryReplace).toHaveBeenCalled();
     });
   });
 

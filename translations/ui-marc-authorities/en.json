@@ -4,6 +4,7 @@
   "search-results-list.authRefType": "Authorized/Reference",
   "search-results-list.headingRef": "Heading/Reference",
   "search-results-list.headingType": "Type of heading",
+  "search-results-list.paneSub": "{totalRecords, number} {totalRecords, plural, one {record found} other {records found}}",
 
   "actions.menuSection.sortBy": "Sort by",
   "actions.menuSection.sortBy.relevance": "Relevance",
@@ -11,6 +12,7 @@
   "permission.app.enabled": "UI: MARC Authorities module is enabled",
   "permission.authority-record.view": "View MARC authority record",
   "permission.authority-record.edit": "Edit MARC authority record",
+
   "label.search": "Search",
   "search.searchAndFilter": "Search & filter",
   "keyword": "Keyword",
@@ -27,5 +29,10 @@
   "marcHeading": "MARC authority record",
   "authorityRecordSubtitle": "{heading} • Last updated: {lastUpdatedDate}",
   "createdDate": "Date created",
-  "updatedDate": "Date updated"
+  "updatedDate": "Date updated",
+  "filters.headingType": "Type of heading",
+  
+  "permission.app.enabled": "UI: MARC Authorities module is enabled",
+  "permission.authority-record.view": "View MARC authority record",
+  "permission.authority-record.edit": "Edit MARC authority record"
 }

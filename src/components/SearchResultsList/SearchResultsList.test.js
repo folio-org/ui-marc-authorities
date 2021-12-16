@@ -22,6 +22,9 @@ const renderSearchResultsList = (props = {}) => render(
       ]}
       totalResults={authorities.length}
       loading={false}
+      loaded={false}
+      query=""
+      hasFilters={false}
       pageSize={15}
       onNeedMoreData={noop}
       sortOrder=""
@@ -45,6 +48,40 @@ describe('Given SearchResultsList', () => {
     expect(getByText('ui-marc-authorities.search-results-list.authRefType')).toBeDefined();
     expect(getByText('ui-marc-authorities.search-results-list.headingRef')).toBeDefined();
     expect(getByText('ui-marc-authorities.search-results-list.headingType')).toBeDefined();
+  });
+
+  it('should display empty message', () => {
+    const { getByText } = renderSearchResultsList({
+      authorities: [],
+      totalResults: 0,
+    });
+
+    expect(getByText('stripes-smart-components.sas.noResults.noTerms')).toBeDefined();
+  });
+
+  describe('when search is pending', () => {
+    it('should display pending message', () => {
+      const { getByText } = renderSearchResultsList({
+        authorities: [],
+        totalResults: 0,
+        loading: true,
+      });
+
+      expect(getByText('stripes-smart-components.sas.noResults.loading')).toBeDefined();
+    });
+  });
+
+  describe('when search is finished and no results were returned', () => {
+    it('should display pending message', () => {
+      const { getByText } = renderSearchResultsList({
+        authorities: [],
+        totalResults: 0,
+        query: 'test=abc',
+        loaded: true,
+      });
+
+      expect(getByText('stripes-smart-components.sas.noResults.default')).toBeDefined();
+    });
   });
 
   describe('when show columns checkbox for "Type of Heading" is not checked', () => {
