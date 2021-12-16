@@ -8,7 +8,6 @@ import SearchResultsList from './SearchResultsList';
 import authorities from '../../../mocks/authorities';
 import {
   searchResultListColumns,
-  sortOrders,
 } from '../../constants';
 
 const renderSearchResultsList = (props = {}) => render(
