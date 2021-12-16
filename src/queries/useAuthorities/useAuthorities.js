@@ -8,8 +8,6 @@ import {
   useNamespace,
 } from '@folio/stripes/core';
 
-import { buildSearch } from '@folio/stripes-acq-components';
-
 import { buildQuery } from '../utils';
 import {
   filterConfig,
@@ -59,9 +57,6 @@ const useAuthorities = ({
   let cqlQuery = [...cqlSearch, ...cqlFilters].join(' and ');
 
   if (sortOrder && sortedColumn) {
-    const order = sortOrder === sortOrders.ASC ? '' : '-';
-
-    queryParams.sort = `${order}${sortedColumn}`
     cqlQuery += ` sortBy ${sortedColumn}/sort.${sortOrder}`;
   }
 

@@ -9,10 +9,6 @@
   "actions.menuSection.sortBy": "Sort by",
   "actions.menuSection.sortBy.relevance": "Relevance",
 
-  "permission.app.enabled": "UI: MARC Authorities module is enabled",
-  "permission.authority-record.view": "View MARC authority record",
-  "permission.authority-record.edit": "Edit MARC authority record",
-
   "label.search": "Search",
   "search.searchAndFilter": "Search & filter",
   "keyword": "Keyword",

@@ -17,9 +17,6 @@ import {
 
 const propTypes = {
   authorities: PropTypes.arrayOf(AuthorityShape).isRequired,
-  loading: PropTypes.bool,
-  onNeedMoreData: PropTypes.func.isRequired,
-  pageSize: PropTypes.number.isRequired,
   hasFilters: PropTypes.bool.isRequired,
   isFilterPaneVisible: PropTypes.bool.isRequired,
   loaded: PropTypes.bool.isRequired,

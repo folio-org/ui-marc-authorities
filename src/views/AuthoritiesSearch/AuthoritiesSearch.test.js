@@ -16,17 +16,23 @@ import {
   searchResultListColumns,
   sortOrders,
 } from '../../constants';
+import { useSortColumnManager } from '../../hooks';
 
 const mockHistoryReplace = jest.fn();
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
   useHistory: () => ({
     replace: mockHistoryReplace,
   }),
-  useLocation: () => ({
+  useLocation: jest.fn().mockImplementation(() => ({
     pathname: '',
-  }),
+  })),
+}));
+
+jest.mock('../../hooks', () => ({
+  ...jest.requireActual('../../hooks'),
+  useSortColumnManager: jest.fn(),
 }));
 
 jest.mock('../../queries/useAuthorities', () => ({
@@ -50,6 +56,16 @@ const renderAuthoritiesSearch = (props = {}) => render(
 );
 
 describe('Given AuthoritiesSearch', () => {
+  const useLocation = jest.spyOn(routeData, 'useLocation');
+
+  beforeEach(() => {
+    useSortColumnManager.mockImplementation(jest.requireActual('../../hooks').useSortColumnManager);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should render paneset', () => {
     const { getByTestId } = renderAuthoritiesSearch();
 
@@ -317,6 +333,49 @@ describe('Given AuthoritiesSearch', () => {
           searchResultListColumns.AUTH_REF_TYPE,
           searchResultListColumns.HEADING_REF,
         ]));
+      });
+    });
+  });
+
+  describe('when location has changed', () => {
+    const mockOnChangeSortOption = jest.fn();
+
+    beforeEach(() => {
+      useSortColumnManager.mockImplementation(() => ({
+        sortOrders: '',
+        sortedColumn: '',
+        onChangeSortOption: mockOnChangeSortOption,
+        onHeaderClick: jest.fn(),
+      }));
+    });
+
+    describe('and sort parameter is "authRefType"', () => {
+      beforeEach(() => {
+        useLocation.mockReturnValue({
+          search: `sort=${searchResultListColumns.AUTH_REF_TYPE}`,
+        });
+      });
+
+      it('should handle "onChangeSortOption" with "authRefType" and "ascending" parameters', () => {
+        renderAuthoritiesSearch();
+
+        expect(mockOnChangeSortOption)
+          .toHaveBeenCalledWith(searchResultListColumns.AUTH_REF_TYPE, sortOrders.ASC);
+      });
+    });
+
+    describe('and sort parameter is "-authRefType"', () => {
+      beforeEach(() => {
+        useLocation.mockReturnValue({
+          search: `sort=-${searchResultListColumns.AUTH_REF_TYPE}`,
+        });
+      });
+
+      it('should handle "onChangeSortOption" with "authRefType" and "descending" parameters', () => {
+        renderAuthoritiesSearch();
+
+        expect(mockOnChangeSortOption)
+          .toHaveBeenCalledWith(searchResultListColumns.AUTH_REF_TYPE, sortOrders.DES);
       });
     });
   });

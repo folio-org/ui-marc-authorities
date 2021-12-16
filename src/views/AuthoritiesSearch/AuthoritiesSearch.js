@@ -5,7 +5,7 @@ import {
 import {
   useHistory,
   useLocation,
-} from 'react-router-dom';
+} from 'react-router';
 import {
   FormattedMessage,
   useIntl,
@@ -76,7 +76,7 @@ const AuthoritiesSearch = ({ children }) => {
   const [searchDropdownValue, setSearchDropdownValue] = useState('');
   const [searchIndex, setSearchIndex] = useState('');
 
-  const nonFilterUrlParams = ['query', 'qindex'];
+  const nonFilterUrlParams = ['query', 'qindex', 'sort'];
 
   const getInitialFilters = () => {
     return omit(buildFiltersObj(location.search), nonFilterUrlParams);
@@ -135,13 +135,19 @@ const AuthoritiesSearch = ({ children }) => {
       ...filters,
     };
 
+    if (sortOrder && sortedColumn) {
+      const order = sortOrder === sortOrders.ASC ? '' : '-';
+
+      queryParams.sort = `${order}${sortedColumn}`;
+    }
+
     const searchString = `${buildSearch(queryParams)}`;
 
     history.replace({
       pathname: location.pathname,
       search: searchString,
     });
-  }, [searchQuery, searchIndex, filters]);
+  }, [searchQuery, searchIndex, filters, sortOrder, sortedColumn]);
 
   const {
     authorities,
