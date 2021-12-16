@@ -2,19 +2,41 @@ import PropTypes from 'prop-types';
 
 import {
   MultiSelection,
+  Accordion,
+  FilterAccordionHeader,
 } from '@folio/stripes/components';
 
 import { FacetOptionFormatter } from '../../components';
 
 const propTypes = {
-
+  displayClearButton: PropTypes.bool.isRequired,
+  handleSectionToggle: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+  isPending: PropTypes.bool.isRequired,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
+  name: PropTypes.string.isRequired,
+  onClearFilter: PropTypes.func.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  options: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    totalRecords: PropTypes.number.isRequired,
+  })),
+  selectedValues: PropTypes.arrayOf(PropTypes.string),
 };
 
 const MultiSelectionFacet = ({
+  id,
+  label,
+  open,
+  handleSectionToggle,
   name,
   onFilterChange,
   options,
   selectedValues,
+  onClearFilter,
+  displayClearButton,
+  isPending,
   ...props
 }) => {
   const onChange = (selectedOptions) => {
@@ -37,16 +59,28 @@ const MultiSelectionFacet = ({
   const selectedOptions = dataOptions.filter(option => selectedValues.includes(option.value));
 
   return (
-    <MultiSelection
-      name={name}
-      formatter={FacetOptionFormatter}
-      valueFormatter={({ option }) => option.label}
-      onChange={onChange}
-      dataOptions={dataOptions}
-      itemToString={itemToString}
-      value={selectedOptions}
-      {...props}
-    />
+    <Accordion
+      label={label}
+      id={id}
+      open={open}
+      onToggle={handleSectionToggle}
+      separator={false}
+      header={FilterAccordionHeader}
+      onClearFilter={() => onClearFilter(name)}
+      displayClearButton={displayClearButton}
+    >
+      <MultiSelection
+        id={`${id}-multiselect`}
+        name={name}
+        formatter={FacetOptionFormatter}
+        valueFormatter={({ option }) => option.label}
+        onChange={onChange}
+        dataOptions={dataOptions}
+        itemToString={itemToString}
+        value={selectedOptions}
+        {...props}
+      />
+    </Accordion>
   );
 };
 

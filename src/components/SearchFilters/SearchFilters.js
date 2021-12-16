@@ -1,17 +1,10 @@
-import {
-  useState,
-  useCallback,
-} from 'react';
+import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import {
   FormattedMessage,
 } from 'react-intl';
 import omit from 'lodash/omit';
 
-import {
-  Accordion,
-  FilterAccordionHeader,
-} from '@folio/stripes/components';
 import {
   AcqDateRangeFilter,
 } from '@folio/stripes-acq-components';
@@ -27,7 +20,10 @@ const FACETS = {
 const DATE_FORMAT = 'YYYY-MM-DD';
 
 const propTypes = {
-
+  activeFilters: PropTypes.object.isRequired,
+  isSearching: PropTypes.bool.isRequired,
+  query: PropTypes.string.isRequired,
+  setFilters: PropTypes.func.isRequired,
 };
 
 const SearchFilters = ({
@@ -57,31 +53,25 @@ const SearchFilters = ({
   }, []);
 
   const onClearFilter = (filter) => {
+    console.log(filter);
     setFilters(currentFilters => omit(currentFilters, filter));
   };
 
   return (
     <>
-      <Accordion
-        label={<FormattedMessage id={`ui-marc-authorities.filters.${FACETS.HEADING_TYPE}`} />}
+      <MultiSelectionFacet
         id={FACETS.HEADING_TYPE}
-        open={filterAccordions[FACETS.HEADING_TYPE]}
-        onToggle={handleSectionToggle}
+        label={<FormattedMessage id={`ui-marc-authorities.filters.${FACETS.HEADING_TYPE}`} />}
         name={FACETS.HEADING_TYPE}
-        separator={false}
-        header={FilterAccordionHeader}
+        open={filterAccordions[FACETS.HEADING_TYPE]}
+        options={facets[FACETS.HEADING_TYPE]?.values || []}
+        selectedValues={activeFilters[FACETS.HEADING_TYPE]}
+        onFilterChange={applyFilters}
+        onClearFilter={onClearFilter}
         displayClearButton={!!activeFilters[FACETS.HEADING_TYPE]}
-        onClearFilter={() => onClearFilter(FACETS.HEADING_TYPE)}
-      >
-        <MultiSelectionFacet
-          id="headingTypeSelect"
-          name={FACETS.HEADING_TYPE}
-          options={facets[FACETS.HEADING_TYPE]?.values || []}
-          selectedValues={activeFilters[FACETS.HEADING_TYPE]}
-          onFilterChange={applyFilters}
-          isPending={isLoading}
-        />
-      </Accordion>
+        handleSectionToggle={handleSectionToggle}
+        isPending={isLoading}
+      />
 
       <AcqDateRangeFilter
         activeFilters={activeFilters?.createdDate || []}
