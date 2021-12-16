@@ -12,7 +12,10 @@ import {
 
 import { buildSearch } from '@folio/stripes-acq-components';
 
-import { template } from 'lodash';
+import {
+  template,
+  omit,
+} from 'lodash';
 
 import { buildQuery } from '../utils';
 
@@ -24,6 +27,7 @@ const useAuthorities = ({
   searchQuery,
   searchIndex,
   filters,
+  isExcludedSeeFromLimiter,
   pageSize,
 }) => {
   const ky = useOkapiKy();
@@ -41,7 +45,10 @@ const useAuthorities = ({
   };
 
   const compileQuery = template(
-    buildQuery(searchIndex),
+    buildQuery({
+      searchIndex,
+      isExcludedSeeFromLimiter,
+    }),
     { interpolate: /%{([\s\S]+?)}/g },
   );
 
@@ -77,6 +84,15 @@ const useAuthorities = ({
   const { isFetching, data } = useQuery(
     [namespace, searchParams],
     async () => {
+      if (isExcludedSeeFromLimiter) {
+        queryParams.excludeSeeFrom = isExcludedSeeFromLimiter;
+      } else {
+        const parsedSearchParams = queryString.parse(location.search);
+        const cleanedSearchParams = omit(parsedSearchParams, 'excludeSeeFrom');
+
+        location.search = queryString.stringify(cleanedSearchParams);
+      }
+
       const searchString = `${buildSearch(queryParams, location.search)}`;
 
       history.replace({

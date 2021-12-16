@@ -20,7 +20,10 @@ import {
 } from '@rehooks/local-storage';
 
 import {
+  Accordion,
   Button,
+  Checkbox,
+  FilterAccordionHeader,
   Icon,
   Pane,
   PaneMenu,
@@ -80,6 +83,8 @@ const AuthoritiesSearch = ({ children }) => {
 
   const [filters, setFilters] = useState({});
 
+  const [isExcludedSeeFromLimiter, setIsExcludedSeeFromLimiter] = useState(false);
+
   const columnMapping = {
     [searchResultListColumns.AUTH_REF_TYPE]: <FormattedMessage id="ui-marc-authorities.search-results-list.authRefType" />,
     [searchResultListColumns.HEADING_REF]: <FormattedMessage id="ui-marc-authorities.search-results-list.headingRef" />,
@@ -105,6 +110,10 @@ const AuthoritiesSearch = ({ children }) => {
         setSearchDropdownValue(locationSearchParams.qindex);
         setSearchIndex(locationSearchParams.qindex);
       }
+
+      if (locationSearchParams.excludeSeeFrom) {
+        setIsExcludedSeeFromLimiter(locationSearchParams.excludeSeeFrom);
+      }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -118,6 +127,7 @@ const AuthoritiesSearch = ({ children }) => {
     searchQuery,
     searchIndex,
     filters,
+    isExcludedSeeFromLimiter,
     pageSize: PAGE_SIZE,
   });
 
@@ -147,6 +157,7 @@ const AuthoritiesSearch = ({ children }) => {
     setSearchQuery('');
     setSearchIndex('');
     setFilters('');
+    setIsExcludedSeeFromLimiter(false);
 
     history.replace({
       pathname: location.pathname,
@@ -165,6 +176,10 @@ const AuthoritiesSearch = ({ children }) => {
       };
     });
   }, []);
+
+  const applyExcludeSeeFromLimiter = () => {
+    setIsExcludedSeeFromLimiter(isExcluded => !isExcluded);
+  };
 
   const activeFilters = useMemo(() => buildFiltersObj(location.search), [location.search]);
 
@@ -255,9 +270,25 @@ const AuthoritiesSearch = ({ children }) => {
             </Button>
           </form>
 
+          <Accordion
+            closedByDefault
+            displayClearButton={isExcludedSeeFromLimiter}
+            header={FilterAccordionHeader}
+            id="clickable-references-filter"
+            label={intl.formatMessage({ id: 'ui-marc-authorities.search.references' })}
+            onClearFilter={() => setIsExcludedSeeFromLimiter(false)}
+          >
+            <Checkbox
+              label={intl.formatMessage({ id: 'ui-marc-authorities.search.excludeSeeFrom' })}
+              onChange={applyExcludeSeeFromLimiter}
+              checked={isExcludedSeeFromLimiter}
+              data-testid="toggle-exclude-see-from"
+            />
+          </Accordion>
+
           <AcqDateRangeFilter
             activeFilters={activeFilters?.createdDate || []}
-            labelId="ui-marc-authorities.createdDate"
+            labelId="ui-marc-authorities.search.createdDate"
             id="createdDate"
             name="createdDate"
             onChange={applyFilters}
@@ -268,7 +299,7 @@ const AuthoritiesSearch = ({ children }) => {
 
           <AcqDateRangeFilter
             activeFilters={activeFilters?.updatedDate || []}
-            labelId="ui-marc-authorities.updatedDate"
+            labelId="ui-marc-authorities.search.updatedDate"
             id="updatedDate"
             name="updatedDate"
             onChange={applyFilters}

@@ -8,8 +8,13 @@
   "permission.app.enabled": "UI: MARC Authorities module is enabled",
   "permission.authority-record.view": "View MARC authority record",
   "permission.authority-record.edit": "Edit MARC authority record",
+
   "label.search": "Search",
   "search.searchAndFilter": "Search & filter",
+  "search.createdDate": "Date created",
+  "search.updatedDate": "Date updated",
+  "search.references": "References",
+  "search.excludeSeeFrom": "Exclude see from",
   "keyword": "Keyword",
   "identifier": "Identifier (all)",
   "personalName": "Personal name",
@@ -22,7 +27,5 @@
   "genre": "Genre",
   "authorityUUID": "Authority UUID",
   "marcHeading": "MARC authority record",
-  "authorityRecordSubtitle": "{heading} • Last updated: {lastUpdatedDate}",
-  "createdDate": "Date created",
-  "updatedDate": "Date updated"
+  "authorityRecordSubtitle": "{heading} • Last updated: {lastUpdatedDate}"
 }

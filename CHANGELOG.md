@@ -10,3 +10,4 @@
 * [UIMARCAUTH-15](https://issues.folio.org/browse/UIMARCAUTH-15) Display a Date Updated filter.
 * [UIMARCAUTH-14](https://issues.folio.org/browse/UIMARCAUTH-14) Display a Date Created filter.
 * [UIMARCAUTH-31](https://issues.folio.org/browse/UIMARCAUTH-31) Fix formatting of search query string.
+* [UIMARCAUTH-17](https://issues.folio.org/browse/UIMARCAUTH-17) Display a Exclude see from limiter.
