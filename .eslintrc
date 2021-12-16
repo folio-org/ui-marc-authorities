@@ -19,6 +19,13 @@
       }
     }
   ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx"]
+      }
+    }
+  },
   "rules": {
     "arrow-body-style": "off",
     "import/prefer-default-export": "off",
