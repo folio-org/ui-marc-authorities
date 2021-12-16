@@ -1,4 +1,4 @@
-import { buildDateRangeQuery } from '../utils';
+import { buildDateRangeQuery } from '../../utils';
 
 export const filterConfig = [
   {

@@ -1,1 +1,1 @@
-export { default as useSectionToggle } from './useSectionToggle';
+export * from './useSectionToggle';
