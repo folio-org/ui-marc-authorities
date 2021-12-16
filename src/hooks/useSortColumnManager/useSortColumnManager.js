@@ -25,7 +25,7 @@ const useSortColumnManager = () => {
 
   const onChangeSortOption = (option, order = '') => {
     let currentOrder;
-    
+
     if (!order) {
       currentOrder = option ? sortOrders.ASC : '';
     } else {

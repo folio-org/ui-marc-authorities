@@ -342,7 +342,7 @@ describe('Given AuthoritiesSearch', () => {
 
     beforeEach(() => {
       useSortColumnManager.mockImplementation(() => ({
-        sortOrders: '',
+        sortOrder: '',
         sortedColumn: '',
         onChangeSortOption: mockOnChangeSortOption,
         onHeaderClick: jest.fn(),

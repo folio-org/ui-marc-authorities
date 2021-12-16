@@ -79,7 +79,7 @@ describe('Given useAuthorities', () => {
           sortedColumn: searchResultListColumns.AUTH_REF_TYPE,
         }), { wrapper });
 
-        expect(result.current.query).toEqual('(keyword==\"test\") sortBy authRefType/sort.descending');
+        expect(result.current.query).toEqual('(keyword=="test") sortBy authRefType/sort.descending');
       });
     });
 
@@ -92,7 +92,7 @@ describe('Given useAuthorities', () => {
           sortedColumn: searchResultListColumns.AUTH_REF_TYPE,
         }), { wrapper });
 
-        expect(result.current.query).toEqual('(keyword==\"test\") sortBy authRefType/sort.ascending');
+        expect(result.current.query).toEqual('(keyword=="test") sortBy authRefType/sort.ascending');
       });
     });
   });

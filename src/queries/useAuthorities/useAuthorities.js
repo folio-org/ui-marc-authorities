@@ -11,7 +11,6 @@ import {
 import { buildQuery } from '../utils';
 import {
   filterConfig,
-  sortOrders,
 } from '../../constants';
 
 const AUTHORITIES_API = 'search/authorities';
