@@ -53,7 +53,6 @@ const SearchFilters = ({
   }, []);
 
   const onClearFilter = (filter) => {
-    console.log(filter);
     setFilters(currentFilters => omit(currentFilters, filter));
   };
 

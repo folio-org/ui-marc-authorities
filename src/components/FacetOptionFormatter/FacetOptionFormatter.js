@@ -24,4 +24,8 @@ const FacetOptionFormatter = ({ option, searchTerm }) => {
 
 FacetOptionFormatter.propTypes = propTypes;
 
+FacetOptionFormatter.defaultProps = {
+  searchTerm: '',
+};
+
 export default FacetOptionFormatter;

@@ -18,6 +18,7 @@ const useSectionToggle = (initialSections) => {
 
   const toggleAllSections = (expand) => {
     const next = expandAllFunction(sections, expand);
+
     setSections(next);
   };
 

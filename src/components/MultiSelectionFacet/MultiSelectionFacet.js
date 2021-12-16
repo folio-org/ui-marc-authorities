@@ -39,10 +39,10 @@ const MultiSelectionFacet = ({
   isPending,
   ...props
 }) => {
-  const onChange = (selectedOptions) => {
+  const onChange = (newOptions) => {
     onFilterChange({
       name,
-      values: selectedOptions.map(option => option.value),
+      values: newOptions.map(option => option.value),
     });
   };
 
@@ -56,7 +56,17 @@ const MultiSelectionFacet = ({
     return option?.label || '';
   };
 
-  const selectedOptions = dataOptions.filter(option => selectedValues.includes(option.value));
+  let selectedOptions = [];
+
+  if (!dataOptions.length) {
+    selectedOptions = selectedValues.map(value => ({
+      label: value,
+      value,
+      totalRecords: 0,
+    }));
+  } else {
+    selectedOptions = dataOptions.filter(option => selectedValues.includes(option.value));
+  }
 
   return (
     <Accordion

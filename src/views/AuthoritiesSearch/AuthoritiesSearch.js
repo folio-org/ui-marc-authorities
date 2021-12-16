@@ -16,6 +16,7 @@ import {
   useLocalStorage,
   writeStorage,
 } from '@rehooks/local-storage';
+import omit from 'lodash/omit';
 
 import {
   Button,
@@ -71,7 +72,7 @@ const AuthoritiesSearch = ({ children }) => {
   const [searchDropdownValue, setSearchDropdownValue] = useState('');
   const [searchIndex, setSearchIndex] = useState('');
 
-  const [filters, setFilters] = useState(buildFiltersObj(location.search));
+  const [filters, setFilters] = useState(omit(buildFiltersObj(location.search), 'query'));
 
   const columnMapping = {
     [searchResultListColumns.AUTH_REF_TYPE]: <FormattedMessage id="ui-marc-authorities.search-results-list.authRefType" />,
