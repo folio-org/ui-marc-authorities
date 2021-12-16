@@ -1,3 +1,5 @@
+import { upperFirst } from 'lodash';
+
 import {
   searchableIndexesValues,
   searchableIndexesMap,
@@ -14,8 +16,6 @@ const buildQuery = ({
 
     const queryTemplate = name => `${name}=="%{query}"`;
 
-    const capitalizeFirstLetter = ([first, ...rest]) => first.toUpperCase() + rest.join('');
-
     if (data.plain) {
       const query = queryTemplate(data.name);
 
@@ -24,7 +24,7 @@ const buildQuery = ({
 
     if (!isExcludedSeeFromLimiter) {
       if ((data.sft || data.saft) && data.plain) {
-        const name = capitalizeFirstLetter(data.name);
+        const name = upperFirst(data.name);
 
         if (data.sft) {
           const query = queryTemplate(`sft${name}`);
