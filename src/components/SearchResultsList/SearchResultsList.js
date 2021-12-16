@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
@@ -7,28 +8,39 @@ import {
 } from 'react-router';
 
 import { MultiColumnList } from '@folio/stripes/components';
+import { SearchAndSortNoResultsMessage } from '@folio/stripes/smart-components';
 
 import { AuthorityShape } from '../../constants/shapes';
 import { searchResultListColumns } from '../../constants';
 
 const propTypes = {
   authorities: PropTypes.arrayOf(AuthorityShape).isRequired,
-  loading: PropTypes.bool,
+  hasFilters: PropTypes.bool.isRequired,
+  isFilterPaneVisible: PropTypes.bool.isRequired,
+  loaded: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
   onNeedMoreData: PropTypes.func.isRequired,
   pageSize: PropTypes.number.isRequired,
+  query: PropTypes.string.isRequired,
+  toggleFilterPane: PropTypes.func.isRequired,
   totalResults: PropTypes.number,
   visibleColumns: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-const authRef = 'Auth/Ref';
+const authorizedTypes = ['Auth/Ref', 'Authorized'];
 
 const SearchResultsList = ({
   authorities,
   totalResults,
   loading,
+  loaded,
   pageSize,
   onNeedMoreData,
   visibleColumns,
+  isFilterPaneVisible,
+  query,
+  toggleFilterPane,
+  hasFilters,
 }) => {
   const location = useLocation();
   const match = useRouteMatch();
@@ -47,7 +59,7 @@ const SearchResultsList = ({
 
   const formatter = {
     authRefType: (authority) => {
-      return authority.authRefType === authRef
+      return authorizedTypes.includes(authority.authRefType)
         ? <b>{authority.authRefType}</b>
         : authority.authRefType;
     },
@@ -79,6 +91,15 @@ const SearchResultsList = ({
     );
   };
 
+  const source = useMemo(
+    () => ({
+      loaded: () => (hasFilters || query) && loaded,
+      pending: () => loading,
+      failure: () => { },
+    }),
+    [loading, hasFilters],
+  );
+
   return (
     <MultiColumnList
       columnMapping={columnMapping}
@@ -93,6 +114,18 @@ const SearchResultsList = ({
       pagingType="prev-next"
       pageAmount={pageSize}
       loading={loading}
+      isEmptyMessage={
+        source ? (
+          <div data-test-agreements-no-results-message>
+            <SearchAndSortNoResultsMessage
+              filterPaneIsVisible={isFilterPaneVisible}
+              searchTerm={query || ''}
+              source={source}
+              toggleFilterPane={toggleFilterPane}
+            />
+          </div>
+        ) : '...'
+      }
     />
   );
 };

@@ -6,7 +6,7 @@ import {
 import SearchTextareaField from './SearchTextareaField';
 
 jest.mock('@folio/stripes/components', () => ({
-  ...jest.requireActual('@folio/stripes/components'),
+  ...jest.requireActual('@folio/stripes-components'),
   Select: () => <div>Select component</div>,
 }));
 
