@@ -19,7 +19,10 @@ import {
 import omit from 'lodash/omit';
 
 import {
+  Accordion,
   Button,
+  Checkbox,
+  FilterAccordionHeader,
   Icon,
   Pane,
   PaneMenu,
@@ -72,7 +75,7 @@ const AuthoritiesSearch = ({ children }) => {
   const [searchDropdownValue, setSearchDropdownValue] = useState('');
   const [searchIndex, setSearchIndex] = useState('');
 
-  const nonFilterUrlParams = ['query', 'qindex'];
+  const nonFilterUrlParams = ['query', 'qindex', 'excludeSeeFrom'];
 
   const getInitialFilters = () => {
     return omit(buildFiltersObj(location.search), nonFilterUrlParams);
@@ -122,13 +125,18 @@ const AuthoritiesSearch = ({ children }) => {
       ...filters,
     };
 
+    if (isExcludedSeeFromLimiter) {
+      queryParams.excludeSeeFrom = isExcludedSeeFromLimiter;
+    }
+
     const searchString = `${buildSearch(queryParams)}`;
 
     history.replace({
       pathname: location.pathname,
       search: searchString,
     });
-  }, [searchQuery, searchIndex, filters]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery, searchIndex, isExcludedSeeFromLimiter, filters]);
 
   const {
     authorities,
@@ -172,6 +180,10 @@ const AuthoritiesSearch = ({ children }) => {
     setSearchIndex('');
     setFilters('');
     setIsExcludedSeeFromLimiter(false);
+  };
+
+  const applyExcludeSeeFromLimiter = () => {
+    setIsExcludedSeeFromLimiter(isExcluded => !isExcluded);
   };
 
   const handleLoadMore = (_pageAmount, offset) => {
@@ -264,6 +276,20 @@ const AuthoritiesSearch = ({ children }) => {
               </Icon>
             </Button>
           </form>
+
+          <Accordion
+            closedByDefault
+            displayClearButton={isExcludedSeeFromLimiter}
+            header={FilterAccordionHeader}
+            label={intl.formatMessage({ id: 'ui-marc-authorities.search.references' })}
+            onClearFilter={() => setIsExcludedSeeFromLimiter(false)}
+          >
+            <Checkbox
+              label={intl.formatMessage({ id: 'ui-marc-authorities.search.excludeSeeFrom' })}
+              onChange={applyExcludeSeeFromLimiter}
+              checked={isExcludedSeeFromLimiter}
+            />
+          </Accordion>
 
           <SearchFilters
             activeFilters={filters}

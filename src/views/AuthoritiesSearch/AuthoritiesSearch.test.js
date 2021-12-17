@@ -100,18 +100,6 @@ describe('Given AuthoritiesSearch', () => {
     expect(getByRole('checkbox', { name: 'ui-marc-authorities.search.excludeSeeFrom' })).toBeDefined();
   });
 
-  it('should display "Date created" accordion', () => {
-    const { getByRole } = renderAuthoritiesSearch();
-
-    expect(getByRole('heading', { name: 'ui-marc-authorities.search.createdDate' })).toBeDefined();
-  });
-
-  it('should display "Date updated" accordion', () => {
-    const { getByRole } = renderAuthoritiesSearch();
-
-    expect(getByRole('heading', { name: 'ui-marc-authorities.search.updatedDate' })).toBeDefined();
-  });
-
   describe('when textarea is not empty and Reset all button is clicked', () => {
     it('should clear textarea', () => {
       const {

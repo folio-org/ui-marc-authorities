@@ -1,8 +1,6 @@
 import { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import {
-  FormattedMessage,
-} from 'react-intl';
+import { useIntl } from 'react-intl';
 import omit from 'lodash/omit';
 
 import {
@@ -32,6 +30,8 @@ const SearchFilters = ({
   setFilters,
   query,
 }) => {
+  const intl = useIntl();
+
   const [filterAccordions, { handleSectionToggle }] = useSectionToggle({
     [FACETS.HEADING_TYPE]: false,
   });
@@ -50,6 +50,7 @@ const SearchFilters = ({
         [name]: values,
       };
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onClearFilter = (filter) => {
@@ -60,7 +61,7 @@ const SearchFilters = ({
     <>
       <MultiSelectionFacet
         id={FACETS.HEADING_TYPE}
-        label={<FormattedMessage id={`ui-marc-authorities.filters.${FACETS.HEADING_TYPE}`} />}
+        label={intl.formatMessage({ id: `ui-marc-authorities.search.${FACETS.HEADING_TYPE}` })}
         name={FACETS.HEADING_TYPE}
         open={filterAccordions[FACETS.HEADING_TYPE]}
         options={facets[FACETS.HEADING_TYPE]?.values || []}
