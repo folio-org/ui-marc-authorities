@@ -11,3 +11,4 @@
 * [UIMARCAUTH-14](https://issues.folio.org/browse/UIMARCAUTH-14) Display a Date Created filter.
 * [UIMARCAUTH-31](https://issues.folio.org/browse/UIMARCAUTH-31) Fix formatting of search query string.
 * [UIMARCAUTH-19](https://issues.folio.org/browse/UIMARCAUTH-19) Implement Results List Sort options.
+* [UIMARCAUTH-34](https://issues.folio.org/browse/UIMARCAUTH-34) Remove Authority UUID search option.

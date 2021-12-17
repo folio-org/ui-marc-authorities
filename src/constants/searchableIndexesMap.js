@@ -63,8 +63,4 @@ export const searchableIndexesMap = {
     sft: true,
     saft: true,
   }],
-  [searchableIndexesValues.AUTHORITY_UUID]: [{
-    name: 'id',
-    plain: true,
-  }],
 };
