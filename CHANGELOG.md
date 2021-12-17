@@ -11,3 +11,4 @@
 * [UIMARCAUTH-14](https://issues.folio.org/browse/UIMARCAUTH-14) Display a Date Created filter.
 * [UIMARCAUTH-31](https://issues.folio.org/browse/UIMARCAUTH-31) Fix formatting of search query string.
 * [UIMARCAUTH-19](https://issues.folio.org/browse/UIMARCAUTH-19) Implement Results List Sort options.
+* [UIMARCAUTH-40](https://issues.folio.org/browse/UIMARCAUTH-40) Fix Results List column headers are smushed.

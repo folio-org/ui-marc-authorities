@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import {
   useLocation,
@@ -50,19 +50,20 @@ const SearchResultsList = ({
   toggleFilterPane,
   hasFilters,
 }) => {
+  const intl = useIntl();
   const location = useLocation();
   const match = useRouteMatch();
 
   const columnMapping = {
-    [searchResultListColumns.AUTH_REF_TYPE]: <FormattedMessage id="ui-marc-authorities.search-results-list.authRefType" />,
-    [searchResultListColumns.HEADING_REF]: <FormattedMessage id="ui-marc-authorities.search-results-list.headingRef" />,
-    [searchResultListColumns.HEADING_TYPE]: <FormattedMessage id="ui-marc-authorities.search-results-list.headingType" />,
+    [searchResultListColumns.AUTH_REF_TYPE]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.authRefType' }),
+    [searchResultListColumns.HEADING_REF]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.headingRef' }),
+    [searchResultListColumns.HEADING_TYPE]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.headingType' }),
   };
 
   const columnWidths = {
-    [searchResultListColumns.AUTH_REF_TYPE]: '25%',
-    [searchResultListColumns.HEADING_REF]: '40%',
-    [searchResultListColumns.HEADING_TYPE]: '35%',
+    [searchResultListColumns.AUTH_REF_TYPE]: { min: 200 },
+    [searchResultListColumns.HEADING_REF]: { min: 400 },
+    [searchResultListColumns.HEADING_TYPE]: { min: 200 },
   };
 
   const formatter = {
@@ -105,6 +106,7 @@ const SearchResultsList = ({
       pending: () => loading,
       failure: () => { },
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [loading, hasFilters],
   );
 
