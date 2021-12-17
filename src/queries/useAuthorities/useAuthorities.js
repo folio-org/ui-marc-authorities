@@ -19,6 +19,7 @@ const useAuthorities = ({
   searchQuery,
   searchIndex,
   filters,
+  isExcludedSeeFromLimiter,
   pageSize,
   sortOrder,
   sortedColumn,
@@ -36,7 +37,10 @@ const useAuthorities = ({
   };
 
   const compileQuery = template(
-    buildQuery(searchIndex),
+    buildQuery({
+      searchIndex,
+      isExcludedSeeFromLimiter,
+    }),
     { interpolate: /%{([\s\S]+?)}/g },
   );
 

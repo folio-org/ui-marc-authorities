@@ -76,13 +76,15 @@ const AuthoritiesSearch = ({ children }) => {
   const [searchDropdownValue, setSearchDropdownValue] = useState('');
   const [searchIndex, setSearchIndex] = useState('');
 
-  const nonFilterUrlParams = ['query', 'qindex', 'sort'];
+  const nonFilterUrlParams = ['query', 'qindex', 'excludeSeeFrom', 'sort'];
 
   const getInitialFilters = () => {
     return omit(buildFiltersObj(location.search), nonFilterUrlParams);
   };
 
   const [filters, setFilters] = useState(getInitialFilters());
+
+  const [isExcludedSeeFromLimiter, setIsExcludedSeeFromLimiter] = useState(false);
 
   const columnMapping = {
     [searchResultListColumns.AUTH_REF_TYPE]: <FormattedMessage id="ui-marc-authorities.search-results-list.authRefType" />,
@@ -117,6 +119,10 @@ const AuthoritiesSearch = ({ children }) => {
         setSearchIndex(locationSearchParams.qindex);
       }
 
+      if (locationSearchParams.excludeSeeFrom) {
+        setIsExcludedSeeFromLimiter(locationSearchParams.excludeSeeFrom);
+      }
+
       if (locationSearchParams.sort) {
         if (locationSearchParams.sort[0] === '-') {
           onChangeSortOption(locationSearchParams.sort.substring(1), sortOrders.DES);
@@ -135,6 +141,10 @@ const AuthoritiesSearch = ({ children }) => {
       ...filters,
     };
 
+    if (isExcludedSeeFromLimiter) {
+      queryParams.excludeSeeFrom = isExcludedSeeFromLimiter;
+    }
+
     if (sortOrder && sortedColumn) {
       const order = sortOrder === sortOrders.ASC ? '' : '-';
 
@@ -147,7 +157,15 @@ const AuthoritiesSearch = ({ children }) => {
       pathname: location.pathname,
       search: searchString,
     });
-  }, [searchQuery, searchIndex, filters, sortOrder, sortedColumn]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    searchQuery,
+    searchIndex,
+    filters,
+    isExcludedSeeFromLimiter,
+    sortOrder,
+    sortedColumn,
+  ]);
 
   const {
     authorities,
@@ -160,6 +178,7 @@ const AuthoritiesSearch = ({ children }) => {
     searchQuery,
     searchIndex,
     filters,
+    isExcludedSeeFromLimiter,
     sortOrder,
     sortedColumn,
     pageSize: PAGE_SIZE,
@@ -191,7 +210,12 @@ const AuthoritiesSearch = ({ children }) => {
     setSearchQuery('');
     setSearchIndex('');
     setFilters('');
+    setIsExcludedSeeFromLimiter(false);
     onChangeSortOption('');
+  };
+
+  const applyExcludeSeeFromLimiter = () => {
+    setIsExcludedSeeFromLimiter(isExcluded => !isExcluded);
   };
 
   const handleLoadMore = (_pageAmount, offset) => {
@@ -316,6 +340,9 @@ const AuthoritiesSearch = ({ children }) => {
             isSearching={isLoading}
             setFilters={setFilters}
             query={query}
+            isExcludedSeeFromLimiter={isExcludedSeeFromLimiter}
+            setIsExcludedSeeFromLimiter={setIsExcludedSeeFromLimiter}
+            applyExcludeSeeFromLimiter={applyExcludeSeeFromLimiter}
           />
         </Pane>
       }

@@ -53,12 +53,14 @@ describe('Given useAuthorities', () => {
     const filters = {
       updatedDate: ['2021-01-01:2021-12-31'],
     };
+    const isExcludedSeeFromLimiter = false;
     const pageSize = 20;
 
     const { result, waitFor } = renderHook(() => useAuthorities({
       searchQuery,
       searchIndex,
       filters,
+      isExcludedSeeFromLimiter,
       pageSize,
       sortOrder: '',
       sortedColumn: '',
