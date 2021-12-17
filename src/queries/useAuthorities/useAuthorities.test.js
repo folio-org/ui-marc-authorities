@@ -14,6 +14,7 @@ import { useOkapiKy } from '@folio/stripes/core';
 
 import Harness from '../../../test/jest/helpers/harness';
 import useAuthorities from './useAuthorities';
+import { searchResultListColumns, sortOrders } from '../../constants';
 
 const history = createMemoryHistory();
 
@@ -28,6 +29,7 @@ const wrapper = ({ children }) => (
 );
 
 describe('Given useAuthorities', () => {
+  const searchQuery = 'test';
   const mockGet = jest.fn(() => ({
     json: () => Promise.resolve({
       authorities: [],
@@ -47,7 +49,6 @@ describe('Given useAuthorities', () => {
   });
 
   it('fetches authorities records', async () => {
-    const searchQuery = 'test';
     const searchIndex = 'identifier';
     const filters = {
       updatedDate: ['2021-01-01:2021-12-31'],
@@ -61,10 +62,40 @@ describe('Given useAuthorities', () => {
       filters,
       isExcludedSeeFromLimiter,
       pageSize,
+      sortOrder: '',
+      sortedColumn: '',
     }), { wrapper });
 
     await waitFor(() => !result.current.isLoading);
 
     expect(mockGet).toHaveBeenCalled();
+  });
+
+  describe('when sort options are presented', () => {
+    describe('when sort order is "descending"', () => {
+      it('should add "sortBy authRefType/sort.descending" to query', () => {
+        const { result } = renderHook(() => useAuthorities({
+          searchQuery,
+          filters: {},
+          sortOrder: sortOrders.DES,
+          sortedColumn: searchResultListColumns.AUTH_REF_TYPE,
+        }), { wrapper });
+
+        expect(result.current.query).toEqual('(keyword=="test") sortBy authRefType/sort.descending');
+      });
+    });
+
+    describe('when sort order is "descending"', () => {
+      it('should add "sortBy authRefType/sort.ascending" to query', () => {
+        const { result } = renderHook(() => useAuthorities({
+          searchQuery,
+          filters: {},
+          sortOrder: sortOrders.ASC,
+          sortedColumn: searchResultListColumns.AUTH_REF_TYPE,
+        }), { wrapper });
+
+        expect(result.current.query).toEqual('(keyword=="test") sortBy authRefType/sort.ascending');
+      });
+    });
   });
 });

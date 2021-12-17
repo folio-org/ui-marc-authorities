@@ -21,12 +21,12 @@
 }, {
   "id": "396e6295-cf24-4669-a7cc-5e62937ff150",
   "headingType": "Personal name",
-  "authRefType": "Auth/Ref",
+  "authRefType": "A test",
   "headingRef": "Twain, Mark"
 }, {
   "id": "e5b1cbb3-c51c-4674-af90-cd9e741d054b",
   "headingType": "Personal name",
-  "authRefType": "Reference",
+  "authRefType": "Z test",
   "headingRef": "Twain, Mark"
 }, {
   "id": "66d6622a-b3d0-47cf-bb84-97d1749f034e",

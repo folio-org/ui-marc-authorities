@@ -14,18 +14,25 @@ import Harness from '../../../test/jest/helpers/harness';
 import {
   searchableIndexesValues,
   searchResultListColumns,
+  sortOrders,
 } from '../../constants';
+import { useSortColumnManager } from '../../hooks';
 
 const mockHistoryReplace = jest.fn();
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
   useHistory: () => ({
     replace: mockHistoryReplace,
   }),
-  useLocation: () => ({
+  useLocation: jest.fn().mockImplementation(() => ({
     pathname: '',
-  }),
+  })),
+}));
+
+jest.mock('../../hooks', () => ({
+  ...jest.requireActual('../../hooks'),
+  useSortColumnManager: jest.fn(),
 }));
 
 jest.mock('../../queries/useAuthorities', () => ({
@@ -49,6 +56,16 @@ const renderAuthoritiesSearch = (props = {}) => render(
 );
 
 describe('Given AuthoritiesSearch', () => {
+  const useLocation = jest.spyOn(routeData, 'useLocation');
+
+  beforeEach(() => {
+    useSortColumnManager.mockImplementation(jest.requireActual('../../hooks').useSortColumnManager);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should render paneset', () => {
     const { getByTestId } = renderAuthoritiesSearch();
 
@@ -98,6 +115,18 @@ describe('Given AuthoritiesSearch', () => {
 
     expect(getByRole('heading', { name: 'ui-marc-authorities.search.references' })).toBeDefined();
     expect(getByRole('checkbox', { name: 'ui-marc-authorities.search.excludeSeeFrom' })).toBeDefined();
+  });
+
+  it('should be default sort order', () => {
+    const { getByTestId } = renderAuthoritiesSearch();
+
+    expect(getByTestId('SearchResultsList')).toHaveAttribute('sortOrder', '');
+  });
+
+  it('should not be sorted by any column', () => {
+    const { getByTestId } = renderAuthoritiesSearch();
+
+    expect(getByTestId('SearchResultsList')).toHaveAttribute('sortedColumn', '');
   });
 
   describe('when textarea is not empty and Reset all button is clicked', () => {
@@ -215,6 +244,28 @@ describe('Given AuthoritiesSearch', () => {
   });
 
   describe('when click on "Actions" button', () => {
+    it('should display "Sort by" section', () => {
+      const {
+        getByRole,
+        getByText,
+      } = renderAuthoritiesSearch();
+
+      fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+
+      expect(getByText('ui-marc-authorities.actions.menuSection.sortBy')).toBeDefined();
+    });
+
+    it('should display selection', () => {
+      const {
+        getByRole,
+        getByText,
+      } = renderAuthoritiesSearch();
+
+      fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+
+      expect(getByText('ui-marc-authorities.actions.menuSection.sortBy.relevance')).toBeDefined();
+    });
+
     it('should display "Show columns" section', () => {
       const {
         getByRole,
@@ -244,6 +295,39 @@ describe('Given AuthoritiesSearch', () => {
       expect(getByRole('checkbox', { name: 'ui-marc-authorities.search-results-list.headingType' })).toBeChecked();
     });
 
+    describe('when change sorted column throught selection to "Type of heading"', () => {
+      it('should sort by "Type of Heading" column in descending order', () => {
+        const {
+          getByRole,
+          getByTestId,
+        } = renderAuthoritiesSearch();
+
+        fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+
+        fireEvent.change(getByTestId('sort-by-selection'), { target: { value: 'headingType' } });
+
+        expect(getByTestId('SearchResultsList')).toHaveAttribute('sortedColumn', searchResultListColumns.HEADING_TYPE);
+        expect(getByTestId('SearchResultsList')).toHaveAttribute('sortOrder', sortOrders.ASC);
+      });
+
+      describe('when change back to "Relevance" option', () => {
+        it('should not sorted by any column', () => {
+          const {
+            getByRole,
+            getByTestId,
+          } = renderAuthoritiesSearch();
+
+          fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+
+          fireEvent.change(getByTestId('sort-by-selection'), { target: { value: 'headingType' } });
+          fireEvent.change(getByTestId('sort-by-selection'), { target: { value: '' } });
+
+          expect(getByTestId('SearchResultsList')).toHaveAttribute('sortedColumn', '');
+          expect(getByTestId('SearchResultsList')).toHaveAttribute('sortOrder', '');
+        });
+      });
+    });
+
     describe('when click on "Type of Heading" checkbox', () => {
       it('should hide "Type of Heading" column', () => {
         const {
@@ -258,6 +342,49 @@ describe('Given AuthoritiesSearch', () => {
           searchResultListColumns.AUTH_REF_TYPE,
           searchResultListColumns.HEADING_REF,
         ]));
+      });
+    });
+  });
+
+  describe('when location has changed', () => {
+    const mockOnChangeSortOption = jest.fn();
+
+    beforeEach(() => {
+      useSortColumnManager.mockImplementation(() => ({
+        sortOrder: '',
+        sortedColumn: '',
+        onChangeSortOption: mockOnChangeSortOption,
+        onHeaderClick: jest.fn(),
+      }));
+    });
+
+    describe('and sort parameter is "authRefType"', () => {
+      beforeEach(() => {
+        useLocation.mockReturnValue({
+          search: `sort=${searchResultListColumns.AUTH_REF_TYPE}`,
+        });
+      });
+
+      it('should handle "onChangeSortOption" with "authRefType" and "ascending" parameters', () => {
+        renderAuthoritiesSearch();
+
+        expect(mockOnChangeSortOption)
+          .toHaveBeenCalledWith(searchResultListColumns.AUTH_REF_TYPE, sortOrders.ASC);
+      });
+    });
+
+    describe('and sort parameter is "-authRefType"', () => {
+      beforeEach(() => {
+        useLocation.mockReturnValue({
+          search: `sort=-${searchResultListColumns.AUTH_REF_TYPE}`,
+        });
+      });
+
+      it('should handle "onChangeSortOption" with "authRefType" and "descending" parameters', () => {
+        renderAuthoritiesSearch();
+
+        expect(mockOnChangeSortOption)
+          .toHaveBeenCalledWith(searchResultListColumns.AUTH_REF_TYPE, sortOrders.DES);
       });
     });
   });

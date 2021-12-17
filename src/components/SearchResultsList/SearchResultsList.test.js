@@ -6,7 +6,9 @@ import noop from 'lodash/noop';
 import Harness from '../../../test/jest/helpers/harness';
 import SearchResultsList from './SearchResultsList';
 import authorities from '../../../mocks/authorities';
-import { searchResultListColumns } from '../../constants';
+import {
+  searchResultListColumns,
+} from '../../constants';
 
 const renderSearchResultsList = (props = {}) => render(
   <Harness>
@@ -24,6 +26,9 @@ const renderSearchResultsList = (props = {}) => render(
       hasFilters={false}
       pageSize={15}
       onNeedMoreData={noop}
+      sortOrder=""
+      sortedColumn=""
+      onHeaderClick={jest.fn()}
       {...props}
     />
   </Harness>,

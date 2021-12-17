@@ -6,6 +6,9 @@
   "search-results-list.headingType": "Type of heading",
   "search-results-list.paneSub": "{totalRecords, number} {totalRecords, plural, one {record found} other {records found}}",
 
+  "actions.menuSection.sortBy": "Sort by",
+  "actions.menuSection.sortBy.relevance": "Relevance",
+
   "label.search": "Search",
   "search.searchAndFilter": "Search & filter",
   "search.createdDate": "Date created",

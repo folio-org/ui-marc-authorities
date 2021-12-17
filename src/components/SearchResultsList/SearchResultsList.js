@@ -11,7 +11,9 @@ import { MultiColumnList } from '@folio/stripes/components';
 import { SearchAndSortNoResultsMessage } from '@folio/stripes/smart-components';
 
 import { AuthorityShape } from '../../constants/shapes';
-import { searchResultListColumns } from '../../constants';
+import {
+  searchResultListColumns,
+} from '../../constants';
 
 const propTypes = {
   authorities: PropTypes.arrayOf(AuthorityShape).isRequired,
@@ -19,9 +21,12 @@ const propTypes = {
   isFilterPaneVisible: PropTypes.bool.isRequired,
   loaded: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
+  onHeaderClick: PropTypes.func.isRequired,
   onNeedMoreData: PropTypes.func.isRequired,
   pageSize: PropTypes.number.isRequired,
   query: PropTypes.string.isRequired,
+  sortedColumn: PropTypes.string.isRequired,
+  sortOrder: PropTypes.string.isRequired,
   toggleFilterPane: PropTypes.func.isRequired,
   totalResults: PropTypes.number,
   visibleColumns: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -37,6 +42,9 @@ const SearchResultsList = ({
   pageSize,
   onNeedMoreData,
   visibleColumns,
+  sortedColumn,
+  sortOrder,
+  onHeaderClick,
   isFilterPaneVisible,
   query,
   toggleFilterPane,
@@ -114,6 +122,9 @@ const SearchResultsList = ({
       pagingType="prev-next"
       pageAmount={pageSize}
       loading={loading}
+      sortedColumn={sortedColumn}
+      sortOrder={sortOrder}
+      onHeaderClick={onHeaderClick}
       isEmptyMessage={
         source ? (
           <div data-test-agreements-no-results-message>
