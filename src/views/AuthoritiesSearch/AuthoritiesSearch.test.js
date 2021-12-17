@@ -110,13 +110,6 @@ describe('Given AuthoritiesSearch', () => {
     expect(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' })).toBeDefined();
   });
 
-  it('should display "References" accordion and "Exclude see from" checkbox', () => {
-    const { getByRole } = renderAuthoritiesSearch();
-
-    expect(getByRole('heading', { name: 'ui-marc-authorities.search.references' })).toBeDefined();
-    expect(getByRole('checkbox', { name: 'ui-marc-authorities.search.excludeSeeFrom' })).toBeDefined();
-  });
-
   it('should be default sort order', () => {
     const { getByTestId } = renderAuthoritiesSearch();
 
