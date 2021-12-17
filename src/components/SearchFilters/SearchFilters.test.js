@@ -47,6 +47,13 @@ describe('Given SearchFilters', () => {
     expect(getByText('headingType')).toBeDefined();
   });
 
+  it('should display "References" accordion and "Exclude see from" checkbox', () => {
+    const { getByRole } = renderSearchFilters();
+
+    expect(getByRole('heading', { name: 'ui-marc-authorities.search.references' })).toBeDefined();
+    expect(getByRole('checkbox', { name: 'ui-marc-authorities.search.excludeSeeFrom' })).toBeDefined();
+  });
+
   it('should render created date filter', () => {
     const { getByText } = renderSearchFilters();
 

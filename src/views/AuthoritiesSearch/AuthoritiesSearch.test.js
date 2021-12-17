@@ -130,12 +130,14 @@ describe('Given AuthoritiesSearch', () => {
       } = renderAuthoritiesSearch();
 
       const textarea = getByTestId('search-textarea');
+      const searchButton = getByRole('button', { name: 'ui-marc-authorities.label.search' });
       const resetAllButton = getByRole('button', { name: 'stripes-smart-components.resetAll' });
 
       fireEvent.change(textarea, { target: { value: 'test search' } });
 
       expect(textarea.value).toBe('test search');
 
+      fireEvent.click(searchButton);
       fireEvent.click(resetAllButton);
 
       expect(textarea.value).toBe('');
@@ -201,7 +203,7 @@ describe('Given AuthoritiesSearch', () => {
       it('should show filters', async () => {
         jest.spyOn(routeData, 'useLocation').mockReturnValue({
           pathname: 'pathname',
-          search: '?query=test',
+          search: '?excludeSeeFrom=true&query=test',
         });
 
         let getByRoleFunction;
