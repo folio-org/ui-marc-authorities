@@ -4,6 +4,11 @@ import { useIntl } from 'react-intl';
 import omit from 'lodash/omit';
 
 import {
+  Accordion,
+  Checkbox,
+  FilterAccordionHeader,
+} from '@folio/stripes/components';
+import {
   AcqDateRangeFilter,
 } from '@folio/stripes-acq-components';
 
@@ -19,9 +24,12 @@ const DATE_FORMAT = 'YYYY-MM-DD';
 
 const propTypes = {
   activeFilters: PropTypes.object.isRequired,
+  applyExcludeSeeFromLimiter: PropTypes.func.isRequired,
+  isExcludedSeeFromLimiter: PropTypes.bool.isRequired,
   isSearching: PropTypes.bool.isRequired,
   query: PropTypes.string.isRequired,
   setFilters: PropTypes.func.isRequired,
+  setIsExcludedSeeFromLimiter: PropTypes.func.isRequired,
 };
 
 const SearchFilters = ({
@@ -29,6 +37,9 @@ const SearchFilters = ({
   isSearching,
   setFilters,
   query,
+  isExcludedSeeFromLimiter,
+  setIsExcludedSeeFromLimiter,
+  applyExcludeSeeFromLimiter,
 }) => {
   const intl = useIntl();
 
@@ -59,6 +70,20 @@ const SearchFilters = ({
 
   return (
     <>
+      <Accordion
+        closedByDefault
+        displayClearButton={isExcludedSeeFromLimiter}
+        header={FilterAccordionHeader}
+        label={intl.formatMessage({ id: 'ui-marc-authorities.search.references' })}
+        onClearFilter={() => setIsExcludedSeeFromLimiter(false)}
+      >
+        <Checkbox
+          label={intl.formatMessage({ id: 'ui-marc-authorities.search.excludeSeeFrom' })}
+          onChange={applyExcludeSeeFromLimiter}
+          checked={isExcludedSeeFromLimiter}
+        />
+      </Accordion>
+
       <MultiSelectionFacet
         id={FACETS.HEADING_TYPE}
         label={intl.formatMessage({ id: `ui-marc-authorities.search.${FACETS.HEADING_TYPE}` })}

@@ -19,10 +19,7 @@ import {
 import omit from 'lodash/omit';
 
 import {
-  Accordion,
   Button,
-  Checkbox,
-  FilterAccordionHeader,
   Icon,
   Pane,
   PaneMenu,
@@ -338,25 +335,14 @@ const AuthoritiesSearch = ({ children }) => {
             </Button>
           </form>
 
-          <Accordion
-            closedByDefault
-            displayClearButton={isExcludedSeeFromLimiter}
-            header={FilterAccordionHeader}
-            label={intl.formatMessage({ id: 'ui-marc-authorities.search.references' })}
-            onClearFilter={() => setIsExcludedSeeFromLimiter(false)}
-          >
-            <Checkbox
-              label={intl.formatMessage({ id: 'ui-marc-authorities.search.excludeSeeFrom' })}
-              onChange={applyExcludeSeeFromLimiter}
-              checked={isExcludedSeeFromLimiter}
-            />
-          </Accordion>
-
           <SearchFilters
             activeFilters={filters}
             isSearching={isLoading}
             setFilters={setFilters}
             query={query}
+            isExcludedSeeFromLimiter={isExcludedSeeFromLimiter}
+            setIsExcludedSeeFromLimiter={setIsExcludedSeeFromLimiter}
+            applyExcludeSeeFromLimiter={applyExcludeSeeFromLimiter}
           />
         </Pane>
       }
