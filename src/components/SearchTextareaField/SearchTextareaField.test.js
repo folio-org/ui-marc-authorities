@@ -19,11 +19,13 @@ const searchableIndexes = [{
 }];
 
 const onChange = jest.fn();
+const onKeyDown = jest.fn();
 
 const renderSearchTextareaField = (props = {}) => render(
   <SearchTextareaField
     id="test-search-textarea-field"
     onChange={onChange}
+    onKeyDown={onKeyDown}
     searchableIndexes={searchableIndexes}
     {...props}
   />,
@@ -49,6 +51,16 @@ describe('Given SearchTextareaField', () => {
       fireEvent.change(getByTestId('search-textarea'), { target: { value: 'test' } });
 
       expect(onChange).toHaveBeenCalled();
+    });
+  });
+
+  describe('when typing textarea', () => {
+    it('should handle onKeyDown', () => {
+      const { getByTestId } = renderSearchTextareaField();
+
+      fireEvent.keyDown(getByTestId('search-textarea'), { target: { value: 'test' } });
+
+      expect(onKeyDown).toHaveBeenCalled();
     });
   });
 });

@@ -16,6 +16,7 @@ const propTypes = {
   loading: PropTypes.bool,
   onChange: PropTypes.func,
   onChangeIndex: PropTypes.func,
+  onKeyDown: PropTypes.func,
   searchableIndexes: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string,
     value: PropTypes.string,
@@ -34,6 +35,7 @@ const SearchTextareaField = ({
   onChangeIndex,
   selectedIndex,
   disabled,
+  onKeyDown,
   ...rest
 }) => {
   const intl = useIntl();
@@ -64,6 +66,7 @@ const SearchTextareaField = ({
         data-testid="search-textarea"
         loading={loading}
         onChange={onChange}
+        onKeyDown={onKeyDown}
         type="search"
         value={value || ''}
         readOnly={loading || rest.readOnly}

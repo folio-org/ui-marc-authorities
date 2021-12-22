@@ -279,6 +279,14 @@ const AuthoritiesSearch = ({ children }) => {
     value: index.value,
   }));
 
+  const handleKeyDown = (e) => {
+    if (e.type === 'keydown' && e.key === 'Enter') {
+      e.preventDefault();
+      setSearchQuery(searchInputValue);
+      setSearchIndex(searchDropdownValue);
+    }
+  };
+
   return (
     <PersistedPaneset
       appId="@folio/marc-authorities"
@@ -311,6 +319,7 @@ const AuthoritiesSearch = ({ children }) => {
                 searchableIndexes={searchableIndexes}
                 onChangeIndex={(e) => onChangeIndex(e.target.value)}
                 selectedIndex={searchDropdownValue}
+                onKeyDown={handleKeyDown}
               />
               <Button
                 id="submit-authorities-search"
