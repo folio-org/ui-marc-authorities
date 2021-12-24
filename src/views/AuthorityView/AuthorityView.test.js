@@ -1,9 +1,19 @@
 import {
+  fireEvent,
   render,
 } from '@testing-library/react';
 
 import Harness from '../../../test/jest/helpers/harness';
 import AuthorityView from './AuthorityView';
+
+const mockHistoryPush = jest.fn();
+
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  useHistory: () => ({
+    push: mockHistoryPush,
+  }),
+}));
 
 const marcSource = {
   data: {
@@ -51,5 +61,21 @@ describe('Given AuthorityView', () => {
     const { getByText } = renderAuthorityView();
 
     expect(getByText('QuickMarcView')).toBeDefined();
+  });
+
+  it('should display "Edit" button', () => {
+    const { getByText } = renderAuthorityView();
+
+    expect(getByText('ui-marc-authorities.authority-record.edit')).toBeDefined();
+  });
+
+  describe('when click on "Edit" button', () => {
+    it('should redirect to EditQuickMarcRecord page', () => {
+      const { getByText } = renderAuthorityView();
+
+      fireEvent.click(getByText('ui-marc-authorities.authority-record.edit'));
+
+      expect(mockHistoryPush).toHaveBeenCalled();
+    });
   });
 });

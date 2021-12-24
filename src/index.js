@@ -11,6 +11,7 @@ import { Route } from '@folio/stripes/core';
 import {
   SearchRoute,
   AuthorityViewRoute,
+  AuthorityQuickMarcEditRoute,
 } from './routes';
 
 const propTypes = {
@@ -27,6 +28,7 @@ const MarcAuthorities = ({
 }) => {
   return (
     <Switch>
+      <Route path={`${path}/quick-marc`} component={AuthorityQuickMarcEditRoute} />
       <Route
         path={path}
         component={SearchRoute}

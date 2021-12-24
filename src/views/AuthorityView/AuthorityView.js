@@ -1,10 +1,18 @@
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router';
-import { useIntl } from 'react-intl';
+import {
+  useHistory,
+  useLocation,
+} from 'react-router';
+import {
+  useIntl,
+  FormattedMessage,
+} from 'react-intl';
 
 import {
   LoadingView,
+  Button,
 } from '@folio/stripes/components';
+import { IfPermission } from '@folio/stripes/core';
 import MarcView from '@folio/quick-marc/src/QuickMarcView/QuickMarcView';
 
 import { AuthorityShape } from '../../constants/shapes';
@@ -26,6 +34,7 @@ const AuthorityView = ({
 }) => {
   const intl = useIntl();
   const history = useHistory();
+  const location = useLocation();
 
   const onClose = () => {
     history.push('/marc-authorities');
@@ -34,6 +43,13 @@ const AuthorityView = ({
   if (marcSource.isLoading || authority.isLoading) {
     return <LoadingView />;
   }
+
+  const redirectToQuickMarcEditPage = () => {
+    history.push({
+      pathname: `/marc-authorities/quick-marc/edit-authority/${authority.data.id}`,
+      search: location.search,
+    });
+  };
 
   return (
     <MarcView
@@ -47,6 +63,17 @@ const AuthorityView = ({
       marcTitle={intl.formatMessage({ id: 'ui-marc-authorities.marcHeading' })}
       marc={marcSource.data}
       onClose={onClose}
+      lastMenu={(
+        <IfPermission perm="ui-marc-authorities.authority-record.edit">
+          <Button
+            buttonStyle="primary"
+            marginBottom0
+            onClick={redirectToQuickMarcEditPage}
+          >
+            <FormattedMessage id="ui-marc-authorities.authority-record.edit" />
+          </Button>
+        </IfPermission>
+      )}
     />
   );
 };
