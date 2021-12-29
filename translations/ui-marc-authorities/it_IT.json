@@ -18,9 +18,14 @@
     "subject": "Subject",
     "childrenSubjectHeading": "Children's subject heading",
     "genre": "Genre",
-    "authorityUUID": "Authority UUID",
     "marcHeading": "MARC authority record",
     "authorityRecordSubtitle": "{heading} • Last updated: {lastUpdatedDate}",
-    "updatedDate": "Date updated",
-    "createdDate": "Date created"
+    "search-results-list.paneSub": "{totalRecords, number} {totalRecords, plural, one {record found} other {records found}}",
+    "actions.menuSection.sortBy": "Sort by",
+    "actions.menuSection.sortBy.relevance": "Relevance",
+    "search.createdDate": "Date created",
+    "search.updatedDate": "Date updated",
+    "search.headingType": "Type of heading",
+    "search.references": "References",
+    "search.excludeSeeFrom": "Exclude see from"
 }

@@ -18,9 +18,14 @@
     "subject": "الموضوع",
     "childrenSubjectHeading": "رؤوس موضوعات الأطفال",
     "genre": "النوع",
-    "authorityUUID": "المعرّف الفريد العمومي للاستناد",
     "marcHeading": "تسجيلة استناد مارك",
     "authorityRecordSubtitle": "{heading} • آخر تحديث: {lastUpdatedDate}",
-    "updatedDate": "تاريخ التحديث",
-    "createdDate": "تاريخ الإنشاء"
+    "search-results-list.paneSub": "تم العثور على {totalRecords, number} {totalRecords, plural, one {تسجيلة} other {تسجيلة}}",
+    "actions.menuSection.sortBy": "فرز حسب",
+    "actions.menuSection.sortBy.relevance": "الصلة",
+    "search.createdDate": "تاريخ الإنشاء",
+    "search.updatedDate": "تاريخ التحديث",
+    "search.headingType": "نوع الرأس",
+    "search.references": "مراجع",
+    "search.excludeSeeFrom": "استبعاد انظر من"
 }
