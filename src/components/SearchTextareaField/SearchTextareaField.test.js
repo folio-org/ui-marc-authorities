@@ -77,7 +77,7 @@ describe('Given SearchTextareaField', () => {
 
       fireEvent.change(getByTestId('search-textarea'), { target: { value: 'test' } });
       fireEvent.keyDown(getByTestId('search-textarea'), {
-        keyCode: !13,
+        keyCode: 14,
       });
 
       expect(mockOnSubmitSearch).not.toHaveBeenCalled();
