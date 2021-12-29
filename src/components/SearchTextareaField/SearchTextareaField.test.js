@@ -19,15 +19,11 @@ const searchableIndexes = [{
 }];
 
 const onChange = jest.fn();
-const onSubmitSearch = jest.fn();
-
-const onKeyDown = () => onSubmitSearch();
 
 const renderSearchTextareaField = (props = {}) => render(
   <SearchTextareaField
     id="test-search-textarea-field"
     onChange={onChange}
-    onKeyDown={onKeyDown}
     searchableIndexes={searchableIndexes}
     {...props}
   />,
@@ -58,9 +54,17 @@ describe('Given SearchTextareaField', () => {
 
   describe('when user press "Enter" button', () => {
     it('should handle form submit', async () => {
-      onKeyDown();
+      const mockOnSubmitSearch = jest.fn();
+      const { getByTestId } = renderSearchTextareaField({
+        onSubmitSearch: mockOnSubmitSearch,
+      });
 
-      expect(onSubmitSearch).toHaveBeenCalled();
+      fireEvent.change(getByTestId('search-textarea'), { target: { value: 'test' } });
+      fireEvent.keyDown(getByTestId('search-textarea'), {
+        keyCode: 13,
+      });
+
+      expect(mockOnSubmitSearch).toHaveBeenCalled();
     });
   });
 });

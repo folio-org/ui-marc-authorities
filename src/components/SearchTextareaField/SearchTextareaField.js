@@ -16,8 +16,7 @@ const propTypes = {
   loading: PropTypes.bool,
   onChange: PropTypes.func,
   onChangeIndex: PropTypes.func,
-  onKeyDown: PropTypes.func,
-  onSubmitSearch: PropTypes.func,
+  onSubmitSearch: PropTypes.func.isRequired,
   searchableIndexes: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string,
     value: PropTypes.string,
@@ -75,7 +74,6 @@ const SearchTextareaField = ({
         loading={loading}
         onChange={onChange}
         onKeyDown={handleKeyDown}
-        onSubmitSearch={onSubmitSearch}
         type="search"
         value={value || ''}
         readOnly={loading || rest.readOnly}
