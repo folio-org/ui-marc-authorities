@@ -100,7 +100,7 @@ const SearchFilters = ({
 
       <AcqDateRangeFilter
         activeFilters={activeFilters?.createdDate || []}
-        labelId="ui-marc-authorities.createdDate"
+        labelId="ui-marc-authorities.search.createdDate"
         id="createdDate"
         name="createdDate"
         onChange={applyFilters}
@@ -111,7 +111,7 @@ const SearchFilters = ({
 
       <AcqDateRangeFilter
         activeFilters={activeFilters?.updatedDate || []}
-        labelId="ui-marc-authorities.updatedDate"
+        labelId="ui-marc-authorities.search.updatedDate"
         id="updatedDate"
         name="updatedDate"
         onChange={applyFilters}

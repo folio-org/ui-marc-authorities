@@ -74,7 +74,6 @@ const MultiSelectionFacet = ({
       id={id}
       open={open}
       onToggle={handleSectionToggle}
-      separator={false}
       header={FilterAccordionHeader}
       onClearFilter={() => onClearFilter(name)}
       displayClearButton={displayClearButton}

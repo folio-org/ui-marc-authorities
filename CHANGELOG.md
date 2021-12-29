@@ -16,3 +16,4 @@
 * [UIMARCAUTH-17](https://issues.folio.org/browse/UIMARCAUTH-17) Display a Exclude see from limiter.
 * [UIMARCAUTH-40](https://issues.folio.org/browse/UIMARCAUTH-40) Fix Results List column headers are smushed.
 * [UIMARCAUTH-34](https://issues.folio.org/browse/UIMARCAUTH-34) Remove Authority UUID search option.
+* [UIMARCAUTH-36](https://issues.folio.org/browse/UIMARCAUTH-36) Update second line heading on QuickMarc view pane.
