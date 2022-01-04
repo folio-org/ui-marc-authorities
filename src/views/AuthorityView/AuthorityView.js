@@ -57,7 +57,7 @@ const AuthorityView = ({
       paneSub={intl.formatMessage({
         id: 'ui-marc-authorities.authorityRecordSubtitle',
       }, {
-        heading: authority.data.headingRef,
+        heading: authority.data.headingType,
         lastUpdatedDate: intl.formatDate(marcSource.data.metadata.lastUpdatedDate),
       })}
       marcTitle={intl.formatMessage({ id: 'ui-marc-authorities.marcHeading' })}
