@@ -17,3 +17,5 @@
 * [UIMARCAUTH-40](https://issues.folio.org/browse/UIMARCAUTH-40) Fix Results List column headers are smushed.
 * [UIMARCAUTH-34](https://issues.folio.org/browse/UIMARCAUTH-34) Remove Authority UUID search option.
 * [UIMARCAUTH-32](https://issues.folio.org/browse/UIMARCAUTH-32) Search box - Hit enter key must run search.
+* [UIMARCAUTH-36](https://issues.folio.org/browse/UIMARCAUTH-36) Update second line heading on QuickMarc view pane.
+* [UIMARCAUTH-45](https://issues.folio.org/browse/UIMARCAUTH-45) Add Edit button on MarcView Pane.

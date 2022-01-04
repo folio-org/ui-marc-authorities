@@ -9,6 +9,8 @@
   "actions.menuSection.sortBy": "Sort by",
   "actions.menuSection.sortBy.relevance": "Relevance",
 
+  "authority-record.edit": "Edit",
+
   "label.search": "Search",
   "search.searchAndFilter": "Search & filter",
   "search.createdDate": "Date created",
