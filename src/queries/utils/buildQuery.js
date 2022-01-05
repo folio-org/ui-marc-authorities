@@ -11,6 +11,10 @@ const buildQuery = ({
 }) => {
   const indexData = searchableIndexesMap[searchIndex || searchableIndexesValues.KEYWORD];
 
+  if (!indexData) {
+    return '';
+  }
+
   const queryStrings = indexData.map(data => {
     const queryParts = [];
 

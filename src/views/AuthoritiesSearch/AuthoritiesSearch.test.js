@@ -12,7 +12,7 @@ import AuthoritiesSearch from './AuthoritiesSearch';
 import '../../../test/jest/__mock__';
 import Harness from '../../../test/jest/helpers/harness';
 import {
-  searchableIndexesValues,
+  rawSearchableIndexes,
   searchResultListColumns,
   sortOrders,
 } from '../../constants';
@@ -81,8 +81,8 @@ describe('Given AuthoritiesSearch', () => {
   it('should display dropdown with searchable indexes', () => {
     const { getByText } = renderAuthoritiesSearch();
 
-    Object.values(searchableIndexesValues).forEach(indexValue => {
-      expect(getByText(`ui-marc-authorities.${indexValue}`)).toBeDefined();
+    rawSearchableIndexes.forEach(({ label }) => {
+      expect(getByText(label)).toBeDefined();
     });
   });
 

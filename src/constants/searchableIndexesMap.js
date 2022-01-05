@@ -6,7 +6,7 @@ export const searchableIndexesMap = {
     plain: true,
   }],
   [searchableIndexesValues.IDENTIFIER]: [{
-    name: 'identifier',
+    name: 'identifiers.value',
     plain: true,
   }],
   [searchableIndexesValues.PERSONAL_NAME]: [{

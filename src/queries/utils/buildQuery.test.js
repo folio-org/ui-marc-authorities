@@ -9,7 +9,7 @@ describe('Given buildQuery', () => {
         isExcludedSeeFromLimiter: true,
       });
 
-      expect(query).toBe('(identifier=="%{query}")');
+      expect(query).toBe('(identifiers.value=="%{query}")');
     });
   });
 

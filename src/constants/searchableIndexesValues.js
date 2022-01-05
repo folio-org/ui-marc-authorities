@@ -1,6 +1,6 @@
 export const searchableIndexesValues = {
   KEYWORD: 'keyword',
-  IDENTIFIER: 'identifier',
+  IDENTIFIER: 'identifiers.value',
   PERSONAL_NAME: 'personalName',
   CORPORATE_CONFERENCE_NAME: 'corporateConferenceName',
   GEOGRAPHIC_NAME: 'geographicName',
