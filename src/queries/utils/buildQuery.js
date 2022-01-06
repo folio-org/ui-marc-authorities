@@ -26,34 +26,36 @@ const buildQuery = ({
       queryParts.push(query);
     }
 
-    if (!isExcludedSeeFromLimiter) {
-      if ((data.sft || data.saft) && data.plain) {
-        const name = upperFirst(data.name);
+    if (isExcludedSeeFromLimiter) {
+      return queryParts;
+    }
 
-        if (data.sft) {
-          const query = queryTemplate(`sft${name}`);
+    if ((data.sft || data.saft) && data.plain) {
+      const name = upperFirst(data.name);
 
-          queryParts.push(query);
-        }
-
-        if (data.saft) {
-          const query = queryTemplate(`saft${name}`);
-
-          queryParts.push(query);
-        }
-      }
-
-      if (data.sft && !data.plain) {
-        const query = queryTemplate(data.name);
+      if (data.sft) {
+        const query = queryTemplate(`sft${name}`);
 
         queryParts.push(query);
       }
 
-      if (data.saft && !data.plain) {
-        const query = queryTemplate(data.name);
+      if (data.saft) {
+        const query = queryTemplate(`saft${name}`);
 
         queryParts.push(query);
       }
+    }
+
+    if (data.sft && !data.plain) {
+      const query = queryTemplate(data.name);
+
+      queryParts.push(query);
+    }
+
+    if (data.saft && !data.plain) {
+      const query = queryTemplate(data.name);
+
+      queryParts.push(query);
     }
 
     return queryParts;
