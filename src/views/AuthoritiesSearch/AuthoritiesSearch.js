@@ -154,7 +154,7 @@ const AuthoritiesSearch = ({ children }) => {
     const searchString = `${buildSearch(queryParams)}`;
 
     history.replace({
-      pathname: location.pathname,
+      pathname: '/marc-authorities',
       search: searchString,
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -363,6 +363,8 @@ const AuthoritiesSearch = ({ children }) => {
         )}
         firstMenu={renderResultsFirstMenu()}
         actionMenu={renderActionMenu}
+        padContent={false}
+        noOverflow
       >
         <SearchResultsList
           authorities={authorities}

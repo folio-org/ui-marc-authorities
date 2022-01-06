@@ -127,6 +127,7 @@ const SearchResultsList = ({
       sortedColumn={sortedColumn}
       sortOrder={sortOrder}
       onHeaderClick={onHeaderClick}
+      autosize
       isEmptyMessage={
         source ? (
           <div data-test-agreements-no-results-message>

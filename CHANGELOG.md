@@ -5,6 +5,7 @@
 * New app created with stripes-cli
 * [UIMARCAUTH-6](https://issues.folio.org/browse/UIMARCAUTH-6) Add View MARC authority record permission.
 * [UIMARCAUTH-5](https://issues.folio.org/browse/UIMARCAUTH-5) Add Edit MARC authority record permission.
+* [UIMARCAUTH-18](https://issues.folio.org/browse/UIMARCAUTH-18) Display Results List.
 * [UIMARCAUTH-16](https://issues.folio.org/browse/UIMARCAUTH-16) Implement MARC Authorities Search Box.
 * [UIMARCAUTH-3](https://issues.folio.org/browse/UIMARCAUTH-3) Add View MARC authority record in MARC Authorities App.
 * [UIMARCAUTH-20](https://issues.folio.org/browse/UIMARCAUTH-20) Implement Results List Column Chooser.
@@ -19,4 +20,5 @@
 * [UIMARCAUTH-32](https://issues.folio.org/browse/UIMARCAUTH-32) Search box - Hit enter key must run search.
 * [UIMARCAUTH-36](https://issues.folio.org/browse/UIMARCAUTH-36) Update second line heading on QuickMarc view pane.
 * [UIMARCAUTH-45](https://issues.folio.org/browse/UIMARCAUTH-45) Add Edit button on MarcView Pane.
-* [UIMARCAUTH-46](https://issues.folio.org/browse/UIMARCAUTH-46) Fix Cannot get Authority record search - Identifiers search option to work
+* [UIMARCAUTH-46](https://issues.folio.org/browse/UIMARCAUTH-46) Fix Cannot get Authority record search - Identifiers search option to work.
+* [UIMARCAUTH-37](https://issues.folio.org/browse/UIMARCAUTH-37) Fix Closing third pane does not resize the second pane size and Reset all does not reset results list pane.

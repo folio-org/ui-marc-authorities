@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import {
   useHistory,
@@ -36,9 +37,16 @@ const AuthorityView = ({
   const history = useHistory();
   const location = useLocation();
 
-  const onClose = () => {
-    history.push('/marc-authorities');
-  };
+  const onClose = useCallback(
+    () => {
+      history.push({
+        pathname: '/marc-authorities',
+        search: location.search,
+      });
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [location.search],
+  );
 
   if (marcSource.isLoading || authority.isLoading) {
     return <LoadingView />;
@@ -60,6 +68,7 @@ const AuthorityView = ({
         heading: authority.data.headingType,
         lastUpdatedDate: intl.formatDate(marcSource.data.metadata.lastUpdatedDate),
       })}
+      isPaneset={false}
       marcTitle={intl.formatMessage({ id: 'ui-marc-authorities.marcHeading' })}
       marc={marcSource.data}
       onClose={onClose}

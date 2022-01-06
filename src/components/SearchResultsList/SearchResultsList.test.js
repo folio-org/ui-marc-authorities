@@ -3,6 +3,7 @@ import {
 } from '@testing-library/react';
 import noop from 'lodash/noop';
 
+import { mockOffsetSize } from '@folio/stripes-acq-components/test/jest/helpers/mockOffsetSize';
 import Harness from '../../../test/jest/helpers/harness';
 import SearchResultsList from './SearchResultsList';
 import authorities from '../../../mocks/authorities';
@@ -35,6 +36,8 @@ const renderSearchResultsList = (props = {}) => render(
 );
 
 describe('Given SearchResultsList', () => {
+  mockOffsetSize(500, 500);
+
   it('should render MCL component', async () => {
     const { getAllByText } = renderSearchResultsList();
 
