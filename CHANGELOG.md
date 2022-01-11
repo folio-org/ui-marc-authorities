@@ -22,3 +22,4 @@
 * [UIMARCAUTH-45](https://issues.folio.org/browse/UIMARCAUTH-45) Add Edit button on MarcView Pane.
 * [UIMARCAUTH-46](https://issues.folio.org/browse/UIMARCAUTH-46) Fix Cannot get Authority record search - Identifiers search option to work.
 * [UIMARCAUTH-37](https://issues.folio.org/browse/UIMARCAUTH-37) Fix Closing third pane does not resize the second pane size and Reset all does not reset results list pane.
+* [UIMARCAUTH-48](https://issues.folio.org/browse/UIMARCAUTH-48) Children's subject headings search option - Extend request by searching by subjectHeadings = b.
