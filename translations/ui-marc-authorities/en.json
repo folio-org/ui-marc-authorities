@@ -33,5 +33,16 @@
   
   "permission.app.enabled": "UI: MARC Authorities module is enabled",
   "permission.authority-record.view": "View MARC authority record",
-  "permission.authority-record.edit": "Edit MARC authority record"
+  "permission.authority-record.edit": "Edit MARC authority record",
+  "appMenu.keyboardShortcuts": "Keyboard shortcuts",
+  "shortcut.editRecord": "Edit a record",
+  "shortcut.saveRecord": "Save a record",
+  "shortcut.goToSearchFilter": "Go to Search & Filter pane",
+  "shortcut.openShortcutModal": "Open keyboard shortcuts modal",
+  "shortcut.expandAll": "Expand all accordions", 
+  "shortcut.closeModal": "Close a modal or pop-up",
+  "shortcut.copy": "Copy",
+  "shortcut.cut": "Cut",
+  "shortcut.paste": "Paste",
+  "shortcut.find": "Find"
 }

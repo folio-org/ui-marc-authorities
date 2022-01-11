@@ -22,3 +22,4 @@
 * [UIMARCAUTH-45](https://issues.folio.org/browse/UIMARCAUTH-45) Add Edit button on MarcView Pane.
 * [UIMARCAUTH-46](https://issues.folio.org/browse/UIMARCAUTH-46) Fix Cannot get Authority record search - Identifiers search option to work.
 * [UIMARCAUTH-37](https://issues.folio.org/browse/UIMARCAUTH-37) Fix Closing third pane does not resize the second pane size and Reset all does not reset results list pane.
+* [UIMARCAUTH-30](https://issues.folio.org/browse/UIMARCAUTH-30) Implement App context menu and keyboard shortcuts.
