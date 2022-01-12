@@ -23,6 +23,16 @@ describe('Given buildQuery', () => {
     });
   });
 
+  describe('when non-existent index provided', () => {
+    it('should return an empty string', () => {
+      const query = buildQuery({
+        searchIndex: 'testIndex',
+      });
+
+      expect(query).toBe('');
+    });
+  });
+
   describe('when index with different names for plain, sft, and saft prefixes provided', () => {
     it('should return correct query', () => {
       const query = buildQuery({
@@ -40,6 +50,16 @@ describe('Given buildQuery', () => {
       });
 
       expect(query).toBe('(keyword=="%{query}")');
+    });
+  });
+
+  describe('when childrenSubjectHeading index provided', () => {
+    it('should return correct query for childrenSubjectHeading index', () => {
+      const query = buildQuery({
+        searchIndex: 'childrenSubjectHeading',
+      });
+
+      expect(query).toBe('(keyword=="%{query}" and subjectHeadings=="b")');
     });
   });
 });
