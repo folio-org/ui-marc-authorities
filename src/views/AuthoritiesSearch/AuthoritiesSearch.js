@@ -25,6 +25,9 @@ import {
   PaneMenu,
   MenuSection,
   Select,
+  AdvancedSearch,
+  Row,
+  Col,
 } from '@folio/stripes/components';
 import {
   CollapseFilterPaneButton,
@@ -50,7 +53,9 @@ import {
 import { useAuthorities } from '../../queries';
 import { useSortColumnManager } from '../../hooks';
 import {
+  searchableIndexesValues,
   rawSearchableIndexes,
+  advancedSearchIndexes,
   searchResultListColumns,
   sortOrders,
 } from '../../constants';
@@ -74,7 +79,9 @@ const AuthoritiesSearch = ({ children }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const [searchDropdownValue, setSearchDropdownValue] = useState('');
-  const [searchIndex, setSearchIndex] = useState('');
+  const [searchIndex, setSearchIndex] = useState(searchableIndexesValues.KEYWORD);
+  const [advancedSearchDefaultSearch, setAdvancedSearchDefaultSearch] = useState();
+  const [advancedSearchRows, setAdvancedSearchRows] = useState([]);
 
   const nonFilterUrlParams = ['query', 'qindex', 'excludeSeeFrom', 'sort'];
 
@@ -108,16 +115,30 @@ const AuthoritiesSearch = ({ children }) => {
   useEffect(() => {
     const locationSearchParams = queryString.parse(location.search);
 
+    let newSearchInputValue = '';
+    let newSearchQuery = '';
+    let newSearchDropdownValue = '';
+    let newSearchIndex = '';
+
     if (Object.keys(locationSearchParams).length > 0) {
       if (locationSearchParams.query && locationSearchParams.query !== searchQuery) {
-        setSearchInputValue(locationSearchParams.query);
-        setSearchQuery(locationSearchParams.query);
+        newSearchInputValue = locationSearchParams.query;
+        newSearchQuery = locationSearchParams.query;
       }
 
       if (locationSearchParams.qindex && locationSearchParams.qindex !== searchIndex) {
-        setSearchDropdownValue(locationSearchParams.qindex);
-        setSearchIndex(locationSearchParams.qindex);
+        newSearchDropdownValue = locationSearchParams.qindex;
+        newSearchIndex = locationSearchParams.qindex;
       }
+
+      setSearchInputValue(newSearchInputValue);
+      setSearchQuery(newSearchQuery);
+      setSearchDropdownValue(newSearchDropdownValue);
+      setSearchIndex(newSearchIndex);
+      setAdvancedSearchDefaultSearch({
+        query: newSearchInputValue,
+        option: newSearchDropdownValue,
+      });
 
       if (locationSearchParams.excludeSeeFrom) {
         setIsExcludedSeeFromLimiter(locationSearchParams.excludeSeeFrom);
@@ -167,6 +188,8 @@ const AuthoritiesSearch = ({ children }) => {
     sortedColumn,
   ]);
 
+  const isAdvancedSearch = searchIndex === searchableIndexesValues.ADVANCED_SEARCH;
+
   const {
     authorities,
     isLoading,
@@ -177,6 +200,8 @@ const AuthoritiesSearch = ({ children }) => {
   } = useAuthorities({
     searchQuery,
     searchIndex,
+    advancedSearch: advancedSearchRows,
+    isAdvancedSearch,
     filters,
     isExcludedSeeFromLimiter,
     sortOrder,
@@ -204,7 +229,13 @@ const AuthoritiesSearch = ({ children }) => {
     setSearchIndex(searchDropdownValue);
   };
 
-  const updateSearchValue = (value) => setSearchInputValue(value);
+  const updateSearchValue = (value) => {
+    setSearchInputValue(value);
+    setAdvancedSearchDefaultSearch({
+      query: value,
+      option: searchDropdownValue,
+    });
+  };
 
   const resetAll = () => {
     setSearchInputValue('');
@@ -213,6 +244,7 @@ const AuthoritiesSearch = ({ children }) => {
     setSearchIndex('');
     setFilters('');
     setIsExcludedSeeFromLimiter(false);
+    setAdvancedSearchDefaultSearch(null);
     onChangeSortOption('');
   };
 
@@ -236,6 +268,14 @@ const AuthoritiesSearch = ({ children }) => {
         />
       </PaneMenu>
     );
+  };
+
+  const handleAdvancedSearch = (searchString, searchRows) => {
+    setSearchDropdownValue(searchableIndexesValues.ADVANCED_SEARCH);
+    setSearchIndex(searchableIndexesValues.ADVANCED_SEARCH);
+    setSearchInputValue(searchString);
+    setSearchQuery(searchString);
+    setAdvancedSearchRows(searchRows);
   };
 
   const options = Object.values(searchResultListColumns).map((option) => ({
@@ -277,6 +317,10 @@ const AuthoritiesSearch = ({ children }) => {
   };
 
   const searchableIndexes = rawSearchableIndexes.map(index => ({
+    label: intl.formatMessage({ id: index.label }),
+    value: index.value,
+  }));
+  const advancedSearchOptions = advancedSearchIndexes.map(index => ({
     label: intl.formatMessage({ id: index.label }),
     value: index.value,
   }));
@@ -326,16 +370,29 @@ const AuthoritiesSearch = ({ children }) => {
                 {intl.formatMessage({ id: 'ui-marc-authorities.label.search' })}
               </Button>
             </div>
-            <Button
-              buttonStyle="none"
-              id="clickable-reset-all"
-              disabled={!searchInputValue || isLoading}
-              onClick={resetAll}
-            >
-              <Icon icon="times-circle-solid">
-                {intl.formatMessage({ id: 'stripes-smart-components.resetAll' })}
-              </Icon>
-            </Button>
+            <Row between="xs">
+              <Col xs="12" sm="6">
+                <Button
+                  buttonStyle="none"
+                  id="clickable-reset-all"
+                  fullWidth
+                  disabled={!searchInputValue || isLoading}
+                  onClick={resetAll}
+                >
+                  <Icon icon="times-circle-solid">
+                    {intl.formatMessage({ id: 'stripes-smart-components.resetAll' })}
+                  </Icon>
+                </Button>
+              </Col>
+              <Col xs="12" sm="6">
+                <AdvancedSearch
+                  searchOptions={advancedSearchOptions}
+                  defaultSearchOptionValue={searchableIndexesValues.KEYWORD}
+                  firstRowInitialSearch={advancedSearchDefaultSearch}
+                  onSearch={handleAdvancedSearch}
+                />
+              </Col>
+            </Row>
           </form>
 
           <SearchFilters

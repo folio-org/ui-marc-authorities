@@ -1,6 +1,6 @@
 import { searchableIndexesValues } from './searchableIndexesValues';
 
-export const rawSearchableIndexes = [
+export const advancedSearchIndexes = [
   { label: 'ui-marc-authorities.keyword', value: searchableIndexesValues.KEYWORD },
   { label: 'ui-marc-authorities.identifier', value: searchableIndexesValues.IDENTIFIER },
   { label: 'ui-marc-authorities.personalName', value: searchableIndexesValues.PERSONAL_NAME },
@@ -11,5 +11,4 @@ export const rawSearchableIndexes = [
   { label: 'ui-marc-authorities.subject', value: searchableIndexesValues.SUBJECT },
   { label: 'ui-marc-authorities.childrenSubjectHeading', value: searchableIndexesValues.CHILDREN_SUBJECT_HEADING },
   { label: 'ui-marc-authorities.genre', value: searchableIndexesValues.GENRE },
-  { label: 'ui-marc-authorities.advancedSearch', value: searchableIndexesValues.ADVANCED_SEARCH },
 ];

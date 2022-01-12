@@ -7,6 +7,8 @@ import {
 
 const buildQuery = ({
   searchIndex,
+  comparator = '==',
+  seeAlsoJoin = 'or',
   isExcludedSeeFromLimiter = false,
 }) => {
   const indexData = searchableIndexesMap[searchIndex || searchableIndexesValues.KEYWORD];
@@ -18,7 +20,7 @@ const buildQuery = ({
   const queryStrings = indexData.map(data => {
     const queryParts = [];
 
-    const queryTemplate = name => `${name}=="%{query}"`;
+    const queryTemplate = name => `${name}${comparator}"%{query}"`;
 
     if (data.plain) {
       const query = queryTemplate(data.name);
@@ -62,7 +64,7 @@ const buildQuery = ({
   });
 
   const flattenedQueryStrings = queryStrings.reduce((acc, arr) => acc.concat(arr));
-  const joinedQueryParts = flattenedQueryStrings.join(' or ');
+  const joinedQueryParts = flattenedQueryStrings.join(` ${seeAlsoJoin} `);
 
   return `(${joinedQueryParts})`;
 };

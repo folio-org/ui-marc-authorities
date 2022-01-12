@@ -1,3 +1,7 @@
+import {
+  useEffect,
+  useRef,
+} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useIntl } from 'react-intl';
@@ -39,6 +43,21 @@ const SearchTextareaField = ({
   ...rest
 }) => {
   const intl = useIntl();
+  const textAreaRef = useRef(null);
+
+  const fitTextBoxToContent = () => {
+    if (!textAreaRef.current?.style) {
+      return;
+    }
+
+    // this is a hack to set textarea height to fit in all text
+    textAreaRef.current.style.height = '';
+    textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+  };
+
+  useEffect(() => {
+    fitTextBoxToContent();
+  }, [value]);
 
   const indexLabel = intl.formatMessage({ id: 'stripes-components.searchFieldIndex' });
 
@@ -77,6 +96,7 @@ const SearchTextareaField = ({
         type="search"
         value={value || ''}
         readOnly={loading || rest.readOnly}
+        inputRef={textAreaRef}
       />
     </div>
   );

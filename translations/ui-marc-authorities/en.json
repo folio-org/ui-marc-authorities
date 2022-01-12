@@ -18,6 +18,7 @@
   "search.headingType": "Type of heading",
   "search.references": "References",
   "search.excludeSeeFrom": "Exclude see from",
+  "query": "Query",
   "keyword": "Keyword",
   "identifier": "Identifier (all)",
   "personalName": "Personal name",
@@ -28,6 +29,7 @@
   "subject": "Subject",
   "childrenSubjectHeading": "Children's subject heading",
   "genre": "Genre",
+  "advancedSearch": "Advanced search",
   "marcHeading": "MARC authority record",
   "authorityRecordSubtitle": "{heading} • Last updated: {lastUpdatedDate}",
   
