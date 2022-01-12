@@ -4,6 +4,8 @@ import {
   cleanup,
 } from '@testing-library/react';
 
+import { KeyboardShortcutsModal } from '@folio/stripes-components';
+
 import Harness from '../test/jest/helpers/harness';
 
 import MarcAuthorities from './index';
@@ -52,4 +54,16 @@ describe('Given Marc-authorities', () => {
 
     expect(getByText('ui-marc-authorities.appMenu.keyboardShortcuts')).toBeDefined();
   });
+
+  it('should render KeyboardShortcutsModal', () => {
+    const onClose = jest.fn();
+    const { getByText } = render(
+      <KeyboardShortcutsModal onClose={onClose}>
+        Test Modal
+      </KeyboardShortcutsModal>,
+    );
+
+    expect(getByText('stripes-components.shortcut.modalLabel')).toBeDefined();
+  });
 });
+
