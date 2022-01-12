@@ -34,7 +34,11 @@
   "permission.app.enabled": "UI: MARC Authorities module is enabled",
   "permission.authority-record.view": "View MARC authority record",
   "permission.authority-record.edit": "Edit MARC authority record",
-  "appMenu.keyboardShortcuts": "Keyboard shortcuts",
+
+  "navigation.app": "MARC Authorities app Search",
+  "navigation.content": "MARC Authorities documentation",
+  "navigation.keyboardShortcuts": "Keyboard shortcuts",
+  
   "shortcut.editRecord": "Edit a record",
   "shortcut.saveRecord": "Save a record",
   "shortcut.goToSearchFilter": "Go to Search & Filter pane",
