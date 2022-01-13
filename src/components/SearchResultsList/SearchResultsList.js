@@ -32,7 +32,7 @@ const propTypes = {
   visibleColumns: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-const authorizedTypes = ['Auth/Ref', 'Authorized'];
+const authorizedTypes = ['Authorized'];
 
 const SearchResultsList = ({
   authorities,
