@@ -1,4 +1,7 @@
-import { useCallback } from 'react';
+import {
+  useCallback,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import {
   useHistory,
@@ -12,11 +15,13 @@ import {
 import {
   LoadingView,
   Button,
+  expandAllFunction,
 } from '@folio/stripes/components';
 import { IfPermission } from '@folio/stripes/core';
 import MarcView from '@folio/quick-marc/src/QuickMarcView/QuickMarcView';
 
 import { AuthorityShape } from '../../constants/shapes';
+import KeyShortcutsWrapper from '../../components/KeyShortCutsWrapper/KeyShortCutsWrapper';
 
 const propTypes = {
   authority: PropTypes.shape({
@@ -27,12 +32,16 @@ const propTypes = {
     data: PropTypes.object.isRequired,
     isLoading: PropTypes.bool.isRequired,
   }).isRequired,
+  stripes: PropTypes.shape({
+    hasPerm: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const AuthorityView = ({
   marcSource,
   authority,
 }) => {
+  const [curState, setCurState] = useState();
   const intl = useIntl();
   const history = useHistory();
   const location = useLocation();
@@ -59,31 +68,53 @@ const AuthorityView = ({
     });
   };
 
+  const hasEditPermission = () => {
+    const { stripes } = PropTypes;
+
+    return stripes.hasPerm('ui-marc-authorities.authority-record.edit');
+  };
+
+  const toggleAllSections = (expand) => {
+    setCurState(() => {
+      const sections = expandAllFunction(curState, expand);
+
+      return { sections };
+    });
+  };
+
   return (
-    <MarcView
-      paneTitle={authority.data.headingRef}
-      paneSub={intl.formatMessage({
-        id: 'ui-marc-authorities.authorityRecordSubtitle',
-      }, {
-        heading: authority.data.headingType,
-        lastUpdatedDate: intl.formatDate(marcSource.data.metadata.lastUpdatedDate),
-      })}
-      isPaneset={false}
-      marcTitle={intl.formatMessage({ id: 'ui-marc-authorities.marcHeading' })}
-      marc={marcSource.data}
-      onClose={onClose}
-      lastMenu={(
-        <IfPermission perm="ui-marc-authorities.authority-record.edit">
-          <Button
-            buttonStyle="primary"
-            marginBottom0
-            onClick={redirectToQuickMarcEditPage}
-          >
-            <FormattedMessage id="ui-marc-authorities.authority-record.edit" />
-          </Button>
-        </IfPermission>
-      )}
-    />
+    <KeyShortcutsWrapper
+      toggleAllSections={toggleAllSections}
+      onEdit={redirectToQuickMarcEditPage}
+      isPermission={hasEditPermission}
+    >
+      <div data-testid="provider-content">
+        <MarcView
+          paneTitle={authority.data.headingRef}
+          paneSub={intl.formatMessage({
+            id: 'ui-marc-authorities.authorityRecordSubtitle',
+          }, {
+            heading: authority.data.headingType,
+            lastUpdatedDate: intl.formatDate(marcSource.data.metadata.lastUpdatedDate),
+          })}
+          isPaneset={false}
+          marcTitle={intl.formatMessage({ id: 'ui-marc-authorities.marcHeading' })}
+          marc={marcSource.data}
+          onClose={onClose}
+          lastMenu={(
+            <IfPermission perm="ui-marc-authorities.authority-record.edit">
+              <Button
+                buttonStyle="primary"
+                marginBottom0
+                onClick={redirectToQuickMarcEditPage}
+              >
+                <FormattedMessage id="ui-marc-authorities.authority-record.edit" />
+              </Button>
+            </IfPermission>
+           )}
+        />
+      </div>
+    </KeyShortcutsWrapper>
   );
 };
 

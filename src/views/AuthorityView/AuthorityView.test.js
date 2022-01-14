@@ -1,7 +1,13 @@
+import noop from 'lodash/noop';
 import {
   fireEvent,
   render,
 } from '@testing-library/react';
+
+import {
+  CommandList,
+  defaultKeyboardShortcuts,
+} from '@folio/stripes-components';
 
 import Harness from '../../../test/jest/helpers/harness';
 import AuthorityView from './AuthorityView';
@@ -31,11 +37,14 @@ const authority = {
 
 const renderAuthorityView = (props = {}) => render(
   <Harness>
-    <AuthorityView
-      marcSource={marcSource}
-      authority={authority}
-      {...props}
-    />
+    <CommandList commands={defaultKeyboardShortcuts}>
+      <AuthorityView
+        marcSource={marcSource}
+        authority={authority}
+        stripes={noop}
+        {...props}
+      />
+    </CommandList>
   </Harness>,
 );
 
