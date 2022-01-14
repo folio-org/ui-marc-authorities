@@ -11,6 +11,8 @@ import {
   Route,
 } from '@folio/stripes/core';
 
+import { CommandList } from '@folio/stripes/components';
+
 import {
   SearchRoute,
   AuthorityViewRoute,
@@ -19,7 +21,11 @@ import {
 
 import { MarcAuthoritiesAppContext } from './components';
 
+import commands from './commands';
+import KeyShortcutsWrapper from './components/KeyShortCutsWrapper/KeyShortCutsWrapper';
+
 const propTypes = {
+  focusSearchField: PropTypes.func,
   match: PropTypes.object.isRequired,
   stripes: PropTypes.shape({
     connect: PropTypes.func,
@@ -30,20 +36,29 @@ const MarcAuthorities = ({
   match: {
     path,
   },
+  focusSearchField = () => {
+    const searchElement = document.getElementById('textarea-authorities-search');
+
+    if (searchElement) {
+      searchElement.focus();
+    }
+  },
 }) => {
   return (
-    <>
+    <CommandList commands={commands}>
       <MarcAuthoritiesAppContext />
-      <Switch>
-        <Route path={`${path}/quick-marc`} component={AuthorityQuickMarcEditRoute} />
-        <Route
-          path={path}
-          component={SearchRoute}
-        >
-          <Route path={`${path}/authorities/:id`} component={AuthorityViewRoute} />
-        </Route>
-      </Switch>
-    </>
+      <KeyShortcutsWrapper focusSearchField={focusSearchField}>
+        <Switch>
+          <Route path={`${path}/quick-marc`} component={AuthorityQuickMarcEditRoute} />
+          <Route
+            path={path}
+            component={SearchRoute}
+          >
+            <Route path={`${path}/authorities/:id`} component={AuthorityViewRoute} />
+          </Route>
+        </Switch>
+      </KeyShortcutsWrapper>
+    </CommandList>
   );
 };
 
