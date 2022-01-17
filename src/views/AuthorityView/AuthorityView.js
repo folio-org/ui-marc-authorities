@@ -19,8 +19,7 @@ import { IfPermission } from '@folio/stripes/core';
 import MarcView from '@folio/quick-marc/src/QuickMarcView/QuickMarcView';
 
 import { AuthorityShape } from '../../constants/shapes';
-import KeyShortcutsWrapper from '../../components/KeyShortCutsWrapper/KeyShortCutsWrapper';
-
+import KeyShortCutsWrapper from '../../components/KeyShortCutsWrapper';
 
 const propTypes = {
   authority: PropTypes.shape({
@@ -73,7 +72,7 @@ const AuthorityView = ({
   };
 
   return (
-    <KeyShortcutsWrapper
+    <KeyShortCutsWrapper
       onEdit={redirectToQuickMarcEditPage}
       isPermission={hasEditPermission}
     >
@@ -103,7 +102,7 @@ const AuthorityView = ({
            )}
         />
       </div>
-    </KeyShortcutsWrapper>
+    </KeyShortCutsWrapper>
   );
 };
 

@@ -1,7 +1,6 @@
 import { MemoryRouter } from 'react-router-dom';
 import {
   render,
-  fireEvent,
 } from '@testing-library/react';
 
 import MarcAuthoritiesAppContext from './MarcAuthoritiesAppContext';
@@ -36,16 +35,6 @@ describe('Given MARC Authorities App Context', () => {
       const { queryByText } = renderMarcAuthoritiesAppContext();
 
       expect(queryByText('stripes-components.shortcut.modalLabel')).toBeNull();
-    });
-
-    describe('when clicking on keyboard shortcuts button', () => {
-      it('should show shortcuts modal', () => {
-        const { getByText } = renderMarcAuthoritiesAppContext();
-
-        fireEvent.click(getByText('ui-marc-authorities.navigation.keyboardShortcuts'));
-
-        expect(getByText('stripes-components.shortcut.modalLabel')).toBeDefined();
-      });
     });
   });
 });

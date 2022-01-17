@@ -10,9 +10,8 @@ import {
   HasCommand,
 } from '@folio/stripes/components';
 
-const KeyShortcutsWrapper = ({
+const KeyShortCutsWrapper = ({
   children,
-  toggleAllSections,
   onEdit,
   isPermission,
   focusSearchField,
@@ -23,35 +22,7 @@ const KeyShortcutsWrapper = ({
     }
   }, [isPermission, onEdit]);
 
-  const expandAllSections = useCallback((e) => {
-    e.preventDefault();
-    toggleAllSections(true);
-  }, [toggleAllSections]);
-
-  const collapseAllSections = useCallback((e) => {
-    e.preventDefault();
-    toggleAllSections(false);
-  }, [toggleAllSections]);
-
-  const toggleSectionsShortcuts = useMemo(() => {
-    if (!toggleAllSections) {
-      return [];
-    }
-
-    return ([
-      {
-        name: 'expandAllSections',
-        handler: expandAllSections,
-      },
-      {
-        name: 'collapseAllSections',
-        handler: collapseAllSections,
-      },
-    ]);
-  }, [collapseAllSections, expandAllSections, toggleAllSections]);
-
   const editShortcuts = [
-    ...toggleSectionsShortcuts,
     {
       name: 'edit',
       handler: openEditEntity,
@@ -90,12 +61,11 @@ const KeyShortcutsWrapper = ({
   );
 };
 
-KeyShortcutsWrapper.propTypes = {
+KeyShortCutsWrapper.propTypes = {
   children: PropTypes.node.isRequired,
   focusSearchField: PropTypes.func,
   isPermission: PropTypes.bool,
   onEdit: PropTypes.func,
-  toggleAllSections: PropTypes.func,
 };
 
-export default KeyShortcutsWrapper;
+export default KeyShortCutsWrapper;

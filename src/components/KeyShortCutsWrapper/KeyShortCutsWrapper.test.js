@@ -9,7 +9,7 @@ import {
   defaultKeyboardShortcuts,
 } from '@folio/stripes-components';
 
-import KeyShortcutsWrapper from './KeyShortCutsWrapper';
+import KeyShortCutsWrapper from './KeyShortCutsWrapper';
 
 import {
   openEditShortcut,
@@ -20,15 +20,13 @@ jest.mock('../../views/AuthoritiesSearch', () => ({
   onSubmitSearch: jest.fn(),
 }));
 
-const renderKeyShortcutsWrapper = ({
-  toggleAllSections,
+const renderKeyShortCutsWrapper = ({
   onEdit,
   isPermission,
   focusSearchField,
 }) => render(
   <CommandList commands={defaultKeyboardShortcuts}>
-    <KeyShortcutsWrapper
-      toggleAllSections={toggleAllSections}
+    <KeyShortCutsWrapper
       onEdit={onEdit}
       isPermission={isPermission}
       focusSearchField={focusSearchField}
@@ -36,7 +34,7 @@ const renderKeyShortcutsWrapper = ({
       <div data-testid="data-test-wrapper-children">
         Test
       </div>
-    </KeyShortcutsWrapper>
+    </KeyShortCutsWrapper>
   </CommandList>,
 );
 
@@ -44,7 +42,7 @@ describe('KeyShortcutsWrapper', () => {
   afterEach(cleanup);
 
   it('should render children', () => {
-    const { getByTestId } = renderKeyShortcutsWrapper({});
+    const { getByTestId } = renderKeyShortCutsWrapper({});
 
     expect(getByTestId('data-test-wrapper-children')).toBeDefined();
   });
@@ -52,7 +50,7 @@ describe('KeyShortcutsWrapper', () => {
   it('should call focusSearchField function', () => {
     const focusSearchFieldMock = jest.fn();
 
-    const { getByTestId } = renderKeyShortcutsWrapper({
+    const { getByTestId } = renderKeyShortCutsWrapper({
       focusSearchField: focusSearchFieldMock,
     });
 
@@ -67,16 +65,14 @@ describe('KeyShortcutsWrapper', () => {
 
   describe('Edit shortcuts', () => {
     const onEditMock = jest.fn();
-    const toggleAllSectionsMock = jest.fn();
 
     afterEach(() => {
       jest.clearAllMocks();
     });
 
     it('should call onEdit function if marc-authorities-user has permission', () => {
-      const { getByTestId } = renderKeyShortcutsWrapper({
+      const { getByTestId } = renderKeyShortCutsWrapper({
         onEdit: onEditMock,
-        toggleAllSections: toggleAllSectionsMock,
         isPermission: true,
       });
 
@@ -90,9 +86,8 @@ describe('KeyShortcutsWrapper', () => {
     });
 
     it('should not call onEdit function if marc-authorities-user has not permission', () => {
-      const { getByTestId } = renderKeyShortcutsWrapper({
+      const { getByTestId } = renderKeyShortCutsWrapper({
         onEdit: onEditMock,
-        toggleAllSections: toggleAllSectionsMock,
         isPermission: false,
       });
 

@@ -22,7 +22,7 @@ import {
 import { MarcAuthoritiesAppContext } from './components';
 
 import commands from './commands';
-import KeyShortcutsWrapper from './components/KeyShortCutsWrapper/KeyShortCutsWrapper';
+import KeyShortCutsWrapper from './components/KeyShortCutsWrapper';
 
 const propTypes = {
   focusSearchField: PropTypes.func,
@@ -47,7 +47,7 @@ const MarcAuthorities = ({
   return (
     <CommandList commands={commands}>
       <MarcAuthoritiesAppContext />
-      <KeyShortcutsWrapper focusSearchField={focusSearchField}>
+      <KeyShortCutsWrapper focusSearchField={focusSearchField}>
         <Switch>
           <Route path={`${path}/quick-marc`} component={AuthorityQuickMarcEditRoute} />
           <Route
@@ -57,7 +57,7 @@ const MarcAuthorities = ({
             <Route path={`${path}/authorities/:id`} component={AuthorityViewRoute} />
           </Route>
         </Switch>
-      </KeyShortcutsWrapper>
+      </KeyShortCutsWrapper>
     </CommandList>
   );
 };

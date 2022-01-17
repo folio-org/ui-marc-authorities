@@ -89,9 +89,8 @@ describe('Given AuthorityView', () => {
     });
   });
 
-  describe('when user cliked edit shortcuts', () => {
+  describe('when user clicked edit shortcuts', () => {
     const onEditMock = jest.fn();
-    const toggleAllSectionsMock = jest.fn();
     const hasEditPermissionMock = jest.fn();
 
     afterEach(() => {
@@ -104,7 +103,6 @@ describe('Given AuthorityView', () => {
         getByTestId,
       } = renderAuthorityView({
         onEdit: onEditMock,
-        toggleAllSections: toggleAllSectionsMock,
         isPermission:  hasEditPermissionMock,
       });
 
