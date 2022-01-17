@@ -11,6 +11,7 @@ import {
 
 import Harness from '../../../test/jest/helpers/harness';
 import AuthorityView from './AuthorityView';
+import { openEditShortcut } from '../../../test/utilities';
 
 const mockHistoryPush = jest.fn();
 
@@ -85,6 +86,34 @@ describe('Given AuthorityView', () => {
       fireEvent.click(getByText('ui-marc-authorities.authority-record.edit'));
 
       expect(mockHistoryPush).toHaveBeenCalled();
+    });
+  });
+
+  describe('when user cliked edit shortcuts', () => {
+    const onEditMock = jest.fn();
+    const toggleAllSectionsMock = jest.fn();
+    const hasEditPermissionMock = jest.fn();
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should not call onEdit function', () => {
+      const {
+        queryByTestId,
+        getByTestId,
+      } = renderAuthorityView({
+        onEdit: onEditMock,
+        toggleAllSections: toggleAllSectionsMock,
+        isPermission:  hasEditPermissionMock,
+      });
+
+      const testDiv = getByTestId('provider-content');
+
+      openEditShortcut(testDiv);
+
+      expect(mockHistoryPush).toHaveBeenCalled();
+      expect(queryByTestId('provider-content')).not.toBeNull();
     });
   });
 });

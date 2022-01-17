@@ -34,7 +34,9 @@ const KeyShortcutsWrapper = ({
   }, [toggleAllSections]);
 
   const toggleSectionsShortcuts = useMemo(() => {
-    if (!toggleAllSections) return [];
+    if (!toggleAllSections) {
+      return [];
+    }
 
     return ([
       {

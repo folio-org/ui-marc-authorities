@@ -1,6 +1,5 @@
 import {
   useCallback,
-  useState,
 } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -15,13 +14,13 @@ import {
 import {
   LoadingView,
   Button,
-  expandAllFunction,
 } from '@folio/stripes/components';
 import { IfPermission } from '@folio/stripes/core';
 import MarcView from '@folio/quick-marc/src/QuickMarcView/QuickMarcView';
 
 import { AuthorityShape } from '../../constants/shapes';
 import KeyShortcutsWrapper from '../../components/KeyShortCutsWrapper/KeyShortCutsWrapper';
+
 
 const propTypes = {
   authority: PropTypes.shape({
@@ -41,7 +40,6 @@ const AuthorityView = ({
   marcSource,
   authority,
 }) => {
-  const [curState, setCurState] = useState();
   const intl = useIntl();
   const history = useHistory();
   const location = useLocation();
@@ -74,17 +72,8 @@ const AuthorityView = ({
     return stripes.hasPerm('ui-marc-authorities.authority-record.edit');
   };
 
-  const toggleAllSections = (expand) => {
-    setCurState(() => {
-      const sections = expandAllFunction(curState, expand);
-
-      return { sections };
-    });
-  };
-
   return (
     <KeyShortcutsWrapper
-      toggleAllSections={toggleAllSections}
       onEdit={redirectToQuickMarcEditPage}
       isPermission={hasEditPermission}
     >

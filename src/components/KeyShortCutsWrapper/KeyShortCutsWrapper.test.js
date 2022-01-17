@@ -51,9 +51,11 @@ describe('KeyShortcutsWrapper', () => {
 
   it('should call focusSearchField function', () => {
     const focusSearchFieldMock = jest.fn();
+
     const { getByTestId } = renderKeyShortcutsWrapper({
       focusSearchField: focusSearchFieldMock,
     });
+
     const testDiv = getByTestId('data-test-wrapper-children');
 
     testDiv.focus();
@@ -77,6 +79,7 @@ describe('KeyShortcutsWrapper', () => {
         toggleAllSections: toggleAllSectionsMock,
         isPermission: true,
       });
+
       const testDiv = getByTestId('data-test-wrapper-children');
 
       testDiv.focus();
@@ -92,6 +95,7 @@ describe('KeyShortcutsWrapper', () => {
         toggleAllSections: toggleAllSectionsMock,
         isPermission: false,
       });
+
       const testDiv = getByTestId('data-test-wrapper-children');
 
       testDiv.focus();
