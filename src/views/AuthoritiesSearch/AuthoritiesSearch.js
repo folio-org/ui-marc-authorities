@@ -82,6 +82,7 @@ const AuthoritiesSearch = ({ children }) => {
   const [searchIndex, setSearchIndex] = useState(searchableIndexesValues.KEYWORD);
   const [advancedSearchDefaultSearch, setAdvancedSearchDefaultSearch] = useState();
   const [advancedSearchRows, setAdvancedSearchRows] = useState([]);
+  const [isAdvancedSearchOpen, setIsAdvancedSearchOpen] = useState(false);
 
   const nonFilterUrlParams = ['query', 'qindex', 'excludeSeeFrom', 'sort'];
 
@@ -276,6 +277,7 @@ const AuthoritiesSearch = ({ children }) => {
     setSearchInputValue(searchString);
     setSearchQuery(searchString);
     setAdvancedSearchRows(searchRows);
+    setIsAdvancedSearchOpen(false);
   };
 
   const options = Object.values(searchResultListColumns).map((option) => ({
@@ -370,29 +372,43 @@ const AuthoritiesSearch = ({ children }) => {
                 {intl.formatMessage({ id: 'ui-marc-authorities.label.search' })}
               </Button>
             </div>
-            <Row between="xs">
-              <Col xs="12" sm="6">
-                <Button
-                  buttonStyle="none"
-                  id="clickable-reset-all"
-                  fullWidth
-                  disabled={!searchInputValue || isLoading}
-                  onClick={resetAll}
-                >
-                  <Icon icon="times-circle-solid">
-                    {intl.formatMessage({ id: 'stripes-smart-components.resetAll' })}
-                  </Icon>
-                </Button>
-              </Col>
-              <Col xs="12" sm="6">
-                <AdvancedSearch
-                  searchOptions={advancedSearchOptions}
-                  defaultSearchOptionValue={searchableIndexesValues.KEYWORD}
-                  firstRowInitialSearch={advancedSearchDefaultSearch}
-                  onSearch={handleAdvancedSearch}
-                />
-              </Col>
-            </Row>
+            <AdvancedSearch
+              open={isAdvancedSearchOpen}
+              searchOptions={advancedSearchOptions}
+              defaultSearchOptionValue={searchableIndexesValues.KEYWORD}
+              firstRowInitialSearch={advancedSearchDefaultSearch}
+              onSearch={handleAdvancedSearch}
+              onCancel={() => setIsAdvancedSearchOpen(false)}
+            >
+              {({ resetRows }) => (
+                <Row between="xs">
+                  <Col xs="12" sm="6">
+                    <Button
+                      buttonStyle="none"
+                      id="clickable-reset-all"
+                      fullWidth
+                      disabled={!searchInputValue || isLoading}
+                      onClick={() => {
+                        resetRows();
+                        resetAll();
+                      }}
+                    >
+                      <Icon icon="times-circle-solid">
+                        {intl.formatMessage({ id: 'stripes-smart-components.resetAll' })}
+                      </Icon>
+                    </Button>
+                  </Col>
+                  <Col xs="12" sm="6">
+                    <Button
+                      fullWidth
+                      onClick={() => setIsAdvancedSearchOpen(true)}
+                    >
+                      {intl.formatMessage({ id: 'stripes-components.advancedSearch.button' })}
+                    </Button>
+                  </Col>
+                </Row>
+              )}
+            </AdvancedSearch>
           </form>
 
           <SearchFilters
