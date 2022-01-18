@@ -21,13 +21,13 @@ jest.mock('../../views/AuthoritiesSearch', () => ({
 }));
 
 const renderKeyShortCutsWrapper = ({
-  onEdit,
+  canEdit,
   isPermission,
   focusSearchField,
 }) => render(
   <CommandList commands={defaultKeyboardShortcuts}>
     <KeyShortCutsWrapper
-      onEdit={onEdit}
+      canEdit={canEdit}
       isPermission={isPermission}
       focusSearchField={focusSearchField}
     >
@@ -64,7 +64,7 @@ describe('KeyShortcutsWrapper', () => {
   });
 
   describe('Edit shortcuts', () => {
-    const onEditMock = jest.fn();
+    const canEditMock = jest.fn();
 
     afterEach(() => {
       jest.clearAllMocks();
@@ -72,7 +72,7 @@ describe('KeyShortcutsWrapper', () => {
 
     it('should call onEdit function if marc-authorities-user has permission', () => {
       const { getByTestId } = renderKeyShortCutsWrapper({
-        onEdit: onEditMock,
+        canEdit: canEditMock,
         isPermission: true,
       });
 
@@ -82,12 +82,12 @@ describe('KeyShortcutsWrapper', () => {
 
       openEditShortcut(testDiv);
 
-      expect(onEditMock).toHaveBeenCalledTimes(1);
+      expect(canEditMock).toHaveBeenCalledTimes(1);
     });
 
     it('should not call onEdit function if marc-authorities-user has not permission', () => {
       const { getByTestId } = renderKeyShortCutsWrapper({
-        onEdit: onEditMock,
+        canEdit: canEditMock,
         isPermission: false,
       });
 
@@ -97,7 +97,7 @@ describe('KeyShortcutsWrapper', () => {
 
       openEditShortcut(testDiv);
 
-      expect(onEditMock).not.toHaveBeenCalled();
+      expect(canEditMock).not.toHaveBeenCalled();
     });
   });
 });

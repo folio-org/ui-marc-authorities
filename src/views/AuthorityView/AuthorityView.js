@@ -73,7 +73,7 @@ const AuthorityView = ({
 
   return (
     <KeyShortCutsWrapper
-      onEdit={redirectToQuickMarcEditPage}
+      canEdit={redirectToQuickMarcEditPage}
       isPermission={hasEditPermission}
     >
       <div data-testid="authority-marc-view">
