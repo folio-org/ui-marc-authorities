@@ -106,12 +106,12 @@ describe('Given AuthorityView', () => {
         isPermission:  hasEditPermissionMock,
       });
 
-      const testDiv = getByTestId('ui-marc-authorities.authority-record.edit');
+      const testDiv = getByTestId('authority-marc-view');
 
       openEditShortcut(testDiv);
 
       expect(mockHistoryPush).toHaveBeenCalled();
-      expect(queryByTestId('ui-marc-authorities.authority-record.edit')).not.toBeNull();
+      expect(queryByTestId('authority-marc-view')).not.toBeNull();
     });
   });
 });

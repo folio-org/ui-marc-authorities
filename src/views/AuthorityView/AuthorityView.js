@@ -76,7 +76,7 @@ const AuthorityView = ({
       onEdit={redirectToQuickMarcEditPage}
       isPermission={hasEditPermission}
     >
-      <div data-testid="ui-marc-authorities.authority-record.edit">
+      <div data-testid="authority-marc-view">
         <MarcView
           paneTitle={authority.data.headingRef}
           paneSub={intl.formatMessage({
