@@ -19,7 +19,7 @@ import { IfPermission } from '@folio/stripes/core';
 import MarcView from '@folio/quick-marc/src/QuickMarcView/QuickMarcView';
 
 import { AuthorityShape } from '../../constants/shapes';
-import KeyShortCutsWrapper from '../../components/KeyShortCutsWrapper';
+import { KeyShortCutsWrapper } from '../../components';
 
 const propTypes = {
   authority: PropTypes.shape({
@@ -76,7 +76,7 @@ const AuthorityView = ({
       onEdit={redirectToQuickMarcEditPage}
       isPermission={hasEditPermission}
     >
-      <div data-testid="provider-content">
+      <div data-testid="ui-marc-authorities.authority-record.edit">
         <MarcView
           paneTitle={authority.data.headingRef}
           paneSub={intl.formatMessage({

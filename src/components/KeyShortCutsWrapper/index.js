@@ -1,1 +1,2 @@
-export { default } from './KeyShortCutsWrapper';
+export { default as KeyShortCutsWrapper } from './KeyShortCutsWrapper';
+

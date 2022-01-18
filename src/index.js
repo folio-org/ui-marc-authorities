@@ -19,10 +19,12 @@ import {
   AuthorityQuickMarcEditRoute,
 } from './routes';
 
-import { MarcAuthoritiesAppContext } from './components';
+import {
+  KeyShortCutsWrapper,
+  MarcAuthoritiesAppContext,
+} from './components';
 
 import commands from './commands';
-import KeyShortCutsWrapper from './components/KeyShortCutsWrapper';
 
 const propTypes = {
   focusSearchField: PropTypes.func,
