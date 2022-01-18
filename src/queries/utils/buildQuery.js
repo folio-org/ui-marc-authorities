@@ -17,6 +17,12 @@ const buildQuery = ({
     return '';
   }
 
+  if (searchIndex === searchableIndexesValues.CHILDREN_SUBJECT_HEADING) {
+    const childrenSubjectHeadingData = indexData[0];
+
+    return `(${searchableIndexesValues.KEYWORD}=="%{query}" and ${childrenSubjectHeadingData.name}=="b")`;
+  }
+
   const queryStrings = indexData.map(data => {
     const queryParts = [];
 
