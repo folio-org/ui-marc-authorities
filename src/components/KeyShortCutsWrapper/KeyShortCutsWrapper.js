@@ -62,10 +62,10 @@ const KeyShortCutsWrapper = ({
 };
 
 KeyShortCutsWrapper.propTypes = {
+  canEdit: PropTypes.func,
   children: PropTypes.node.isRequired,
   focusSearchField: PropTypes.func,
   isPermission: PropTypes.bool,
-  canEdit: PropTypes.func,
 };
 
 export default KeyShortCutsWrapper;
