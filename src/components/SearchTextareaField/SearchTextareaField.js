@@ -60,6 +60,7 @@ const SearchTextareaField = ({
   }, [value]);
 
   const indexLabel = intl.formatMessage({ id: 'stripes-components.searchFieldIndex' });
+  const textAreaLabel = intl.formatMessage({ id: 'ui-marc-authorities.label.search.textArea'});
 
   const rootStyles = classNames(
     css.searchFieldWrap,
@@ -98,6 +99,7 @@ const SearchTextareaField = ({
         value={value || ''}
         readOnly={loading || rest.readOnly}
         inputRef={textAreaRef}
+        aria-label={textAreaLabel}
       />
     </div>
   );

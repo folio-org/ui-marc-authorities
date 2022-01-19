@@ -78,6 +78,7 @@ const SearchFilters = ({
         onClearFilter={() => setIsExcludedSeeFromLimiter(false)}
       >
         <Checkbox
+          aria-label={intl.formatMessage({ id: 'ui-marc-authorities.search.excludeSeeFrom' })}
           label={intl.formatMessage({ id: 'ui-marc-authorities.search.excludeSeeFrom' })}
           onChange={applyExcludeSeeFromLimiter}
           checked={isExcludedSeeFromLimiter}

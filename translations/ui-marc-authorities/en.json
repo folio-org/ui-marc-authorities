@@ -12,6 +12,7 @@
   "authority-record.edit": "Edit",
 
   "label.search": "Search",
+  "label.search.textArea": "Enter search query",
   "search.searchAndFilter": "Search & filter",
   "search.createdDate": "Date created",
   "search.updatedDate": "Date updated",

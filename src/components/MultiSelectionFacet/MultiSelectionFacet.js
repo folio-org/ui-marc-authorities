@@ -80,6 +80,7 @@ const MultiSelectionFacet = ({
     >
       <MultiSelection
         id={`${id}-multiselect`}
+        label={label}
         name={name}
         formatter={FacetOptionFormatter}
         valueFormatter={({ option }) => option.label}
