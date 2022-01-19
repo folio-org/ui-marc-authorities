@@ -84,6 +84,7 @@ const SearchTextareaField = ({
         onChange={onChangeIndex}
         selectClass={css.select}
         value={selectedIndex}
+        data-testid="search-select"
       />
       <TextArea
         {...rest}

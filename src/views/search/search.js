@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { Paneset } from '@folio/stripes/components';
+import { PersistedPaneset } from '@folio/stripes/components';
 
 import {
   SearchResultsList,
@@ -25,7 +25,11 @@ const Search = ({
   totalRecords,
 }) => {
   return (
-    <Paneset id="authorities-paneset">
+    <PersistedPaneset
+      appId="@folio/marc-authorities"
+      data-testid="authorities-paneset"
+      id="authorities-paneset"
+    >
       <SearchResultsList
         authorities={authorities}
         totalResults={totalRecords}
@@ -34,7 +38,7 @@ const Search = ({
         loading={loading}
       />
       {children}
-    </Paneset>
+    </PersistedPaneset>
   );
 };
 
