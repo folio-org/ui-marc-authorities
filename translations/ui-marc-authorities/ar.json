@@ -28,5 +28,18 @@
     "search.headingType": "نوع الرأس",
     "search.references": "مراجع",
     "search.excludeSeeFrom": "استبعاد انظر من",
-    "authority-record.edit": "تحرير"
+    "authority-record.edit": "تحرير",
+    "navigation.app": "بحث تطبيق استنادات مارك",
+    "navigation.content": "توثيق استنادات مارك",
+    "navigation.keyboardShortcuts": "اختصارات لوحة المفاتيح",
+    "shortcut.editRecord": "تحرير تسجيلة",
+    "shortcut.saveRecord": "حفظ تسجيلة",
+    "shortcut.goToSearchFilter": "اذهب إلى الجزء الخاص بالبحث والتنقيح",
+    "shortcut.openShortcutModal": "فتح اختصارات لوحة المفاتيح",
+    "shortcut.expandAll": "توسيع كل الأقسام",
+    "shortcut.closeModal": "إغلاق النموذج أو النافذة المنبثقة",
+    "shortcut.copy": "نسخ",
+    "shortcut.cut": "قص",
+    "shortcut.paste": "لصق",
+    "shortcut.find": "بحث"
 }
