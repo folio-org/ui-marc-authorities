@@ -1,10 +1,17 @@
+import noop from 'lodash/noop';
 import {
   fireEvent,
   render,
 } from '@testing-library/react';
 
+import {
+  CommandList,
+  defaultKeyboardShortcuts,
+} from '@folio/stripes-components';
+
 import Harness from '../../../test/jest/helpers/harness';
 import AuthorityView from './AuthorityView';
+import { openEditShortcut } from '../../../test/utilities';
 
 const mockHistoryPush = jest.fn();
 
@@ -31,11 +38,14 @@ const authority = {
 
 const renderAuthorityView = (props = {}) => render(
   <Harness>
-    <AuthorityView
-      marcSource={marcSource}
-      authority={authority}
-      {...props}
-    />
+    <CommandList commands={defaultKeyboardShortcuts}>
+      <AuthorityView
+        marcSource={marcSource}
+        authority={authority}
+        stripes={noop}
+        {...props}
+      />
+    </CommandList>
   </Harness>,
 );
 
@@ -76,6 +86,32 @@ describe('Given AuthorityView', () => {
       fireEvent.click(getByText('ui-marc-authorities.authority-record.edit'));
 
       expect(mockHistoryPush).toHaveBeenCalled();
+    });
+  });
+
+  describe('when user clicked edit shortcuts', () => {
+    const onEditMock = jest.fn();
+    const canEditMock = jest.fn();
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should not call onEdit function', () => {
+      const {
+        queryByTestId,
+        getByTestId,
+      } = renderAuthorityView({
+        onEdit: onEditMock,
+        canEdit: canEditMock,
+      });
+
+      const testDiv = getByTestId('authority-marc-view');
+
+      openEditShortcut(testDiv);
+
+      expect(mockHistoryPush).toHaveBeenCalled();
+      expect(queryByTestId('authority-marc-view')).not.toBeNull();
     });
   });
 });
