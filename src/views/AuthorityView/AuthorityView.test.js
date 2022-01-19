@@ -90,8 +90,8 @@ describe('Given AuthorityView', () => {
   });
 
   describe('when user clicked edit shortcuts', () => {
+    const onEditMock = jest.fn();
     const canEditMock = jest.fn();
-    const hasEditPermissionMock = jest.fn();
 
     afterEach(() => {
       jest.clearAllMocks();
@@ -102,8 +102,8 @@ describe('Given AuthorityView', () => {
         queryByTestId,
         getByTestId,
       } = renderAuthorityView({
+        onEdit: onEditMock,
         canEdit: canEditMock,
-        isPermission:  hasEditPermissionMock,
       });
 
       const testDiv = getByTestId('authority-marc-view');

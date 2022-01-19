@@ -21,14 +21,14 @@ jest.mock('../../views/AuthoritiesSearch', () => ({
 }));
 
 const renderKeyShortCutsWrapper = ({
+  onEdit,
   canEdit,
-  isPermission,
   focusSearchField,
 }) => render(
   <CommandList commands={defaultKeyboardShortcuts}>
     <KeyShortCutsWrapper
+      onEdit={onEdit}
       canEdit={canEdit}
-      isPermission={isPermission}
       focusSearchField={focusSearchField}
     >
       <div data-testid="data-test-wrapper-children">
@@ -64,7 +64,7 @@ describe('KeyShortcutsWrapper', () => {
   });
 
   describe('Edit shortcuts', () => {
-    const canEditMock = jest.fn();
+    const onEditMock = jest.fn();
 
     afterEach(() => {
       jest.clearAllMocks();
@@ -72,8 +72,8 @@ describe('KeyShortcutsWrapper', () => {
 
     it('should call onEdit function if marc-authorities-user has permission', () => {
       const { getByTestId } = renderKeyShortCutsWrapper({
-        canEdit: canEditMock,
-        isPermission: true,
+        onEdit: onEditMock,
+        canEdit: true,
       });
 
       const testDiv = getByTestId('data-test-wrapper-children');
@@ -82,13 +82,13 @@ describe('KeyShortcutsWrapper', () => {
 
       openEditShortcut(testDiv);
 
-      expect(canEditMock).toHaveBeenCalledTimes(1);
+      expect(onEditMock).toHaveBeenCalledTimes(1);
     });
 
     it('should not call onEdit function if marc-authorities-user has not permission', () => {
       const { getByTestId } = renderKeyShortCutsWrapper({
-        canEdit: canEditMock,
-        isPermission: false,
+        onEdit: onEditMock,
+        canEdit: false,
       });
 
       const testDiv = getByTestId('data-test-wrapper-children');
@@ -97,7 +97,7 @@ describe('KeyShortcutsWrapper', () => {
 
       openEditShortcut(testDiv);
 
-      expect(canEditMock).not.toHaveBeenCalled();
+      expect(onEditMock).not.toHaveBeenCalled();
     });
   });
 });

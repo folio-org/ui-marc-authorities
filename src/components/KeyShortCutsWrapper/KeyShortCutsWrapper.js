@@ -13,14 +13,14 @@ import {
 const KeyShortCutsWrapper = ({
   children,
   canEdit,
-  isPermission,
+  onEdit,
   focusSearchField,
 }) => {
   const openEditEntity = useCallback(() => {
-    if (isPermission) {
-      canEdit();
+    if (canEdit) {
+      onEdit();
     }
-  }, [isPermission, canEdit]);
+  }, [canEdit, onEdit]);
 
   const editShortcuts = [
     {
@@ -39,7 +39,7 @@ const KeyShortCutsWrapper = ({
   const shortcuts = useMemo(() => {
     let shortcutsArray = [];
 
-    if (canEdit) {
+    if (onEdit) {
       shortcutsArray = [...shortcutsArray, ...editShortcuts];
     }
 
@@ -48,7 +48,7 @@ const KeyShortCutsWrapper = ({
     }
 
     return shortcutsArray;
-  }, [canEdit, focusSearchField]);
+  }, [onEdit, focusSearchField]);
 
   return (
     <HasCommand
@@ -62,10 +62,10 @@ const KeyShortCutsWrapper = ({
 };
 
 KeyShortCutsWrapper.propTypes = {
-  canEdit: PropTypes.func,
+  canEdit: PropTypes.bool,
   children: PropTypes.node.isRequired,
   focusSearchField: PropTypes.func,
-  isPermission: PropTypes.bool,
+  onEdit: PropTypes.func,
 };
 
 export default KeyShortCutsWrapper;
