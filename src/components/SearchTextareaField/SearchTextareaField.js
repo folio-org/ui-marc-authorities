@@ -60,7 +60,7 @@ const SearchTextareaField = ({
   }, [value]);
 
   const indexLabel = intl.formatMessage({ id: 'stripes-components.searchFieldIndex' });
-  const textAreaLabel = intl.formatMessage({ id: 'ui-marc-authorities.label.search.textArea'});
+  const textAreaLabel = intl.formatMessage({ id: 'ui-marc-authorities.label.search.textArea' });
 
   const rootStyles = classNames(
     css.searchFieldWrap,

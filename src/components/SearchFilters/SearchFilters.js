@@ -75,6 +75,7 @@ const SearchFilters = ({
         displayClearButton={isExcludedSeeFromLimiter}
         header={FilterAccordionHeader}
         label={intl.formatMessage({ id: 'ui-marc-authorities.search.references' })}
+        aria-label={intl.formatMessage({ id: 'ui-marc-authorities.search.references' })}
         onClearFilter={() => setIsExcludedSeeFromLimiter(false)}
       >
         <Checkbox
