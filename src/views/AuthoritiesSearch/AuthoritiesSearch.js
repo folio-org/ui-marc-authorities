@@ -116,31 +116,35 @@ const AuthoritiesSearch = ({ children }) => {
   useEffect(() => {
     const locationSearchParams = queryString.parse(location.search);
 
-    if (Object.keys(locationSearchParams).length > 0) {
-      if (locationSearchParams.query && locationSearchParams.query !== searchQuery) {
-        setSearchInputValue(locationSearchParams.query);
-        setSearchQuery(locationSearchParams.query);
-      }
+    console.log('Object.keys(locationSearchParams).length', Object.keys(locationSearchParams).length);
 
-      if (locationSearchParams.qindex && locationSearchParams.qindex !== searchIndex) {
-        setSearchDropdownValue(locationSearchParams.qindex);
-        setSearchIndex(locationSearchParams.qindex);
-      }
+    if (Object.keys(locationSearchParams).length <= 0) {
+      return;
+    }
 
-      if (locationSearchParams.segment && locationSearchParams.segment !== navigationSegmentValue) {
-        setNavigationSegmentValue(locationSearchParams.segment);
-      }
+    if (locationSearchParams.query && locationSearchParams.query !== searchQuery) {
+      setSearchInputValue(locationSearchParams.query);
+      setSearchQuery(locationSearchParams.query);
+    }
 
-      if (locationSearchParams.excludeSeeFrom) {
-        setIsExcludedSeeFromLimiter(locationSearchParams.excludeSeeFrom);
-      }
+    if (locationSearchParams.qindex && locationSearchParams.qindex !== searchIndex) {
+      setSearchDropdownValue(locationSearchParams.qindex);
+      setSearchIndex(locationSearchParams.qindex);
+    }
 
-      if (locationSearchParams.sort) {
-        if (locationSearchParams.sort[0] === '-') {
-          onChangeSortOption(locationSearchParams.sort.substring(1), sortOrders.DES);
-        } else {
-          onChangeSortOption(locationSearchParams.sort, sortOrders.ASC);
-        }
+    if (locationSearchParams.segment && locationSearchParams.segment !== navigationSegmentValue) {
+      setNavigationSegmentValue(locationSearchParams.segment);
+    }
+
+    if (locationSearchParams.excludeSeeFrom) {
+      setIsExcludedSeeFromLimiter(locationSearchParams.excludeSeeFrom);
+    }
+
+    if (locationSearchParams.sort) {
+      if (locationSearchParams.sort[0] === '-') {
+        onChangeSortOption(locationSearchParams.sort.substring(1), sortOrders.DES);
+      } else {
+        onChangeSortOption(locationSearchParams.sort, sortOrders.ASC);
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
