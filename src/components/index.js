@@ -5,3 +5,4 @@ export * from './FacetOptionFormatter';
 export * from './SearchFilters';
 export * from './MarcAuthoritiesAppContext';
 export * from './KeyShortCutsWrapper';
+export * from './FilterNavigation';

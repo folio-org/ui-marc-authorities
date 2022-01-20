@@ -25,4 +25,4 @@
 * [UIMARCAUTH-30](https://issues.folio.org/browse/UIMARCAUTH-30) Implement App context menu and keyboard shortcuts.
 * [UIMARCAUTH-48](https://issues.folio.org/browse/UIMARCAUTH-48) Children's subject headings search option - Extend request by searching by subjectHeadings = b.
 * [UIMARCAUTH-50](https://issues.folio.org/browse/UIMARCAUTH-50) Do not bold Auth/Ref in Authorized/Reference column.
-
+* [UIMARCAUTH-28](https://issues.folio.org/browse/UIMARCAUTH-28) Browse MARC Authority Records > Display Browse headings toggle.

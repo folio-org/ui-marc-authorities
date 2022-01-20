@@ -1,6 +1,7 @@
 import {
   useState,
   useEffect,
+  useRef,
 } from 'react';
 import {
   useHistory,
@@ -43,6 +44,7 @@ import {
 } from '@folio/stripes-acq-components';
 
 import {
+  FilterNavigation,
   SearchTextareaField,
   SearchResultsList,
   SearchFilters,
@@ -50,9 +52,11 @@ import {
 import { useAuthorities } from '../../queries';
 import { useSortColumnManager } from '../../hooks';
 import {
-  rawSearchableIndexes,
+  rawDefaultSearchableIndexes,
+  rawBrowseSearchableIndexes,
   searchResultListColumns,
   sortOrders,
+  navigationSegments,
 } from '../../constants';
 import css from './AuthoritiesSearch.css';
 
@@ -76,7 +80,7 @@ const AuthoritiesSearch = ({ children }) => {
   const [searchDropdownValue, setSearchDropdownValue] = useState('');
   const [searchIndex, setSearchIndex] = useState('');
 
-  const nonFilterUrlParams = ['query', 'qindex', 'excludeSeeFrom', 'sort'];
+  const nonFilterUrlParams = ['query', 'qindex', 'segment', 'excludeSeeFrom', 'sort'];
 
   const getInitialFilters = () => {
     return omit(buildFiltersObj(location.search), nonFilterUrlParams);
@@ -84,7 +88,11 @@ const AuthoritiesSearch = ({ children }) => {
 
   const [filters, setFilters] = useState(getInitialFilters());
 
+  const [navigationSegmentValue, setNavigationSegmentValue] = useState('');
+
   const [isExcludedSeeFromLimiter, setIsExcludedSeeFromLimiter] = useState(false);
+
+  const searchInputRef = useRef(null);
 
   const columnMapping = {
     [searchResultListColumns.AUTH_REF_TYPE]: <FormattedMessage id="ui-marc-authorities.search-results-list.authRefType" />,
@@ -119,6 +127,10 @@ const AuthoritiesSearch = ({ children }) => {
         setSearchIndex(locationSearchParams.qindex);
       }
 
+      if (locationSearchParams.segment && locationSearchParams.segment !== navigationSegmentValue) {
+        setNavigationSegmentValue(locationSearchParams.segment);
+      }
+
       if (locationSearchParams.excludeSeeFrom) {
         setIsExcludedSeeFromLimiter(locationSearchParams.excludeSeeFrom);
       }
@@ -141,6 +153,10 @@ const AuthoritiesSearch = ({ children }) => {
       ...filters,
     };
 
+    if (navigationSegmentValue) {
+      queryParams.segment = navigationSegmentValue;
+    }
+
     if (isExcludedSeeFromLimiter) {
       queryParams.excludeSeeFrom = isExcludedSeeFromLimiter;
     }
@@ -162,6 +178,7 @@ const AuthoritiesSearch = ({ children }) => {
     searchQuery,
     searchIndex,
     filters,
+    navigationSegmentValue,
     isExcludedSeeFromLimiter,
     sortOrder,
     sortedColumn,
@@ -192,6 +209,24 @@ const AuthoritiesSearch = ({ children }) => {
     writeStorage(filterPaneVisibilityKey, !isFilterPaneVisible);
   };
 
+  const setSearchInputRef = element => {
+    searchInputRef.current = element;
+  };
+
+  const handleFilterNavigationChange = () => {
+    setNavigationSegmentValue(currentSegment => {
+      const isNavigationSegment = currentSegment !== '';
+
+      return isNavigationSegment && currentSegment === navigationSegments.browse
+        ? navigationSegments.search
+        : navigationSegments.browse;
+    });
+
+    if (searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  };
+
   const onChangeIndex = (value) => setSearchDropdownValue(value);
 
   const onSubmitSearch = (e) => {
@@ -212,6 +247,7 @@ const AuthoritiesSearch = ({ children }) => {
     setSearchQuery('');
     setSearchIndex('');
     setFilters('');
+    setNavigationSegmentValue('');
     setIsExcludedSeeFromLimiter(false);
     onChangeSortOption('');
   };
@@ -276,10 +312,18 @@ const AuthoritiesSearch = ({ children }) => {
     );
   };
 
+  const rawSearchableIndexes = navigationSegmentValue === navigationSegments.browse
+    ? rawBrowseSearchableIndexes
+    : rawDefaultSearchableIndexes;
+
   const searchableIndexes = rawSearchableIndexes.map(index => ({
     label: intl.formatMessage({ id: index.label }),
     value: index.value,
   }));
+
+  const isSearchButtonDisabled = (navigationSegmentValue === navigationSegments.browse && !searchDropdownValue)
+    || !searchInputValue
+    || isLoading;
 
   return (
     <PersistedPaneset
@@ -301,27 +345,34 @@ const AuthoritiesSearch = ({ children }) => {
           )}
         >
           <form onSubmit={onSubmitSearch}>
+            <FilterNavigation
+              segment={navigationSegmentValue || undefined}
+              onChange={handleFilterNavigationChange}
+            />
             <div className={css.searchGroupWrap}>
               <SearchTextareaField
                 value={searchInputValue}
                 onChange={(e) => updateSearchValue(e.target.value)}
+                inputRef={setSearchInputRef}
                 autoFocus
                 rows="1"
                 name="query"
                 id="textarea-authorities-search"
                 className={css.searchField}
                 searchableIndexes={searchableIndexes}
+                placeholder={navigationSegmentValue === navigationSegments.browse ? 'None' : ''}
                 onChangeIndex={(e) => onChangeIndex(e.target.value)}
                 selectedIndex={searchDropdownValue}
                 onSubmitSearch={onSubmitSearch}
               />
               <Button
                 id="submit-authorities-search"
+                data-testid="submit-authorities-search"
                 type="submit"
                 buttonStyle="primary"
                 fullWidth
                 marginBottom0
-                disabled={!searchInputValue || isLoading}
+                disabled={isSearchButtonDisabled}
               >
                 {intl.formatMessage({ id: 'ui-marc-authorities.label.search' })}
               </Button>
@@ -343,6 +394,7 @@ const AuthoritiesSearch = ({ children }) => {
             isSearching={isLoading}
             setFilters={setFilters}
             query={query}
+            segment={navigationSegmentValue || navigationSegments.search}
             isExcludedSeeFromLimiter={isExcludedSeeFromLimiter}
             setIsExcludedSeeFromLimiter={setIsExcludedSeeFromLimiter}
             applyExcludeSeeFromLimiter={applyExcludeSeeFromLimiter}
