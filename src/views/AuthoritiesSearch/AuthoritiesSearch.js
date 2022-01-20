@@ -116,8 +116,6 @@ const AuthoritiesSearch = ({ children }) => {
   useEffect(() => {
     const locationSearchParams = queryString.parse(location.search);
 
-    console.log('Object.keys(locationSearchParams).length', Object.keys(locationSearchParams).length);
-
     if (Object.keys(locationSearchParams).length <= 0) {
       return;
     }
