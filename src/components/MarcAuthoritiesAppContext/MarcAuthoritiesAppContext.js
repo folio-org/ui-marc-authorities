@@ -31,9 +31,10 @@ const MarcAuthoritiesAppContext = () => {
     }
   };
 
-  const shortcutsModalToggle = (handleToggle) => {
-    handleToggle();
-
+  const shortcutsModalToggle = (e, handleToggle) => {
+    if (handleToggle) {
+      handleToggle();
+    }
     setIsShortcutsModalOpen(true);
   };
 
@@ -56,7 +57,7 @@ const MarcAuthoritiesAppContext = () => {
                 <FormattedMessage id="ui-marc-authorities.navigation.app" />
               </NavListItem>
               <NavListItem
-                onClick={() => shortcutsModalToggle(handleToggle)}
+                onClick={(e) => shortcutsModalToggle(e, handleToggle)}
               >
                 <FormattedMessage id="ui-marc-authorities.navigation.keyboardShortcuts" />
               </NavListItem>
