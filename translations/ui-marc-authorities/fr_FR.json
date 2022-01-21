@@ -28,5 +28,18 @@
     "search.headingType": "Type of heading",
     "search.references": "References",
     "search.excludeSeeFrom": "Exclude see from",
-    "authority-record.edit": "Modifier"
+    "authority-record.edit": "Modifier",
+    "navigation.app": "MARC Authorities app Search",
+    "navigation.content": "MARC Authorities documentation",
+    "navigation.keyboardShortcuts": "Keyboard shortcuts",
+    "shortcut.editRecord": "Edit a record",
+    "shortcut.saveRecord": "Save a record",
+    "shortcut.goToSearchFilter": "Go to Search & Filter pane",
+    "shortcut.openShortcutModal": "Open keyboard shortcuts modal",
+    "shortcut.expandAll": "Expand all accordions",
+    "shortcut.closeModal": "Close a modal or pop-up",
+    "shortcut.copy": "Copy",
+    "shortcut.cut": "Cut",
+    "shortcut.paste": "Paste",
+    "shortcut.find": "Find"
 }
