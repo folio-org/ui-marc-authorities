@@ -42,7 +42,6 @@ const buildAdvancedSearch = (advancedSearch, isExcludedSeeFromLimiter) => {
       buildQuery({
         searchIndex: index,
         comparator,
-        seeAlsoJoin: boolOperator === ADVANCED_SEARCH_BOOLEAN_OPERATORS.NOT ? 'and' : 'or',
         isExcludedSeeFromLimiter,
       }),
       { interpolate: /%{([\s\S]+?)}/g },
