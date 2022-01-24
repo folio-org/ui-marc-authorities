@@ -46,17 +46,28 @@ describe('Given buildQuery', () => {
   describe('when keyword index provided', () => {
     it('should return correct query for keyword index', () => {
       const query = buildQuery({
-        searchIndex: '',
+        searchIndex: searchableIndexesValues.KEYWORD,
       });
 
       expect(query).toBe('(keyword=="%{query}")');
+    });
+
+    describe('when isExcludedSeeFromLimiter is true', () => {
+      it('should return correct query', () => {
+        const query = buildQuery({
+          searchIndex: searchableIndexesValues.KEYWORD,
+          isExcludedSeeFromLimiter: true,
+        });
+
+        expect(query).toBe('(keyword=="%{query}" and authRefType == "Authorized")');
+      });
     });
   });
 
   describe('when childrenSubjectHeading index provided', () => {
     it('should return correct query for childrenSubjectHeading index', () => {
       const query = buildQuery({
-        searchIndex: 'childrenSubjectHeading',
+        searchIndex: searchableIndexesValues.CHILDREN_SUBJECT_HEADING,
       });
 
       expect(query).toBe('(keyword=="%{query}" and subjectHeadings=="b")');

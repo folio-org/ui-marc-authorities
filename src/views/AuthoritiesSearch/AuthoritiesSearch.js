@@ -57,6 +57,7 @@ import {
   searchResultListColumns,
   sortOrders,
   navigationSegments,
+  searchableIndexesValues,
 } from '../../constants';
 import css from './AuthoritiesSearch.css';
 
@@ -77,8 +78,8 @@ const AuthoritiesSearch = ({ children }) => {
   const [searchInputValue, setSearchInputValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const [searchDropdownValue, setSearchDropdownValue] = useState('');
-  const [searchIndex, setSearchIndex] = useState('');
+  const [searchDropdownValue, setSearchDropdownValue] = useState(searchableIndexesValues.KEYWORD);
+  const [searchIndex, setSearchIndex] = useState(searchableIndexesValues.KEYWORD);
 
   const nonFilterUrlParams = ['query', 'qindex', 'segment', 'excludeSeeFrom', 'sort'];
 
@@ -135,7 +136,7 @@ const AuthoritiesSearch = ({ children }) => {
     }
 
     if (locationSearchParams.excludeSeeFrom) {
-      setIsExcludedSeeFromLimiter(locationSearchParams.excludeSeeFrom);
+      setIsExcludedSeeFromLimiter(!!locationSearchParams.excludeSeeFrom);
     }
 
     if (locationSearchParams.sort) {
@@ -149,9 +150,11 @@ const AuthoritiesSearch = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    const selectedIndex = searchIndex !== searchableIndexesValues.KEYWORD ? searchIndex : '';
+
     const queryParams = {
       query: searchQuery,
-      qindex: searchIndex,
+      qindex: selectedIndex,
       ...filters,
     };
 
@@ -216,6 +219,8 @@ const AuthoritiesSearch = ({ children }) => {
   };
 
   const handleFilterNavigationChange = () => {
+    const previousNavigationSegmentValue = navigationSegmentValue;
+
     setNavigationSegmentValue(currentSegment => {
       const isNavigationSegment = currentSegment !== '';
 
@@ -223,6 +228,14 @@ const AuthoritiesSearch = ({ children }) => {
         ? navigationSegments.search
         : navigationSegments.browse;
     });
+
+    if (previousNavigationSegmentValue === navigationSegments.browse) {
+      setSearchDropdownValue(searchableIndexesValues.KEYWORD);
+      setSearchIndex(searchableIndexesValues.KEYWORD);
+    } else {
+      setSearchDropdownValue('');
+      setSearchIndex('');
+    }
 
     if (searchInputRef.current) {
       searchInputRef.current.focus();
@@ -245,10 +258,10 @@ const AuthoritiesSearch = ({ children }) => {
 
   const resetAll = () => {
     setSearchInputValue('');
-    setSearchDropdownValue('');
     setSearchQuery('');
-    setSearchIndex('');
-    setFilters('');
+    setSearchDropdownValue(searchableIndexesValues.KEYWORD);
+    setSearchIndex(searchableIndexesValues.KEYWORD);
+    setFilters({});
     setNavigationSegmentValue('');
     setIsExcludedSeeFromLimiter(false);
     onChangeSortOption('');

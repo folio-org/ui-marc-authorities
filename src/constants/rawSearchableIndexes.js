@@ -1,7 +1,7 @@
 import { searchableIndexesValues } from './searchableIndexesValues';
 
 export const rawDefaultSearchableIndexes = [
-  { label: 'ui-marc-authorities.keyword', value: '' },
+  { label: 'ui-marc-authorities.keyword', value: searchableIndexesValues.KEYWORD },
   { label: 'ui-marc-authorities.identifier', value: searchableIndexesValues.IDENTIFIER },
   { label: 'ui-marc-authorities.personalName', value: searchableIndexesValues.PERSONAL_NAME },
   { label: 'ui-marc-authorities.corporateConferenceName', value: searchableIndexesValues.CORPORATE_CONFERENCE_NAME },
