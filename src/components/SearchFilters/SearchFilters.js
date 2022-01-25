@@ -16,6 +16,8 @@ import { MultiSelectionFacet } from '../MultiSelectionFacet';
 import { useSectionToggle } from '../../hooks';
 import { useFacets } from '../../queries';
 
+import { navigationSegments } from '../../constants';
+
 const FACETS = {
   HEADING_TYPE: 'headingType',
 };
@@ -28,6 +30,7 @@ const propTypes = {
   isExcludedSeeFromLimiter: PropTypes.bool.isRequired,
   isSearching: PropTypes.bool.isRequired,
   query: PropTypes.string.isRequired,
+  segment: PropTypes.string.isRequired,
   setFilters: PropTypes.func.isRequired,
   setIsExcludedSeeFromLimiter: PropTypes.func.isRequired,
 };
@@ -37,11 +40,14 @@ const SearchFilters = ({
   isSearching,
   setFilters,
   query,
+  segment,
   isExcludedSeeFromLimiter,
   setIsExcludedSeeFromLimiter,
   applyExcludeSeeFromLimiter,
 }) => {
   const intl = useIntl();
+
+  const isSearchNavigationSegment = segment === navigationSegments.search;
 
   const [filterAccordions, { handleSectionToggle }] = useSectionToggle({
     [FACETS.HEADING_TYPE]: false,
@@ -86,41 +92,45 @@ const SearchFilters = ({
         />
       </Accordion>
 
-      <MultiSelectionFacet
-        id={FACETS.HEADING_TYPE}
-        label={intl.formatMessage({ id: `ui-marc-authorities.search.${FACETS.HEADING_TYPE}` })}
-        name={FACETS.HEADING_TYPE}
-        open={filterAccordions[FACETS.HEADING_TYPE]}
-        options={facets[FACETS.HEADING_TYPE]?.values || []}
-        selectedValues={activeFilters[FACETS.HEADING_TYPE]}
-        onFilterChange={applyFilters}
-        onClearFilter={onClearFilter}
-        displayClearButton={!!activeFilters[FACETS.HEADING_TYPE]}
-        handleSectionToggle={handleSectionToggle}
-        isPending={isLoading}
-      />
+      {isSearchNavigationSegment && (
+        <>
+          <MultiSelectionFacet
+            id={FACETS.HEADING_TYPE}
+            label={intl.formatMessage({ id: `ui-marc-authorities.search.${FACETS.HEADING_TYPE}` })}
+            name={FACETS.HEADING_TYPE}
+            open={filterAccordions[FACETS.HEADING_TYPE]}
+            options={facets[FACETS.HEADING_TYPE]?.values || []}
+            selectedValues={activeFilters[FACETS.HEADING_TYPE]}
+            onFilterChange={applyFilters}
+            onClearFilter={onClearFilter}
+            displayClearButton={!!activeFilters[FACETS.HEADING_TYPE]}
+            handleSectionToggle={handleSectionToggle}
+            isPending={isLoading}
+          />
 
-      <AcqDateRangeFilter
-        activeFilters={activeFilters?.createdDate || []}
-        labelId="ui-marc-authorities.search.createdDate"
-        id="createdDate"
-        name="createdDate"
-        onChange={applyFilters}
-        disabled={isLoading}
-        closedByDefault
-        dateFormat={DATE_FORMAT}
-      />
+          <AcqDateRangeFilter
+            activeFilters={activeFilters?.createdDate || []}
+            labelId="ui-marc-authorities.search.createdDate"
+            id="createdDate"
+            name="createdDate"
+            onChange={applyFilters}
+            disabled={isLoading}
+            closedByDefault
+            dateFormat={DATE_FORMAT}
+          />
 
-      <AcqDateRangeFilter
-        activeFilters={activeFilters?.updatedDate || []}
-        labelId="ui-marc-authorities.search.updatedDate"
-        id="updatedDate"
-        name="updatedDate"
-        onChange={applyFilters}
-        disabled={isSearching}
-        closedByDefault
-        dateFormat={DATE_FORMAT}
-      />
+          <AcqDateRangeFilter
+            activeFilters={activeFilters?.updatedDate || []}
+            labelId="ui-marc-authorities.search.updatedDate"
+            id="updatedDate"
+            name="updatedDate"
+            onChange={applyFilters}
+            disabled={isSearching}
+            closedByDefault
+            dateFormat={DATE_FORMAT}
+          />
+        </>
+      )}
     </>
   );
 };

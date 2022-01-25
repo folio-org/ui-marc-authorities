@@ -11,7 +11,7 @@ const buildQuery = ({
   seeAlsoJoin = 'or',
   isExcludedSeeFromLimiter = false,
 }) => {
-  const indexData = searchableIndexesMap[searchIndex || searchableIndexesValues.KEYWORD];
+  const indexData = searchableIndexesMap[searchIndex];
 
   if (!indexData) {
     return '';
@@ -35,6 +35,10 @@ const buildQuery = ({
     }
 
     if (isExcludedSeeFromLimiter) {
+      if (searchIndex === searchableIndexesValues.KEYWORD) {
+        return [`${searchableIndexesValues.KEYWORD}=="%{query}" and authRefType == "Authorized"`];
+      }
+
       return queryParts;
     }
 

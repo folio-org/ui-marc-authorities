@@ -5,6 +5,7 @@ import {
 
 import SearchFilters from './SearchFilters';
 import Harness from '../../../test/jest/helpers/harness';
+import { navigationSegments } from '../../constants';
 
 jest.mock('../MultiSelectionFacet', () => ({
   MultiSelectionFacet: ({ name, onClearFilter }) => (
@@ -33,6 +34,7 @@ const renderSearchFilters = (props = {}) => render(
       isSearching={false}
       query=""
       setFilters={mockSetFilters}
+      segment={navigationSegments.search}
       {...props}
     />
   </Harness>,
@@ -67,7 +69,7 @@ describe('Given SearchFilters', () => {
   });
 
   describe('when clearing a filter', () => {
-    it('should call setFilter with correct filters', () => {
+    it('should call setFilters with correct filters', () => {
       const { getByText } = renderSearchFilters();
 
       fireEvent.click(getByText('Clear headingType'));
@@ -75,6 +77,27 @@ describe('Given SearchFilters', () => {
       expect(mockSetFilters).toHaveReturnedWith({
         filterA: 'val-a',
       });
+    });
+  });
+
+  describe('when navigation segment is Browse', () => {
+    it('should display "References" accordion and "Exclude see from" checkbox', () => {
+      const { getByRole } = renderSearchFilters({
+        segment: navigationSegments.browse,
+      });
+
+      expect(getByRole('heading', { name: 'ui-marc-authorities.search.references' })).toBeDefined();
+      expect(getByRole('checkbox', { name: 'ui-marc-authorities.search.excludeSeeFrom' })).toBeDefined();
+    });
+
+    it('should not display other filters except for "References" accordion', () => {
+      const { queryByText } = renderSearchFilters({
+        segment: navigationSegments.browse,
+      });
+
+      expect(queryByText('headingType')).toBeNull();
+      expect(queryByText('createdDate')).toBeNull();
+      expect(queryByText('updatedDate')).toBeNull();
     });
   });
 });

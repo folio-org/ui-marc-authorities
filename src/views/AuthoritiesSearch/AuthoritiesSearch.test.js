@@ -12,7 +12,8 @@ import AuthoritiesSearch from './AuthoritiesSearch';
 import '../../../test/jest/__mock__';
 import Harness from '../../../test/jest/helpers/harness';
 import {
-  rawSearchableIndexes,
+  rawDefaultSearchableIndexes,
+  rawBrowseSearchableIndexes,
   searchResultListColumns,
   sortOrders,
 } from '../../constants';
@@ -78,10 +79,17 @@ describe('Given AuthoritiesSearch', () => {
     expect(getByText('ui-marc-authorities.search.searchAndFilter')).toBeDefined();
   });
 
-  it('should display dropdown with searchable indexes', () => {
+  it('should display Search and Browse navigation toggle', () => {
+    const { getByTestId } = renderAuthoritiesSearch();
+
+    expect(getByTestId('segment-navigation-search')).toBeDefined();
+    expect(getByTestId('segment-navigation-browse')).toBeDefined();
+  });
+
+  it('should display dropdown with default searchable indexes', () => {
     const { getByText } = renderAuthoritiesSearch();
 
-    rawSearchableIndexes.forEach(({ label }) => {
+    rawDefaultSearchableIndexes.forEach(({ label }) => {
       expect(getByText(label)).toBeDefined();
     });
   });
@@ -93,9 +101,9 @@ describe('Given AuthoritiesSearch', () => {
   });
 
   it('should display "Search" button', () => {
-    const { getByRole } = renderAuthoritiesSearch();
+    const { getByTestId } = renderAuthoritiesSearch();
 
-    expect(getByRole('button', { name: 'ui-marc-authorities.label.search' })).toBeDefined();
+    expect(getByTestId('submit-authorities-search')).toBeDefined();
   });
 
   it('should display "Reset all" button', () => {
@@ -182,6 +190,39 @@ describe('Given AuthoritiesSearch', () => {
     });
   });
 
+  describe('when toggle navigation segment to Browse', () => {
+    it('should focus back on the search input', () => {
+      const { getByTestId } = renderAuthoritiesSearch();
+
+      fireEvent.click(getByTestId('segment-navigation-browse'));
+
+      expect(getByTestId('search-textarea')).toHaveFocus();
+    });
+
+    it('should display dropdown with searchable indexes for browse segment', () => {
+      const { getByTestId, getByText } = renderAuthoritiesSearch();
+
+      fireEvent.click(getByTestId('segment-navigation-browse'));
+
+      expect(getByText('None')).toBeDefined();
+
+      rawBrowseSearchableIndexes.forEach(({ label }) => {
+        expect(getByText(label)).toBeDefined();
+      });
+    });
+  });
+
+  describe('when toggle navigation segment to Search', () => {
+    it('should focus back on the search input', () => {
+      const { getByTestId } = renderAuthoritiesSearch();
+
+      fireEvent.click(getByTestId('segment-navigation-browse'));
+      fireEvent.click(getByTestId('segment-navigation-search'));
+
+      expect(getByTestId('search-textarea')).toHaveFocus();
+    });
+  });
+
   describe('when textarea is not empty and Reset all button is clicked', () => {
     it('should clear textarea', () => {
       const {
@@ -190,7 +231,7 @@ describe('Given AuthoritiesSearch', () => {
       } = renderAuthoritiesSearch();
 
       const textarea = getByTestId('search-textarea');
-      const searchButton = getByRole('button', { name: 'ui-marc-authorities.label.search' });
+      const searchButton = getByTestId('submit-authorities-search');
       const resetAllButton = getByRole('button', { name: 'stripes-smart-components.resetAll' });
 
       fireEvent.change(textarea, { target: { value: 'test search' } });
@@ -227,7 +268,7 @@ describe('Given AuthoritiesSearch', () => {
       it('should hide filters', async () => {
         jest.spyOn(routeData, 'useLocation').mockReturnValue({
           pathname: 'pathname',
-          search: '?qindex=test',
+          search: '?qindex=test&segment=browse',
         });
 
         let getByRoleFunction;

@@ -21,6 +21,7 @@ const propTypes = {
   onChange: PropTypes.func,
   onChangeIndex: PropTypes.func,
   onSubmitSearch: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
   searchableIndexes: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string,
     value: PropTypes.string,
@@ -36,6 +37,7 @@ const SearchTextareaField = ({
   onChange,
   loading,
   searchableIndexes,
+  placeholder,
   onChangeIndex,
   selectedIndex,
   disabled,
@@ -86,6 +88,7 @@ const SearchTextareaField = ({
         selectClass={css.select}
         value={selectedIndex}
         data-testid="search-select"
+        placeholder={placeholder}
       />
       <TextArea
         {...rest}

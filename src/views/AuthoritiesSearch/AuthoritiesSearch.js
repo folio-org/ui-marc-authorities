@@ -1,6 +1,7 @@
 import {
   useState,
   useEffect,
+  useRef,
 } from 'react';
 import {
   useHistory,
@@ -46,6 +47,7 @@ import {
 } from '@folio/stripes-acq-components';
 
 import {
+  FilterNavigation,
   SearchTextareaField,
   SearchResultsList,
   SearchFilters,
@@ -54,10 +56,13 @@ import { useAuthorities } from '../../queries';
 import { useSortColumnManager } from '../../hooks';
 import {
   searchableIndexesValues,
-  rawSearchableIndexes,
+  rawDefaultSearchableIndexes,
+  rawBrowseSearchableIndexes,
   advancedSearchIndexes,
   searchResultListColumns,
   sortOrders,
+  navigationSegments,
+  searchableIndexesValues,
 } from '../../constants';
 import css from './AuthoritiesSearch.css';
 
@@ -78,13 +83,13 @@ const AuthoritiesSearch = ({ children }) => {
   const [searchInputValue, setSearchInputValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const [searchDropdownValue, setSearchDropdownValue] = useState('');
+  const [searchDropdownValue, setSearchDropdownValue] = useState(searchableIndexesValues.KEYWORD);
   const [searchIndex, setSearchIndex] = useState(searchableIndexesValues.KEYWORD);
   const [advancedSearchDefaultSearch, setAdvancedSearchDefaultSearch] = useState();
   const [advancedSearchRows, setAdvancedSearchRows] = useState([]);
   const [isAdvancedSearchOpen, setIsAdvancedSearchOpen] = useState(false);
 
-  const nonFilterUrlParams = ['query', 'qindex', 'excludeSeeFrom', 'sort'];
+  const nonFilterUrlParams = ['query', 'qindex', 'segment', 'excludeSeeFrom', 'sort'];
 
   const getInitialFilters = () => {
     return omit(buildFiltersObj(location.search), nonFilterUrlParams);
@@ -92,7 +97,11 @@ const AuthoritiesSearch = ({ children }) => {
 
   const [filters, setFilters] = useState(getInitialFilters());
 
+  const [navigationSegmentValue, setNavigationSegmentValue] = useState('');
+
   const [isExcludedSeeFromLimiter, setIsExcludedSeeFromLimiter] = useState(false);
+
+  const searchInputRef = useRef(null);
 
   const columnMapping = {
     [searchResultListColumns.AUTH_REF_TYPE]: <FormattedMessage id="ui-marc-authorities.search-results-list.authRefType" />,
@@ -121,47 +130,63 @@ const AuthoritiesSearch = ({ children }) => {
     let newSearchDropdownValue = '';
     let newSearchIndex = '';
 
-    if (Object.keys(locationSearchParams).length > 0) {
-      if (locationSearchParams.query && locationSearchParams.query !== searchQuery) {
-        newSearchInputValue = locationSearchParams.query;
-        newSearchQuery = locationSearchParams.query;
-      }
+    if (Object.keys(locationSearchParams).length <= 0) {
+      return;
+    }
 
-      if (locationSearchParams.qindex && locationSearchParams.qindex !== searchIndex) {
-        newSearchDropdownValue = locationSearchParams.qindex;
-        newSearchIndex = locationSearchParams.qindex;
-      }
+    if (locationSearchParams.query && locationSearchParams.query !== searchQuery) {
+      newSearchInputValue = locationSearchParams.query;
+      newSearchQuery = locationSearchParams.query;
+    }
 
-      setSearchInputValue(newSearchInputValue);
-      setSearchQuery(newSearchQuery);
-      setSearchDropdownValue(newSearchDropdownValue);
-      setSearchIndex(newSearchIndex);
-      setAdvancedSearchDefaultSearch({
-        query: newSearchInputValue,
-        option: newSearchDropdownValue,
-      });
+    if (locationSearchParams.qindex && locationSearchParams.qindex !== searchIndex) {
+      newSearchDropdownValue = locationSearchParams.qindex;
+      newSearchIndex = locationSearchParams.qindex;
+    }
 
-      if (locationSearchParams.excludeSeeFrom) {
-        setIsExcludedSeeFromLimiter(locationSearchParams.excludeSeeFrom);
-      }
+    setSearchInputValue(newSearchInputValue);
+    setSearchQuery(newSearchQuery);
+    setSearchDropdownValue(newSearchDropdownValue);
+    setSearchIndex(newSearchIndex);
+    setAdvancedSearchDefaultSearch({
+      query: newSearchInputValue,
+      option: newSearchDropdownValue,
+    });
 
-      if (locationSearchParams.sort) {
-        if (locationSearchParams.sort[0] === '-') {
-          onChangeSortOption(locationSearchParams.sort.substring(1), sortOrders.DES);
-        } else {
-          onChangeSortOption(locationSearchParams.sort, sortOrders.ASC);
-        }
+    if (locationSearchParams.segment && locationSearchParams.segment !== navigationSegmentValue) {
+      setNavigationSegmentValue(locationSearchParams.segment);
+    }
+
+    if (locationSearchParams.excludeSeeFrom) {
+      setIsExcludedSeeFromLimiter(locationSearchParams.excludeSeeFrom);
+    }
+
+    if (locationSearchParams.excludeSeeFrom) {
+      setIsExcludedSeeFromLimiter(!!locationSearchParams.excludeSeeFrom);
+    }
+
+    if (locationSearchParams.sort) {
+      if (locationSearchParams.sort[0] === '-') {
+        onChangeSortOption(locationSearchParams.sort.substring(1), sortOrders.DES);
+      } else {
+        onChangeSortOption(locationSearchParams.sort, sortOrders.ASC);
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
+    const selectedIndex = searchIndex !== searchableIndexesValues.KEYWORD ? searchIndex : '';
+
     const queryParams = {
       query: searchQuery,
-      qindex: searchIndex,
+      qindex: selectedIndex,
       ...filters,
     };
+
+    if (navigationSegmentValue) {
+      queryParams.segment = navigationSegmentValue;
+    }
 
     if (isExcludedSeeFromLimiter) {
       queryParams.excludeSeeFrom = isExcludedSeeFromLimiter;
@@ -184,6 +209,7 @@ const AuthoritiesSearch = ({ children }) => {
     searchQuery,
     searchIndex,
     filters,
+    navigationSegmentValue,
     isExcludedSeeFromLimiter,
     sortOrder,
     sortedColumn,
@@ -218,6 +244,34 @@ const AuthoritiesSearch = ({ children }) => {
     writeStorage(filterPaneVisibilityKey, !isFilterPaneVisible);
   };
 
+  const setSearchInputRef = element => {
+    searchInputRef.current = element;
+  };
+
+  const handleFilterNavigationChange = () => {
+    const previousNavigationSegmentValue = navigationSegmentValue;
+
+    setNavigationSegmentValue(currentSegment => {
+      const isNavigationSegment = currentSegment !== '';
+
+      return isNavigationSegment && currentSegment === navigationSegments.browse
+        ? navigationSegments.search
+        : navigationSegments.browse;
+    });
+
+    if (previousNavigationSegmentValue === navigationSegments.browse) {
+      setSearchDropdownValue(searchableIndexesValues.KEYWORD);
+      setSearchIndex(searchableIndexesValues.KEYWORD);
+    } else {
+      setSearchDropdownValue('');
+      setSearchIndex('');
+    }
+
+    if (searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  };
+
   const onChangeIndex = (value) => setSearchDropdownValue(value);
 
   const onSubmitSearch = (e) => {
@@ -240,10 +294,11 @@ const AuthoritiesSearch = ({ children }) => {
 
   const resetAll = () => {
     setSearchInputValue('');
-    setSearchDropdownValue('');
     setSearchQuery('');
-    setSearchIndex('');
-    setFilters('');
+    setSearchDropdownValue(searchableIndexesValues.KEYWORD);
+    setSearchIndex(searchableIndexesValues.KEYWORD);
+    setFilters({});
+    setNavigationSegmentValue('');
     setIsExcludedSeeFromLimiter(false);
     setAdvancedSearchDefaultSearch(null);
     onChangeSortOption('');
@@ -318,6 +373,10 @@ const AuthoritiesSearch = ({ children }) => {
     );
   };
 
+  const rawSearchableIndexes = navigationSegmentValue === navigationSegments.browse
+    ? rawBrowseSearchableIndexes
+    : rawDefaultSearchableIndexes;
+
   const searchableIndexes = rawSearchableIndexes.map(index => ({
     label: intl.formatMessage({ id: index.label }),
     value: index.value,
@@ -326,6 +385,10 @@ const AuthoritiesSearch = ({ children }) => {
     label: intl.formatMessage({ id: index.label }),
     value: index.value,
   }));
+
+  const isSearchButtonDisabled = (navigationSegmentValue === navigationSegments.browse && !searchDropdownValue)
+    || !searchInputValue
+    || isLoading;
 
   return (
     <PersistedPaneset
@@ -347,27 +410,34 @@ const AuthoritiesSearch = ({ children }) => {
           )}
         >
           <form onSubmit={onSubmitSearch}>
+            <FilterNavigation
+              segment={navigationSegmentValue || undefined}
+              onChange={handleFilterNavigationChange}
+            />
             <div className={css.searchGroupWrap}>
               <SearchTextareaField
                 value={searchInputValue}
                 onChange={(e) => updateSearchValue(e.target.value)}
+                inputRef={setSearchInputRef}
                 autoFocus
                 rows="1"
                 name="query"
                 id="textarea-authorities-search"
                 className={css.searchField}
                 searchableIndexes={searchableIndexes}
+                placeholder={navigationSegmentValue === navigationSegments.browse ? 'None' : ''}
                 onChangeIndex={(e) => onChangeIndex(e.target.value)}
                 selectedIndex={searchDropdownValue}
                 onSubmitSearch={onSubmitSearch}
               />
               <Button
                 id="submit-authorities-search"
+                data-testid="submit-authorities-search"
                 type="submit"
                 buttonStyle="primary"
                 fullWidth
                 marginBottom0
-                disabled={!searchInputValue || isLoading}
+                disabled={isSearchButtonDisabled}
               >
                 {intl.formatMessage({ id: 'ui-marc-authorities.label.search' })}
               </Button>
@@ -416,6 +486,7 @@ const AuthoritiesSearch = ({ children }) => {
             isSearching={isLoading}
             setFilters={setFilters}
             query={query}
+            segment={navigationSegmentValue || navigationSegments.search}
             isExcludedSeeFromLimiter={isExcludedSeeFromLimiter}
             setIsExcludedSeeFromLimiter={setIsExcludedSeeFromLimiter}
             applyExcludeSeeFromLimiter={applyExcludeSeeFromLimiter}
