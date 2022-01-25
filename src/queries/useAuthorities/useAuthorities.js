@@ -7,10 +7,7 @@ import {
   useOkapiKy,
   useNamespace,
 } from '@folio/stripes/core';
-import {
-  defaultAdvancedSearchQueryBuilder,
-  ADVANCED_SEARCH_BOOLEAN_OPERATORS,
-} from '@folio/stripes-components';
+import { defaultAdvancedSearchQueryBuilder } from '@folio/stripes-components';
 
 import { buildQuery } from '../utils';
 import {
@@ -37,7 +34,7 @@ const buildRegularSearch = (searchIndex, query, isExcludedSeeFromLimiter) => {
 };
 
 const buildAdvancedSearch = (advancedSearch, isExcludedSeeFromLimiter) => {
-  const rowFormatter = (index, query, comparator, boolOperator) => {
+  const rowFormatter = (index, query, comparator) => {
     const compileQuery = template(
       buildQuery({
         searchIndex: index,
