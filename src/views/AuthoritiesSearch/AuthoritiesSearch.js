@@ -62,7 +62,6 @@ import {
   searchResultListColumns,
   sortOrders,
   navigationSegments,
-  searchableIndexesValues,
 } from '../../constants';
 import css from './AuthoritiesSearch.css';
 
