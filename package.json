@@ -11,7 +11,7 @@
   "scripts": {
     "start": "stripes serve",
     "build": "stripes build --output ./output",
-    "test": "jest --coverage --colors --verbose",
+    "test": "jest --coverage --verbose",
     "lint": "eslint .",
     "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-marc-authorities ./translations/ui-marc-authorities/compiled"
   },
@@ -26,6 +26,7 @@
     "@folio/stripes-core": "^8.0.0",
     "@folio/stripes-components": "^10.0.0",
     "@folio/stripes-smart-components": "^7.0.0",
+    "@folio/stripes-testing": "^4.2.0",
     "@formatjs/cli": "^4.2.8",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
