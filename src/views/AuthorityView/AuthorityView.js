@@ -15,23 +15,26 @@ import {
   LoadingView,
   Button,
 } from '@folio/stripes/components';
-import { IfPermission } from '@folio/stripes/core';
+import {
+  IfPermission,
+  useStripes,
+} from '@folio/stripes/core';
 import MarcView from '@folio/quick-marc/src/QuickMarcView/QuickMarcView';
 
-import { AuthorityShape } from '../../constants/shapes';
 import { KeyShortCutsWrapper } from '../../components';
 
 const propTypes = {
   authority: PropTypes.shape({
-    data: AuthorityShape.isRequired,
+    data: PropTypes.shape({
+      headingRef: PropTypes.string,
+      headingType: PropTypes.string,
+      id: PropTypes.string,
+    }).isRequired,
     isLoading: PropTypes.bool.isRequired,
   }).isRequired,
   marcSource: PropTypes.shape({
     data: PropTypes.object.isRequired,
     isLoading: PropTypes.bool.isRequired,
-  }).isRequired,
-  stripes: PropTypes.shape({
-    hasPerm: PropTypes.func.isRequired,
   }).isRequired,
 };
 
@@ -42,6 +45,7 @@ const AuthorityView = ({
   const intl = useIntl();
   const history = useHistory();
   const location = useLocation();
+  const stripes = useStripes();
 
   const onClose = useCallback(
     () => {
@@ -66,15 +70,13 @@ const AuthorityView = ({
   };
 
   const hasEditPermission = () => {
-    const { stripes } = PropTypes;
-
     return stripes.hasPerm('ui-marc-authorities.authority-record.edit');
   };
 
   return (
     <KeyShortCutsWrapper
       onEdit={redirectToQuickMarcEditPage}
-      canEdit={hasEditPermission}
+      canEdit={hasEditPermission()}
     >
       <div data-testid="authority-marc-view">
         <MarcView

@@ -451,7 +451,7 @@ const AuthoritiesSearch = ({ children }) => {
             >
               {({ resetRows }) => (
                 <Row between="xs">
-                  <Col xs="12" sm="6">
+                  <Col xs={12} lg={6}>
                     <Button
                       buttonStyle="none"
                       id="clickable-reset-all"
@@ -467,7 +467,7 @@ const AuthoritiesSearch = ({ children }) => {
                       </Icon>
                     </Button>
                   </Col>
-                  <Col xs="12" sm="6">
+                  <Col xs={12} lg={6}>
                     <Button
                       fullWidth
                       onClick={() => setIsAdvancedSearchOpen(true)}

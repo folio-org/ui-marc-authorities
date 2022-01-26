@@ -11,7 +11,7 @@
   "scripts": {
     "start": "stripes serve",
     "build": "stripes build --output ./output",
-    "test": "jest --ci --coverage",
+    "test": "jest --coverage --colors --verbose",
     "lint": "eslint .",
     "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-marc-authorities ./translations/ui-marc-authorities/compiled"
   },

@@ -12,7 +12,6 @@ const propTypes = {
   displayClearButton: PropTypes.bool.isRequired,
   handleSectionToggle: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
-  isPending: PropTypes.bool.isRequired,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   name: PropTypes.string.isRequired,
   onClearFilter: PropTypes.func.isRequired,
@@ -36,7 +35,6 @@ const MultiSelectionFacet = ({
   selectedValues,
   onClearFilter,
   displayClearButton,
-  isPending,
   ...props
 }) => {
   const onChange = (newOptions) => {
@@ -75,6 +73,9 @@ const MultiSelectionFacet = ({
       open={open}
       onToggle={handleSectionToggle}
       header={FilterAccordionHeader}
+      headerProps={{
+        label,
+      }}
       onClearFilter={() => onClearFilter(name)}
       displayClearButton={displayClearButton}
     >

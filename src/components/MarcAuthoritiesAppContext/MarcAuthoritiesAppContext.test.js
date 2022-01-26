@@ -1,14 +1,14 @@
-import { MemoryRouter } from 'react-router-dom';
 import {
   render,
 } from '@testing-library/react';
 
+import Harness from '../../../test/jest/helpers/harness';
 import MarcAuthoritiesAppContext from './MarcAuthoritiesAppContext';
 
 const renderMarcAuthoritiesAppContext = () => render(
-  <MemoryRouter>
+  <Harness>
     <MarcAuthoritiesAppContext />
-  </MemoryRouter>,
+  </Harness>,
 );
 
 describe('Given MARC Authorities App Context', () => {

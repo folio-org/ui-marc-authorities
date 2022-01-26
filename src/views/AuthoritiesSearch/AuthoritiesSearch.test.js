@@ -7,6 +7,8 @@ import {
 import routeData, { MemoryRouter } from 'react-router';
 import mockMapValues from 'lodash/mapValues';
 
+import { runAxeTest } from '@folio/stripes-testing';
+
 import AuthoritiesSearch from './AuthoritiesSearch';
 
 import '../../../test/jest/__mock__';
@@ -50,9 +52,14 @@ jest.mock('../../components', () => ({
   SearchFilters: () => <div>SearchFilters</div>,
 }));
 
+const mockApplyExcludeSeeFromLimiter = jest.fn();
+
 const renderAuthoritiesSearch = (props = {}) => render(
-  <Harness Router={MemoryRouter}>
-    <AuthoritiesSearch {...props} />
+  <Harness>
+    <AuthoritiesSearch
+      applyExcludeSeeFromLimiter={mockApplyExcludeSeeFromLimiter}
+      {...props}
+    />
   </Harness>,
 );
 
@@ -65,6 +72,14 @@ describe('Given AuthoritiesSearch', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+  });
+
+  it('should render with no axe errors', async () => {
+    const { container } = renderAuthoritiesSearch();
+
+    await runAxeTest({
+      rootNode: container,
+    });
   });
 
   it('should render paneset', () => {
