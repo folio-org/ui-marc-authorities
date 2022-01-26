@@ -4,7 +4,7 @@ import {
   render,
   fireEvent,
 } from '@testing-library/react';
-import routeData, { MemoryRouter } from 'react-router';
+import routeData from 'react-router';
 import mockMapValues from 'lodash/mapValues';
 
 import { runAxeTest } from '@folio/stripes-testing';
