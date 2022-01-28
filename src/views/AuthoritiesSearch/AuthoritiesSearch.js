@@ -239,10 +239,6 @@ const AuthoritiesSearch = ({ children }) => {
     writeStorage(filterPaneVisibilityKey, !isFilterPaneVisible);
   };
 
-  const setSearchInputRef = element => {
-    searchInputRef.current = element;
-  };
-
   const handleFilterNavigationChange = () => {
     const previousNavigationSegmentValue = navigationSegmentValue;
 
@@ -376,6 +372,7 @@ const AuthoritiesSearch = ({ children }) => {
     label: intl.formatMessage({ id: index.label }),
     value: index.value,
   }));
+
   const advancedSearchOptions = advancedSearchIndexes.map(index => ({
     label: intl.formatMessage({ id: index.label }),
     value: index.value,
@@ -413,7 +410,7 @@ const AuthoritiesSearch = ({ children }) => {
               <SearchTextareaField
                 value={searchInputValue}
                 onChange={(e) => updateSearchValue(e.target.value)}
-                inputRef={setSearchInputRef}
+                textAreaRef={searchInputRef}
                 autoFocus
                 rows="1"
                 name="query"
@@ -463,13 +460,16 @@ const AuthoritiesSearch = ({ children }) => {
                       </Icon>
                     </Button>
                   </Col>
+
                   <Col xs="12" sm="6">
-                    <Button
-                      fullWidth
-                      onClick={() => setIsAdvancedSearchOpen(true)}
-                    >
-                      {intl.formatMessage({ id: 'stripes-components.advancedSearch.button' })}
-                    </Button>
+                    {navigationSegmentValue !== navigationSegments.browse && (
+                      <Button
+                        fullWidth
+                        onClick={() => setIsAdvancedSearchOpen(true)}
+                      >
+                        {intl.formatMessage({ id: 'stripes-components.advancedSearch.button' })}
+                      </Button>
+                    )}
                   </Col>
                 </Row>
               )}

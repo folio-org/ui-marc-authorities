@@ -18,6 +18,14 @@ const searchableIndexes = [{
   value: 'test-value-2',
 }];
 
+const testRef = {
+  current: {
+    style: {
+      height: '100px',
+    },
+  },
+};
+
 const onChange = jest.fn();
 
 const renderSearchTextareaField = (props = {}) => render(
@@ -25,6 +33,7 @@ const renderSearchTextareaField = (props = {}) => render(
     id="test-search-textarea-field"
     onChange={onChange}
     searchableIndexes={searchableIndexes}
+    textAreaRef={testRef}
     {...props}
   />,
 );
