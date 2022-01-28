@@ -9,4 +9,5 @@ export const searchableIndexesValues = {
   SUBJECT: 'subject',
   CHILDREN_SUBJECT_HEADING: 'childrenSubjectHeading',
   GENRE: 'genre',
+  ADVANCED_SEARCH: 'advancedSearch',
 };

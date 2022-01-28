@@ -14,7 +14,11 @@ import { useOkapiKy } from '@folio/stripes/core';
 
 import Harness from '../../../test/jest/helpers/harness';
 import useAuthorities from './useAuthorities';
-import { searchResultListColumns, sortOrders } from '../../constants';
+import {
+  searchResultListColumns,
+  sortOrders,
+  searchableIndexesValues,
+} from '../../constants';
 
 const history = createMemoryHistory();
 
@@ -30,6 +34,8 @@ const wrapper = ({ children }) => (
 
 describe('Given useAuthorities', () => {
   const searchQuery = 'test';
+  const searchIndex = searchableIndexesValues.KEYWORD;
+
   const mockGet = jest.fn(() => ({
     json: () => Promise.resolve({
       authorities: [],
@@ -49,7 +55,6 @@ describe('Given useAuthorities', () => {
   });
 
   it('fetches authorities records', async () => {
-    const searchIndex = 'identifier';
     const filters = {
       updatedDate: ['2021-01-01:2021-12-31'],
     };
@@ -76,6 +81,7 @@ describe('Given useAuthorities', () => {
       it('should add "sortBy authRefType/sort.descending" to query', () => {
         const { result } = renderHook(() => useAuthorities({
           searchQuery,
+          searchIndex,
           filters: {},
           sortOrder: sortOrders.DES,
           sortedColumn: searchResultListColumns.AUTH_REF_TYPE,
@@ -89,6 +95,7 @@ describe('Given useAuthorities', () => {
       it('should add "sortBy authRefType/sort.ascending" to query', () => {
         const { result } = renderHook(() => useAuthorities({
           searchQuery,
+          searchIndex,
           filters: {},
           sortOrder: sortOrders.ASC,
           sortedColumn: searchResultListColumns.AUTH_REF_TYPE,

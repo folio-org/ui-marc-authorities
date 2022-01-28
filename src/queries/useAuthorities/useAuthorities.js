@@ -7,6 +7,7 @@ import {
   useOkapiKy,
   useNamespace,
 } from '@folio/stripes/core';
+import { defaultAdvancedSearchQueryBuilder } from '@folio/stripes-components';
 
 import { buildQuery } from '../utils';
 import {
@@ -15,9 +16,47 @@ import {
 
 const AUTHORITIES_API = 'search/authorities';
 
+const buildRegularSearch = (searchIndex, query, isExcludedSeeFromLimiter) => {
+  const compileQuery = template(
+    buildQuery({
+      searchIndex,
+      isExcludedSeeFromLimiter,
+    }),
+    { interpolate: /%{([\s\S]+?)}/g },
+  );
+
+  const cqlSearch = query
+    ? query?.trim().split(/\s+/)
+      .map(q => compileQuery({ query: q }))
+    : [];
+
+  return cqlSearch;
+};
+
+const buildAdvancedSearch = (advancedSearch, isExcludedSeeFromLimiter) => {
+  const rowFormatter = (index, query, comparator) => {
+    const compileQuery = template(
+      buildQuery({
+        searchIndex: index,
+        comparator,
+        isExcludedSeeFromLimiter,
+      }),
+      { interpolate: /%{([\s\S]+?)}/g },
+    );
+
+    const cqlSearch = compileQuery({ query });
+
+    return cqlSearch;
+  };
+
+  return [defaultAdvancedSearchQueryBuilder(advancedSearch, rowFormatter)];
+};
+
 const useAuthorities = ({
   searchQuery,
   searchIndex,
+  advancedSearch,
+  isAdvancedSearch,
   filters,
   isExcludedSeeFromLimiter,
   pageSize,
@@ -29,25 +68,13 @@ const useAuthorities = ({
 
   const [offset, setOffset] = useState(0);
 
-  const queryParams = {
-    query: searchQuery,
-    qindex: searchIndex,
-    sort: '',
-    ...filters,
-  };
+  let cqlSearch = [];
 
-  const compileQuery = template(
-    buildQuery({
-      searchIndex,
-      isExcludedSeeFromLimiter,
-    }),
-    { interpolate: /%{([\s\S]+?)}/g },
-  );
-
-  const cqlSearch = queryParams.query
-    ? queryParams.query?.trim().split(/\s+/)
-      .map(query => compileQuery({ query }))
-    : [];
+  if (isAdvancedSearch) {
+    cqlSearch = buildAdvancedSearch(advancedSearch, isExcludedSeeFromLimiter);
+  } else {
+    cqlSearch = buildRegularSearch(searchIndex, searchQuery, isExcludedSeeFromLimiter);
+  }
 
   const cqlFilters = Object.entries(filters)
     .filter(([, filterValues]) => filterValues.length)

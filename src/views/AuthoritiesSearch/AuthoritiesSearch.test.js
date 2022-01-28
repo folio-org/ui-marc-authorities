@@ -130,6 +130,66 @@ describe('Given AuthoritiesSearch', () => {
     expect(getByTestId('SearchResultsList')).toHaveAttribute('sortedColumn', '');
   });
 
+  it('should render AdvancedSearch button', () => {
+    const { getByText } = renderAuthoritiesSearch();
+
+    expect(getByText('stripes-components.advancedSearch.button')).toBeDefined();
+  });
+
+  describe('when using Advanced Search', () => {
+    it('should show Advanced Search modal', () => {
+      const { getByText } = renderAuthoritiesSearch();
+
+      fireEvent.click(getByText('stripes-components.advancedSearch.button'));
+
+      expect(getByText('stripes-components.advancedSearch.title')).toBeDefined();
+    });
+
+    describe('when making changes to rows and searching', () => {
+      it('should update search textarea', () => {
+        const {
+          getByText,
+          getAllByTestId,
+          getByTestId,
+        } = renderAuthoritiesSearch();
+
+        fireEvent.click(getByText('stripes-components.advancedSearch.button'));
+
+        const queryInputs = getAllByTestId('advanced-search-query');
+
+        fireEvent.change(queryInputs[0], { target: { value: 'Music' } });
+        fireEvent.change(queryInputs[1], { target: { value: 'Painting' } });
+        fireEvent.blur(queryInputs[1]);
+
+        fireEvent.click(getByText('stripes-components.advancedSearch.footer.search'));
+
+        expect(getByTestId('search-textarea').value).toBe('keyword==Music and keyword==Painting');
+      });
+    });
+
+    describe('when component was loaded with initial search', () => {
+      it('should apply all url parameters', () => {
+        jest.spyOn(routeData, 'useLocation').mockReturnValue({
+          pathname: 'pathname',
+          search: '?qindex=personalName&query=Music',
+        });
+
+        const {
+          getByText,
+          getAllByTestId,
+        } = renderAuthoritiesSearch();
+
+        fireEvent.click(getByText('stripes-components.advancedSearch.button'));
+
+        const queryInputs = getAllByTestId('advanced-search-query');
+        const searchOptionSelects = getAllByTestId('advanced-search-option');
+
+        expect(queryInputs[0].value).toBe('Music');
+        expect(searchOptionSelects[0].value).toBe('personalName');
+      });
+    });
+  });
+
   describe('when toggle navigation segment to Browse', () => {
     it('should focus back on the search input', () => {
       const { getByTestId } = renderAuthoritiesSearch();
@@ -377,6 +437,22 @@ describe('Given AuthoritiesSearch', () => {
           searchResultListColumns.HEADING_REF,
         ]));
       });
+    });
+  });
+
+  describe('when component was loaded with initial search', () => {
+    it('should apply all url parameters', () => {
+      jest.spyOn(routeData, 'useLocation').mockReturnValue({
+        pathname: 'pathname',
+        search: '?qindex=keyword&query=Music',
+      });
+
+      const {
+        getByTestId,
+      } = renderAuthoritiesSearch();
+
+      expect(getByTestId('search-textarea').value).toBe('Music');
+      expect(getByTestId('search-select').value).toBe('keyword');
     });
   });
 

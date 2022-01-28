@@ -2,7 +2,6 @@
 
 ## [1.0.0](IN PROGRESS)
 
-* New app created with stripes-cli
 * [UIMARCAUTH-6](https://issues.folio.org/browse/UIMARCAUTH-6) Add View MARC authority record permission.
 * [UIMARCAUTH-5](https://issues.folio.org/browse/UIMARCAUTH-5) Add Edit MARC authority record permission.
 * [UIMARCAUTH-18](https://issues.folio.org/browse/UIMARCAUTH-18) Display Results List.
@@ -26,3 +25,8 @@
 * [UIMARCAUTH-48](https://issues.folio.org/browse/UIMARCAUTH-48) Children's subject headings search option - Extend request by searching by subjectHeadings = b.
 * [UIMARCAUTH-50](https://issues.folio.org/browse/UIMARCAUTH-50) Do not bold Auth/Ref in Authorized/Reference column.
 * [UIMARCAUTH-28](https://issues.folio.org/browse/UIMARCAUTH-28) Browse MARC Authority Records > Display Browse headings toggle.
+* [UIMARCAUTH-52](https://issues.folio.org/browse/UIMARCAUTH-52) Update Keyword Search query to apply Exclude see also filter selection.
+
+## [0.1.0](https://github.com/folio-org/ui-marc-authorities/tree/v0.1.0) (2021-01-20)
+
+* New app created with stripes-cli
