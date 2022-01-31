@@ -83,7 +83,7 @@ const AuthorityView = ({
             id: 'ui-marc-authorities.authorityRecordSubtitle',
           }, {
             heading: authority.data.headingType,
-            lastUpdatedDate: intl.formatDate(marcSource.data.metadata.lastUpdatedDate),
+            lastUpdatedDate: intl.formatDate(marcSource.data.metadata.updatedDate),
           })}
           isPaneset={false}
           marcTitle={intl.formatMessage({ id: 'ui-marc-authorities.marcHeading' })}
