@@ -41,5 +41,9 @@
     "shortcut.copy": "Copy",
     "shortcut.cut": "Cut",
     "shortcut.paste": "Paste",
-    "shortcut.find": "Find"
+    "shortcut.find": "Find",
+    "label.browse": "瀏覽",
+    "label.search.textArea": "輸入查詢名稱",
+    "query": "查詢",
+    "advancedSearch": "進階搜尋"
 }
