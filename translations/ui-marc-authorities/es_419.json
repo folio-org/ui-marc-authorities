@@ -41,5 +41,9 @@
     "shortcut.copy": "Copy",
     "shortcut.cut": "Cut",
     "shortcut.paste": "Paste",
-    "shortcut.find": "Find"
+    "shortcut.find": "Find",
+    "label.browse": "Browse",
+    "label.search.textArea": "Enter search query",
+    "query": "Query",
+    "advancedSearch": "Advanced search"
 }
