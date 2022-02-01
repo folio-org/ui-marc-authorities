@@ -1,13 +1,12 @@
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
-import {
-  useLocation,
-  useRouteMatch,
-  useHistory,
-} from 'react-router';
+import { useRouteMatch } from 'react-router';
 
-import { MultiColumnList } from '@folio/stripes/components';
+import {
+  MultiColumnList,
+  TextLink,
+} from '@folio/stripes/components';
 import { SearchAndSortNoResultsMessage } from '@folio/stripes/smart-components';
 
 import { AuthorityShape } from '../../constants/shapes';
@@ -51,9 +50,7 @@ const SearchResultsList = ({
   hasFilters,
 }) => {
   const intl = useIntl();
-  const location = useLocation();
   const match = useRouteMatch();
-  const history = useHistory();
 
   const columnMapping = {
     [searchResultListColumns.AUTH_REF_TYPE]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.authRefType' }),
@@ -73,50 +70,13 @@ const SearchResultsList = ({
         ? <b>{authority.authRefType}</b>
         : authority.authRefType;
     },
-  };
-
-  const openAuthorityView = (authorityId) => {
-    history.push({
-      pathname: `${match.path}/authorities/${authorityId}`,
-      search: location.search,
-    });
-  };
-
-  const handleRowClick = (e, authorityId) => {
-    e.preventDefault();
-    openAuthorityView(authorityId);
-  };
-
-  const handleRowKeyPress = (e, authorityId) => {
-    if (e.key === 'Enter') {
-      openAuthorityView(authorityId);
-    }
-  };
-
-  const rowFormatter = (row) => {
-    const {
-      rowIndex,
-      rowClass,
-      rowData,
-      cells,
-      rowProps,
-      labelStrings,
-    } = row;
-
-    return (
-      <span
-        onKeyPress={(e) => handleRowKeyPress(e, rowData.id)}
-        tabIndex={0}
-        aria-label={labelStrings && labelStrings.join('...')}
-        className={rowClass}
-        key={`row-${rowIndex}`}
-        type="button"
-        role="row"
-        {...rowProps}
+    headingRef: (authority) => (
+      <TextLink
+        to={`${match.path}/authorities/${authority.id}`}
       >
-        {cells}
-      </span>
-    );
+        {authority.headingRef}
+      </TextLink>
+    ),
   };
 
   const source = useMemo(
@@ -138,7 +98,6 @@ const SearchResultsList = ({
       id="authority-result-list"
       onNeedMoreData={onNeedMoreData}
       visibleColumns={visibleColumns}
-      rowFormatter={rowFormatter}
       totalCount={totalResults}
       pagingType="prev-next"
       pageAmount={pageSize}
@@ -146,7 +105,6 @@ const SearchResultsList = ({
       sortedColumn={sortedColumn}
       sortOrder={sortOrder}
       onHeaderClick={onHeaderClick}
-      onRowClick={(e, row) => handleRowClick(e, row.id)}
       autosize
       isEmptyMessage={
         source ? (
