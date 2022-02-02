@@ -8,6 +8,7 @@ import {
   CommandList,
   defaultKeyboardShortcuts,
 } from '@folio/stripes-components';
+import { runAxeTest } from '@folio/stripes-testing';
 
 import Harness from '../../../test/jest/helpers/harness';
 import AuthorityView from './AuthorityView';
@@ -32,7 +33,11 @@ const marcSource = {
 };
 
 const authority = {
-  data: {},
+  data: {
+    id: 'authority-id',
+    headingRef: 'heading-ref',
+    headingType: 'heading-type',
+  },
   isLoading: false,
 };
 
@@ -50,6 +55,10 @@ const renderAuthorityView = (props = {}) => render(
 );
 
 describe('Given AuthorityView', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   describe('when data is not loaded', () => {
     it('should show loading view', () => {
       const { getByText } = renderAuthorityView({
@@ -79,6 +88,14 @@ describe('Given AuthorityView', () => {
     expect(getByText('ui-marc-authorities.authority-record.edit')).toBeDefined();
   });
 
+  it('should render with no axe errors', async () => {
+    const { container } = renderAuthorityView();
+
+    await runAxeTest({
+      rootNode: container,
+    });
+  });
+
   describe('when click on "Edit" button', () => {
     it('should redirect to EditQuickMarcRecord page', () => {
       const { getByText } = renderAuthorityView();
@@ -92,10 +109,6 @@ describe('Given AuthorityView', () => {
   describe('when user clicked edit shortcuts', () => {
     const onEditMock = jest.fn();
     const canEditMock = jest.fn();
-
-    afterEach(() => {
-      jest.clearAllMocks();
-    });
 
     it('should not call onEdit function', () => {
       const {

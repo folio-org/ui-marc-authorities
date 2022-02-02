@@ -3,6 +3,8 @@ import {
   render,
 } from '@testing-library/react';
 
+import { runAxeTest } from '@folio/stripes-testing';
+
 import SearchFilters from './SearchFilters';
 import Harness from '../../../test/jest/helpers/harness';
 import { navigationSegments } from '../../constants';
@@ -27,6 +29,9 @@ const mockSetFilters = jest.fn().mockImplementation((cb) => {
   });
 });
 
+const mockApplyExcludeSeeFromLimiter = jest.fn();
+const mockSetIsExcludedSeeFromLimiter = jest.fn();
+
 const renderSearchFilters = (props = {}) => render(
   <Harness>
     <SearchFilters
@@ -35,6 +40,9 @@ const renderSearchFilters = (props = {}) => render(
       query=""
       setFilters={mockSetFilters}
       segment={navigationSegments.search}
+      applyExcludeSeeFromLimiter={mockApplyExcludeSeeFromLimiter}
+      isExcludedSeeFromLimiter={false}
+      setIsExcludedSeeFromLimiter={mockSetIsExcludedSeeFromLimiter}
       {...props}
     />
   </Harness>,
@@ -98,6 +106,24 @@ describe('Given SearchFilters', () => {
       expect(queryByText('headingType')).toBeNull();
       expect(queryByText('createdDate')).toBeNull();
       expect(queryByText('updatedDate')).toBeNull();
+    });
+  });
+
+  describe('when expanding all filters', () => {
+    it('should render with no axe errors', async () => {
+      const {
+        container,
+        getByText,
+      } = renderSearchFilters();
+
+      fireEvent.click(getByText('ui-marc-authorities.search.references'));
+      fireEvent.click(getByText('headingType'));
+      fireEvent.click(getByText('createdDate'));
+      fireEvent.click(getByText('updatedDate'));
+
+      await runAxeTest({
+        rootNode: container,
+      });
     });
   });
 });

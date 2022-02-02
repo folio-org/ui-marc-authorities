@@ -19,10 +19,12 @@ const renderMultiSelectionFacet = (props = {}) => render(
     <MultiSelectionFacet
       id="filter-name"
       name="filter-name"
+      label="filter-label"
       open
       handleSectionToggle={mockHandleSectionToggle}
       onClearFilter={mockOnClearFilter}
       onFilterChange={mockOnFilterChange}
+      displayClearButton
       options={[{
         id: 'option-1',
         totalRecords: 10,

@@ -27,18 +27,24 @@ const testRef = {
 };
 
 const onChange = jest.fn();
+const mockOnSubmitSearch = jest.fn();
 
 const renderSearchTextareaField = (props = {}) => render(
   <SearchTextareaField
     id="test-search-textarea-field"
     onChange={onChange}
     searchableIndexes={searchableIndexes}
+    onSubmitSearch={mockOnSubmitSearch}
     textAreaRef={testRef}
     {...props}
   />,
 );
 
 describe('Given SearchTextareaField', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should render Select component', () => {
     const { getByText } = renderSearchTextareaField();
 
@@ -63,10 +69,7 @@ describe('Given SearchTextareaField', () => {
 
   describe('when user press "Enter" button', () => {
     it('should handle form submit', async () => {
-      const mockOnSubmitSearch = jest.fn();
-      const { getByTestId } = renderSearchTextareaField({
-        onSubmitSearch: mockOnSubmitSearch,
-      });
+      const { getByTestId } = renderSearchTextareaField();
 
       fireEvent.change(getByTestId('search-textarea'), { target: { value: 'test' } });
       fireEvent.keyDown(getByTestId('search-textarea'), {
@@ -79,10 +82,7 @@ describe('Given SearchTextareaField', () => {
 
   describe('when user press not "Enter" button', () => {
     it('should not handle form submit', async () => {
-      const mockOnSubmitSearch = jest.fn();
-      const { getByTestId } = renderSearchTextareaField({
-        onSubmitSearch: mockOnSubmitSearch,
-      });
+      const { getByTestId } = renderSearchTextareaField();
 
       fireEvent.change(getByTestId('search-textarea'), { target: { value: 'test' } });
       fireEvent.keyDown(getByTestId('search-textarea'), {

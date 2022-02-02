@@ -80,6 +80,9 @@ const SearchFilters = ({
         closedByDefault
         displayClearButton={isExcludedSeeFromLimiter}
         header={FilterAccordionHeader}
+        headerProps={{
+          label: intl.formatMessage({ id: 'ui-marc-authorities.search.references' }),
+        }}
         label={intl.formatMessage({ id: 'ui-marc-authorities.search.references' })}
         aria-label={intl.formatMessage({ id: 'ui-marc-authorities.search.references' })}
         onClearFilter={() => setIsExcludedSeeFromLimiter(false)}

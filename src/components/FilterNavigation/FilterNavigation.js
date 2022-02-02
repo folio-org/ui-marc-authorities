@@ -11,7 +11,10 @@ const FilterNavigation = ({
   segment,
   onChange,
 }) => (
-  <ButtonGroup fullWidth>
+  <ButtonGroup
+    fullWidth
+    role="tablist"
+  >
     {
       Object.keys(navigationSegments).map(name => (
         <Button
@@ -19,6 +22,7 @@ const FilterNavigation = ({
           to={`/marc-authorities?segment=${name}`}
           buttonStyle={`${segment === name ? 'primary' : 'default'}`}
           aria-selected={segment === name}
+          role="tab"
           id={`segment-navigation-${name}`}
           data-testid={`segment-navigation-${name}`}
           onClick={onChange}

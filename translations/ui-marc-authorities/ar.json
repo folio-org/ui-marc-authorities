@@ -41,5 +41,9 @@
     "shortcut.copy": "نسخ",
     "shortcut.cut": "قص",
     "shortcut.paste": "لصق",
-    "shortcut.find": "بحث"
+    "shortcut.find": "بحث",
+    "label.browse": "استعراض",
+    "label.search.textArea": "قم بإدخال استعلام البحث",
+    "query": "استعلام",
+    "advancedSearch": "بحث متقدم"
 }

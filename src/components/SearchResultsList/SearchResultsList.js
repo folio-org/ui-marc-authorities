@@ -1,13 +1,12 @@
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
-import { Link } from 'react-router-dom';
-import {
-  useLocation,
-  useRouteMatch,
-} from 'react-router';
+import { useRouteMatch } from 'react-router';
 
-import { MultiColumnList } from '@folio/stripes/components';
+import {
+  MultiColumnList,
+  TextLink,
+} from '@folio/stripes/components';
 import { SearchAndSortNoResultsMessage } from '@folio/stripes/smart-components';
 
 import { AuthorityShape } from '../../constants/shapes';
@@ -51,7 +50,6 @@ const SearchResultsList = ({
   hasFilters,
 }) => {
   const intl = useIntl();
-  const location = useLocation();
   const match = useRouteMatch();
 
   const columnMapping = {
@@ -72,32 +70,13 @@ const SearchResultsList = ({
         ? <b>{authority.authRefType}</b>
         : authority.authRefType;
     },
-  };
-
-  const rowFormatter = (row) => {
-    const {
-      rowIndex,
-      rowClass,
-      rowData,
-      cells,
-      rowProps,
-      labelStrings,
-    } = row;
-
-    return (
-      <div
-        key={`row-${rowIndex}`}
+    headingRef: (authority) => (
+      <TextLink
+        to={`${match.path}/authorities/${authority.id}`}
       >
-        <Link
-          to={`${match.path}/authorities/${rowData.id}${location.search}`}
-          data-label={labelStrings && labelStrings.join('...')}
-          className={rowClass}
-          {...rowProps}
-        >
-          {cells}
-        </Link>
-      </div>
-    );
+        {authority.headingRef}
+      </TextLink>
+    ),
   };
 
   const source = useMemo(
@@ -119,7 +98,6 @@ const SearchResultsList = ({
       id="authority-result-list"
       onNeedMoreData={onNeedMoreData}
       visibleColumns={visibleColumns}
-      rowFormatter={rowFormatter}
       totalCount={totalResults}
       pagingType="prev-next"
       pageAmount={pageSize}
