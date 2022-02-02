@@ -100,7 +100,8 @@
         "subPermissions": [
           "module.marc-authorities.enabled",
           "records-editor.records.item.get",
-          "search.authorities.collection.get"
+          "search.authorities.collection.get",
+          "search.facets.collection.get"
         ],
         "visible": true
       },
