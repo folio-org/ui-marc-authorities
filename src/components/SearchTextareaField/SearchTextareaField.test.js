@@ -18,6 +18,14 @@ const searchableIndexes = [{
   value: 'test-value-2',
 }];
 
+const testRef = {
+  current: {
+    style: {
+      height: '100px',
+    },
+  },
+};
+
 const onChange = jest.fn();
 const mockOnSubmitSearch = jest.fn();
 
@@ -27,6 +35,7 @@ const renderSearchTextareaField = (props = {}) => render(
     onChange={onChange}
     searchableIndexes={searchableIndexes}
     onSubmitSearch={mockOnSubmitSearch}
+    textAreaRef={testRef}
     {...props}
   />,
 );

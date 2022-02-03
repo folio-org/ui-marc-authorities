@@ -1,7 +1,4 @@
-import {
-  useEffect,
-  useRef,
-} from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useIntl } from 'react-intl';
@@ -27,6 +24,9 @@ const propTypes = {
     value: PropTypes.string,
   })).isRequired,
   selectedIndex: PropTypes.string,
+  textAreaRef: PropTypes.shape({
+    current: PropTypes.instanceOf(Element),
+  }),
   value: PropTypes.string,
 };
 
@@ -42,10 +42,10 @@ const SearchTextareaField = ({
   selectedIndex,
   disabled,
   onSubmitSearch,
+  textAreaRef,
   ...rest
 }) => {
   const intl = useIntl();
-  const textAreaRef = useRef(null);
 
   const fitTextBoxToContent = () => {
     if (!textAreaRef.current?.style) {
