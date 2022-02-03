@@ -12,6 +12,7 @@ import { defaultAdvancedSearchQueryBuilder } from '@folio/stripes-components';
 import { buildQuery } from '../utils';
 import {
   filterConfig,
+  searchableIndexesValues,
 } from '../../constants';
 
 const AUTHORITIES_API = 'search/authorities';
@@ -25,10 +26,18 @@ const buildRegularSearch = (searchIndex, query, isExcludedSeeFromLimiter) => {
     { interpolate: /%{([\s\S]+?)}/g },
   );
 
-  const cqlSearch = query
-    ? query?.trim().split(/\s+/)
-      .map(q => compileQuery({ query: q }))
-    : [];
+  let cqlSearch = [];
+
+  if (query) {
+    if (searchIndex === searchableIndexesValues.IDENTIFIER) {
+      const compiledQuery = compileQuery({ query });
+
+      cqlSearch.push(compiledQuery);
+    } else {
+      cqlSearch = query?.trim().split(/\s+/)
+        .map(q => compileQuery({ query: q }));
+    }
+  }
 
   return cqlSearch;
 };

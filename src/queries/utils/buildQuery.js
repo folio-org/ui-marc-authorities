@@ -5,6 +5,11 @@ import {
   searchableIndexesMap,
 } from '../../constants';
 
+const indexesWithSpecialExcludeSeeFromLimiterQuery = [
+  searchableIndexesValues.KEYWORD,
+  searchableIndexesValues.IDENTIFIER,
+];
+
 const buildQuery = ({
   searchIndex,
   comparator = '==',
@@ -35,8 +40,8 @@ const buildQuery = ({
     }
 
     if (isExcludedSeeFromLimiter) {
-      if (searchIndex === searchableIndexesValues.KEYWORD) {
-        return [`${searchableIndexesValues.KEYWORD}=="%{query}" and authRefType == "Authorized"`];
+      if (indexesWithSpecialExcludeSeeFromLimiterQuery.some(index => index === searchIndex)) {
+        return [`${searchIndex}=="%{query}" and authRefType == "Authorized"`];
       }
 
       return queryParts;
