@@ -100,6 +100,8 @@ const AuthoritiesSearch = ({ children }) => {
 
   const [isExcludedSeeFromLimiter, setIsExcludedSeeFromLimiter] = useState(false);
 
+  const [isGoingToBaseURL, setIsGoingToBaseURL] = useState(false);
+
   const searchInputRef = useRef(null);
 
   const columnMapping = {
@@ -195,8 +197,16 @@ const AuthoritiesSearch = ({ children }) => {
 
     const searchString = `${buildSearch(queryParams)}`;
 
+    const pathname = isGoingToBaseURL
+      ? '/marc-authorities'
+      : location.pathname;
+
+    if (isGoingToBaseURL) {
+      setIsGoingToBaseURL(false);
+    }
+
     history.replace({
-      pathname: '/marc-authorities',
+      pathname,
       search: searchString,
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -221,7 +231,7 @@ const AuthoritiesSearch = ({ children }) => {
     query,
   } = useAuthorities({
     searchQuery,
-    searchIndex,
+    searchIndex: searchIndex || searchableIndexesValues.KEYWORD,
     advancedSearch: advancedSearchRows,
     isAdvancedSearch,
     filters,
@@ -273,6 +283,8 @@ const AuthoritiesSearch = ({ children }) => {
 
     setSearchQuery(searchInputValue);
     setSearchIndex(searchDropdownValue);
+
+    setIsGoingToBaseURL(true);
   };
 
   const updateSearchValue = (value) => {
@@ -293,6 +305,8 @@ const AuthoritiesSearch = ({ children }) => {
     setIsExcludedSeeFromLimiter(false);
     setAdvancedSearchDefaultSearch(null);
     onChangeSortOption('');
+
+    setIsGoingToBaseURL(true);
   };
 
   const applyExcludeSeeFromLimiter = () => {

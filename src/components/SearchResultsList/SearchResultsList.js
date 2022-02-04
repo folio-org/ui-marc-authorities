@@ -1,7 +1,10 @@
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
-import { useRouteMatch } from 'react-router';
+import {
+  useLocation,
+  useRouteMatch,
+} from 'react-router';
 
 import {
   MultiColumnList,
@@ -50,6 +53,7 @@ const SearchResultsList = ({
   hasFilters,
 }) => {
   const intl = useIntl();
+  const location = useLocation();
   const match = useRouteMatch();
 
   const columnMapping = {
@@ -72,7 +76,7 @@ const SearchResultsList = ({
     },
     headingRef: (authority) => (
       <TextLink
-        to={`${match.path}/authorities/${authority.id}`}
+        to={`${match.path}/authorities/${authority.id}${location.search}`}
       >
         {authority.headingRef}
       </TextLink>
