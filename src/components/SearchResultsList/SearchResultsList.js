@@ -10,13 +10,14 @@ import {
 import { SearchAndSortNoResultsMessage } from '@folio/stripes/smart-components';
 
 import { AuthorityShape } from '../../constants/shapes';
-import {
-  searchResultListColumns,
-} from '../../constants';
+import { searchResultListColumns } from '../../constants';
+
+import css from './SearchResultsList.css';
 
 const propTypes = {
   authorities: PropTypes.arrayOf(AuthorityShape).isRequired,
   hasFilters: PropTypes.bool.isRequired,
+  hidePageIndices: PropTypes.bool,
   isFilterPaneVisible: PropTypes.bool.isRequired,
   loaded: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
@@ -48,6 +49,7 @@ const SearchResultsList = ({
   query,
   toggleFilterPane,
   hasFilters,
+  hidePageIndices,
 }) => {
   const intl = useIntl();
   const match = useRouteMatch();
@@ -73,6 +75,7 @@ const SearchResultsList = ({
     headingRef: (authority) => (
       <TextLink
         to={`${match.path}/authorities/${authority.id}`}
+        className={authority.isAnchor ? css.anchorLink : null}
       >
         {authority.headingRef}
       </TextLink>
@@ -104,8 +107,10 @@ const SearchResultsList = ({
       loading={loading}
       sortedColumn={sortedColumn}
       sortOrder={sortOrder}
+      selectedRow={authorities.length ? { id: authorities[0].id } : undefined}
       onHeaderClick={onHeaderClick}
       autosize
+      hidePageIndices={hidePageIndices}
       isEmptyMessage={
         source ? (
           <div data-test-agreements-no-results-message>

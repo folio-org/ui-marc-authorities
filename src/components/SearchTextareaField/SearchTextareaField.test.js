@@ -4,6 +4,7 @@ import {
 } from '@testing-library/react';
 
 import SearchTextareaField from './SearchTextareaField';
+import Harness from '../../../test/jest/helpers/harness';
 
 jest.mock('@folio/stripes/components', () => ({
   ...jest.requireActual('@folio/stripes-components'),
@@ -26,18 +27,18 @@ const testRef = {
   },
 };
 
-const onChange = jest.fn();
 const mockOnSubmitSearch = jest.fn();
 
 const renderSearchTextareaField = (props = {}) => render(
-  <SearchTextareaField
-    id="test-search-textarea-field"
-    onChange={onChange}
-    searchableIndexes={searchableIndexes}
-    onSubmitSearch={mockOnSubmitSearch}
-    textAreaRef={testRef}
-    {...props}
-  />,
+  <Harness>
+    <SearchTextareaField
+      id="test-search-textarea-field"
+      searchableIndexes={searchableIndexes}
+      onSubmitSearch={mockOnSubmitSearch}
+      textAreaRef={testRef}
+      {...props}
+    />
+  </Harness>,
 );
 
 describe('Given SearchTextareaField', () => {
@@ -55,16 +56,6 @@ describe('Given SearchTextareaField', () => {
     const { getByTestId } = renderSearchTextareaField();
 
     expect(getByTestId('search-textarea')).toBeDefined();
-  });
-
-  describe('when typing inside textarea', () => {
-    it('should handle onChange', () => {
-      const { getByTestId } = renderSearchTextareaField();
-
-      fireEvent.change(getByTestId('search-textarea'), { target: { value: 'test' } });
-
-      expect(onChange).toHaveBeenCalled();
-    });
   });
 
   describe('when user press "Enter" button', () => {

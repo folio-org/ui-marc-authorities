@@ -1,46 +1,45 @@
-import PropTypes from 'prop-types';
+import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
+
 import {
   Button,
   ButtonGroup,
 } from '@folio/stripes/components';
 
-import { navigationSegments } from '../../constants';
+import { AuthoritiesSearchContext } from '../../context';
+import {
+  navigationSegments,
+} from '../../constants';
 
-const FilterNavigation = ({
-  segment,
-  onChange,
-}) => (
-  <ButtonGroup
-    fullWidth
-    role="tablist"
-  >
-    {
-      Object.keys(navigationSegments).map(name => (
-        <Button
-          key={`${name}`}
-          to={`/marc-authorities?segment=${name}`}
-          buttonStyle={`${segment === name ? 'primary' : 'default'}`}
-          aria-selected={segment === name}
-          role="tab"
-          id={`segment-navigation-${name}`}
-          data-testid={`segment-navigation-${name}`}
-          onClick={onChange}
-        >
-          <FormattedMessage id={`ui-marc-authorities.label.${name}`} />
-        </Button>
-      ))
-    }
-  </ButtonGroup>
-);
+const FilterNavigation = () => {
+  const {
+    navigationSegmentValue,
+    setNavigationSegmentValue,
+  } = useContext(AuthoritiesSearchContext);
 
-FilterNavigation.propTypes = {
-  onChange: PropTypes.func,
-  segment: PropTypes.string,
-};
-
-FilterNavigation.defaultProps = {
-  segment: navigationSegments.search,
+  return (
+    <ButtonGroup
+      fullWidth
+      role="tablist"
+    >
+      {
+        Object.keys(navigationSegments).map(name => (
+          <Button
+            key={`${name}`}
+            to={`/marc-authorities?segment=${name}`}
+            buttonStyle={`${navigationSegmentValue === name ? 'primary' : 'default'}`}
+            aria-selected={navigationSegmentValue === name}
+            role="tab"
+            id={`segment-navigation-${name}`}
+            data-testid={`segment-navigation-${name}`}
+            onClick={() => setNavigationSegmentValue(name)}
+          >
+            <FormattedMessage id={`ui-marc-authorities.label.${name}`} />
+          </Button>
+        ))
+      }
+    </ButtonGroup>
+  );
 };
 
 export default FilterNavigation;

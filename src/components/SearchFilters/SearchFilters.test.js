@@ -9,6 +9,11 @@ import SearchFilters from './SearchFilters';
 import Harness from '../../../test/jest/helpers/harness';
 import { navigationSegments } from '../../constants';
 
+jest.mock('@folio/stripes-acq-components', () => ({
+  ...jest.requireActual('@folio/stripes-acq-components'),
+  AcqDateRangeFilter: ({ name }) => <div>{name}</div>,
+}));
+
 jest.mock('../MultiSelectionFacet', () => ({
   MultiSelectionFacet: ({ name, onClearFilter }) => (
     <div>
@@ -18,31 +23,24 @@ jest.mock('../MultiSelectionFacet', () => ({
   ),
 }));
 
-jest.mock('@folio/stripes-acq-components', () => ({
-  AcqDateRangeFilter: ({ name }) => <div>{name}</div>,
-}));
-
-const mockSetFilters = jest.fn().mockImplementation((cb) => {
-  return cb({
-    filterA: 'val-a',
-    headingType: 'val-b',
-  });
-});
-
-const mockApplyExcludeSeeFromLimiter = jest.fn();
+const mockSetFilters = jest.fn();
 const mockSetIsExcludedSeeFromLimiter = jest.fn();
 
-const renderSearchFilters = (props = {}) => render(
-  <Harness>
+const defaultCtxValue = {
+  setIsExcludedSeeFromLimiter: mockSetIsExcludedSeeFromLimiter,
+  setFilters: mockSetFilters,
+  filters: {
+    headingType: ['val-a', 'val-b'],
+  },
+  isExcludedSeeFromLimiter: false,
+  navigationSegmentValue: navigationSegments.search,
+};
+
+const renderSearchFilters = (props = {}, ctxValue = defaultCtxValue) => render(
+  <Harness authoritiesCtxValue={ctxValue}>
     <SearchFilters
-      activeFilters={{}}
       isSearching={false}
-      query=""
-      setFilters={mockSetFilters}
-      segment={navigationSegments.search}
-      applyExcludeSeeFromLimiter={mockApplyExcludeSeeFromLimiter}
-      isExcludedSeeFromLimiter={false}
-      setIsExcludedSeeFromLimiter={mockSetIsExcludedSeeFromLimiter}
+      cqlQquery=""
       {...props}
     />
   </Harness>,
@@ -78,20 +76,20 @@ describe('Given SearchFilters', () => {
 
   describe('when clearing a filter', () => {
     it('should call setFilters with correct filters', () => {
+      mockSetFilters.mockImplementation(setter => setter(defaultCtxValue.filters));
       const { getByText } = renderSearchFilters();
 
       fireEvent.click(getByText('Clear headingType'));
 
-      expect(mockSetFilters).toHaveReturnedWith({
-        filterA: 'val-a',
-      });
+      expect(mockSetFilters.mock.results[0].value).toMatchObject({});
     });
   });
 
   describe('when navigation segment is Browse', () => {
     it('should display "References" accordion and "Exclude see from" checkbox', () => {
-      const { getByRole } = renderSearchFilters({
-        segment: navigationSegments.browse,
+      const { getByRole } = renderSearchFilters(null, {
+        ...defaultCtxValue,
+        navigationSegmentValue: navigationSegments.browse,
       });
 
       expect(getByRole('heading', { name: 'ui-marc-authorities.search.references' })).toBeDefined();
@@ -99,13 +97,25 @@ describe('Given SearchFilters', () => {
     });
 
     it('should not display other filters except for "References" accordion', () => {
-      const { queryByText } = renderSearchFilters({
-        segment: navigationSegments.browse,
+      const { queryByText } = renderSearchFilters(null, {
+        ...defaultCtxValue,
+        navigationSegmentValue: navigationSegments.browse,
       });
 
       expect(queryByText('headingType')).toBeNull();
       expect(queryByText('createdDate')).toBeNull();
       expect(queryByText('updatedDate')).toBeNull();
+    });
+  });
+
+  describe('when clicking on exclude see from checkbox', () => {
+    it('should call setIsExcludedSeeFromLimiter', () => {
+      mockSetIsExcludedSeeFromLimiter.mockImplementation(setter => setter(defaultCtxValue.isExcludedSeeFromLimiter));
+      const { getByRole } = renderSearchFilters();
+
+      fireEvent.click(getByRole('checkbox', { name: 'ui-marc-authorities.search.excludeSeeFrom' }));
+
+      expect(mockSetIsExcludedSeeFromLimiter.mock.results[0].value).toEqual(true);
     });
   });
 

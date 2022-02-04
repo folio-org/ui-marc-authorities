@@ -1,34 +1,27 @@
 import {
   useState,
   useEffect,
-  useRef,
+  useContext,
 } from 'react';
 import {
   useHistory,
   useLocation,
-} from 'react-router';
+} from 'react-router-dom';
 import {
   FormattedMessage,
   useIntl,
 } from 'react-intl';
 import PropTypes from 'prop-types';
-import queryString from 'query-string';
 import {
   useLocalStorage,
   writeStorage,
 } from '@rehooks/local-storage';
-import omit from 'lodash/omit';
 
 import {
-  Button,
-  Icon,
   Pane,
   PaneMenu,
   MenuSection,
   Select,
-  AdvancedSearch,
-  Row,
-  Col,
 } from '@folio/stripes/components';
 import {
   CollapseFilterPaneButton,
@@ -41,66 +34,70 @@ import {
   AppIcon,
   useNamespace,
 } from '@folio/stripes/core';
-import {
-  buildFiltersObj,
-  buildSearch,
-} from '@folio/stripes-acq-components';
+import { buildSearch } from '@folio/stripes-acq-components';
 
 import {
-  FilterNavigation,
-  SearchTextareaField,
   SearchResultsList,
   SearchFilters,
+  AuthoritiesSearchForm,
 } from '../../components';
-import { useAuthorities } from '../../queries';
-import { useSortColumnManager } from '../../hooks';
+import { AuthoritiesSearchContext } from '../../context';
 import {
+  navigationSegments,
   searchableIndexesValues,
-  rawDefaultSearchableIndexes,
-  rawBrowseSearchableIndexes,
-  advancedSearchIndexes,
   searchResultListColumns,
   sortOrders,
-  navigationSegments,
 } from '../../constants';
-import css from './AuthoritiesSearch.css';
+import { AuthorityShape } from '../../constants/shapes';
 
 const prefix = 'authorities';
-const PAGE_SIZE = 100;
 
 const propTypes = {
+  authorities: PropTypes.arrayOf(AuthorityShape).isRequired,
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
+  handleLoadMore: PropTypes.func.isRequired,
+  hidePageIndices: PropTypes.bool,
+  isLoaded: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  onChangeSortOption: PropTypes.func.isRequired,
+  onHeaderClick: PropTypes.func.isRequired,
+  onSubmitSearch: PropTypes.func.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  query: PropTypes.string,
+  sortedColumn: PropTypes.string.isRequired,
+  sortOrder: PropTypes.oneOf([sortOrders.ASC, sortOrders.DESC]).isRequired,
+  totalRecords: PropTypes.number.isRequired,
 };
 
-const AuthoritiesSearch = ({ children }) => {
+const AuthoritiesSearch = ({
+  children,
+  sortOrder,
+  sortedColumn,
+  onChangeSortOption,
+  onHeaderClick,
+  handleLoadMore,
+  authorities,
+  isLoading,
+  isLoaded,
+  totalRecords,
+  query,
+  pageSize,
+  onSubmitSearch,
+  hidePageIndices,
+}) => {
   const intl = useIntl();
   const [, getNamespace] = useNamespace();
 
   const history = useHistory();
   const location = useLocation();
 
-  const [searchInputValue, setSearchInputValue] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const [searchDropdownValue, setSearchDropdownValue] = useState(searchableIndexesValues.KEYWORD);
-  const [searchIndex, setSearchIndex] = useState(searchableIndexesValues.KEYWORD);
-  const [advancedSearchDefaultSearch, setAdvancedSearchDefaultSearch] = useState();
-  const [advancedSearchRows, setAdvancedSearchRows] = useState([]);
-  const [isAdvancedSearchOpen, setIsAdvancedSearchOpen] = useState(false);
-
-  const nonFilterUrlParams = ['query', 'qindex', 'segment', 'excludeSeeFrom', 'sort'];
-
-  const getInitialFilters = () => {
-    return omit(buildFiltersObj(location.search), nonFilterUrlParams);
-  };
-
-  const [filters, setFilters] = useState(getInitialFilters());
-
-  const [navigationSegmentValue, setNavigationSegmentValue] = useState('');
-
-  const [isExcludedSeeFromLimiter, setIsExcludedSeeFromLimiter] = useState(false);
-
-  const searchInputRef = useRef(null);
+  const {
+    searchQuery,
+    searchIndex,
+    filters,
+    navigationSegmentValue,
+    isExcludedSeeFromLimiter,
+  } = useContext(AuthoritiesSearchContext);
 
   const columnMapping = {
     [searchResultListColumns.AUTH_REF_TYPE]: <FormattedMessage id="ui-marc-authorities.search-results-list.authRefType" />,
@@ -113,62 +110,6 @@ const AuthoritiesSearch = ({ children }) => {
   } = useColumnManager(prefix, columnMapping);
 
   const filterPaneVisibilityKey = getNamespace({ key: 'marcAuthoritiesFilterPaneVisibility' });
-
-  const {
-    sortOrder,
-    sortedColumn,
-    onChangeSortOption,
-    onHeaderClick,
-  } = useSortColumnManager();
-
-  useEffect(() => {
-    const locationSearchParams = queryString.parse(location.search);
-
-    let newSearchInputValue = '';
-    let newSearchQuery = '';
-    let newSearchDropdownValue = '';
-    let newSearchIndex = '';
-
-    if (Object.keys(locationSearchParams).length <= 0) {
-      return;
-    }
-
-    if (locationSearchParams.query && locationSearchParams.query !== searchQuery) {
-      newSearchInputValue = locationSearchParams.query;
-      newSearchQuery = locationSearchParams.query;
-    }
-
-    if (locationSearchParams.qindex && locationSearchParams.qindex !== searchIndex) {
-      newSearchDropdownValue = locationSearchParams.qindex;
-      newSearchIndex = locationSearchParams.qindex;
-    }
-
-    setSearchInputValue(newSearchInputValue);
-    setSearchQuery(newSearchQuery);
-    setSearchDropdownValue(newSearchDropdownValue);
-    setSearchIndex(newSearchIndex);
-    setAdvancedSearchDefaultSearch({
-      query: newSearchInputValue,
-      option: newSearchDropdownValue,
-    });
-
-    if (locationSearchParams.segment && locationSearchParams.segment !== navigationSegmentValue) {
-      setNavigationSegmentValue(locationSearchParams.segment);
-    }
-
-    if (locationSearchParams.excludeSeeFrom) {
-      setIsExcludedSeeFromLimiter(!!locationSearchParams.excludeSeeFrom);
-    }
-
-    if (locationSearchParams.sort) {
-      if (locationSearchParams.sort[0] === '-') {
-        onChangeSortOption(locationSearchParams.sort.substring(1), sortOrders.DES);
-      } else {
-        onChangeSortOption(locationSearchParams.sort, sortOrders.ASC);
-      }
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     const selectedIndex = searchIndex !== searchableIndexesValues.KEYWORD ? searchIndex : '';
@@ -196,7 +137,7 @@ const AuthoritiesSearch = ({ children }) => {
     const searchString = `${buildSearch(queryParams)}`;
 
     history.replace({
-      pathname: '/marc-authorities',
+      pathname: location.pathname,
       search: searchString,
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -210,97 +151,12 @@ const AuthoritiesSearch = ({ children }) => {
     sortedColumn,
   ]);
 
-  const isAdvancedSearch = searchIndex === searchableIndexesValues.ADVANCED_SEARCH;
-
-  const {
-    authorities,
-    isLoading,
-    isLoaded,
-    totalRecords,
-    setOffset,
-    query,
-  } = useAuthorities({
-    searchQuery,
-    searchIndex,
-    advancedSearch: advancedSearchRows,
-    isAdvancedSearch,
-    filters,
-    isExcludedSeeFromLimiter,
-    sortOrder,
-    sortedColumn,
-    pageSize: PAGE_SIZE,
-  });
-
   const [storedFilterPaneVisibility] = useLocalStorage(filterPaneVisibilityKey, true);
   const [isFilterPaneVisible, setIsFilterPaneVisible] = useState(storedFilterPaneVisibility);
 
   const toggleFilterPane = () => {
     setIsFilterPaneVisible(!isFilterPaneVisible);
     writeStorage(filterPaneVisibilityKey, !isFilterPaneVisible);
-  };
-
-  const handleFilterNavigationChange = () => {
-    const previousNavigationSegmentValue = navigationSegmentValue;
-
-    setNavigationSegmentValue(currentSegment => {
-      const isNavigationSegment = currentSegment !== '';
-
-      return isNavigationSegment && currentSegment === navigationSegments.browse
-        ? navigationSegments.search
-        : navigationSegments.browse;
-    });
-
-    if (previousNavigationSegmentValue === navigationSegments.browse) {
-      setSearchDropdownValue(searchableIndexesValues.KEYWORD);
-      setSearchIndex(searchableIndexesValues.KEYWORD);
-    } else {
-      setSearchDropdownValue('');
-      setSearchIndex('');
-    }
-
-    if (searchInputRef.current) {
-      searchInputRef.current.focus();
-    }
-  };
-
-  const onChangeIndex = (value) => setSearchDropdownValue(value);
-
-  const onSubmitSearch = (e) => {
-    if (e && e.preventDefault) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-
-    setSearchQuery(searchInputValue);
-    setSearchIndex(searchDropdownValue);
-  };
-
-  const updateSearchValue = (value) => {
-    setSearchInputValue(value);
-    setAdvancedSearchDefaultSearch({
-      query: value,
-      option: searchDropdownValue,
-    });
-  };
-
-  const resetAll = () => {
-    setSearchInputValue('');
-    setSearchQuery('');
-    setSearchDropdownValue(searchableIndexesValues.KEYWORD);
-    setSearchIndex(searchableIndexesValues.KEYWORD);
-    setFilters({});
-    setNavigationSegmentValue('');
-    setIsExcludedSeeFromLimiter(false);
-    setAdvancedSearchDefaultSearch(null);
-    onChangeSortOption('');
-  };
-
-  const applyExcludeSeeFromLimiter = () => {
-    setIsExcludedSeeFromLimiter(isExcluded => !isExcluded);
-  };
-
-  const handleLoadMore = (_pageAmount, offset) => {
-    setOffset(offset);
   };
 
   const renderResultsFirstMenu = () => {
@@ -315,15 +171,6 @@ const AuthoritiesSearch = ({ children }) => {
         />
       </PaneMenu>
     );
-  };
-
-  const handleAdvancedSearch = (searchString, searchRows) => {
-    setSearchDropdownValue(searchableIndexesValues.ADVANCED_SEARCH);
-    setSearchIndex(searchableIndexesValues.ADVANCED_SEARCH);
-    setSearchInputValue(searchString);
-    setSearchQuery(searchString);
-    setAdvancedSearchRows(searchRows);
-    setIsAdvancedSearchOpen(false);
   };
 
   const options = Object.values(searchResultListColumns).map((option) => ({
@@ -342,17 +189,19 @@ const AuthoritiesSearch = ({ children }) => {
   const renderActionMenu = () => {
     return (
       <>
-        <MenuSection
-          data-testid="menu-section-sort-by"
-          label={intl.formatMessage({ id: 'ui-marc-authorities.actions.menuSection.sortBy' })}
-        >
-          <Select
-            data-testid="sort-by-selection"
-            dataOptions={sortByOptions}
-            value={sortedColumn}
-            onChange={e => onChangeSortOption(e.target.value)}
-          />
-        </MenuSection>
+        {navigationSegmentValue !== navigationSegments.browse &&
+          <MenuSection
+            data-testid="menu-section-sort-by"
+            label={intl.formatMessage({ id: 'ui-marc-authorities.actions.menuSection.sortBy' })}
+          >
+            <Select
+              data-testid="sort-by-selection"
+              dataOptions={sortByOptions}
+              value={sortedColumn}
+              onChange={e => onChangeSortOption(e.target.value)}
+            />
+          </MenuSection>
+        }
         <ColumnManagerMenu
           prefix={prefix}
           visibleColumns={visibleColumns}
@@ -363,24 +212,6 @@ const AuthoritiesSearch = ({ children }) => {
       </>
     );
   };
-
-  const rawSearchableIndexes = navigationSegmentValue === navigationSegments.browse
-    ? rawBrowseSearchableIndexes
-    : rawDefaultSearchableIndexes;
-
-  const searchableIndexes = rawSearchableIndexes.map(index => ({
-    label: intl.formatMessage({ id: index.label }),
-    value: index.value,
-  }));
-
-  const advancedSearchOptions = advancedSearchIndexes.map(index => ({
-    label: intl.formatMessage({ id: index.label }),
-    value: index.value,
-  }));
-
-  const isSearchButtonDisabled = (navigationSegmentValue === navigationSegments.browse && !searchDropdownValue)
-    || !searchInputValue
-    || isLoading;
 
   return (
     <PersistedPaneset
@@ -401,90 +232,14 @@ const AuthoritiesSearch = ({ children }) => {
             </PaneMenu>
           )}
         >
-          <form onSubmit={onSubmitSearch}>
-            <FilterNavigation
-              segment={navigationSegmentValue || undefined}
-              onChange={handleFilterNavigationChange}
-            />
-            <div className={css.searchGroupWrap}>
-              <SearchTextareaField
-                value={searchInputValue}
-                onChange={(e) => updateSearchValue(e.target.value)}
-                textAreaRef={searchInputRef}
-                autoFocus
-                rows="1"
-                name="query"
-                id="textarea-authorities-search"
-                className={css.searchField}
-                searchableIndexes={searchableIndexes}
-                placeholder={navigationSegmentValue === navigationSegments.browse ? 'None' : ''}
-                onChangeIndex={(e) => onChangeIndex(e.target.value)}
-                selectedIndex={searchDropdownValue}
-                onSubmitSearch={onSubmitSearch}
-              />
-              <Button
-                id="submit-authorities-search"
-                data-testid="submit-authorities-search"
-                type="submit"
-                buttonStyle="primary"
-                fullWidth
-                marginBottom0
-                disabled={isSearchButtonDisabled}
-              >
-                {intl.formatMessage({ id: 'ui-marc-authorities.label.search' })}
-              </Button>
-            </div>
-            <AdvancedSearch
-              open={isAdvancedSearchOpen}
-              searchOptions={advancedSearchOptions}
-              defaultSearchOptionValue={searchableIndexesValues.KEYWORD}
-              firstRowInitialSearch={advancedSearchDefaultSearch}
-              onSearch={handleAdvancedSearch}
-              onCancel={() => setIsAdvancedSearchOpen(false)}
-            >
-              {({ resetRows }) => (
-                <Row between="xs">
-                  <Col xs={12} lg={6}>
-                    <Button
-                      buttonStyle="none"
-                      id="clickable-reset-all"
-                      fullWidth
-                      disabled={!searchInputValue || isLoading}
-                      onClick={() => {
-                        resetRows();
-                        resetAll();
-                      }}
-                    >
-                      <Icon icon="times-circle-solid">
-                        {intl.formatMessage({ id: 'stripes-smart-components.resetAll' })}
-                      </Icon>
-                    </Button>
-                  </Col>
-
-                  <Col xs="12" sm="6">
-                    {navigationSegmentValue !== navigationSegments.browse && (
-                      <Button
-                        fullWidth
-                        onClick={() => setIsAdvancedSearchOpen(true)}
-                      >
-                        {intl.formatMessage({ id: 'stripes-components.advancedSearch.button' })}
-                      </Button>
-                    )}
-                  </Col>
-                </Row>
-              )}
-            </AdvancedSearch>
-          </form>
-
+          <AuthoritiesSearchForm
+            isAuthoritiesLoading={isLoading}
+            onSubmitSearch={onSubmitSearch}
+            onChangeSortOption={onChangeSortOption}
+          />
           <SearchFilters
-            activeFilters={filters}
             isSearching={isLoading}
-            setFilters={setFilters}
-            query={query}
-            segment={navigationSegmentValue || navigationSegments.search}
-            isExcludedSeeFromLimiter={isExcludedSeeFromLimiter}
-            setIsExcludedSeeFromLimiter={setIsExcludedSeeFromLimiter}
-            applyExcludeSeeFromLimiter={applyExcludeSeeFromLimiter}
+            cqlQuery={query}
           />
         </Pane>
       }
@@ -508,7 +263,7 @@ const AuthoritiesSearch = ({ children }) => {
         <SearchResultsList
           authorities={authorities}
           totalResults={totalRecords}
-          pageSize={PAGE_SIZE}
+          pageSize={pageSize}
           onNeedMoreData={handleLoadMore}
           loading={isLoading}
           loaded={isLoaded}
@@ -520,6 +275,7 @@ const AuthoritiesSearch = ({ children }) => {
           toggleFilterPane={toggleFilterPane}
           hasFilters={!!filters.length}
           query={searchQuery}
+          hidePageIndices={hidePageIndices}
         />
       </Pane>
       {children}

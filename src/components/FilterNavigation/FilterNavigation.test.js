@@ -4,18 +4,22 @@ import {
 } from '@testing-library/react';
 
 import FilterNavigation from './FilterNavigation';
-import Harness from '../../../test/jest/helpers/harness';
 import { navigationSegments } from '../../constants';
+import Harness from '../../../test/jest/helpers/harness';
 
-const onChange = jest.fn();
+const mockSetNavigationSegmentValue = jest.fn();
+const mockSetSearchDropdownValue = jest.fn();
+const mockSetSearchIndex = jest.fn();
 
-const renderFilterNavigation = (props = {}) => render(
-  <Harness>
-    <FilterNavigation
-      segment={navigationSegments.search}
-      onChange={onChange}
-      {...props}
-    />
+const authoritiesCtxValue = {
+  setNavigationSegmentValue: mockSetNavigationSegmentValue,
+  setSearchDropdownValue: mockSetSearchDropdownValue,
+  setSearchIndex: mockSetSearchIndex,
+};
+
+const renderFilterNavigation = () => render(
+  <Harness authoritiesCtxValue={authoritiesCtxValue}>
+    <FilterNavigation />
   </Harness>,
 );
 
@@ -33,7 +37,7 @@ describe('Given FilterNavigation', () => {
 
       fireEvent.click(getByTestId('segment-navigation-browse'));
 
-      expect(onChange).toHaveBeenCalled();
+      expect(mockSetNavigationSegmentValue).toHaveBeenCalledWith(navigationSegments.browse);
     });
   });
 });
