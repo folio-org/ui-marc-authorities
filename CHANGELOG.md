@@ -26,7 +26,8 @@
 * [UIMARCAUTH-50](https://issues.folio.org/browse/UIMARCAUTH-50) Do not bold Auth/Ref in Authorized/Reference column.
 * [UIMARCAUTH-28](https://issues.folio.org/browse/UIMARCAUTH-28) Browse MARC Authority Records > Display Browse headings toggle.
 * [UIMARCAUTH-52](https://issues.folio.org/browse/UIMARCAUTH-52) Update Keyword Search query to apply Exclude see also filter selection.
-* [UIMARCAUTH-60](https://issues.folio.org/browse/UIMARCAUTH-60) MARC authority record displays two different Last updated dates.
+* [UIMARCAUTH-60](https://issues.folio.org/browse/UIMARCAUTH-60) MARC authority record displays two different Last updated dates. 
+* [UIMARCAUTH-58](https://issues.folio.org/browse/UIMARCAUTH-58) Request for Facets fails - missing permissions.
 * [UIMARCAUTH-57](https://issues.folio.org/browse/UIMARCAUTH-57) Fix cannot search by identifiers that contain a space.
 
 ## [0.1.0](https://github.com/folio-org/ui-marc-authorities/tree/v0.1.0) (2021-01-20)
