@@ -12,9 +12,11 @@ import { runAxeTest } from '@folio/stripes-testing';
 
 import Harness from '../../../test/jest/helpers/harness';
 import AuthorityView from './AuthorityView';
+import { RecordRowContext } from '../../RecordRowContext';
 import { openEditShortcut } from '../../../test/utilities';
 
 const mockHistoryPush = jest.fn();
+const mockSetRecordRowContext = jest.fn();
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
@@ -42,16 +44,18 @@ const authority = {
 };
 
 const renderAuthorityView = (props = {}) => render(
-  <Harness>
-    <CommandList commands={defaultKeyboardShortcuts}>
-      <AuthorityView
-        marcSource={marcSource}
-        authority={authority}
-        stripes={noop}
-        {...props}
-      />
-    </CommandList>
-  </Harness>,
+  <RecordRowContext.Provider value={[null, mockSetRecordRowContext]}>
+    <Harness>
+      <CommandList commands={defaultKeyboardShortcuts}>
+        <AuthorityView
+          marcSource={marcSource}
+          authority={authority}
+          stripes={noop}
+          {...props}
+        />
+      </CommandList>
+    </Harness>
+  </RecordRowContext.Provider>,
 );
 
 describe('Given AuthorityView', () => {

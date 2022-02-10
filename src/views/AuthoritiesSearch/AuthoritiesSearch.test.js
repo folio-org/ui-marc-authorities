@@ -13,6 +13,7 @@ import AuthoritiesSearch from './AuthoritiesSearch';
 
 import '../../../test/jest/__mock__';
 import Harness from '../../../test/jest/helpers/harness';
+import { RecordRowContext } from '../../RecordRowContext';
 import {
   rawDefaultSearchableIndexes,
   rawBrowseSearchableIndexes,
@@ -53,14 +54,17 @@ jest.mock('../../components', () => ({
 }));
 
 const mockApplyExcludeSeeFromLimiter = jest.fn();
+const mockSetRecordRowContext = jest.fn();
 
 const renderAuthoritiesSearch = (props = {}) => render(
-  <Harness>
-    <AuthoritiesSearch
-      applyExcludeSeeFromLimiter={mockApplyExcludeSeeFromLimiter}
-      {...props}
-    />
-  </Harness>,
+  <RecordRowContext.Provider value={[null, mockSetRecordRowContext]}>
+    <Harness>
+      <AuthoritiesSearch
+        applyExcludeSeeFromLimiter={mockApplyExcludeSeeFromLimiter}
+        {...props}
+      />
+    </Harness>
+  </RecordRowContext.Provider>,
 );
 
 describe('Given AuthoritiesSearch', () => {
@@ -149,6 +153,23 @@ describe('Given AuthoritiesSearch', () => {
     const { getByText } = renderAuthoritiesSearch();
 
     expect(getByText('stripes-components.advancedSearch.button')).toBeDefined();
+  });
+
+  describe('when textarea is not empty and Search button is clicked', () => {
+    it('should handle setRecordRowContext', () => {
+      const { getByTestId } = renderAuthoritiesSearch();
+
+      const textarea = getByTestId('search-textarea');
+      const searchButton = getByTestId('submit-authorities-search');
+
+      fireEvent.change(textarea, { target: { value: 'test search' } });
+
+      expect(textarea.value).toBe('test search');
+
+      fireEvent.click(searchButton);
+
+      expect(mockSetRecordRowContext).toHaveBeenCalled();
+    });
   });
 
   describe('when using Advanced Search', () => {
@@ -275,6 +296,24 @@ describe('Given AuthoritiesSearch', () => {
       fireEvent.click(resetAllButton);
 
       expect(mockHistoryReplace).toHaveBeenCalled();
+    });
+
+    it('should handle setRecordRowContext', () => {
+      const {
+        getByRole,
+        getByTestId,
+      } = renderAuthoritiesSearch();
+
+      const textarea = getByTestId('search-textarea');
+      const resetAllButton = getByRole('button', { name: 'stripes-smart-components.resetAll' });
+
+      fireEvent.change(textarea, { target: { value: 'test search' } });
+
+      expect(textarea.value).toBe('test search');
+
+      fireEvent.click(resetAllButton);
+
+      expect(mockSetRecordRowContext).toHaveBeenCalled();
     });
   });
 

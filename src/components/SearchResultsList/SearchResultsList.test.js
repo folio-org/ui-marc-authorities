@@ -1,5 +1,6 @@
 import {
   render,
+  fireEvent,
 } from '@testing-library/react';
 import noop from 'lodash/noop';
 
@@ -8,37 +9,42 @@ import { mockOffsetSize } from '@folio/stripes-acq-components/test/jest/helpers/
 
 import Harness from '../../../test/jest/helpers/harness';
 import SearchResultsList from './SearchResultsList';
+import { RecordRowContext } from '../../RecordRowContext';
 import authorities from '../../../mocks/authorities';
 import {
   searchResultListColumns,
 } from '../../constants';
 
 const mockToggleFilterPane = jest.fn();
+const mockSetRecordRowContext = jest.fn();
 
 const renderSearchResultsList = (props = {}) => render(
-  <Harness>
-    <SearchResultsList
-      authorities={authorities}
-      visibleColumns={[
-        searchResultListColumns.AUTH_REF_TYPE,
-        searchResultListColumns.HEADING_REF,
-        searchResultListColumns.HEADING_TYPE,
-      ]}
-      totalResults={authorities.length}
-      loading={false}
-      loaded={false}
-      query=""
-      hasFilters={false}
-      pageSize={15}
-      onNeedMoreData={noop}
-      toggleFilterPane={mockToggleFilterPane}
-      isFilterPaneVisible
-      sortOrder=""
-      sortedColumn=""
-      onHeaderClick={jest.fn()}
-      {...props}
-    />
-  </Harness>,
+  <RecordRowContext.Provider value={[null, mockSetRecordRowContext]}>
+    <Harness>
+      <SearchResultsList
+        authorities={authorities}
+        visibleColumns={[
+          searchResultListColumns.AUTH_REF_TYPE,
+          searchResultListColumns.HEADING_REF,
+          searchResultListColumns.HEADING_TYPE,
+        ]}
+        totalResults={authorities.length}
+        loading={false}
+        loaded={false}
+        query=""
+        hasFilters={false}
+        pageSize={15}
+        onNeedMoreData={noop}
+        toggleFilterPane={mockToggleFilterPane}
+        isFilterPaneVisible
+        sortOrder=""
+        sortedColumn=""
+        onHeaderClick={jest.fn()}
+        {...props}
+      />
+    </Harness>
+
+  </RecordRowContext.Provider>,
 );
 
 describe('Given SearchResultsList', () => {
@@ -73,6 +79,18 @@ describe('Given SearchResultsList', () => {
     });
 
     expect(getByText('stripes-smart-components.sas.noResults.noTerms')).toBeDefined();
+  });
+
+  describe('when click on a row', () => {
+    it('should handle setRecordRowContext', () => {
+      const { getAllByRole } = renderSearchResultsList();
+
+      const [rowLink] = getAllByRole('link', { name: 'Twain, Mark' });
+
+      fireEvent.click(rowLink);
+
+      expect(mockSetRecordRowContext).toHaveBeenCalled();
+    });
   });
 
   describe('when search is pending', () => {
