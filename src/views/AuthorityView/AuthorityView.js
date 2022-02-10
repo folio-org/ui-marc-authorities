@@ -1,4 +1,5 @@
 import {
+  useContext,
   useCallback,
 } from 'react';
 import PropTypes from 'prop-types';
@@ -22,6 +23,8 @@ import {
 import MarcView from '@folio/quick-marc/src/QuickMarcView/QuickMarcView';
 
 import { KeyShortCutsWrapper } from '../../components';
+
+import { RecordRowContext } from '../../RecordRowContext';
 
 const propTypes = {
   authority: PropTypes.shape({
@@ -47,8 +50,12 @@ const AuthorityView = ({
   const location = useLocation();
   const stripes = useStripes();
 
+  const [, setRecordRowContext] = useContext(RecordRowContext);
+
   const onClose = useCallback(
     () => {
+      setRecordRowContext(null);
+
       history.push({
         pathname: '/marc-authorities',
         search: location.search,

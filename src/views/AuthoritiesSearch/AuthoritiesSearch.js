@@ -2,6 +2,7 @@ import {
   useState,
   useEffect,
   useRef,
+  useContext,
 } from 'react';
 import {
   useHistory,
@@ -54,6 +55,7 @@ import {
 } from '../../components';
 import { useAuthorities } from '../../queries';
 import { useSortColumnManager } from '../../hooks';
+import { RecordRowContext } from '../../RecordRowContext';
 import {
   searchableIndexesValues,
   rawDefaultSearchableIndexes,
@@ -78,6 +80,8 @@ const AuthoritiesSearch = ({ children }) => {
 
   const history = useHistory();
   const location = useLocation();
+
+  const [, setRecordRowContext] = useContext(RecordRowContext);
 
   const [searchInputValue, setSearchInputValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -285,6 +289,8 @@ const AuthoritiesSearch = ({ children }) => {
     setSearchIndex(searchDropdownValue);
 
     setIsGoingToBaseURL(true);
+
+    setRecordRowContext(null);
   };
 
   const updateSearchValue = (value) => {
@@ -307,6 +313,8 @@ const AuthoritiesSearch = ({ children }) => {
     onChangeSortOption('');
 
     setIsGoingToBaseURL(true);
+
+    setRecordRowContext(null);
   };
 
   const applyExcludeSeeFromLimiter = () => {
