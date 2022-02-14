@@ -24,7 +24,7 @@ import MarcView from '@folio/quick-marc/src/QuickMarcView/QuickMarcView';
 
 import { KeyShortCutsWrapper } from '../../components';
 
-import { RecordRowContext } from '../../RecordRowContext';
+import { SelectedAuthorityRecordContext } from '../../context';
 
 const propTypes = {
   authority: PropTypes.shape({
@@ -50,7 +50,7 @@ const AuthorityView = ({
   const location = useLocation();
   const stripes = useStripes();
 
-  const [, setRecordRowContext] = useContext(RecordRowContext);
+  const [, setRecordRowContext] = useContext(SelectedAuthorityRecordContext);
 
   const onClose = useCallback(
     () => {

@@ -9,7 +9,7 @@ import { mockOffsetSize } from '@folio/stripes-acq-components/test/jest/helpers/
 
 import Harness from '../../../test/jest/helpers/harness';
 import SearchResultsList from './SearchResultsList';
-import { RecordRowContext } from '../../RecordRowContext';
+import { SelectedAuthorityRecordContext } from '../../context';
 import authorities from '../../../mocks/authorities';
 import {
   searchResultListColumns,
@@ -19,7 +19,7 @@ const mockToggleFilterPane = jest.fn();
 const mockSetRecordRowContext = jest.fn();
 
 const renderSearchResultsList = (props = {}) => render(
-  <RecordRowContext.Provider value={[null, mockSetRecordRowContext]}>
+  <SelectedAuthorityRecordContext.Provider value={[null, mockSetRecordRowContext]}>
     <Harness>
       <SearchResultsList
         authorities={authorities}
@@ -44,7 +44,7 @@ const renderSearchResultsList = (props = {}) => render(
       />
     </Harness>
 
-  </RecordRowContext.Provider>,
+  </SelectedAuthorityRecordContext.Provider>,
 );
 
 describe('Given SearchResultsList', () => {
@@ -83,13 +83,15 @@ describe('Given SearchResultsList', () => {
 
   describe('when click on a row', () => {
     it('should handle setRecordRowContext', () => {
+      const [firstRowRecord] = authorities;
+
       const { getAllByRole } = renderSearchResultsList();
 
       const [rowLink] = getAllByRole('link', { name: 'Twain, Mark' });
 
       fireEvent.click(rowLink);
 
-      expect(mockSetRecordRowContext).toHaveBeenCalled();
+      expect(mockSetRecordRowContext).toHaveBeenCalledWith(firstRowRecord);
     });
   });
 

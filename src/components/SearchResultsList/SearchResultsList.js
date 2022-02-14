@@ -15,7 +15,7 @@ import {
 } from '@folio/stripes/components';
 import { SearchAndSortNoResultsMessage } from '@folio/stripes/smart-components';
 
-import { RecordRowContext } from '../../RecordRowContext';
+import { SelectedAuthorityRecordContext } from '../../context';
 
 import { AuthorityShape } from '../../constants/shapes';
 import {
@@ -61,7 +61,7 @@ const SearchResultsList = ({
   const location = useLocation();
   const match = useRouteMatch();
 
-  const [recordRowContext, setRecordRowContext] = useContext(RecordRowContext);
+  const [recordRowContext, setRecordRowContext] = useContext(SelectedAuthorityRecordContext);
 
   const columnMapping = {
     [searchResultListColumns.AUTH_REF_TYPE]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.authRefType' }),

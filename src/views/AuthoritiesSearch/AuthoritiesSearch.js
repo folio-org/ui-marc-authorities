@@ -55,7 +55,7 @@ import {
 } from '../../components';
 import { useAuthorities } from '../../queries';
 import { useSortColumnManager } from '../../hooks';
-import { RecordRowContext } from '../../RecordRowContext';
+import { SelectedAuthorityRecordContext } from '../../context';
 import {
   searchableIndexesValues,
   rawDefaultSearchableIndexes,
@@ -81,7 +81,7 @@ const AuthoritiesSearch = ({ children }) => {
   const history = useHistory();
   const location = useLocation();
 
-  const [, setRecordRowContext] = useContext(RecordRowContext);
+  const [, setRecordRowContext] = useContext(SelectedAuthorityRecordContext);
 
   const [searchInputValue, setSearchInputValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');

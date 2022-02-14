@@ -13,7 +13,7 @@ import AuthoritiesSearch from './AuthoritiesSearch';
 
 import '../../../test/jest/__mock__';
 import Harness from '../../../test/jest/helpers/harness';
-import { RecordRowContext } from '../../RecordRowContext';
+import { SelectedAuthorityRecordContext } from '../../context';
 import {
   rawDefaultSearchableIndexes,
   rawBrowseSearchableIndexes,
@@ -57,14 +57,14 @@ const mockApplyExcludeSeeFromLimiter = jest.fn();
 const mockSetRecordRowContext = jest.fn();
 
 const renderAuthoritiesSearch = (props = {}) => render(
-  <RecordRowContext.Provider value={[null, mockSetRecordRowContext]}>
+  <SelectedAuthorityRecordContext.Provider value={[null, mockSetRecordRowContext]}>
     <Harness>
       <AuthoritiesSearch
         applyExcludeSeeFromLimiter={mockApplyExcludeSeeFromLimiter}
         {...props}
       />
     </Harness>
-  </RecordRowContext.Provider>,
+  </SelectedAuthorityRecordContext.Provider>,
 );
 
 describe('Given AuthoritiesSearch', () => {
@@ -168,7 +168,7 @@ describe('Given AuthoritiesSearch', () => {
 
       fireEvent.click(searchButton);
 
-      expect(mockSetRecordRowContext).toHaveBeenCalled();
+      expect(mockSetRecordRowContext).toHaveBeenCalledWith(null);
     });
   });
 
@@ -313,7 +313,7 @@ describe('Given AuthoritiesSearch', () => {
 
       fireEvent.click(resetAllButton);
 
-      expect(mockSetRecordRowContext).toHaveBeenCalled();
+      expect(mockSetRecordRowContext).toHaveBeenCalledWith(null);
     });
   });
 
