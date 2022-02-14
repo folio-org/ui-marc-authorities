@@ -27,6 +27,8 @@ const BrowseRoute = ({ children }) => {
     setIsGoingToBaseURL,
   } = useContext(AuthoritiesSearchContext);
 
+  console.log(useAuthoritiesBrowse);
+
   const {
     authorities,
     isLoading,

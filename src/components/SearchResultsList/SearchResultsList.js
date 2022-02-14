@@ -107,7 +107,6 @@ const SearchResultsList = ({
       loading={loading}
       sortedColumn={sortedColumn}
       sortOrder={sortOrder}
-      selectedRow={authorities.length ? { id: authorities[0].id } : undefined}
       onHeaderClick={onHeaderClick}
       autosize
       hidePageIndices={hidePageIndices}
