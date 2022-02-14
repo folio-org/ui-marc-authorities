@@ -52,7 +52,10 @@ describe('Given useAuthorities', () => {
     const isExcludedSeeFromLimiter = false;
     const pageSize = 20;
 
-    const { result, waitFor } = renderHook(() => useAuthorities({
+    const {
+      result,
+      waitFor,
+    } = renderHook(() => useAuthorities({
       searchQuery,
       searchIndex,
       filters,
@@ -70,7 +73,10 @@ describe('Given useAuthorities', () => {
   describe('when sort options are presented', () => {
     describe('when sort order is "descending"', () => {
       it('should add "sortBy authRefType/sort.descending" to query', async () => {
-        const { result, waitFor } = renderHook(() => useAuthorities({
+        const {
+          result,
+          waitFor,
+        } = renderHook(() => useAuthorities({
           searchQuery,
           searchIndex,
           filters: {},
@@ -86,7 +92,10 @@ describe('Given useAuthorities', () => {
 
     describe('when sort order is "descending"', () => {
       it('should add "sortBy authRefType/sort.ascending" to query', async () => {
-        const { result, waitFor } = renderHook(() => useAuthorities({
+        const {
+          result,
+          waitFor,
+        } = renderHook(() => useAuthorities({
           searchQuery,
           searchIndex,
           filters: {},
@@ -98,6 +107,70 @@ describe('Given useAuthorities', () => {
 
         expect(result.current.query).toEqual('(keyword=="test") sortBy authRefType/sort.ascending');
       });
+    });
+  });
+
+  describe('when query is not provided', () => {
+    it('should return an empty string', async () => {
+      const {
+        result,
+        waitFor,
+      } = renderHook(() => useAuthorities({
+        searchIndex,
+        filters: {},
+        isExcludedSeeFromLimiter: false,
+        sortOrder: '',
+        sortedColumn: '',
+      }), { wrapper });
+
+      await waitFor(() => !result.current.isLoading);
+
+      expect(result.current.query).toEqual('');
+    });
+  });
+
+  describe('when search by identifier', () => {
+    it('should return correct query string', async () => {
+      const {
+        result,
+        waitFor,
+      } = renderHook(() => useAuthorities({
+        searchQuery: 'n  00000001 ',
+        searchIndex: searchableIndexesValues.IDENTIFIER,
+        filters: {},
+        isExcludedSeeFromLimiter: false,
+        sortOrder: '',
+        sortedColumn: '',
+      }), { wrapper });
+
+      await waitFor(() => !result.current.isLoading);
+
+      expect(result.current.query).toEqual('(identifiers.value=="n  00000001 ")');
+    });
+  });
+
+  describe('when isAdvancedSearch prop is true', () => {
+    it('should form an advanced search query', async () => {
+      const { result } = renderHook(() => useAuthorities({
+        searchQuery,
+        searchIndex,
+        isAdvancedSearch: true,
+        advancedSearch: [{
+          bool: 'and',
+          query: 'advancedTest1',
+          searchOption: searchableIndexesValues.KEYWORD,
+        }, {
+          bool: 'not',
+          query: 'advancedTest2',
+          searchOption: searchableIndexesValues.IDENTIFIER,
+        }],
+        filters: {},
+        isExcludedSeeFromLimiter: false,
+        sortOrder: '',
+        sortedColumn: '',
+      }), { wrapper });
+
+      expect(result.current.query).toEqual('(keyword=="advancedTest1") not (identifiers.value=="advancedTest2")');
     });
   });
 });

@@ -47,6 +47,7 @@ const AuthoritiesSearchContextProvider = ({
   const [filters, setFilters] = useState(getInitialFilters());
   const [isExcludedSeeFromLimiter, setIsExcludedSeeFromLimiter] = useState(!!locationSearchParams.excludeSeeFrom);
   const [advancedSearchRows, setAdvancedSearchRows] = useState([]);
+  const [isGoingToBaseURL, setIsGoingToBaseURL] = useState(false);
 
   const resetAll = () => {
     setSearchInputValue('');
@@ -55,6 +56,7 @@ const AuthoritiesSearchContextProvider = ({
     setSearchIndex(initialDropdownValue);
     setFilters({});
     setIsExcludedSeeFromLimiter(false);
+    setIsGoingToBaseURL(true);
   };
 
   useDidUpdate(() => {
@@ -79,6 +81,8 @@ const AuthoritiesSearchContextProvider = ({
     advancedSearchRows,
     setAdvancedSearchRows,
     resetAll,
+    isGoingToBaseURL,
+    setIsGoingToBaseURL,
   };
 
   return (

@@ -24,6 +24,7 @@ const BrowseRoute = ({ children }) => {
     setSearchIndex,
     searchInputValue,
     searchDropdownValue,
+    setIsGoingToBaseURL,
   } = useContext(AuthoritiesSearchContext);
 
   const {
@@ -49,6 +50,7 @@ const BrowseRoute = ({ children }) => {
 
     setSearchQuery(searchInputValue);
     setSearchIndex(searchDropdownValue);
+    setIsGoingToBaseURL(true);
   };
 
   const formattedAuthoritiesForView = useMemo(() => {

@@ -2,17 +2,6 @@ import buildQuery from './buildQuery';
 import { searchableIndexesValues } from '../../constants';
 
 describe('Given buildQuery', () => {
-  describe('when index without any prefix provided', () => {
-    it('should return correct query', () => {
-      const query = buildQuery({
-        searchIndex: searchableIndexesValues.IDENTIFIER,
-        isExcludedSeeFromLimiter: true,
-      });
-
-      expect(query).toBe('(identifiers.value=="%{query}")');
-    });
-  });
-
   describe('when index with plain, sft, and saft prefixes provided', () => {
     it('should return correct query', () => {
       const query = buildQuery({
@@ -20,6 +9,17 @@ describe('Given buildQuery', () => {
       });
 
       expect(query).toBe('(personalName=="%{query}" or sftPersonalName=="%{query}" or saftPersonalName=="%{query}")');
+    });
+
+    describe('when isExcludedSeeFromLimiter is true', () => {
+      it('should return correct query', () => {
+        const query = buildQuery({
+          searchIndex: searchableIndexesValues.PERSONAL_NAME,
+          isExcludedSeeFromLimiter: true,
+        });
+
+        expect(query).toBe('(personalName=="%{query}")');
+      });
     });
   });
 
@@ -44,7 +44,7 @@ describe('Given buildQuery', () => {
   });
 
   describe('when keyword index provided', () => {
-    it('should return correct query for keyword index', () => {
+    it('should return correct query', () => {
       const query = buildQuery({
         searchIndex: searchableIndexesValues.KEYWORD,
       });
@@ -64,10 +64,31 @@ describe('Given buildQuery', () => {
     });
   });
 
-  describe('when childrenSubjectHeading index provided', () => {
-    it('should return correct query for childrenSubjectHeading index', () => {
+  describe('when identifier index provided', () => {
+    it('should return correct query', () => {
       const query = buildQuery({
-        searchIndex: searchableIndexesValues.CHILDREN_SUBJECT_HEADING,
+        searchIndex: searchableIndexesValues.IDENTIFIER,
+      });
+
+      expect(query).toBe('(identifiers.value=="%{query}")');
+    });
+
+    describe('when isExcludedSeeFromLimiter is true', () => {
+      it('should return correct query', () => {
+        const query = buildQuery({
+          searchIndex: searchableIndexesValues.IDENTIFIER,
+          isExcludedSeeFromLimiter: true,
+        });
+
+        expect(query).toBe('(identifiers.value=="%{query}" and authRefType == "Authorized")');
+      });
+    });
+  });
+
+  describe('when childrenSubjectHeading index provided', () => {
+    it('should return correct query', () => {
+      const query = buildQuery({
+        searchIndex: 'childrenSubjectHeading',
       });
 
       expect(query).toBe('(keyword=="%{query}" and subjectHeadings=="b")');

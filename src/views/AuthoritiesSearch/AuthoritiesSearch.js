@@ -97,6 +97,8 @@ const AuthoritiesSearch = ({
     filters,
     navigationSegmentValue,
     isExcludedSeeFromLimiter,
+    isGoingToBaseURL,
+    setIsGoingToBaseURL,
   } = useContext(AuthoritiesSearchContext);
 
   const columnMapping = {
@@ -136,8 +138,16 @@ const AuthoritiesSearch = ({
 
     const searchString = `${buildSearch(queryParams)}`;
 
+    const pathname = isGoingToBaseURL
+      ? '/marc-authorities'
+      : location.pathname;
+
+    if (isGoingToBaseURL) {
+      setIsGoingToBaseURL(false);
+    }
+
     history.replace({
-      pathname: location.pathname,
+      pathname,
       search: searchString,
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps

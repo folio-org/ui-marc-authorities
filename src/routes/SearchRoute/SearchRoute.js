@@ -24,6 +24,7 @@ const SearchRoute = ({ children }) => {
     setSearchIndex,
     searchInputValue,
     searchDropdownValue,
+    setIsGoingToBaseURL,
   } = useContext(AuthoritiesSearchContext);
 
   const {
@@ -62,6 +63,7 @@ const SearchRoute = ({ children }) => {
 
     setSearchQuery(searchInputValue);
     setSearchIndex(searchDropdownValue);
+    setIsGoingToBaseURL(true);
   };
 
   const handleLoadMore = (_pageAmount, offset) => {

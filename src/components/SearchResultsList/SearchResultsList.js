@@ -1,7 +1,10 @@
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
-import { useRouteMatch } from 'react-router';
+import {
+  useLocation,
+  useRouteMatch,
+} from 'react-router';
 
 import {
   MultiColumnList,
@@ -52,6 +55,7 @@ const SearchResultsList = ({
   hidePageIndices,
 }) => {
   const intl = useIntl();
+  const location = useLocation();
   const match = useRouteMatch();
 
   const columnMapping = {
