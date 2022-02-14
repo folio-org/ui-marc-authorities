@@ -43,7 +43,6 @@ const renderSearchResultsList = (props = {}) => render(
         {...props}
       />
     </Harness>
-
   </SelectedAuthorityRecordContext.Provider>,
 );
 
