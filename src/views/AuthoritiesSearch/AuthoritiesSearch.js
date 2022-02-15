@@ -81,7 +81,7 @@ const AuthoritiesSearch = ({ children }) => {
   const history = useHistory();
   const location = useLocation();
 
-  const [, setRecordRowContext] = useContext(SelectedAuthorityRecordContext);
+  const [, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
   const [searchInputValue, setSearchInputValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -290,7 +290,7 @@ const AuthoritiesSearch = ({ children }) => {
 
     setIsGoingToBaseURL(true);
 
-    setRecordRowContext(null);
+    setSelectedAuthorityRecordContext(null);
   };
 
   const updateSearchValue = (value) => {
@@ -314,7 +314,7 @@ const AuthoritiesSearch = ({ children }) => {
 
     setIsGoingToBaseURL(true);
 
-    setRecordRowContext(null);
+    setSelectedAuthorityRecordContext(null);
   };
 
   const applyExcludeSeeFromLimiter = () => {

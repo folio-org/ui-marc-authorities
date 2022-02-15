@@ -50,11 +50,11 @@ const AuthorityView = ({
   const location = useLocation();
   const stripes = useStripes();
 
-  const [, setRecordRowContext] = useContext(SelectedAuthorityRecordContext);
+  const [, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
   const onClose = useCallback(
     () => {
-      setRecordRowContext(null);
+      setSelectedAuthorityRecordContext(null);
 
       history.push({
         pathname: '/marc-authorities',

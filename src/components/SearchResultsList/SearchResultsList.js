@@ -61,7 +61,7 @@ const SearchResultsList = ({
   const location = useLocation();
   const match = useRouteMatch();
 
-  const [recordRowContext, setRecordRowContext] = useContext(SelectedAuthorityRecordContext);
+  const [selectedAuthorityRecordContext, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
   const columnMapping = {
     [searchResultListColumns.AUTH_REF_TYPE]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.authRefType' }),
@@ -91,7 +91,7 @@ const SearchResultsList = ({
   };
 
   const onRowClick = (e, row) => {
-    setRecordRowContext(row);
+    setSelectedAuthorityRecordContext(row);
   };
 
   const source = useMemo(
@@ -113,7 +113,7 @@ const SearchResultsList = ({
       id="authority-result-list"
       onNeedMoreData={onNeedMoreData}
       visibleColumns={visibleColumns}
-      selectedRow={recordRowContext}
+      selectedRow={selectedAuthorityRecordContext}
       onRowClick={onRowClick}
       totalCount={totalResults}
       pagingType="prev-next"

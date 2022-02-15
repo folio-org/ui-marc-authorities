@@ -16,10 +16,10 @@ import {
 } from '../../constants';
 
 const mockToggleFilterPane = jest.fn();
-const mockSetRecordRowContext = jest.fn();
+const mockSetSelectedAuthorityRecordContext = jest.fn();
 
 const renderSearchResultsList = (props = {}) => render(
-  <SelectedAuthorityRecordContext.Provider value={[null, mockSetRecordRowContext]}>
+  <SelectedAuthorityRecordContext.Provider value={[null, mockSetSelectedAuthorityRecordContext]}>
     <Harness>
       <SearchResultsList
         authorities={authorities}
@@ -81,7 +81,7 @@ describe('Given SearchResultsList', () => {
   });
 
   describe('when click on a row', () => {
-    it('should handle setRecordRowContext', () => {
+    it('should handle setSelectedAuthorityRecordContext', () => {
       const [firstRowRecord] = authorities;
 
       const { getAllByRole } = renderSearchResultsList();
@@ -90,7 +90,7 @@ describe('Given SearchResultsList', () => {
 
       fireEvent.click(rowLink);
 
-      expect(mockSetRecordRowContext).toHaveBeenCalledWith(firstRowRecord);
+      expect(mockSetSelectedAuthorityRecordContext).toHaveBeenCalledWith(firstRowRecord);
     });
   });
 

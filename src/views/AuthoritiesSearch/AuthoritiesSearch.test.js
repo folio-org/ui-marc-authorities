@@ -54,10 +54,10 @@ jest.mock('../../components', () => ({
 }));
 
 const mockApplyExcludeSeeFromLimiter = jest.fn();
-const mockSetRecordRowContext = jest.fn();
+const mockSetSelectedAuthorityRecordContext = jest.fn();
 
 const renderAuthoritiesSearch = (props = {}) => render(
-  <SelectedAuthorityRecordContext.Provider value={[null, mockSetRecordRowContext]}>
+  <SelectedAuthorityRecordContext.Provider value={[null, mockSetSelectedAuthorityRecordContext]}>
     <Harness>
       <AuthoritiesSearch
         applyExcludeSeeFromLimiter={mockApplyExcludeSeeFromLimiter}
@@ -156,7 +156,7 @@ describe('Given AuthoritiesSearch', () => {
   });
 
   describe('when textarea is not empty and Search button is clicked', () => {
-    it('should handle setRecordRowContext', () => {
+    it('should handle setSelectedAuthorityRecordContext', () => {
       const { getByTestId } = renderAuthoritiesSearch();
 
       const textarea = getByTestId('search-textarea');
@@ -168,7 +168,7 @@ describe('Given AuthoritiesSearch', () => {
 
       fireEvent.click(searchButton);
 
-      expect(mockSetRecordRowContext).toHaveBeenCalledWith(null);
+      expect(mockSetSelectedAuthorityRecordContext).toHaveBeenCalledWith(null);
     });
   });
 
@@ -298,7 +298,7 @@ describe('Given AuthoritiesSearch', () => {
       expect(mockHistoryReplace).toHaveBeenCalled();
     });
 
-    it('should handle setRecordRowContext', () => {
+    it('should handle setSelectedAuthorityRecordContext', () => {
       const {
         getByRole,
         getByTestId,
@@ -313,7 +313,7 @@ describe('Given AuthoritiesSearch', () => {
 
       fireEvent.click(resetAllButton);
 
-      expect(mockSetRecordRowContext).toHaveBeenCalledWith(null);
+      expect(mockSetSelectedAuthorityRecordContext).toHaveBeenCalledWith(null);
     });
   });
 
