@@ -64,6 +64,7 @@ const SearchTextareaField = ({
 
   useEffect(() => {
     fitTextBoxToContent();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   const indexLabel = intl.formatMessage({ id: 'stripes-components.searchFieldIndex' });

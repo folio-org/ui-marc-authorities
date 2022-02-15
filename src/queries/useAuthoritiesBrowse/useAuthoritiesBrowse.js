@@ -108,6 +108,7 @@ const useBrowserPaging = (initialQuery) => {
 
   useEffect(() => {
     updatePage(0, initialQuery);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialQuery]);
 
   return {
@@ -139,10 +140,12 @@ const useAuthoritiesBrowse = ({
   useEffect(() => {
     setCurrentQuery(searchQuery);
     clearPageSearchCache();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]);
 
   useEffect(() => {
     clearPageSearchCache();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchIndex]);
 
   const mainRequest = useBrowseRequest({
@@ -190,6 +193,7 @@ const useAuthoritiesBrowse = ({
     newItems.splice(prevPageRequest.data?.items?.length, items.length, ...items);
 
     return newItems;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items, allRequestsFetching]);
 
   const handleLoadMore = (askAmount, index, firstIndex, direction) => {

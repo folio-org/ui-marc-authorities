@@ -12,6 +12,7 @@ const useDidUpdate = (cb, deps) => {
     } else {
       cb();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 };
 

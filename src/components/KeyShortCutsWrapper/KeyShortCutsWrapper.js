@@ -48,6 +48,7 @@ const KeyShortCutsWrapper = ({
     }
 
     return shortcutsArray;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onEdit, focusSearchField]);
 
   return (
