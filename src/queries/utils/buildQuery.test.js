@@ -8,7 +8,7 @@ describe('Given buildQuery', () => {
         searchIndex: searchableIndexesValues.PERSONAL_NAME,
       });
 
-      expect(query).toBe('(personalName=="%{query}" or sftPersonalName=="%{query}" or saftPersonalName=="%{query}")');
+      expect(query).toBe('(personalNameTitle=="%{query}" or sftPersonalNameTitle=="%{query}" or saftPersonalNameTitle=="%{query}")');
     });
 
     describe('when isExcludedSeeFromLimiter is true', () => {
@@ -18,7 +18,7 @@ describe('Given buildQuery', () => {
           isExcludedSeeFromLimiter: true,
         });
 
-        expect(query).toBe('(personalName=="%{query}")');
+        expect(query).toBe('(personalNameTitle=="%{query}")');
       });
     });
   });
