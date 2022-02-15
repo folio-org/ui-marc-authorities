@@ -39,7 +39,7 @@ describe('Given buildQuery', () => {
         searchIndex: searchableIndexesValues.GEOGRAPHIC_NAME,
       });
 
-      expect(query).toBe('(geographicName=="%{query}" or sftGeographicTerm=="%{query}" or saftGeographicTerm=="%{query}")');
+      expect(query).toBe('(geographicName=="%{query}" or sftGeographicName=="%{query}" or saftGeographicName=="%{query}")');
     });
   });
 
