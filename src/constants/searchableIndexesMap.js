@@ -30,10 +30,10 @@ export const searchableIndexesMap = {
     name: 'geographicName',
     plain: true,
   }, {
-    name: 'sftGeographicTerm',
+    name: 'sftGeographicName',
     sft: true,
   }, {
-    name: 'saftGeographicTerm',
+    name: 'saftGeographicName',
     saft: true,
   }],
   [searchableIndexesValues.NAME_TITLE]: [{

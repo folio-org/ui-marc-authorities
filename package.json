@@ -14,7 +14,8 @@
     "test": "jest --coverage --verbose",
     "test:color": "jest --coverage --verbose --color",
     "lint": "eslint .",
-    "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-marc-authorities ./translations/ui-marc-authorities/compiled"
+    "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-marc-authorities ./translations/ui-marc-authorities/compiled",
+    "build-mod-descriptor": "stripes mod descriptor --full --strict | jq '.[]' > module-descriptor.json "
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.13.0",
@@ -28,7 +29,7 @@
     "@folio/stripes-components": "^10.0.0",
     "@folio/stripes-smart-components": "^7.0.0",
     "@folio/stripes-testing": "^4.2.0",
-    "@formatjs/cli": "^4.2.8",
+    "@formatjs/cli": "^4.2.20",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
     "@testing-library/react-hooks": "^5.1.2",
