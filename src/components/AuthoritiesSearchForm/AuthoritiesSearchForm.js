@@ -21,7 +21,10 @@ import {
   SearchTextareaField,
   FilterNavigation,
 } from '../';
-import { AuthoritiesSearchContext } from '../../context';
+import {
+  AuthoritiesSearchContext,
+  SelectedAuthorityRecordContext,
+} from '../../context';
 import {
   navigationSegments,
   rawBrowseSearchableIndexes,
@@ -59,6 +62,7 @@ const AuthoritiesSearchForm = ({
     setAdvancedSearchRows,
     resetAll,
   } = useContext(AuthoritiesSearchContext);
+  const [, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
   const [isAdvancedSearchOpen, setIsAdvancedSearchOpen] = useState(false);
   const [advancedSearchDefaultSearch, setAdvancedSearchDefaultSearch] = useState({
@@ -71,6 +75,7 @@ const AuthoritiesSearchForm = ({
     resetAll();
     setAdvancedSearchDefaultSearch(null);
     onChangeSortOption('');
+    setSelectedAuthorityRecordContext(null);
   };
 
   const handleAdvancedSearch = (searchString, searchRows) => {

@@ -5,7 +5,10 @@ import {
 import PropTypes from 'prop-types';
 
 import { AuthoritiesSearch } from '../../views';
-import { AuthoritiesSearchContext } from '../../context';
+import {
+  AuthoritiesSearchContext,
+  SelectedAuthorityRecordContext,
+} from '../../context';
 import { useAuthoritiesBrowse } from '../../queries';
 
 const propTypes = {
@@ -26,6 +29,7 @@ const BrowseRoute = ({ children }) => {
     searchDropdownValue,
     setIsGoingToBaseURL,
   } = useContext(AuthoritiesSearchContext);
+  const [, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
   const {
     authorities,
@@ -51,6 +55,7 @@ const BrowseRoute = ({ children }) => {
     setSearchQuery(searchInputValue);
     setSearchIndex(searchDropdownValue);
     setIsGoingToBaseURL(true);
+    setSelectedAuthorityRecordContext(null);
   };
 
   const formattedAuthoritiesForView = useMemo(() => {

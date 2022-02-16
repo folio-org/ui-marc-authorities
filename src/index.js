@@ -27,6 +27,8 @@ import { AuthoritiesSearchContextProvider } from './context';
 import commands from './commands';
 import { navigationSegments } from './constants';
 
+import { SelectedAuthorityRecordContextProvider } from './context';
+
 const propTypes = {
   focusSearchField: PropTypes.func,
   match: PropTypes.object.isRequired,
@@ -54,20 +56,22 @@ const MarcAuthorities = ({
 
   return (
     <CommandList commands={commands}>
-      <AuthoritiesSearchContextProvider>
-        <MarcAuthoritiesAppContext />
-        <KeyShortCutsWrapper focusSearchField={focusSearchField}>
-          <Switch>
-            <Route path={`${path}/quick-marc`} component={AuthorityQuickMarcEditRoute} />
-            <Route
-              path={path}
-              component={RouteComponent}
-            >
-              <Route path={`${path}/authorities/:id`} component={AuthorityViewRoute} />
-            </Route>
-          </Switch>
-        </KeyShortCutsWrapper>
-      </AuthoritiesSearchContextProvider>
+      <SelectedAuthorityRecordContextProvider>
+        <AuthoritiesSearchContextProvider>
+          <MarcAuthoritiesAppContext />
+          <KeyShortCutsWrapper focusSearchField={focusSearchField}>
+            <Switch>
+              <Route path={`${path}/quick-marc`} component={AuthorityQuickMarcEditRoute} />
+              <Route
+                path={path}
+                component={SearchRoute}
+              >
+                <Route path={`${path}/authorities/:id`} component={AuthorityViewRoute} />
+              </Route>
+            </Switch>
+          </KeyShortCutsWrapper>
+        </AuthoritiesSearchContextProvider>
+      </SelectedAuthorityRecordContextProvider>
     </CommandList>
   );
 };

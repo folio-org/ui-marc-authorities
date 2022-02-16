@@ -25,9 +25,10 @@ jest.mock('react-router', () => ({
 
 const mockOnChangeSortOption = jest.fn();
 const mockOnSubmitSearch = jest.fn();
+const mockSetSelectedAuthorityRecordContext = jest.fn();
 
 const renderAuthoritiesSearchForm = (props = {}) => render(
-  <Harness>
+  <Harness selectedRecordCtxValue={[null, mockSetSelectedAuthorityRecordContext]}>
     <AuthoritiesSearchForm
       onChangeSortOption={mockOnChangeSortOption}
       onSubmitSearch={mockOnSubmitSearch}
@@ -189,6 +190,26 @@ describe('Given AuthoritiesSearchForm', () => {
       fireEvent.click(resetAllButton);
 
       expect(textarea.value).toBe('');
+    });
+  });
+
+  describe('when textarea is not empty and Reset all button is clicked', () => {
+    it('should handle setSelectedAuthorityRecordContext', () => {
+      const {
+        getByRole,
+        getByTestId,
+      } = renderAuthoritiesSearchForm();
+
+      const textarea = getByTestId('search-textarea');
+      const resetAllButton = getByRole('button', { name: 'stripes-smart-components.resetAll' });
+
+      fireEvent.change(textarea, { target: { value: 'test search' } });
+
+      expect(textarea.value).toBe('test search');
+
+      fireEvent.click(resetAllButton);
+
+      expect(mockSetSelectedAuthorityRecordContext).toHaveBeenCalledWith(null);
     });
   });
 });

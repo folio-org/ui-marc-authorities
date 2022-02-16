@@ -2,7 +2,10 @@ import { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import { AuthoritiesSearch } from '../../views';
-import { AuthoritiesSearchContext } from '../../context';
+import {
+  AuthoritiesSearchContext,
+  SelectedAuthorityRecordContext,
+} from '../../context';
 import { useAuthorities } from '../../queries';
 import { useSortColumnManager } from '../../hooks';
 import { searchableIndexesValues } from '../../constants';
@@ -26,6 +29,7 @@ const SearchRoute = ({ children }) => {
     searchDropdownValue,
     setIsGoingToBaseURL,
   } = useContext(AuthoritiesSearchContext);
+  const [, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
   const {
     sortOrder,
@@ -64,6 +68,7 @@ const SearchRoute = ({ children }) => {
     setSearchQuery(searchInputValue);
     setSearchIndex(searchDropdownValue);
     setIsGoingToBaseURL(true);
+    setSelectedAuthorityRecordContext(null);
   };
 
   const handleLoadMore = (_pageAmount, offset) => {

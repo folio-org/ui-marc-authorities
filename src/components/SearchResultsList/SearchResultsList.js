@@ -1,4 +1,7 @@
-import { useMemo } from 'react';
+import {
+  useMemo,
+  useContext,
+} from 'react';
 import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
 import { useRouteMatch } from 'react-router';
@@ -8,6 +11,8 @@ import {
   TextLink,
 } from '@folio/stripes/components';
 import { SearchAndSortNoResultsMessage } from '@folio/stripes/smart-components';
+
+import { SelectedAuthorityRecordContext } from '../../context';
 
 import { AuthorityShape } from '../../constants/shapes';
 import { searchResultListColumns } from '../../constants';
@@ -54,6 +59,8 @@ const SearchResultsList = ({
   const intl = useIntl();
   const match = useRouteMatch();
 
+  const [selectedAuthorityRecordContext, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
+
   const columnMapping = {
     [searchResultListColumns.AUTH_REF_TYPE]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.authRefType' }),
     [searchResultListColumns.HEADING_REF]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.headingRef' }),
@@ -82,6 +89,10 @@ const SearchResultsList = ({
     ),
   };
 
+  const onRowClick = (e, row) => {
+    setSelectedAuthorityRecordContext(row);
+  };
+
   const source = useMemo(
     () => ({
       loaded: () => (hasFilters || query) && loaded,
@@ -101,6 +112,8 @@ const SearchResultsList = ({
       id="authority-result-list"
       onNeedMoreData={onNeedMoreData}
       visibleColumns={visibleColumns}
+      selectedRow={selectedAuthorityRecordContext}
+      onRowClick={onRowClick}
       totalCount={totalResults}
       pagingType="prev-next"
       pageAmount={pageSize}
