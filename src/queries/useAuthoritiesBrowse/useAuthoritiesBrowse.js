@@ -104,7 +104,9 @@ const useBrowserPaging = (initialQuery) => {
     }));
   };
 
-  const clearPageSearchCache = () => setPageSearchCache({});
+  const resetPageCache = () => {
+    setPageSearchCache({});
+  };
 
   useEffect(() => {
     updatePage(0, initialQuery);
@@ -116,7 +118,7 @@ const useBrowserPaging = (initialQuery) => {
     setPage: updatePage,
     getMainRequestSearch,
     mainRequestSearch,
-    clearPageSearchCache,
+    resetPageCache,
   };
 };
 
@@ -128,51 +130,50 @@ const useAuthoritiesBrowse = ({
   precedingRecordsCount,
 }) => {
   const [currentQuery, setCurrentQuery] = useState(searchQuery);
+  const [currentIndex, setCurrentIndex] = useState(searchIndex);
+  const [currentExcludeSeeFrom, setCurrentExcludeSeeFrom] = useState(isExcludedSeeFromLimiter);
   const [items, setItems] = useState([]);
   const {
     page,
     setPage,
     mainRequestSearch,
     getMainRequestSearch,
-    clearPageSearchCache,
+    resetPageCache,
   } = useBrowserPaging(searchQuery);
 
   useEffect(() => {
     setCurrentQuery(searchQuery);
-    clearPageSearchCache();
+    setCurrentIndex(searchIndex);
+    setCurrentExcludeSeeFrom(isExcludedSeeFromLimiter);
+    resetPageCache();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQuery]);
-
-  useEffect(() => {
-    clearPageSearchCache();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchIndex]);
+  }, [searchQuery, searchIndex, isExcludedSeeFromLimiter]);
 
   const mainRequest = useBrowseRequest({
     searchQuery: currentQuery,
     startingSearch: mainRequestSearch,
-    searchIndex,
+    searchIndex: currentIndex,
     pageSize,
     precedingRecordsCount,
-    isExcludedSeeFromLimiter,
+    isExcludedSeeFromLimiter: currentExcludeSeeFrom,
   });
 
   const prevPageRequest = useBrowseRequest({
     searchQuery: mainRequest.firstResult,
     startingSearch: getMainRequestSearch(mainRequest.firstResult, page - 1),
-    searchIndex,
+    searchIndex: currentIndex,
     pageSize,
     precedingRecordsCount,
-    isExcludedSeeFromLimiter,
+    isExcludedSeeFromLimiter: currentExcludeSeeFrom,
   });
 
   const nextPageRequest = useBrowseRequest({
     searchQuery: mainRequest.lastResult,
     startingSearch: getMainRequestSearch(mainRequest.lastResult, page + 1),
-    searchIndex,
+    searchIndex: currentIndex,
     pageSize,
     precedingRecordsCount,
-    isExcludedSeeFromLimiter,
+    isExcludedSeeFromLimiter: currentExcludeSeeFrom,
   });
 
   const allRequestsFetched = mainRequest.isFetched && prevPageRequest.isFetched && nextPageRequest.isFetched;
@@ -187,7 +188,12 @@ const useAuthoritiesBrowse = ({
       return [];
     }
 
-    const totalItemsLength = mainRequest.data?.items?.length + prevPageRequest.data?.items?.length + nextPageRequest.data?.items?.length;
+    let totalItemsLength = mainRequest.data?.items?.length + prevPageRequest.data?.items?.length + nextPageRequest.data?.items?.length;
+    
+    if (Number.isNaN(totalItemsLength)) {
+      totalItemsLength = 0;
+    }
+
     const newItems = new Array(totalItemsLength);
 
     newItems.splice(prevPageRequest.data?.items?.length, items.length, ...items);

@@ -50,10 +50,14 @@ const AuthoritiesSearchContextProvider = ({
   const [isGoingToBaseURL, setIsGoingToBaseURL] = useState(false);
 
   const resetAll = () => {
+    const dropdownValue = initialSegment === navigationSegments.browse
+      ? searchableIndexesValues.KEYWORD
+      : searchableIndexesValues.KEYWORD
+
     setSearchInputValue('');
     setSearchQuery('');
-    setSearchDropdownValue(initialDropdownValue);
-    setSearchIndex(initialDropdownValue);
+    setSearchDropdownValue(dropdownValue);
+    setSearchIndex(dropdownValue);
     setFilters({});
     setIsExcludedSeeFromLimiter(false);
     setIsGoingToBaseURL(true);
