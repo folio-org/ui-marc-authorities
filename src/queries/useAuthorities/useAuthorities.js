@@ -1,4 +1,7 @@
-import { useState } from 'react';
+import {
+  useState,
+  useEffect,
+} from 'react';
 import { useQuery } from 'react-query';
 import queryString from 'query-string';
 import template from 'lodash/template';
@@ -76,6 +79,18 @@ const useAuthorities = ({
   const [namespace] = useNamespace();
 
   const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    setOffset(0);
+  }, [
+    searchQuery,
+    searchIndex,
+    advancedSearch,
+    filters,
+    isExcludedSeeFromLimiter,
+    sortOrder,
+    sortedColumn,
+  ]);
 
   let cqlSearch = [];
 
