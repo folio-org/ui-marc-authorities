@@ -26,6 +26,8 @@ import {
 
 import commands from './commands';
 
+import { SelectedAuthorityRecordContextProvider } from './context';
+
 const propTypes = {
   focusSearchField: PropTypes.func,
   match: PropTypes.object.isRequired,
@@ -50,15 +52,17 @@ const MarcAuthorities = ({
     <CommandList commands={commands}>
       <MarcAuthoritiesAppContext />
       <KeyShortCutsWrapper focusSearchField={focusSearchField}>
-        <Switch>
-          <Route path={`${path}/quick-marc`} component={AuthorityQuickMarcEditRoute} />
-          <Route
-            path={path}
-            component={SearchRoute}
-          >
-            <Route path={`${path}/authorities/:id`} component={AuthorityViewRoute} />
-          </Route>
-        </Switch>
+        <SelectedAuthorityRecordContextProvider>
+          <Switch>
+            <Route path={`${path}/quick-marc`} component={AuthorityQuickMarcEditRoute} />
+            <Route
+              path={path}
+              component={SearchRoute}
+            >
+              <Route path={`${path}/authorities/:id`} component={AuthorityViewRoute} />
+            </Route>
+          </Switch>
+        </SelectedAuthorityRecordContextProvider>
       </KeyShortCutsWrapper>
     </CommandList>
   );

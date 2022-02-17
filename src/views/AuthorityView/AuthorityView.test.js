@@ -12,9 +12,11 @@ import { runAxeTest } from '@folio/stripes-testing';
 
 import Harness from '../../../test/jest/helpers/harness';
 import AuthorityView from './AuthorityView';
+import { SelectedAuthorityRecordContext } from '../../context';
 import { openEditShortcut } from '../../../test/utilities';
 
 const mockHistoryPush = jest.fn();
+const mockSetSelectedAuthorityRecordContext = jest.fn();
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
@@ -42,16 +44,18 @@ const authority = {
 };
 
 const renderAuthorityView = (props = {}) => render(
-  <Harness>
-    <CommandList commands={defaultKeyboardShortcuts}>
-      <AuthorityView
-        marcSource={marcSource}
-        authority={authority}
-        stripes={noop}
-        {...props}
-      />
-    </CommandList>
-  </Harness>,
+  <SelectedAuthorityRecordContext.Provider value={[null, mockSetSelectedAuthorityRecordContext]}>
+    <Harness>
+      <CommandList commands={defaultKeyboardShortcuts}>
+        <AuthorityView
+          marcSource={marcSource}
+          authority={authority}
+          stripes={noop}
+          {...props}
+        />
+      </CommandList>
+    </Harness>
+  </SelectedAuthorityRecordContext.Provider>,
 );
 
 describe('Given AuthorityView', () => {
@@ -125,6 +129,24 @@ describe('Given AuthorityView', () => {
 
       expect(mockHistoryPush).toHaveBeenCalled();
       expect(queryByTestId('authority-marc-view')).not.toBeNull();
+    });
+  });
+
+  describe('when click on Close button', () => {
+    it('should handle setSelectedAuthorityRecordContext', () => {
+      const { getByText } = renderAuthorityView();
+
+      fireEvent.click(getByText('Close QuickMarcView'));
+
+      expect(mockSetSelectedAuthorityRecordContext).toHaveBeenCalledWith(null);
+    });
+
+    it('should redirect to /marc-authorities', () => {
+      const { getByText } = renderAuthorityView();
+
+      fireEvent.click(getByText('Close QuickMarcView'));
+
+      expect(mockHistoryPush).toHaveBeenCalled();
     });
   });
 });
