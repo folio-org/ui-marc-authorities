@@ -82,7 +82,7 @@ describe('Given useAuthoritiesBrowse', () => {
   });
 
   describe('when passing isExcludeSeeFrom parameter', () => {
-    it('should include headingType parameter in requests', async () => {
+    it('should include authRefType parameter in requests', async () => {
       const isExcludedSeeFromLimiter = true;
       const pageSize = 20;
 
@@ -170,6 +170,50 @@ describe('Given useAuthoritiesBrowse', () => {
       await waitFor(() => !result.current.isLoading);
 
       expect(mockGet).toHaveBeenCalledTimes(0);
+    });
+  });
+
+  describe('when search query changes', () => {
+    it('should request new data', async () => {
+      const isExcludedSeeFromLimiter = false;
+      const pageSize = 20;
+
+      const { result, waitFor, rerender } = renderHook(useAuthoritiesBrowse, {
+        initialProps: {
+          searchQuery,
+          searchIndex,
+          isExcludedSeeFromLimiter,
+          pageSize,
+          precedingRecordsCount,
+        },
+        wrapper,
+      });
+
+      await waitFor(() => !result.current.isLoading);
+
+      expect(mockGet).toHaveBeenCalledTimes(3);
+
+      rerender({
+        searchQuery: 'test2',
+        searchIndex,
+        isExcludedSeeFromLimiter,
+        pageSize,
+        precedingRecordsCount,
+      }, { wrapper });
+
+      await waitFor(() => !result.current.isLoading);
+
+      expect(mockGet).toHaveBeenCalledTimes(6);
+      expect(mockGet.mock.calls[3][0])
+        // browse/authorities?limit=20&precedingRecordsCount=5&query=(headingRef>="test2" or headingRef<"test2")
+        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=%28headingRef%3E%3D%22test2%22%20or%20headingRef%3C%22test2%22%29');
+      expect(mockGet.mock.calls[4][0])
+        // browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef<"authority_3_0"
+        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3C%22authority_3_0%22');
+
+      expect(mockGet.mock.calls[5][0])
+        // browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef>"authority_3_49"
+        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3E%22authority_3_49%22');
     });
   });
 });

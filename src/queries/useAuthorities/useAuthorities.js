@@ -56,9 +56,7 @@ const buildAdvancedSearch = (advancedSearch, isExcludedSeeFromLimiter) => {
       { interpolate: /%{([\s\S]+?)}/g },
     );
 
-    const cqlSearch = compileQuery({ query });
-
-    return cqlSearch;
+    return compileQuery({ query });
   };
 
   return [defaultAdvancedSearchQueryBuilder(advancedSearch, rowFormatter)];

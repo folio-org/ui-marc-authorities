@@ -69,6 +69,7 @@ const AuthoritiesSearchForm = ({
     query: locationSearchParams.query,
     option: locationSearchParams.qindex,
   });
+
   const searchInputRef = useRef();
 
   const handleResetAll = () => {

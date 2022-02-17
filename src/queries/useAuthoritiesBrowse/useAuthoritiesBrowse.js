@@ -12,6 +12,7 @@ import {
   useNamespace,
 } from '@folio/stripes/core';
 
+import { useDidUpdate } from '../../hooks';
 import { searchableIndexesValues } from '../../constants';
 
 const AUTHORITIES_BROWSE_API = 'browse/authorities';
@@ -66,6 +67,7 @@ const useBrowseRequest = ({
     data,
     firstResult: get(data, 'items[0].headingRef'),
     lastResult: get(data, `items[${data?.items?.length - 1}].headingRef`),
+    startingSearch,
   });
 };
 
@@ -96,6 +98,10 @@ const useBrowserPaging = (initialQuery) => {
   const [mainRequestSearch, setMainRequestSearch] = useState(getMainRequestSearch(initialQuery, 0));
 
   const updatePage = (newPage, newQuery) => {
+    if (!newQuery) {
+      return;
+    }
+
     setPage(newPage);
     setMainRequestSearch(getMainRequestSearch(newQuery, newPage));
     setPageSearchCache((currentPageSearchCache) => ({
@@ -110,6 +116,7 @@ const useBrowserPaging = (initialQuery) => {
 
   useEffect(() => {
     updatePage(0, initialQuery);
+    setMainRequestSearch(getMainRequestSearch(initialQuery, 0));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialQuery]);
 
@@ -132,6 +139,7 @@ const useAuthoritiesBrowse = ({
   const [currentQuery, setCurrentQuery] = useState(searchQuery);
   const [currentIndex, setCurrentIndex] = useState(searchIndex);
   const [currentExcludeSeeFrom, setCurrentExcludeSeeFrom] = useState(isExcludedSeeFromLimiter);
+  const [hasEmptyAnchor, setHasEmptyAnchor] = useState(false);
   const [items, setItems] = useState([]);
   const {
     page,
@@ -183,13 +191,21 @@ const useAuthoritiesBrowse = ({
     setItems(mainRequest.data?.items || []);
   }, [mainRequest.data]);
 
+  useEffect(() => {
+    if (page === 0) {
+      const dataIncludesEmptyAnchor = !!mainRequest.data?.items.find(item => !item.authority);
+
+      setHasEmptyAnchor(dataIncludesEmptyAnchor);
+    }
+  }, [mainRequest.data]);
+
   const itemsWithPrevAndNextPages = useMemo(() => {
     if (allRequestsFetching) {
       return [];
     }
 
     let totalItemsLength = mainRequest.data?.items?.length + prevPageRequest.data?.items?.length + nextPageRequest.data?.items?.length;
-    
+
     if (Number.isNaN(totalItemsLength)) {
       totalItemsLength = 0;
     }
@@ -210,8 +226,12 @@ const useAuthoritiesBrowse = ({
     }
   };
 
+  // totalRecords doesn't include empty anchor item and it will cause issues with MCL pagination
+  // we need to manually add 1 to totalRecords to account for this
+  const totalRecords = mainRequest.data?.totalRecords + (hasEmptyAnchor ? 1 : 0);
+
   return ({
-    totalRecords: mainRequest.data?.totalRecords,
+    totalRecords,
     authorities: itemsWithPrevAndNextPages,
     isLoading: allRequestsFetching,
     isLoaded: allRequestsFetched,

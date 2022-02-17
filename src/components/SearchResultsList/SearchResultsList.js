@@ -97,7 +97,7 @@ const SearchResultsList = ({
     () => ({
       loaded: () => (hasFilters || query) && loaded,
       pending: () => loading,
-      failure: () => { },
+      failure: () => null,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [loading, hasFilters],

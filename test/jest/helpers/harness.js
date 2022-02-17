@@ -22,7 +22,7 @@ const defaultHistory = createMemoryHistory();
 
 const queryClient = new QueryClient();
 
-const AuthotitiesSearchContextProviderMock = ({ children, ctxValue }) => (
+const AuthoritiesSearchContextProviderMock = ({ children, ctxValue }) => (
   <AuthoritiesSearchContext.Provider value={ctxValue}>
     {children}
   </AuthoritiesSearchContext.Provider>
@@ -43,7 +43,7 @@ const Harness = ({
   selectedRecordCtxValue,
 }) => {
   const AuthoritiesCtxProviderComponent = authoritiesCtxValue
-    ? AuthotitiesSearchContextProviderMock
+    ? AuthoritiesSearchContextProviderMock
     : AuthoritiesSearchContextProvider;
 
   const SelectedAuthorityRecordCtxProviderComponent = selectedRecordCtxValue

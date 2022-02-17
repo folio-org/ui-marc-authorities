@@ -77,6 +77,7 @@ describe('Given SearchFilters', () => {
   describe('when clearing a filter', () => {
     it('should call setFilters with correct filters', () => {
       mockSetFilters.mockImplementation(setter => setter(defaultCtxValue.filters));
+
       const { getByText } = renderSearchFilters();
 
       fireEvent.click(getByText('Clear headingType'));
@@ -111,6 +112,7 @@ describe('Given SearchFilters', () => {
   describe('when clicking on exclude see from checkbox', () => {
     it('should call setIsExcludedSeeFromLimiter', () => {
       mockSetIsExcludedSeeFromLimiter.mockImplementation(setter => setter(defaultCtxValue.isExcludedSeeFromLimiter));
+
       const { getByRole } = renderSearchFilters();
 
       fireEvent.click(getByRole('checkbox', { name: 'ui-marc-authorities.search.excludeSeeFrom' }));

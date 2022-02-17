@@ -30,9 +30,11 @@ const AuthoritiesSearchContextProvider = ({
   const location = useLocation();
 
   const nonFilterUrlParams = ['query', 'qindex', 'segment', 'excludeSeeFrom', 'sort'];
+
   const getInitialFilters = () => {
     return omit(buildFiltersObj(location.search), nonFilterUrlParams);
   };
+
   const locationSearchParams = queryString.parse(location.search);
   const initialSegment = locationSearchParams.segment || navigationSegments.search;
   const initialDropdownValue = initialSegment === navigationSegments.browse
@@ -51,8 +53,8 @@ const AuthoritiesSearchContextProvider = ({
 
   const resetAll = () => {
     const dropdownValue = initialSegment === navigationSegments.browse
-      ? searchableIndexesValues.KEYWORD
-      : searchableIndexesValues.KEYWORD
+      ? searchableIndexesValues.NONE
+      : searchableIndexesValues.KEYWORD;
 
     setSearchInputValue('');
     setSearchQuery('');
