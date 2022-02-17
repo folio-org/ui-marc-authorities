@@ -280,6 +280,7 @@ const AuthoritiesSearch = ({ children }) => {
       e.preventDefault();
       e.stopPropagation();
     }
+    console.log('!!');
 
     setSearchQuery(searchInputValue);
     setSearchIndex(searchDropdownValue);
@@ -338,6 +339,11 @@ const AuthoritiesSearch = ({ children }) => {
     setSearchQuery(searchString);
     setAdvancedSearchRows(searchRows);
     setIsAdvancedSearchOpen(false);
+  };
+
+  const handleAdvancedSearchRowChange = (searchQuery, searchRows) => {
+    setSearchQuery(searchQuery);
+    setAdvancedSearchRows(searchRows);
   };
 
   const options = Object.values(searchResultListColumns).map((option) => ({
@@ -455,6 +461,7 @@ const AuthoritiesSearch = ({ children }) => {
               firstRowInitialSearch={advancedSearchDefaultSearch}
               onSearch={handleAdvancedSearch}
               onCancel={() => setIsAdvancedSearchOpen(false)}
+              onRowsChange={handleAdvancedSearchRowChange}
             >
               {({ resetRows }) => (
                 <Row between="xs">
