@@ -276,11 +276,17 @@ const AuthoritiesSearch = ({ children }) => {
   const onChangeIndex = (value) => setSearchDropdownValue(value);
 
   const onSubmitSearch = (e) => {
+    if (searchIndex === searchableIndexesValues.ADVANCED_SEARCH) {
+      setAdvancedSearchDefaultSearch({
+        query: searchInputValue,
+        option: searchDropdownValue,
+      });
+    }
+
     if (e && e.preventDefault) {
       e.preventDefault();
       e.stopPropagation();
     }
-    console.log('!!');
 
     setSearchQuery(searchInputValue);
     setSearchIndex(searchDropdownValue);
@@ -290,10 +296,6 @@ const AuthoritiesSearch = ({ children }) => {
 
   const updateSearchValue = (value) => {
     setSearchInputValue(value);
-    setAdvancedSearchDefaultSearch({
-      query: value,
-      option: searchDropdownValue,
-    });
   };
 
   const resetAll = () => {
@@ -341,8 +343,8 @@ const AuthoritiesSearch = ({ children }) => {
     setIsAdvancedSearchOpen(false);
   };
 
-  const handleAdvancedSearchRowChange = (searchQuery, searchRows) => {
-    setSearchQuery(searchQuery);
+  const handleAdvancedSearchRowChange = (searchQueryChange, searchRows) => {
+    setSearchQuery(searchQueryChange);
     setAdvancedSearchRows(searchRows);
   };
 
@@ -440,7 +442,7 @@ const AuthoritiesSearch = ({ children }) => {
                 placeholder={navigationSegmentValue === navigationSegments.browse ? 'None' : ''}
                 onChangeIndex={(e) => onChangeIndex(e.target.value)}
                 selectedIndex={searchDropdownValue}
-                onSubmitSearch={onSubmitSearch}
+                onSubmitSearch={() => onSubmitSearch()}
               />
               <Button
                 id="submit-authorities-search"
