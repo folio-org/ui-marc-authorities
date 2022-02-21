@@ -17,6 +17,7 @@
   "search.searchAndFilter": "Search & filter",
   "search.createdDate": "Date created",
   "search.updatedDate": "Date updated",
+  "search.subjectHeadings": "Subject heading/thesaurus",
   "search.headingType": "Type of heading",
   "search.references": "References",
   "search.excludeSeeFrom": "Exclude see from",

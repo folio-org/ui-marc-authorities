@@ -30,4 +30,14 @@ describe('filterConfig', () => {
       expect(searchString).toEqual('(headingType==("val1" or "val2"))');
     });
   });
+
+  describe('subjectHeadings filter', () => {
+    it('should return correct search string', () => {
+      const filter = filterConfig.find(config => config.name === 'subjectHeadings');
+
+      const searchString = filter.parse(['val1', 'val2']);
+
+      expect(searchString).toEqual('(subjectHeadings==("val1" or "val2"))');
+    });
+  });
 });

@@ -12,7 +12,6 @@ import {
   useNamespace,
 } from '@folio/stripes/core';
 
-import { useDidUpdate } from '../../hooks';
 import { searchableIndexesValues } from '../../constants';
 
 const AUTHORITIES_BROWSE_API = 'browse/authorities';

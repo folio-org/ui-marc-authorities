@@ -15,7 +15,9 @@ import { defaultAdvancedSearchQueryBuilder } from '@folio/stripes-components';
 import { buildQuery } from '../utils';
 import {
   filterConfig,
+  facetsTypes,
   searchableIndexesValues,
+  subjectHeadingsMap,
 } from '../../constants';
 
 const AUTHORITIES_API = 'search/authorities';
@@ -103,7 +105,15 @@ const useAuthorities = ({
     .map(([filterName, filterValues]) => {
       const filterData = filterConfig.find(filter => filter.name === filterName);
 
-      return filterData.parse(filterValues);
+      let finalFilterValues = filterValues;
+
+      if (filterName === facetsTypes.SUBJECT_HEADINGS) {
+        const filterValuesForSubjectHeadings = filterValues.map(name => subjectHeadingsMap[name]);
+
+        finalFilterValues = filterValuesForSubjectHeadings;
+      }
+
+      return filterData.parse(finalFilterValues);
     });
 
   let cqlQuery = [...cqlSearch, ...cqlFilters].join(' and ');
@@ -133,7 +143,7 @@ const useAuthorities = ({
   } = useQuery(
     [namespace, searchParams],
     async () => {
-      if (!searchQuery && Object.keys(filters).length === 0) {
+      if (!searchQuery && !Object.values(filters).find(value => value.length > 0)) {
         return { authorities: [], totalRecords: 0 };
       }
 

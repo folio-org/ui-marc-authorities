@@ -33,6 +33,7 @@
 * [UIMARCAUTH-73](https://issues.folio.org/browse/UIMARCAUTH-73) Update Authority Search Options - Corporate/Conference Name & Personal Name.
 * [UIMARCAUTH-76](https://issues.folio.org/browse/UIMARCAUTH-65) Change query in Geographic name search option.
 * [UIMARCAUTH-70](https://issues.folio.org/browse/UIMARCAUTH-70) Clicking on Result in Results list should highlight the selected row.
+* [UIMARCAUTH-62](https://issues.folio.org/browse/UIMARCAUTH-62) Create a Subject heading/thesaurus facet.
 
 ## [0.1.0](https://github.com/folio-org/ui-marc-authorities/tree/v0.1.0) (2021-01-20)
 

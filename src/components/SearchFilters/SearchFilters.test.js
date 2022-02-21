@@ -9,6 +9,21 @@ import SearchFilters from './SearchFilters';
 import Harness from '../../../test/jest/helpers/harness';
 import { navigationSegments } from '../../constants';
 
+jest.mock('../../queries', () => ({
+  ...jest.requireActual('../../queries'),
+  useFacets: jest.fn().mockReturnValue({
+    isLoading: false,
+    facets: {
+      subjectHeadings: {
+        values: [{
+          id: 'a',
+          totalRecords: 10,
+        }],
+      },
+    },
+  }),
+}));
+
 jest.mock('@folio/stripes-acq-components', () => ({
   ...jest.requireActual('@folio/stripes-acq-components'),
   AcqDateRangeFilter: ({ name }) => <div>{name}</div>,
@@ -31,6 +46,7 @@ const defaultCtxValue = {
   setFilters: mockSetFilters,
   filters: {
     headingType: ['val-a', 'val-b'],
+    subjectHeadings: ['Other'],
   },
   isExcludedSeeFromLimiter: false,
   navigationSegmentValue: navigationSegments.search,
@@ -53,6 +69,12 @@ describe('Given SearchFilters', () => {
     const { getByText } = renderSearchFilters();
 
     expect(getByText('headingType')).toBeDefined();
+  });
+
+  it('should render Subject heading/thesaurus filter', () => {
+    const { getByText } = renderSearchFilters();
+
+    expect(getByText('subjectHeadings')).toBeDefined();
   });
 
   it('should display "References" accordion and "Exclude see from" checkbox', () => {

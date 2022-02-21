@@ -17,4 +17,12 @@ export const filterConfig = [
       return `(headingType==(${valuesInQuotes}))`;
     },
   },
+  {
+    name: 'subjectHeadings',
+    parse: (values) => {
+      const valuesInQuotes = values.map(value => `"${value}"`).join(' or ');
+
+      return `(subjectHeadings==(${valuesInQuotes}))`;
+    },
+  },
 ];

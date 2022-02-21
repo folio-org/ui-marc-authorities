@@ -6,3 +6,6 @@ export * from './searchResultsListColumns';
 export * from './filterConfig';
 export * from './sortOrders';
 export * from './navigationSegments';
+export * from './subjectHeadingsValues';
+export * from './subjectHeadingsMap';
+export * from './facetsTypes';

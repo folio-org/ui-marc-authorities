@@ -19,12 +19,12 @@ import { MultiSelectionFacet } from '../MultiSelectionFacet';
 import { useSectionToggle } from '../../hooks';
 import { useFacets } from '../../queries';
 
-import { navigationSegments } from '../../constants';
+import {
+  navigationSegments,
+  facetsTypes,
+  subjectHeadingsMap,
+} from '../../constants';
 import { AuthoritiesSearchContext } from '../../context';
-
-const FACETS = {
-  HEADING_TYPE: 'headingType',
-};
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 
@@ -49,7 +49,8 @@ const SearchFilters = ({
   const isSearchNavigationSegment = navigationSegmentValue === navigationSegments.search;
 
   const [filterAccordions, { handleSectionToggle }] = useSectionToggle({
-    [FACETS.HEADING_TYPE]: false,
+    [facetsTypes.HEADING_TYPE]: false,
+    [facetsTypes.SUBJECT_HEADINGS]: false,
   });
 
   const selectedFacets = Object.keys(filterAccordions).filter(accordion => filterAccordions[accordion]);
@@ -77,6 +78,19 @@ const SearchFilters = ({
     setIsExcludedSeeFromLimiter(isExcluded => !isExcluded);
   };
 
+  const getSubjectHeadingsFacetOptions = () => {
+    return facets[facetsTypes.SUBJECT_HEADINGS]?.values.map(value => {
+      const subjectHeadingsName = Object.keys(subjectHeadingsMap).find(key => {
+        return subjectHeadingsMap[key] === value.id;
+      });
+
+      return {
+        id: subjectHeadingsName,
+        totalRecords: value.totalRecords,
+      };
+    });
+  };
+
   return (
     <>
       <Accordion
@@ -101,15 +115,29 @@ const SearchFilters = ({
       {isSearchNavigationSegment && (
         <>
           <MultiSelectionFacet
-            id={FACETS.HEADING_TYPE}
-            label={intl.formatMessage({ id: `ui-marc-authorities.search.${FACETS.HEADING_TYPE}` })}
-            name={FACETS.HEADING_TYPE}
-            open={filterAccordions[FACETS.HEADING_TYPE]}
-            options={facets[FACETS.HEADING_TYPE]?.values || []}
-            selectedValues={filters[FACETS.HEADING_TYPE]}
+            id={facetsTypes.SUBJECT_HEADINGS}
+            label={intl.formatMessage({ id: `ui-marc-authorities.search.${facetsTypes.SUBJECT_HEADINGS}` })}
+            name={facetsTypes.SUBJECT_HEADINGS}
+            open={filterAccordions[facetsTypes.SUBJECT_HEADINGS]}
+            options={getSubjectHeadingsFacetOptions() || []}
+            selectedValues={filters[facetsTypes.SUBJECT_HEADINGS]}
             onFilterChange={applyFilters}
             onClearFilter={onClearFilter}
-            displayClearButton={!!filters[FACETS.HEADING_TYPE]}
+            displayClearButton={!!filters[facetsTypes.SUBJECT_HEADINGS]?.length}
+            handleSectionToggle={handleSectionToggle}
+            isPending={isLoading}
+          />
+
+          <MultiSelectionFacet
+            id={facetsTypes.HEADING_TYPE}
+            label={intl.formatMessage({ id: `ui-marc-authorities.search.${facetsTypes.HEADING_TYPE}` })}
+            name={facetsTypes.HEADING_TYPE}
+            open={filterAccordions[facetsTypes.HEADING_TYPE]}
+            options={facets[facetsTypes.HEADING_TYPE]?.values || []}
+            selectedValues={filters[facetsTypes.HEADING_TYPE]}
+            onFilterChange={applyFilters}
+            onClearFilter={onClearFilter}
+            displayClearButton={!!filters[facetsTypes.HEADING_TYPE]?.length}
             handleSectionToggle={handleSectionToggle}
             isPending={isLoading}
           />

@@ -191,9 +191,7 @@ describe('Given AuthoritiesSearchForm', () => {
 
       expect(textarea.value).toBe('');
     });
-  });
 
-  describe('when textarea is not empty and Reset all button is clicked', () => {
     it('should handle setSelectedAuthorityRecordContext', () => {
       const {
         getByRole,
