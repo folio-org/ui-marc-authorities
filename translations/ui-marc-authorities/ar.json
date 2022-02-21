@@ -45,5 +45,6 @@
     "label.browse": "استعراض",
     "label.search.textArea": "قم بإدخال استعلام البحث",
     "query": "استعلام",
-    "advancedSearch": "بحث متقدم"
+    "advancedSearch": "بحث متقدم",
+    "none": "لا شيء"
 }

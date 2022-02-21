@@ -1,8 +1,14 @@
-import { useState } from 'react';
+import {
+  useState,
+  useEffect,
+} from 'react';
+import queryString from 'query-string';
+import { useLocation } from 'react-router-dom';
 
 import { sortOrders } from '../../constants';
 
 const useSortColumnManager = () => {
+  const location = useLocation();
   const [sortedColumn, setSortedColumn] = useState('');
   const [sortOrder, setSortOrder] = useState('');
 
@@ -35,6 +41,23 @@ const useSortColumnManager = () => {
     setSortedColumn(option);
     setSortOrder(currentOrder);
   };
+
+  useEffect(() => {
+    const locationSearchParams = queryString.parse(location.search);
+
+    if (Object.keys(locationSearchParams).length <= 0) {
+      return;
+    }
+
+    if (locationSearchParams.sort) {
+      if (locationSearchParams.sort[0] === '-') {
+        onChangeSortOption(locationSearchParams.sort.substring(1), sortOrders.DES);
+      } else {
+        onChangeSortOption(locationSearchParams.sort, sortOrders.ASC);
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return {
     onChangeSortOption,

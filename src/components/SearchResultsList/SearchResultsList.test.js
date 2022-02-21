@@ -1,5 +1,6 @@
 import {
   render,
+  fireEvent,
 } from '@testing-library/react';
 import noop from 'lodash/noop';
 
@@ -14,9 +15,10 @@ import {
 } from '../../constants';
 
 const mockToggleFilterPane = jest.fn();
+const mockSetSelectedAuthorityRecordContext = jest.fn();
 
 const renderSearchResultsList = (props = {}) => render(
-  <Harness>
+  <Harness selectedRecordCtxValue={[null, mockSetSelectedAuthorityRecordContext]}>
     <SearchResultsList
       authorities={authorities}
       visibleColumns={[
@@ -73,6 +75,20 @@ describe('Given SearchResultsList', () => {
     });
 
     expect(getByText('stripes-smart-components.sas.noResults.noTerms')).toBeDefined();
+  });
+
+  describe('when click on a row', () => {
+    it('should handle setSelectedAuthorityRecordContext', () => {
+      const [firstRowRecord] = authorities;
+
+      const { getAllByRole } = renderSearchResultsList();
+
+      const [rowLink] = getAllByRole('link', { name: 'Twain, Mark' });
+
+      fireEvent.click(rowLink);
+
+      expect(mockSetSelectedAuthorityRecordContext).toHaveBeenCalledWith(firstRowRecord);
+    });
   });
 
   describe('when search is pending', () => {

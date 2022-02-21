@@ -3,12 +3,7 @@ import {
   QueryClientProvider,
 } from 'react-query';
 import { renderHook } from '@testing-library/react-hooks';
-
-import routeData from 'react-router';
-
 import { createMemoryHistory } from 'history';
-
-import '../../../test/jest/__mock__';
 
 import { useOkapiKy } from '@folio/stripes/core';
 
@@ -44,13 +39,9 @@ describe('Given useAuthorities', () => {
   }));
 
   beforeEach(() => {
+    queryClient.clear();
     useOkapiKy.mockClear().mockReturnValue({
       get: mockGet,
-    });
-
-    jest.spyOn(routeData, 'useLocation').mockReturnValue({
-      pathname: 'pathname',
-      search: '',
     });
   });
 

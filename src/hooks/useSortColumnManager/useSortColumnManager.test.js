@@ -9,6 +9,13 @@ import {
   sortOrders,
 } from '../../constants';
 
+jest.mock('react-router-dom', () => ({
+  useLocation: jest.fn().mockReturnValue({
+    pathname: 'pathname',
+    search: '',
+  }),
+}));
+
 describe('Given useSortColumnManager', () => {
   it('should return default values', () => {
     const { result } = renderHook(() => useSortColumnManager());

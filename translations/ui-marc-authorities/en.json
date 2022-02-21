@@ -23,6 +23,7 @@
   "query": "Query",
   "keyword": "Keyword",
   "identifier": "Identifier (all)",
+  "none": "None",
   "personalName": "Personal name",
   "corporateConferenceName": "Corporate/Conference name",
   "geographicName": "Geographic name",

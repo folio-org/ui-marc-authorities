@@ -45,5 +45,6 @@
     "label.browse": "Browse",
     "label.search.textArea": "Enter search query",
     "query": "Query",
-    "advancedSearch": "Advanced search"
+    "advancedSearch": "Advanced search",
+    "none": "None"
 }

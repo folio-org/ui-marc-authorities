@@ -32,6 +32,8 @@
 * [UIMARCAUTH-61](https://issues.folio.org/browse/UIMARCAUTH-61) Fix three pane view is not retained when you hit Edit and then click "X" or Cancel button.
 * [UIMARCAUTH-76](https://issues.folio.org/browse/UIMARCAUTH-65) Change query in Geographic name search option
 * [UIMARCAUTH-74](https://issues.folio.org/browse/UIMARCAUTH-74) Advanced search does not work when editing Advanced Search box.
+* [UIMARCAUTH-73](https://issues.folio.org/browse/UIMARCAUTH-73) Update Authority Search Options - Corporate/Conference Name & Personal Name.
+* [UIMARCAUTH-70](https://issues.folio.org/browse/UIMARCAUTH-70) Clicking on Result in Results list should highlight the selected row.
 
 ## [0.1.0](https://github.com/folio-org/ui-marc-authorities/tree/v0.1.0) (2021-01-20)
 

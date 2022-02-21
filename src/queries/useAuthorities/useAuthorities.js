@@ -1,4 +1,7 @@
-import { useState } from 'react';
+import {
+  useState,
+  useEffect,
+} from 'react';
 import { useQuery } from 'react-query';
 import queryString from 'query-string';
 import template from 'lodash/template';
@@ -53,9 +56,7 @@ const buildAdvancedSearch = (advancedSearch, isExcludedSeeFromLimiter) => {
       { interpolate: /%{([\s\S]+?)}/g },
     );
 
-    const cqlSearch = compileQuery({ query });
-
-    return cqlSearch;
+    return compileQuery({ query });
   };
 
   return [defaultAdvancedSearchQueryBuilder(advancedSearch, rowFormatter)];
@@ -76,6 +77,18 @@ const useAuthorities = ({
   const [namespace] = useNamespace();
 
   const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    setOffset(0);
+  }, [
+    searchQuery,
+    searchIndex,
+    advancedSearch,
+    filters,
+    isExcludedSeeFromLimiter,
+    sortOrder,
+    sortedColumn,
+  ]);
 
   let cqlSearch = [];
 
