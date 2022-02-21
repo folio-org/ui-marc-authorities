@@ -49,8 +49,6 @@ const AuthoritiesSearchForm = ({
   const intl = useIntl();
   const location = useLocation();
 
-  const locationSearchParams = queryString.parse(location.search);
-
   const {
     navigationSegmentValue,
     searchDropdownValue,
@@ -67,16 +65,11 @@ const AuthoritiesSearchForm = ({
   const [, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
   const [isAdvancedSearchOpen, setIsAdvancedSearchOpen] = useState(false);
-  // const [advancedSearchDefaultSearch, setAdvancedSearchDefaultSearch] = useState({
-  //   query: locationSearchParams.query,
-  //   option: locationSearchParams.qindex,
-  // });
 
   const searchInputRef = useRef();
 
   const handleResetAll = () => {
     resetAll();
-    // setAdvancedSearchDefaultSearch(null);
     onChangeSortOption('');
     setSelectedAuthorityRecordContext(null);
   };
@@ -90,17 +83,12 @@ const AuthoritiesSearchForm = ({
     setIsAdvancedSearchOpen(false);
   };
 
-  const handleAdvancedSearchRowChange = (searchQueryChange, searchRows) => {
-    // setSearchQuery(searchQueryChange);
-    setAdvancedSearchRows(searchRows);
-  };
-
-  // useEffect(() => {
-  //   setAdvancedSearchDefaultSearch({
-  //     query: searchInputValue,
-  //     option: searchDropdownValue,
-  //   });
-  // }, [searchInputValue, searchDropdownValue]);
+  useEffect(() => {
+    setAdvancedSearchDefaultSearch({
+      query: searchInputValue,
+      option: searchDropdownValue,
+    });
+  }, [searchInputValue, searchDropdownValue]);
 
   const rawSearchableIndexes = navigationSegmentValue === navigationSegments.browse
     ? rawBrowseSearchableIndexes
@@ -121,41 +109,40 @@ const AuthoritiesSearchForm = ({
     || isAuthoritiesLoading;
 
   return (
-    <form onSubmit={onSubmitSearch}>
-      <FilterNavigation />
-      <div className={css.searchGroupWrap}>
-        <SearchTextareaField
-          textAreaRef={searchInputRef}
-          autoFocus
-          rows="1"
-          name="query"
-          id="textarea-authorities-search"
-          className={css.searchField}
-          searchableIndexes={searchableIndexes}
-          onSubmitSearch={onSubmitSearch}
-        />
-        <Button
-          id="submit-authorities-search"
-          data-testid="submit-authorities-search"
-          type="submit"
-          buttonStyle="primary"
-          fullWidth
-          marginBottom0
-          disabled={isSearchButtonDisabled}
-        >
-          {intl.formatMessage({ id: 'ui-marc-authorities.label.search' })}
-        </Button>
-      </div>
-      <AdvancedSearch
-        open={isAdvancedSearchOpen}
-        searchOptions={advancedSearchOptions}
-        defaultSearchOptionValue={searchableIndexesValues.KEYWORD}
-        firstRowInitialSearch={advancedSearchDefaultSearch}
-        onSearch={handleAdvancedSearch}
-        onCancel={() => setIsAdvancedSearchOpen(false)}
-        onRowsChange={handleAdvancedSearchRowChange}
-      >
-        {({ resetRows }) => (
+    <AdvancedSearch
+      open={isAdvancedSearchOpen}
+      searchOptions={advancedSearchOptions}
+      defaultSearchOptionValue={searchableIndexesValues.KEYWORD}
+      firstRowInitialSearch={advancedSearchDefaultSearch}
+      onSearch={handleAdvancedSearch}
+      onCancel={() => setIsAdvancedSearchOpen(false)}
+    >
+      {({ resetRows, rowState }) => (
+        <form onSubmit={(e) => onSubmitSearch(e, rowState)}>
+          <FilterNavigation />
+          <div className={css.searchGroupWrap}>
+            <SearchTextareaField
+              textAreaRef={searchInputRef}
+              autoFocus
+              rows="1"
+              name="query"
+              id="textarea-authorities-search"
+              className={css.searchField}
+              searchableIndexes={searchableIndexes}
+              onSubmitSearch={onSubmitSearch}
+            />
+            <Button
+              id="submit-authorities-search"
+              data-testid="submit-authorities-search"
+              type="submit"
+              buttonStyle="primary"
+              fullWidth
+              marginBottom0
+              disabled={isSearchButtonDisabled}
+            >
+              {intl.formatMessage({ id: 'ui-marc-authorities.label.search' })}
+            </Button>
+          </div>
           <Row between="xs">
             <Col xs={12} lg={6}>
               <Button
@@ -185,9 +172,9 @@ const AuthoritiesSearchForm = ({
               )}
             </Col>
           </Row>
-        )}
-      </AdvancedSearch>
-    </form>
+        </form>
+      )}
+    </AdvancedSearch>
   );
 };
 

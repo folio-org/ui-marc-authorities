@@ -28,7 +28,7 @@ const SearchRoute = ({ children }) => {
     searchInputValue,
     searchDropdownValue,
     setIsGoingToBaseURL,
-    setAdvancedSearchDefaultSearch,
+    setAdvancedSearchRows,
   } = useContext(AuthoritiesSearchContext);
   const [, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
@@ -60,18 +60,13 @@ const SearchRoute = ({ children }) => {
     pageSize: PAGE_SIZE,
   });
 
-  const onSubmitSearch = (e) => {
+  const onSubmitSearch = (e, advancedSearchRowState) => {
     if (e && e.preventDefault) {
       e.preventDefault();
       e.stopPropagation();
     }
-    if (searchIndex === searchableIndexesValues.ADVANCED_SEARCH) {
-      setAdvancedSearchDefaultSearch({
-        query: searchInputValue,
-        option: searchDropdownValue,
-      });
-    }
 
+    setAdvancedSearchRows(advancedSearchRowState);
     setSearchQuery(searchInputValue);
     setSearchIndex(searchDropdownValue);
     setIsGoingToBaseURL(true);
