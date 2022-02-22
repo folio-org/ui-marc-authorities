@@ -5,9 +5,7 @@ import {
   useEffect,
 } from 'react';
 import { useIntl } from 'react-intl';
-import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import queryString from 'query-string';
 
 import {
   Button,
@@ -47,7 +45,6 @@ const AuthoritiesSearchForm = ({
   onChangeSortOption,
 }) => {
   const intl = useIntl();
-  const location = useLocation();
 
   const {
     navigationSegmentValue,
