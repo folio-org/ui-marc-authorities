@@ -35,6 +35,7 @@
   "advancedSearch": "Advanced search",
   "marcHeading": "MARC authority record",
   "authorityRecordSubtitle": "{heading} • Last updated: {lastUpdatedDate}",
+  "browse.noMatch.wouldBeHereLabel": "would be here",
   
   "permission.app.enabled": "UI: MARC Authorities module is enabled",
   "permission.authority-record.view": "View MARC authority record",

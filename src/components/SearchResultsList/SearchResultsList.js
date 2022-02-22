@@ -9,6 +9,7 @@ import { useRouteMatch } from 'react-router';
 import {
   MultiColumnList,
   TextLink,
+  Icon,
 } from '@folio/stripes/components';
 import { SearchAndSortNoResultsMessage } from '@folio/stripes/smart-components';
 
@@ -80,12 +81,27 @@ const SearchResultsList = ({
         : authority.authRefType;
     },
     headingRef: (authority) => (
-      <TextLink
-        to={`${match.path}/authorities/${authority.id}`}
-        className={authority.isAnchor ? css.anchorLink : null}
-      >
-        {authority.headingRef}
-      </TextLink>
+      authority.isAnchor
+        ? (
+          <Icon
+            icon="exclamation-circle"
+            status="error"
+            iconRootClass={css.anchorLink}
+          >
+            {authority.headingRef}
+            &nbsp;
+            <span className={css.browseNoMatchText}>
+              {intl.formatMessage({ id: 'ui-marc-authorities.browse.noMatch.wouldBeHereLabel' })}
+            </span>
+          </Icon>
+        )
+        : (
+          <TextLink
+            to={`${match.path}/authorities/${authority.id}`}
+          >
+            {authority.headingRef}
+          </TextLink>
+        )
     ),
   };
 
