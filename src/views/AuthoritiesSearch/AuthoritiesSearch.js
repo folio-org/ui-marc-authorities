@@ -16,6 +16,7 @@ import {
   useLocalStorage,
   writeStorage,
 } from '@rehooks/local-storage';
+import queryString from 'query-string';
 
 import {
   Pane,
@@ -117,6 +118,7 @@ const AuthoritiesSearch = ({
     const selectedIndex = searchIndex !== searchableIndexesValues.KEYWORD ? searchIndex : '';
 
     const queryParams = {
+      ...queryString.parse(location.search),
       query: searchQuery,
       qindex: selectedIndex,
       ...filters,
