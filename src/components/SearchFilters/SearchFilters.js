@@ -18,9 +18,9 @@ import {
 import { MultiSelectionFacet } from '../MultiSelectionFacet';
 import { useSectionToggle } from '../../hooks';
 import { useFacets } from '../../queries';
-
 import {
   navigationSegments,
+  FILTERS,
   facetsTypes,
   subjectHeadingsMap,
 } from '../../constants';
@@ -145,8 +145,8 @@ const SearchFilters = ({
           <AcqDateRangeFilter
             activeFilters={filters?.createdDate || []}
             labelId="ui-marc-authorities.search.createdDate"
-            id="createdDate"
-            name="createdDate"
+            id={FILTERS.CREATED_DATE}
+            name={FILTERS.CREATED_DATE}
             onChange={applyFilters}
             disabled={isLoading}
             closedByDefault
@@ -156,8 +156,8 @@ const SearchFilters = ({
           <AcqDateRangeFilter
             activeFilters={filters?.updatedDate || []}
             labelId="ui-marc-authorities.search.updatedDate"
-            id="updatedDate"
-            name="updatedDate"
+            id={FILTERS.UPDATED_DATE}
+            name={FILTERS.UPDATED_DATE}
             onChange={applyFilters}
             disabled={isSearching}
             closedByDefault

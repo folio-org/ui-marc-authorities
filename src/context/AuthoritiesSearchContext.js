@@ -5,7 +5,7 @@ import {
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
-import omit from 'lodash/omit';
+import pick from 'lodash/pick';
 
 import { buildFiltersObj } from '@folio/stripes-acq-components';
 
@@ -13,6 +13,7 @@ import { useDidUpdate } from '../hooks';
 import {
   navigationSegments,
   searchableIndexesValues,
+  FILTERS,
 } from '../constants';
 
 const propTypes = {
@@ -29,10 +30,10 @@ const AuthoritiesSearchContextProvider = ({
 }) => {
   const location = useLocation();
 
-  const nonFilterUrlParams = ['query', 'qindex', 'segment', 'excludeSeeFrom', 'sort'];
+  const filterUrlParams = Object.values(FILTERS);
 
   const getInitialFilters = () => {
-    return omit(buildFiltersObj(location.search), nonFilterUrlParams);
+    return pick(buildFiltersObj(location.search), filterUrlParams);
   };
 
   const locationSearchParams = queryString.parse(location.search);
