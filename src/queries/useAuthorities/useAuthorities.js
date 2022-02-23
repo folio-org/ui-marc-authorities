@@ -15,9 +15,9 @@ import { defaultAdvancedSearchQueryBuilder } from '@folio/stripes-components';
 import { buildQuery } from '../utils';
 import {
   filterConfig,
-  facetsTypes,
   searchableIndexesValues,
   subjectHeadingsMap,
+  FILTERS,
 } from '../../constants';
 
 const AUTHORITIES_API = 'search/authorities';
@@ -107,7 +107,7 @@ const useAuthorities = ({
 
       let finalFilterValues = filterValues;
 
-      if (filterName === facetsTypes.SUBJECT_HEADINGS) {
+      if (filterName === FILTERS.SUBJECT_HEADINGS) {
         const filterValuesForSubjectHeadings = filterValues.map(name => subjectHeadingsMap[name]);
 
         finalFilterValues = filterValuesForSubjectHeadings;
