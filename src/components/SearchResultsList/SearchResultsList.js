@@ -97,7 +97,7 @@ const SearchResultsList = ({
         : authority.authRefType;
     },
     headingRef: (authority) => (
-      authority.isAnchor
+      authority.isAnchor && !authority.isExactMatch
         ? (
           <Icon
             icon="exclamation-circle"
