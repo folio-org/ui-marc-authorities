@@ -1,4 +1,3 @@
-import noop from 'lodash/noop';
 import {
   fireEvent,
   render,
@@ -26,6 +25,51 @@ jest.mock('react-router', () => ({
 
 const marcSource = {
   data: {
+    parsedRecord: {
+      content: {
+        fields: [{
+          100: {
+            subfields: [{
+              a: '100',
+            }, {
+              b: 'heading-ref',
+            }],
+            ind1: '',
+            ind2: '',
+          },
+        }, {
+          400: {
+            subfields: [{
+              a: '400',
+            }, {
+              b: 'heading-ref',
+            }],
+            ind1: '',
+            ind2: '',
+          },
+        }, {
+          410: {
+            subfields: [{
+              a: '410',
+            }, {
+              b: 'heading-ref',
+            }],
+            ind1: '',
+            ind2: '',
+          },
+        }, {
+          500: {
+            subfields: [{
+              a: '500',
+            }, {
+              b: 'heading-ref',
+            }],
+            ind1: '',
+            ind2: '',
+          },
+        }],
+      },
+    },
     metadata: {
       lastUpdatedDate: '2020-12-04T09:05:30.000+0000',
     },
@@ -37,7 +81,7 @@ const authority = {
   data: {
     id: 'authority-id',
     headingRef: 'heading-ref',
-    headingType: 'heading-type',
+    authRefType: 'Authorized',
   },
   isLoading: false,
 };
@@ -48,7 +92,6 @@ const renderAuthorityView = (props = {}) => render(
       <AuthorityView
         marcSource={marcSource}
         authority={authority}
-        stripes={noop}
         {...props}
       />
     </CommandList>
@@ -78,9 +121,9 @@ describe('Given AuthorityView', () => {
   });
 
   it('should render MARC view', () => {
-    const { getByText } = renderAuthorityView();
+    const { getByTestId } = renderAuthorityView();
 
-    expect(getByText('QuickMarcView')).toBeDefined();
+    expect(getByTestId('marc-view-pane')).toBeDefined();
   });
 
   it('should display "Edit" button', () => {
@@ -94,6 +137,52 @@ describe('Given AuthorityView', () => {
 
     await runAxeTest({
       rootNode: container,
+    });
+  });
+
+  describe('when authority record has authRefType Authorized', () => {
+    it('should highlight 1xx marc field', () => {
+      const { container } = renderAuthorityView();
+
+      const highlightedContent = [...container.querySelectorAll('mark')].map(mark => mark.textContent).join(' ');
+
+      expect(highlightedContent).toEqual('100 heading-ref');
+    });
+  });
+
+  describe('when authority record has authRefType Reference', () => {
+    it('should highlight all 4xx marc fields', () => {
+      const { container } = renderAuthorityView({
+        authority: {
+          data: {
+            ...authority.data,
+            authRefType: 'Reference',
+          },
+          isLoading: false,
+        },
+      });
+
+      const highlightedContent = [...container.querySelectorAll('mark')].map(mark => mark.textContent).join(' ');
+
+      expect(highlightedContent).toEqual('400 heading-ref 410 heading-ref');
+    });
+  });
+
+  describe('when authority record has authRefType Auth/Ref', () => {
+    it('should highlight 5xx marc field', () => {
+      const { container } = renderAuthorityView({
+        authority: {
+          data: {
+            ...authority.data,
+            authRefType: 'Auth/Ref',
+          },
+          isLoading: false,
+        },
+      });
+
+      const highlightedContent = [...container.querySelectorAll('mark')].map(mark => mark.textContent).join(' ');
+
+      expect(highlightedContent).toEqual('500 heading-ref');
     });
   });
 
@@ -131,17 +220,17 @@ describe('Given AuthorityView', () => {
 
   describe('when click on Close button', () => {
     it('should handle setSelectedAuthorityRecordContext', () => {
-      const { getByText } = renderAuthorityView();
+      const { getByLabelText } = renderAuthorityView();
 
-      fireEvent.click(getByText('Close QuickMarcView'));
+      fireEvent.click(getByLabelText('stripes-components.closeItem'));
 
       expect(mockSetSelectedAuthorityRecordContext).toHaveBeenCalledWith(null);
     });
 
     it('should redirect to /marc-authorities', () => {
-      const { getByText } = renderAuthorityView();
+      const { getByLabelText } = renderAuthorityView();
 
-      fireEvent.click(getByText('Close QuickMarcView'));
+      fireEvent.click(getByLabelText('stripes-components.closeItem'));
 
       expect(mockHistoryPush).toHaveBeenCalled();
     });
