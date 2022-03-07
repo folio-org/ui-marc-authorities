@@ -10,9 +10,7 @@ const mockOnSubmitSearch = jest.fn();
 
 jest.mock('../../views', () => ({
   AuthoritiesSearch:
-  ({
-    children,
-  }) => (
+  ({ children }) => (
     <>
        AuthoritiesSearch
       <button

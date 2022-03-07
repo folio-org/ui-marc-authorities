@@ -30,8 +30,8 @@
 * [UIMARCAUTH-58](https://issues.folio.org/browse/UIMARCAUTH-58) Request for Facets fails - missing permissions.
 * [UIMARCAUTH-57](https://issues.folio.org/browse/UIMARCAUTH-57) Fix cannot search by identifiers that contain a space.
 * [UIMARCAUTH-61](https://issues.folio.org/browse/UIMARCAUTH-61) Fix three pane view is not retained when you hit Edit and then click "X" or Cancel button.
-* [UIMARCAUTH-76](https://issues.folio.org/browse/UIMARCAUTH-76) Change query in Geographic name search option
 * [UIMARCAUTH-73](https://issues.folio.org/browse/UIMARCAUTH-73) Update Authority Search Options - Corporate/Conference Name & Personal Name.
+* [UIMARCAUTH-76](https://issues.folio.org/browse/UIMARCAUTH-76) Change query in Geographic name search option
 * [UIMARCAUTH-70](https://issues.folio.org/browse/UIMARCAUTH-70) Clicking on Result in Results list should highlight the selected row.
 * [UIMARCAUTH-74](https://issues.folio.org/browse/UIMARCAUTH-74) Advanced search does not work when editing Advanced Search box.
 
