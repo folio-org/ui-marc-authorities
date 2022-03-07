@@ -13,6 +13,7 @@ import queryString from 'query-string';
 import {
   MultiColumnList,
   TextLink,
+  Icon,
 } from '@folio/stripes/components';
 import { SearchAndSortNoResultsMessage } from '@folio/stripes/smart-components';
 
@@ -96,12 +97,27 @@ const SearchResultsList = ({
         : authority.authRefType;
     },
     headingRef: (authority) => (
-      <TextLink
-        to={formatAuthorityRecordLink(authority)}
-        className={authority.isAnchor ? css.anchorLink : null}
-      >
-        {authority.headingRef}
-      </TextLink>
+      authority.isAnchor && !authority.isExactMatch
+        ? (
+          <Icon
+            icon="exclamation-circle"
+            status="error"
+            iconRootClass={css.anchorLink}
+          >
+            {authority.headingRef}
+            &nbsp;
+            <span className={css.browseNoMatchText}>
+              {intl.formatMessage({ id: 'ui-marc-authorities.browse.noMatch.wouldBeHereLabel' })}
+            </span>
+          </Icon>
+        )
+        : (
+          <TextLink
+            to={formatAuthorityRecordLink(authority)}
+          >
+            {authority.headingRef}
+          </TextLink>
+        )
     ),
   };
 

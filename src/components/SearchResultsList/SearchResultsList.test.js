@@ -130,4 +130,42 @@ describe('Given SearchResultsList', () => {
       expect(queryByText('ui-marc-authorities.search-results-list.headingType')).toBeNull();
     });
   });
+
+  describe('when record is an anchor', () => {
+    it('should display an exclamation-circle icon', () => {
+      const { container } = renderSearchResultsList({
+        authorities: [{
+          id: '43f76f93-cfc4-4b6a-a2d4-9b04c8ed7a46',
+          headingType: 'Personal name',
+          authRefType: 'Authorized',
+          headingRef: 'Twain, Mark',
+          isAnchor: true,
+          isExactMatch: false,
+        }],
+        totalResults: 1,
+        query: 'test=abc',
+        loaded: true,
+      });
+
+      expect(container.querySelector('.icon-exclamation-circle')).toBeDefined();
+    });
+
+    it('should display "would be here" message', () => {
+      const { getByText } = renderSearchResultsList({
+        authorities: [{
+          id: '43f76f93-cfc4-4b6a-a2d4-9b04c8ed7a46',
+          headingType: 'Personal name',
+          authRefType: 'Authorized',
+          headingRef: 'Twain, Mark',
+          isAnchor: true,
+          isExactMatch: false,
+        }],
+        totalResults: 1,
+        query: 'test=abc',
+        loaded: true,
+      });
+
+      expect(getByText('ui-marc-authorities.browse.noMatch.wouldBeHereLabel')).toBeDefined();
+    });
+  });
 });
