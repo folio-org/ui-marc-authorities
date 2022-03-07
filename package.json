@@ -85,7 +85,12 @@
         "title": "MARC Authorities"
       }
     ],
-    "okapiInterfaces": {},
+    "okapiInterfaces": {
+      "search": "0.6",
+      "browse": "0.3",
+      "source-storage-records": "3.0",
+      "records-editor.records": "3.0"
+    },
     "stripesDeps": [
       "@folio/stripes-acq-components"
     ],
@@ -100,9 +105,11 @@
         "displayName": "View MARC authority record",
         "subPermissions": [
           "module.marc-authorities.enabled",
+          "browse.authorities.collection.get",
           "records-editor.records.item.get",
           "search.authorities.collection.get",
-          "search.facets.collection.get"
+          "search.facets.collection.get",
+          "source-storage.records.get"
         ],
         "visible": true
       },

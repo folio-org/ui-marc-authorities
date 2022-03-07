@@ -48,6 +48,7 @@ describe('Given useAuthorities', () => {
   it('fetches authorities records', async () => {
     const filters = {
       updatedDate: ['2021-01-01:2021-12-31'],
+      subjectHeadings: ['Other'],
     };
     const isExcludedSeeFromLimiter = false;
     const pageSize = 20;

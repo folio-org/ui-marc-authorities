@@ -66,7 +66,8 @@ const BrowseRoute = ({ children }) => {
 
       return {
         ...authority,
-        isAnchor: authorityItem.isAnchor,
+        isAnchor: !!authorityItem.isAnchor,
+        isExactMatch: !!authorityItem.authority,
       };
     });
   }, [authorities]);
