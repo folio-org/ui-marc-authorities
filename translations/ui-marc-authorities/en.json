@@ -17,6 +17,7 @@
   "search.searchAndFilter": "Search & filter",
   "search.createdDate": "Date created",
   "search.updatedDate": "Date updated",
+  "search.subjectHeadings": "Subject heading/thesaurus",
   "search.headingType": "Type of heading",
   "search.references": "References",
   "search.excludeSeeFrom": "Exclude see from",
@@ -35,6 +36,7 @@
   "advancedSearch": "Advanced search",
   "marcHeading": "MARC authority record",
   "authorityRecordSubtitle": "{heading} • Last updated: {lastUpdatedDate}",
+  "browse.noMatch.wouldBeHereLabel": "would be here",
   
   "permission.app.enabled": "UI: MARC Authorities module is enabled",
   "permission.authority-record.view": "View MARC authority record",

@@ -18,13 +18,12 @@ import {
 import { MultiSelectionFacet } from '../MultiSelectionFacet';
 import { useSectionToggle } from '../../hooks';
 import { useFacets } from '../../queries';
-
-import { navigationSegments } from '../../constants';
+import {
+  navigationSegments,
+  subjectHeadingsMap,
+  FILTERS,
+} from '../../constants';
 import { AuthoritiesSearchContext } from '../../context';
-
-const FACETS = {
-  HEADING_TYPE: 'headingType',
-};
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 
@@ -49,7 +48,8 @@ const SearchFilters = ({
   const isSearchNavigationSegment = navigationSegmentValue === navigationSegments.search;
 
   const [filterAccordions, { handleSectionToggle }] = useSectionToggle({
-    [FACETS.HEADING_TYPE]: false,
+    [FILTERS.HEADING_TYPE]: false,
+    [FILTERS.SUBJECT_HEADINGS]: false,
   });
 
   const selectedFacets = Object.keys(filterAccordions).filter(accordion => filterAccordions[accordion]);
@@ -77,6 +77,20 @@ const SearchFilters = ({
     setIsExcludedSeeFromLimiter(isExcluded => !isExcluded);
   };
 
+  const getSubjectHeadingsFacetOptions = () => {
+    return facets[FILTERS.SUBJECT_HEADINGS]?.values.map(value => {
+      const subjectHeadingsName = Object.keys(subjectHeadingsMap).find(key => {
+        return subjectHeadingsMap[key] === value.id;
+      });
+
+      return {
+        id: value.id,
+        label: subjectHeadingsName,
+        totalRecords: value.totalRecords,
+      };
+    });
+  };
+
   return (
     <>
       <Accordion
@@ -101,15 +115,29 @@ const SearchFilters = ({
       {isSearchNavigationSegment && (
         <>
           <MultiSelectionFacet
-            id={FACETS.HEADING_TYPE}
-            label={intl.formatMessage({ id: `ui-marc-authorities.search.${FACETS.HEADING_TYPE}` })}
-            name={FACETS.HEADING_TYPE}
-            open={filterAccordions[FACETS.HEADING_TYPE]}
-            options={facets[FACETS.HEADING_TYPE]?.values || []}
-            selectedValues={filters[FACETS.HEADING_TYPE]}
+            id={FILTERS.SUBJECT_HEADINGS}
+            label={intl.formatMessage({ id: `ui-marc-authorities.search.${FILTERS.SUBJECT_HEADINGS}` })}
+            name={FILTERS.SUBJECT_HEADINGS}
+            open={filterAccordions[FILTERS.SUBJECT_HEADINGS]}
+            options={getSubjectHeadingsFacetOptions() || []}
+            selectedValues={filters[FILTERS.SUBJECT_HEADINGS]}
             onFilterChange={applyFilters}
             onClearFilter={onClearFilter}
-            displayClearButton={!!filters[FACETS.HEADING_TYPE]}
+            displayClearButton={!!filters[FILTERS.SUBJECT_HEADINGS]?.length}
+            handleSectionToggle={handleSectionToggle}
+            isPending={isLoading}
+          />
+
+          <MultiSelectionFacet
+            id={FILTERS.HEADING_TYPE}
+            label={intl.formatMessage({ id: `ui-marc-authorities.search.${FILTERS.HEADING_TYPE}` })}
+            name={FILTERS.HEADING_TYPE}
+            open={filterAccordions[FILTERS.HEADING_TYPE]}
+            options={facets[FILTERS.HEADING_TYPE]?.values || []}
+            selectedValues={filters[FILTERS.HEADING_TYPE]}
+            onFilterChange={applyFilters}
+            onClearFilter={onClearFilter}
+            displayClearButton={!!filters[FILTERS.HEADING_TYPE]?.length}
             handleSectionToggle={handleSectionToggle}
             isPending={isLoading}
           />
@@ -117,8 +145,8 @@ const SearchFilters = ({
           <AcqDateRangeFilter
             activeFilters={filters?.createdDate || []}
             labelId="ui-marc-authorities.search.createdDate"
-            id="createdDate"
-            name="createdDate"
+            id={FILTERS.CREATED_DATE}
+            name={FILTERS.CREATED_DATE}
             onChange={applyFilters}
             disabled={isLoading}
             closedByDefault
@@ -128,8 +156,8 @@ const SearchFilters = ({
           <AcqDateRangeFilter
             activeFilters={filters?.updatedDate || []}
             labelId="ui-marc-authorities.search.updatedDate"
-            id="updatedDate"
-            name="updatedDate"
+            id={FILTERS.UPDATED_DATE}
+            name={FILTERS.UPDATED_DATE}
             onChange={applyFilters}
             disabled={isSearching}
             closedByDefault

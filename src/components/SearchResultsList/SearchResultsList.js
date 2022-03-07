@@ -4,11 +4,16 @@ import {
 } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
-import { useRouteMatch } from 'react-router';
+import {
+  useRouteMatch,
+  useLocation,
+} from 'react-router';
+import queryString from 'query-string';
 
 import {
   MultiColumnList,
   TextLink,
+  Icon,
 } from '@folio/stripes/components';
 import { SearchAndSortNoResultsMessage } from '@folio/stripes/smart-components';
 
@@ -58,6 +63,7 @@ const SearchResultsList = ({
 }) => {
   const intl = useIntl();
   const match = useRouteMatch();
+  const location = useLocation();
 
   const [selectedAuthorityRecordContext, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
@@ -73,6 +79,17 @@ const SearchResultsList = ({
     [searchResultListColumns.HEADING_TYPE]: { min: 200 },
   };
 
+  const formatAuthorityRecordLink = (authority) => {
+    const search = queryString.parse(location.search);
+    const newSearch = queryString.stringify({
+      ...search,
+      headingRef: authority.headingRef,
+      authRefType: authority.authRefType,
+    });
+
+    return `${match.path}/authorities/${authority.id}?${newSearch}`;
+  };
+
   const formatter = {
     authRefType: (authority) => {
       return authorizedTypes.includes(authority.authRefType)
@@ -80,12 +97,27 @@ const SearchResultsList = ({
         : authority.authRefType;
     },
     headingRef: (authority) => (
-      <TextLink
-        to={`${match.path}/authorities/${authority.id}`}
-        className={authority.isAnchor ? css.anchorLink : null}
-      >
-        {authority.headingRef}
-      </TextLink>
+      authority.isAnchor && !authority.isExactMatch
+        ? (
+          <Icon
+            icon="exclamation-circle"
+            status="error"
+            iconRootClass={css.anchorLink}
+          >
+            {authority.headingRef}
+            &nbsp;
+            <span className={css.browseNoMatchText}>
+              {intl.formatMessage({ id: 'ui-marc-authorities.browse.noMatch.wouldBeHereLabel' })}
+            </span>
+          </Icon>
+        )
+        : (
+          <TextLink
+            to={formatAuthorityRecordLink(authority)}
+          >
+            {authority.headingRef}
+          </TextLink>
+        )
     ),
   };
 

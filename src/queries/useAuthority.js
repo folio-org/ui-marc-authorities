@@ -1,4 +1,6 @@
 import { useQuery } from 'react-query';
+import filter from 'lodash/filter';
+import matches from 'lodash/matches';
 
 import {
   useOkapiKy,
@@ -7,7 +9,7 @@ import {
 
 const AUTHORITIES_API = 'search/authorities';
 
-export const useAuthority = (recordId) => {
+export const useAuthority = (recordId, authRefType = null, headingRef = null) => {
   const ky = useOkapiKy();
   const [namespace] = useNamespace();
 
@@ -22,8 +24,10 @@ export const useAuthority = (recordId) => {
     },
   );
 
+  const authorityByAuthRefType = filter(data?.authorities, matches({ authRefType, headingRef }))[0];
+
   return ({
-    data: data?.authorities[0],
+    data: authorityByAuthRefType || data?.authorities[0],
     isLoading: isFetching,
   });
 };

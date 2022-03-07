@@ -48,6 +48,7 @@ const AuthoritiesSearchForm = ({
 
   const {
     navigationSegmentValue,
+    filters,
     searchDropdownValue,
     searchInputValue,
     setSearchInputValue,
@@ -105,6 +106,9 @@ const AuthoritiesSearchForm = ({
     || !searchInputValue
     || isAuthoritiesLoading;
 
+  const isFiltersApplied = Object.values(filters).find(value => value.length > 0);
+  const isResetAllButtonDisabled = (!searchInputValue && !isFiltersApplied) || isAuthoritiesLoading;
+
   return (
     <AdvancedSearch
       open={isAdvancedSearchOpen}
@@ -146,7 +150,7 @@ const AuthoritiesSearchForm = ({
                 buttonStyle="none"
                 id="clickable-reset-all"
                 fullWidth
-                disabled={!searchInputValue || isAuthoritiesLoading}
+                disabled={isResetAllButtonDisabled}
                 onClick={() => {
                   resetRows();
                   handleResetAll();
