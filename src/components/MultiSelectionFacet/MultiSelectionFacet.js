@@ -19,6 +19,7 @@ const propTypes = {
   open: PropTypes.bool.isRequired,
   options: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
+    label: PropTypes.string,
     totalRecords: PropTypes.number.isRequired,
   })),
   selectedValues: PropTypes.arrayOf(PropTypes.string),
@@ -45,7 +46,11 @@ const MultiSelectionFacet = ({
   };
 
   const missingValuesInOptions = selectedValues
-    .filter(selectedValue => !options.find(option => option.id === selectedValue))
+    .filter(selectedValue => !options.find(option => {
+      return option.label
+        ? option.label === selectedValue
+        : option.id === selectedValue;
+    }))
     .map(value => ({
       label: value,
       value,
@@ -55,8 +60,8 @@ const MultiSelectionFacet = ({
   // include options returned from backend
   // if some selected options are missing from response we're adding them here with 0 results
   const dataOptions = [...options.map(option => ({
-    label: option.id,
-    value: option.id,
+    label: option.label || option.id,
+    value: option.label || option.id,
     totalRecords: option.totalRecords,
   })), ...missingValuesInOptions];
 

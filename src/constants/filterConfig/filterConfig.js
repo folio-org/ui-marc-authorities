@@ -4,6 +4,7 @@ export const FILTERS = {
   CREATED_DATE: 'createdDate',
   UPDATED_DATE: 'updatedDate',
   HEADING_TYPE: 'headingType',
+  SUBJECT_HEADINGS: 'subjectHeadings',
 };
 
 export const filterConfig = [
@@ -21,6 +22,14 @@ export const filterConfig = [
       const valuesInQuotes = values.map(value => `"${value}"`).join(' or ');
 
       return `(headingType==(${valuesInQuotes}))`;
+    },
+  },
+  {
+    name: FILTERS.SUBJECT_HEADINGS,
+    parse: (values) => {
+      const valuesInQuotes = values.map(value => `"${value}"`).join(' or ');
+
+      return `(subjectHeadings==(${valuesInQuotes}))`;
     },
   },
 ];
