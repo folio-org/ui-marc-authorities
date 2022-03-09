@@ -1,3 +1,6 @@
+
+export * from './browseHeadingTypesMap';
+export * from './headingTypesValues';
 export * from './searchableIndexesValues';
 export * from './rawSearchableIndexes';
 export * from './advancedSearchIndexes';

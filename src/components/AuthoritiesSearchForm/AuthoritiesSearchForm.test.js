@@ -92,7 +92,7 @@ describe('Given AuthoritiesSearchForm', () => {
       it('should apply all url parameters', () => {
         jest.spyOn(routeData, 'useLocation').mockReturnValue({
           pathname: 'pathname',
-          search: '?qindex=personalName&query=Music',
+          search: '?qindex=geographicName&query=Music',
         });
 
         const {
@@ -106,7 +106,7 @@ describe('Given AuthoritiesSearchForm', () => {
         const searchOptionSelects = getAllByTestId('advanced-search-option');
 
         expect(queryInputs[0].value).toBe('Music');
-        expect(searchOptionSelects[0].value).toBe('personalName');
+        expect(searchOptionSelects[0].value).toBe('geographicName');
       });
     });
   });

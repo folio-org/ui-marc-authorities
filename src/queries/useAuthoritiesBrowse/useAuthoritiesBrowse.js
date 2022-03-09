@@ -12,7 +12,7 @@ import {
   useNamespace,
 } from '@folio/stripes/core';
 
-import { searchableIndexesValues } from '../../constants';
+import { buildHeadingTypeQuery } from '../utils';
 
 const AUTHORITIES_BROWSE_API = 'browse/authorities';
 
@@ -33,9 +33,14 @@ const useBrowseRequest = ({
     cqlSearch = [...cqlSearch, 'authRefType==Authorized'];
   }
 
+  const headingTypeQuery = buildHeadingTypeQuery(searchIndex);
+
   const searchParams = {
-    query: cqlSearch.join(' and '),
-    headingType: searchIndex !== searchableIndexesValues.NONE ? searchIndex : undefined,
+    query: (
+      [...cqlSearch, headingTypeQuery]
+        .filter(Boolean)
+        .join(' and ')
+    ),
     limit: pageSize,
     precedingRecordsCount,
   };
