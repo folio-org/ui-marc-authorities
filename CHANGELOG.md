@@ -40,6 +40,7 @@
 * [UIMARCAUTH-89](https://issues.folio.org/browse/UIMARCAUTH-89) Browse option selection searches all.
 * [UIMARCAUTH-72](https://issues.folio.org/browse/UIMARCAUTH-72) Update Authority Browse Options.
 * [UIMARCAUTH-74](https://issues.folio.org/browse/UIMARCAUTH-74) Advanced search does not work when editing Advanced Search box.
+* [UIMARCAUTH-94](https://issues.folio.org/browse/UIMARCAUTH-94) Update 'records-editor.records' interface version to v3.1.
 
 ## [0.1.0](https://github.com/folio-org/ui-marc-authorities/tree/v0.1.0) (2021-01-20)
 
