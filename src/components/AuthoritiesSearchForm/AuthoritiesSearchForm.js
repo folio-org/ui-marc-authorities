@@ -188,7 +188,7 @@ const AuthoritiesSearchForm = ({
             </Row>
           </form>
         </HotKeys>
-      )}
+      )}       
     </AdvancedSearch>
   );
 };

@@ -89,7 +89,7 @@
       "search": "0.6",
       "browse": "0.3",
       "source-storage-records": "3.0",
-      "records-editor.records": "3.0"
+      "records-editor.records": "3.1"
     },
     "stripesDeps": [
       "@folio/stripes-acq-components"
