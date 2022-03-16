@@ -75,13 +75,6 @@ const SearchTextareaField = ({
     className,
   );
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      onSubmitSearch();
-    }
-  };
-
   return (
     <div className={rootStyles}>
       <Select
@@ -103,7 +96,6 @@ const SearchTextareaField = ({
         data-testid="search-textarea"
         loading={loading}
         onChange={(e) => setSearchInputValue(e.target.value)}
-        onKeyDown={handleKeyDown}
         type="search"
         value={searchInputValue || ''}
         readOnly={loading || rest.readOnly}

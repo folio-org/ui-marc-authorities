@@ -13,6 +13,7 @@ import {
   AdvancedSearch,
   Row,
   Col,
+  HotKeys,
 } from '@folio/stripes/components';
 
 import {
@@ -109,6 +110,14 @@ const AuthoritiesSearchForm = ({
   const isFiltersApplied = Object.values(filters).find(value => value.length > 0);
   const isResetAllButtonDisabled = (!searchInputValue && !isFiltersApplied) || isAuthoritiesLoading;
 
+  const hotKeys = {
+    search: ['enter'],
+  };
+
+  const getHandlers = (rowState) => ({
+    search:(e) => onSubmitSearch(e, rowState),
+  });
+
   return (
     <AdvancedSearch
       open={isAdvancedSearchOpen}
@@ -119,61 +128,66 @@ const AuthoritiesSearchForm = ({
       onCancel={() => setIsAdvancedSearchOpen(false)}
     >
       {({ resetRows, rowState }) => (
-        <form onSubmit={(e) => onSubmitSearch(e, rowState)}>
-          <FilterNavigation />
-          <div className={css.searchGroupWrap}>
-            <SearchTextareaField
-              textAreaRef={searchInputRef}
-              autoFocus
-              rows="1"
-              name="query"
-              id="textarea-authorities-search"
-              className={css.searchField}
-              searchableIndexes={searchableIndexes}
-              onSubmitSearch={onSubmitSearch}
-            />
-            <Button
-              id="submit-authorities-search"
-              data-testid="submit-authorities-search"
-              type="submit"
-              buttonStyle="primary"
-              fullWidth
-              marginBottom0
-              disabled={isSearchButtonDisabled}
-            >
-              {intl.formatMessage({ id: 'ui-marc-authorities.label.search' })}
-            </Button>
-          </div>
-          <Row between="xs">
-            <Col xs={12} lg={6}>
+        <HotKeys
+          keyMap={hotKeys}
+          handlers={getHandlers(rowState)}
+        >
+          <form onSubmit={(e) => onSubmitSearch(e, rowState)}>
+            <FilterNavigation />
+            <div className={css.searchGroupWrap}>
+              <SearchTextareaField
+                textAreaRef={searchInputRef}
+                autoFocus
+                rows="1"
+                name="query"
+                id="textarea-authorities-search"
+                className={css.searchField}
+                searchableIndexes={searchableIndexes}
+                onSubmitSearch={onSubmitSearch}
+              />
               <Button
-                buttonStyle="none"
-                id="clickable-reset-all"
+                id="submit-authorities-search"
+                data-testid="submit-authorities-search"
+                type="submit"
+                buttonStyle="primary"
                 fullWidth
-                disabled={isResetAllButtonDisabled}
-                onClick={() => {
-                  resetRows();
-                  handleResetAll();
-                }}
+                marginBottom0
+                disabled={isSearchButtonDisabled}
               >
-                <Icon icon="times-circle-solid">
-                  {intl.formatMessage({ id: 'stripes-smart-components.resetAll' })}
-                </Icon>
+                {intl.formatMessage({ id: 'ui-marc-authorities.label.search' })}
               </Button>
-            </Col>
-
-            <Col xs="12" sm="6">
-              {navigationSegmentValue !== navigationSegments.browse && (
+            </div>
+            <Row between="xs">
+              <Col xs={12} lg={6}>
                 <Button
+                  buttonStyle="none"
+                  id="clickable-reset-all"
                   fullWidth
-                  onClick={() => setIsAdvancedSearchOpen(true)}
+                  disabled={isResetAllButtonDisabled}
+                  onClick={() => {
+                    resetRows();
+                    handleResetAll();
+                  }}
                 >
-                  {intl.formatMessage({ id: 'stripes-components.advancedSearch.button' })}
+                  <Icon icon="times-circle-solid">
+                    {intl.formatMessage({ id: 'stripes-smart-components.resetAll' })}
+                  </Icon>
                 </Button>
-              )}
-            </Col>
-          </Row>
-        </form>
+              </Col>
+
+              <Col xs="12" sm="6">
+                {navigationSegmentValue !== navigationSegments.browse && (
+                  <Button
+                    fullWidth
+                    onClick={() => setIsAdvancedSearchOpen(true)}
+                  >
+                    {intl.formatMessage({ id: 'stripes-components.advancedSearch.button' })}
+                  </Button>
+                )}
+              </Col>
+            </Row>
+          </form>
+        </HotKeys>
       )}
     </AdvancedSearch>
   );
