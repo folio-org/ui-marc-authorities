@@ -113,6 +113,7 @@ const SearchResultsList = ({
         )
         : (
           <TextLink
+            className={authority.isAnchor ? css.anchorLink : undefined}
             to={formatAuthorityRecordLink(authority)}
           >
             {authority.headingRef}
