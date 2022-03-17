@@ -8,6 +8,7 @@ import {
 } from '@folio/stripes/core';
 
 const AUTHORITIES_API = 'search/authorities';
+const AUTHORITY_CHUNK_SIZE = 500;
 
 export const useAuthority = (recordId, authRefType = null, headingRef = null) => {
   const ky = useOkapiKy();
@@ -20,11 +21,25 @@ export const useAuthority = (recordId, authRefType = null, headingRef = null) =>
   const { isFetching, data } = useQuery(
     [namespace, 'authority', recordId],
     async () => {
-      return ky.get(AUTHORITIES_API, { searchParams }).json();
+      const { totalRecords } = await ky.get(AUTHORITIES_API, { searchParams: { ...searchParams, limit: 0 } }).json();
+
+      const authorityBatchesPromises = (Array(Math.ceil(totalRecords / AUTHORITY_CHUNK_SIZE)))
+        .fill(null)
+        .map((a, index) => {
+          return ky.get(
+            AUTHORITIES_API,
+            { searchParams: { ...searchParams, limit: AUTHORITY_CHUNK_SIZE, offset: index * AUTHORITY_CHUNK_SIZE } },
+          ).json();
+        });
+      const authorityBatches = await Promise.all(authorityBatchesPromises);
+
+      return authorityBatches.reduce((acc, { authorities = [] }) => {
+        return [...acc, ...authorities];
+      }, []);
     },
   );
 
-  const authorityByAuthRefType = filter(data?.authorities, matches({ authRefType, headingRef }))[0];
+  const authorityByAuthRefType = filter(data, matches({ authRefType, headingRef }))[0];
 
   return ({
     data: authorityByAuthRefType || data?.authorities[0],

@@ -2,6 +2,8 @@
 
 ## IN PROGRESS
 
+* [UIMARCAUTH-97](https://issues.folio.org/browse/UIMARCAUTH-97) The selected Heading/Reference value does not match the value highlighted in the detail record.
+
 ## [1.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v1.0.0) (2022-03-10)
 
 * [UIMARCAUTH-6](https://issues.folio.org/browse/UIMARCAUTH-6) Add View MARC authority record permission.
