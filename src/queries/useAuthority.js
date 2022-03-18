@@ -18,7 +18,7 @@ export const useAuthority = (recordId, authRefType = null, headingRef = null) =>
     query: `(id==${recordId})`,
   };
 
-  const { isFetching, data } = useQuery(
+  const { isFetching, data = [] } = useQuery(
     [namespace, 'authority', recordId],
     async () => {
       const { totalRecords } = await ky.get(AUTHORITIES_API, { searchParams: { ...searchParams, limit: 0 } }).json();
@@ -42,7 +42,7 @@ export const useAuthority = (recordId, authRefType = null, headingRef = null) =>
   const authorityByAuthRefType = filter(data, matches({ authRefType, headingRef }))[0];
 
   return ({
-    data: authorityByAuthRefType || data?.authorities[0],
+    data: authorityByAuthRefType || data[0],
     isLoading: isFetching,
   });
 };
