@@ -1,9 +1,12 @@
 # Change history for ui-marc-authorities
 
-## IN PROGRESS
+## [1.1.0](IN PROGRESS)
 
-* [UIMARCAUTH-97](https://issues.folio.org/browse/UIMARCAUTH-97) The selected Heading/Reference value does not match the value highlighted in the detail record.
+## [1.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v1.0.1) (2022-03-21)
+* [UIMARCAUTH-89](https://issues.folio.org/browse/UIMARCAUTH-89) Browse option selection searches all.
 * [UIMARCAUTH-96](https://issues.folio.org/browse/UIMARCAUTH-96) The 6th result of browse authority record is not highlighting in bold.
+* [UIMARCAUTH-97](https://issues.folio.org/browse/UIMARCAUTH-97) The selected Heading/Reference value does not match the value highlighted in the detail record.
+* [UIMARCAUTH-74](https://issues.folio.org/browse/UIMARCAUTH-74) Advanced search does not work when editing Advanced Search box.
 
 ## [1.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v1.0.0) (2022-03-10)
 
@@ -40,9 +43,7 @@
 * [UIMARCAUTH-70](https://issues.folio.org/browse/UIMARCAUTH-70) Clicking on Result in Results list should highlight the selected row.
 * [UIMARCAUTH-83](https://issues.folio.org/browse/UIMARCAUTH-83) Browse Authorities: Better handling for when there is no exact match.
 * [UIMARCAUTH-62](https://issues.folio.org/browse/UIMARCAUTH-62) Create a Subject heading/thesaurus facet.
-* [UIMARCAUTH-89](https://issues.folio.org/browse/UIMARCAUTH-89) Browse option selection searches all.
 * [UIMARCAUTH-72](https://issues.folio.org/browse/UIMARCAUTH-72) Update Authority Browse Options.
-* [UIMARCAUTH-74](https://issues.folio.org/browse/UIMARCAUTH-74) Advanced search does not work when editing Advanced Search box.
 * [UIMARCAUTH-94](https://issues.folio.org/browse/UIMARCAUTH-94) Update 'records-editor.records' interface version to v3.1.
 
 ## [0.1.0](https://github.com/folio-org/ui-marc-authorities/tree/v0.1.0) (2021-01-20)
