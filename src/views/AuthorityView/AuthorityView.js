@@ -111,7 +111,7 @@ const AuthorityView = ({
         return [...contentArr, subfieldValue];
       }, []).join(' ');
 
-      const isHeadingRefMatching = fieldContent.includes(authority.data.headingRef);
+      const isHeadingRefMatching = fieldContent === authority.data.headingRef;
 
       return {
         ...field,

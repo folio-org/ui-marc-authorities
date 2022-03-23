@@ -30,9 +30,15 @@ const marcSource = {
         fields: [{
           100: {
             subfields: [{
-              a: '100',
-            }, {
-              b: 'heading-ref',
+              a: 'heading-ref',
+            }],
+            ind1: '',
+            ind2: '',
+          },
+        }, {
+          110: {
+            subfields: [{
+              a: 'value contains heading-ref string',
             }],
             ind1: '',
             ind2: '',
@@ -40,9 +46,7 @@ const marcSource = {
         }, {
           400: {
             subfields: [{
-              a: '400',
-            }, {
-              b: 'heading-ref',
+              a: 'heading-ref',
             }],
             ind1: '',
             ind2: '',
@@ -50,9 +54,7 @@ const marcSource = {
         }, {
           410: {
             subfields: [{
-              a: '410',
-            }, {
-              b: 'heading-ref',
+              a: 'heading-ref',
             }],
             ind1: '',
             ind2: '',
@@ -60,9 +62,7 @@ const marcSource = {
         }, {
           500: {
             subfields: [{
-              a: '500',
-            }, {
-              b: 'heading-ref',
+              a: 'heading-ref',
             }],
             ind1: '',
             ind2: '',
@@ -146,7 +146,7 @@ describe('Given AuthorityView', () => {
 
       const highlightedContent = [...container.querySelectorAll('mark')].map(mark => mark.textContent).join(' ');
 
-      expect(highlightedContent).toEqual('100 heading-ref');
+      expect(highlightedContent).toEqual('heading-ref');
     });
   });
 
@@ -164,7 +164,7 @@ describe('Given AuthorityView', () => {
 
       const highlightedContent = [...container.querySelectorAll('mark')].map(mark => mark.textContent).join(' ');
 
-      expect(highlightedContent).toEqual('400 heading-ref 410 heading-ref');
+      expect(highlightedContent).toEqual('heading-ref heading-ref');
     });
   });
 
@@ -182,7 +182,35 @@ describe('Given AuthorityView', () => {
 
       const highlightedContent = [...container.querySelectorAll('mark')].map(mark => mark.textContent).join(' ');
 
-      expect(highlightedContent).toEqual('500 heading-ref');
+      expect(highlightedContent).toEqual('heading-ref');
+    });
+  });
+
+  describe('when tag value contains only part of authority heading ref value', () => {
+    it('should not highlight tag value', () => {
+      const { container } = renderAuthorityView();
+
+      const highlightedContent = [...container.querySelectorAll('mark')].map(mark => mark.textContent).join(' ');
+
+      expect(highlightedContent).not.toEqual('value contains heading-ref string');
+    });
+  });
+
+  describe('when tag value completely equals to authority heading ref value', () => {
+    it('should highlight tag value', () => {
+      const { container } = renderAuthorityView({
+        authority: {
+          data: {
+            ...authority.data,
+            headingRef: 'value contains heading-ref string',
+          },
+          isLoading: false,
+        },
+      });
+
+      const highlightedContent = [...container.querySelectorAll('mark')].map(mark => mark.textContent).join(' ');
+
+      expect(highlightedContent).toEqual('value contains heading-ref string');
     });
   });
 
