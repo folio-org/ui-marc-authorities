@@ -97,7 +97,6 @@ const AuthoritiesSearch = ({
     searchIndex,
     filters,
     navigationSegmentValue,
-    isExcludedSeeFromLimiter,
     isGoingToBaseURL,
     setIsGoingToBaseURL,
   } = useContext(AuthoritiesSearchContext);
@@ -128,10 +127,6 @@ const AuthoritiesSearch = ({
       queryParams.segment = navigationSegmentValue;
     }
 
-    if (isExcludedSeeFromLimiter) {
-      queryParams.excludeSeeFrom = isExcludedSeeFromLimiter;
-    }
-
     if (sortOrder && sortedColumn) {
       const order = sortOrder === sortOrders.ASC ? '' : '-';
 
@@ -158,7 +153,6 @@ const AuthoritiesSearch = ({
     searchIndex,
     filters,
     navigationSegmentValue,
-    isExcludedSeeFromLimiter,
     sortOrder,
     sortedColumn,
   ]);

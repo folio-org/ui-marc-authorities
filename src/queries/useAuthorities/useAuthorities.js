@@ -22,11 +22,11 @@ import {
 
 const AUTHORITIES_API = 'search/authorities';
 
-const buildRegularSearch = (searchIndex, query, isExcludedSeeFromLimiter) => {
+const buildRegularSearch = (searchIndex, query, filters) => {
   const compileQuery = template(
     buildQuery({
       searchIndex,
-      isExcludedSeeFromLimiter,
+      filters,
     }),
     { interpolate: /%{([\s\S]+?)}/g },
   );
@@ -47,13 +47,13 @@ const buildRegularSearch = (searchIndex, query, isExcludedSeeFromLimiter) => {
   return cqlSearch;
 };
 
-const buildAdvancedSearch = (advancedSearch, isExcludedSeeFromLimiter) => {
+const buildAdvancedSearch = (advancedSearch, filters) => {
   const rowFormatter = (index, query, comparator) => {
     const compileQuery = template(
       buildQuery({
         searchIndex: index,
         comparator,
-        isExcludedSeeFromLimiter,
+        filters,
       }),
       { interpolate: /%{([\s\S]+?)}/g },
     );
@@ -70,7 +70,6 @@ const useAuthorities = ({
   advancedSearch,
   isAdvancedSearch,
   filters,
-  isExcludedSeeFromLimiter,
   pageSize,
   sortOrder,
   sortedColumn,
@@ -87,7 +86,6 @@ const useAuthorities = ({
     searchIndex,
     advancedSearch,
     filters,
-    isExcludedSeeFromLimiter,
     sortOrder,
     sortedColumn,
   ]);
@@ -95,9 +93,9 @@ const useAuthorities = ({
   let cqlSearch = [];
 
   if (isAdvancedSearch) {
-    cqlSearch = buildAdvancedSearch(advancedSearch, isExcludedSeeFromLimiter);
+    cqlSearch = buildAdvancedSearch(advancedSearch, filters);
   } else {
-    cqlSearch = buildRegularSearch(searchIndex, searchQuery, isExcludedSeeFromLimiter);
+    cqlSearch = buildRegularSearch(searchIndex, searchQuery, filters);
   }
 
   const cqlFilters = Object.entries(filters)

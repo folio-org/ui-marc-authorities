@@ -13,31 +13,36 @@ import {
 } from '@folio/stripes/core';
 
 import { buildHeadingTypeQuery } from '../utils';
+import { filterConfig } from '../../constants';
 
 const AUTHORITIES_BROWSE_API = 'browse/authorities';
 
 const useBrowseRequest = ({
+  filters,
   searchQuery,
   searchIndex,
   startingSearch,
   pageSize,
   precedingRecordsCount,
-  isExcludedSeeFromLimiter,
 }) => {
   const ky = useOkapiKy();
   const [namespace] = useNamespace();
 
-  let cqlSearch = startingSearch ? [startingSearch] : [];
+  const cqlSearch = startingSearch ? [startingSearch] : [];
 
-  if (isExcludedSeeFromLimiter) {
-    cqlSearch = [...cqlSearch, 'authRefType==Authorized'];
-  }
+  const cqlFilters = Object.entries(filters)
+    .filter(([, filterValues]) => filterValues.length)
+    .map(([filterName, filterValues]) => {
+      const filterData = filterConfig.find(filter => filter.name === filterName);
+
+      return filterData ? filterData.parse(filterValues) : null;
+    });
 
   const headingTypeQuery = buildHeadingTypeQuery(searchIndex);
 
   const searchParams = {
     query: (
-      [...cqlSearch, headingTypeQuery]
+      [...cqlSearch, ...cqlFilters, headingTypeQuery]
         .filter(Boolean)
         .join(' and ')
     ),
@@ -134,15 +139,14 @@ const useBrowserPaging = (initialQuery) => {
 };
 
 const useAuthoritiesBrowse = ({
+  filters,
   searchQuery,
   searchIndex,
-  isExcludedSeeFromLimiter,
   pageSize,
   precedingRecordsCount,
 }) => {
   const [currentQuery, setCurrentQuery] = useState(searchQuery);
   const [currentIndex, setCurrentIndex] = useState(searchIndex);
-  const [currentExcludeSeeFrom, setCurrentExcludeSeeFrom] = useState(isExcludedSeeFromLimiter);
   const [hasEmptyAnchor, setHasEmptyAnchor] = useState(false);
   const [items, setItems] = useState([]);
   const {
@@ -156,36 +160,35 @@ const useAuthoritiesBrowse = ({
   useEffect(() => {
     setCurrentQuery(searchQuery);
     setCurrentIndex(searchIndex);
-    setCurrentExcludeSeeFrom(isExcludedSeeFromLimiter);
     resetPageCache();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQuery, searchIndex, isExcludedSeeFromLimiter]);
+  }, [searchQuery, searchIndex]);
 
   const mainRequest = useBrowseRequest({
+    filters,
     searchQuery: currentQuery,
     startingSearch: mainRequestSearch,
     searchIndex: currentIndex,
     pageSize,
     precedingRecordsCount,
-    isExcludedSeeFromLimiter: currentExcludeSeeFrom,
   });
 
   const prevPageRequest = useBrowseRequest({
+    filters,
     searchQuery: mainRequest.firstResult,
     startingSearch: getMainRequestSearch(mainRequest.firstResult, page - 1),
     searchIndex: currentIndex,
     pageSize,
     precedingRecordsCount,
-    isExcludedSeeFromLimiter: currentExcludeSeeFrom,
   });
 
   const nextPageRequest = useBrowseRequest({
+    filters,
     searchQuery: mainRequest.lastResult,
     startingSearch: getMainRequestSearch(mainRequest.lastResult, page + 1),
     searchIndex: currentIndex,
     pageSize,
     precedingRecordsCount,
-    isExcludedSeeFromLimiter: currentExcludeSeeFrom,
   });
 
   const allRequestsFetched = mainRequest.isFetched && prevPageRequest.isFetched && nextPageRequest.isFetched;
