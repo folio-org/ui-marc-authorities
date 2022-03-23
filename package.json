@@ -109,7 +109,8 @@
           "records-editor.records.item.get",
           "search.authorities.collection.get",
           "search.facets.collection.get",
-          "source-storage.records.get"
+          "source-storage.records.get",
+          "inventory-storage.authorities.item.get"
         ],
         "visible": true
       },
