@@ -10,6 +10,8 @@ import { useOkapiKy } from '@folio/stripes/core';
 import useAuthoritiesBrowse from './useAuthoritiesBrowse';
 import Harness from '../../../test/jest/helpers/harness';
 import {
+  FILTERS,
+  REFERENCES_VALUES_MAP,
   searchableIndexesValues,
 } from '../../constants';
 
@@ -26,6 +28,7 @@ const wrapper = ({ children }) => (
 );
 
 describe('Given useAuthoritiesBrowse', () => {
+  const filters = {};
   const searchQuery = 'test';
   const searchIndex = searchableIndexesValues.PERSONAL_NAME;
   const precedingRecordsCount = 5;
@@ -55,13 +58,12 @@ describe('Given useAuthoritiesBrowse', () => {
   });
 
   it('should fetch main page, previous and next pages', async () => {
-    const isExcludedSeeFromLimiter = false;
     const pageSize = 20;
 
     const { result, waitFor } = renderHook(() => useAuthoritiesBrowse({
+      filters,
       searchQuery,
       searchIndex,
-      isExcludedSeeFromLimiter,
       pageSize,
       precedingRecordsCount,
     }), { wrapper });
@@ -80,43 +82,14 @@ describe('Given useAuthoritiesBrowse', () => {
       .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3E%22authority_0_49%22%20and%20headingType%3D%3D%28%22Personal%20Name%22%29');
   });
 
-  describe('when passing isExcludeSeeFrom parameter', () => {
-    it('should include authRefType parameter in requests', async () => {
-      const isExcludedSeeFromLimiter = true;
-      const pageSize = 20;
-
-      const { result, waitFor } = renderHook(() => useAuthoritiesBrowse({
-        searchQuery,
-        searchIndex,
-        isExcludedSeeFromLimiter,
-        pageSize,
-        precedingRecordsCount,
-      }), { wrapper });
-
-      await waitFor(() => !result.current.isLoading);
-
-      expect(mockGet).toHaveBeenCalledTimes(3);
-      expect(mockGet.mock.calls[0][0])
-        // browse/authorities?limit=20&precedingRecordsCount=5&query=(headingRef>="test" or headingRef<"test") and authRefType==Authorized and headingType==("Personal Name")
-        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=%28headingRef%3E%3D%22test%22%20or%20headingRef%3C%22test%22%29%20and%20authRefType%3D%3DAuthorized%20and%20headingType%3D%3D%28%22Personal%20Name%22%29');
-      expect(mockGet.mock.calls[1][0])
-        // browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef<"authority_0" and authRefType==Authorized and headingType==("Personal Name")
-        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3C%22authority_0_0%22%20and%20authRefType%3D%3DAuthorized%20and%20headingType%3D%3D%28%22Personal%20Name%22%29');
-      expect(mockGet.mock.calls[2][0])
-        // browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef>"authority_49" and authRefType==Authorized and headingType==("Personal Name")
-        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3E%22authority_0_49%22%20and%20authRefType%3D%3DAuthorized%20and%20headingType%3D%3D%28%22Personal%20Name%22%29');
-    });
-  });
-
   describe('when requesting a previous page', () => {
     it('should only request one more previous page', async () => {
-      const isExcludedSeeFromLimiter = false;
       const pageSize = 20;
 
       const { result, waitFor } = renderHook(() => useAuthoritiesBrowse({
+        filters,
         searchQuery,
         searchIndex,
-        isExcludedSeeFromLimiter,
         pageSize,
         precedingRecordsCount,
       }), { wrapper });
@@ -140,13 +113,12 @@ describe('Given useAuthoritiesBrowse', () => {
 
   describe('when going to prev page and back to main', () => {
     it('should not request previously loaded pages again', async () => {
-      const isExcludedSeeFromLimiter = false;
       const pageSize = 20;
 
       const { result, waitFor } = renderHook(() => useAuthoritiesBrowse({
+        filters,
         searchQuery,
         searchIndex,
-        isExcludedSeeFromLimiter,
         pageSize,
         precedingRecordsCount,
       }), { wrapper });
@@ -173,14 +145,13 @@ describe('Given useAuthoritiesBrowse', () => {
 
   describe('when search query changes', () => {
     it('should request new data', async () => {
-      const isExcludedSeeFromLimiter = false;
       const pageSize = 20;
 
       const { result, waitFor, rerender } = renderHook(useAuthoritiesBrowse, {
         initialProps: {
+          filters,
           searchQuery,
           searchIndex,
-          isExcludedSeeFromLimiter,
           pageSize,
           precedingRecordsCount,
         },
@@ -192,9 +163,9 @@ describe('Given useAuthoritiesBrowse', () => {
       expect(mockGet).toHaveBeenCalledTimes(3);
 
       rerender({
+        filters,
         searchQuery: 'test2',
         searchIndex,
-        isExcludedSeeFromLimiter,
         pageSize,
         precedingRecordsCount,
       }, { wrapper });
@@ -211,6 +182,32 @@ describe('Given useAuthoritiesBrowse', () => {
       expect(mockGet.mock.calls[5][0])
         // browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef>"authority_3_49" and headingType==("Personal Name")
         .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3E%22authority_3_49%22%20and%20headingType%3D%3D%28%22Personal%20Name%22%29');
+    });
+  });
+
+  describe('when filters are applied', () => {
+    it('should request data based on the filters', async () => {
+      const pageSize = 20;
+
+      const { result, waitFor } = renderHook(() => useAuthoritiesBrowse({
+        filters: {
+          [FILTERS.REFERENCES]: [
+            REFERENCES_VALUES_MAP.excludeSeeFrom,
+            REFERENCES_VALUES_MAP.excludeSeeFromAlso,
+          ],
+        },
+        searchQuery,
+        searchIndex,
+        pageSize,
+        precedingRecordsCount,
+      }), { wrapper });
+
+      await waitFor(() => !result.current.isLoading);
+
+      expect(mockGet).toHaveBeenNthCalledWith(
+        1,
+        expect.stringContaining('%28authRefType%3D%3D%28%22Authorized%22%29'), // (authRefType==("Authorized"))
+      );
     });
   });
 });
