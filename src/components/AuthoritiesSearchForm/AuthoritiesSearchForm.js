@@ -19,7 +19,7 @@ import {
 import {
   SearchTextareaField,
   FilterNavigation,
-} from '../';
+} from '../index';
 import {
   AuthoritiesSearchContext,
   SelectedAuthorityRecordContext,
@@ -87,6 +87,7 @@ const AuthoritiesSearchForm = ({
       query: searchInputValue,
       option: searchDropdownValue,
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchInputValue, searchDropdownValue]);
 
   const rawSearchableIndexes = navigationSegmentValue === navigationSegments.browse
@@ -118,6 +119,10 @@ const AuthoritiesSearchForm = ({
     search:(e) => onSubmitSearch(e, rowState),
   });
 
+  const placeholderValue = navigationSegmentValue === navigationSegments.browse
+    ? intl.formatMessage({ id: 'ui-marc-authorities.browseSelectPlaceholder' })
+    : null;
+
   return (
     <AdvancedSearch
       open={isAdvancedSearchOpen}
@@ -142,6 +147,7 @@ const AuthoritiesSearchForm = ({
                 name="query"
                 id="textarea-authorities-search"
                 className={css.searchField}
+                placeholder={placeholderValue}
                 searchableIndexes={searchableIndexes}
                 onSubmitSearch={onSubmitSearch}
               />
@@ -188,7 +194,7 @@ const AuthoritiesSearchForm = ({
             </Row>
           </form>
         </HotKeys>
-      )}       
+      )}
     </AdvancedSearch>
   );
 };

@@ -24,7 +24,7 @@
   "query": "Query",
   "keyword": "Keyword",
   "identifier": "Identifier (all)",
-  "none": "None",
+  "browseSelectPlaceholder": "Select a browse option",
   "personalName": "Personal name",
   "corporateConferenceName": "Corporate/Conference name",
   "geographicName": "Geographic name",
