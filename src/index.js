@@ -51,6 +51,7 @@ const MarcAuthorities = ({
   },
 }) => {
   const location = useLocation();
+
   const RouteComponent = queryString.parse(location.search).segment === navigationSegments.browse
     ? BrowseRoute
     : SearchRoute;

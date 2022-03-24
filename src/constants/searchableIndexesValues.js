@@ -1,5 +1,4 @@
 export const searchableIndexesValues = {
-  NONE: 'none',
   KEYWORD: 'keyword',
   IDENTIFIER: 'identifiers.value',
   PERSONAL_NAME: 'personalNameTitle',

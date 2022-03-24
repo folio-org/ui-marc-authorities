@@ -3,6 +3,7 @@
 ## [1.1.0](IN PROGRESS)
 * [UIMARCAUTH-92](https://issues.folio.org/browse/UIMARCAUTH-92) Change MARC Authority in universal header Apps dropdown and app context menu dropdown.
 * [UIMARCAUTH-108](https://issues.folio.org/browse/UIMARCAUTH-108) Cannot assign MARC authority permissions only.
+* [UIMARCAUTH-86](https://issues.folio.org/browse/UIMARCAUTH-86) Change Browse option default selection label and behavior.
 * [UIMARCAUTH-100](https://issues.folio.org/browse/UIMARCAUTH-100) Fix tag value which contains part of authority heading ref value gets highlighted at record detail view.
 
 ## [1.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v1.0.1) (2022-03-21)

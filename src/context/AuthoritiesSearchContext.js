@@ -38,8 +38,9 @@ const AuthoritiesSearchContextProvider = ({
 
   const locationSearchParams = queryString.parse(location.search);
   const initialSegment = locationSearchParams.segment || navigationSegments.search;
+
   const initialDropdownValue = initialSegment === navigationSegments.browse
-    ? locationSearchParams.qindex || searchableIndexesValues.NONE
+    ? locationSearchParams.qindex || ''
     : locationSearchParams.qindex || searchableIndexesValues.KEYWORD;
 
   const [navigationSegmentValue, setNavigationSegmentValue] = useState(initialSegment);
@@ -58,7 +59,7 @@ const AuthoritiesSearchContextProvider = ({
 
   const resetAll = () => {
     const dropdownValue = initialSegment === navigationSegments.browse
-      ? searchableIndexesValues.NONE
+      ? ''
       : searchableIndexesValues.KEYWORD;
 
     setSearchInputValue('');

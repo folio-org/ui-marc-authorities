@@ -27,7 +27,7 @@ const wrapper = ({ children }) => (
 
 describe('Given useAuthoritiesBrowse', () => {
   const searchQuery = 'test';
-  const searchIndex = searchableIndexesValues.NONE;
+  const searchIndex = searchableIndexesValues.PERSONAL_NAME;
   const precedingRecordsCount = 5;
 
   const generateTestAuthorities = (count, headingRef = 'authority') => new Array(count).fill({}).map((_, index) => ({
@@ -70,15 +70,14 @@ describe('Given useAuthoritiesBrowse', () => {
 
     expect(mockGet).toHaveBeenCalledTimes(3);
     expect(mockGet.mock.calls[0][0])
-      // browse/authorities?limit=20&precedingRecordsCount=5&query=(headingRef>="test" or headingRef<"test")
-      .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=%28headingRef%3E%3D%22test%22%20or%20headingRef%3C%22test%22%29');
+      // browse/authorities?limit=20&precedingRecordsCount=5&query=(headingRef>="test" or headingRef<"test") and headingType==("Personal Name")
+      .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=%28headingRef%3E%3D%22test%22%20or%20headingRef%3C%22test%22%29%20and%20headingType%3D%3D%28%22Personal%20Name%22%29');
     expect(mockGet.mock.calls[1][0])
-      // browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef<"authority_0_0"
-      .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3C%22authority_0_0%22');
-
+      // browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef<"authority_0_0" and headingType==("Personal Name")
+      .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3C%22authority_0_0%22%20and%20headingType%3D%3D%28%22Personal%20Name%22%29');
     expect(mockGet.mock.calls[2][0])
-      // browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef>"authority_0_49"
-      .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3E%22authority_0_49%22');
+      // browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef>"authority_0_49" and headingType==("Personal Name")
+      .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3E%22authority_0_49%22%20and%20headingType%3D%3D%28%22Personal%20Name%22%29');
   });
 
   describe('when passing isExcludeSeeFrom parameter', () => {
@@ -98,15 +97,14 @@ describe('Given useAuthoritiesBrowse', () => {
 
       expect(mockGet).toHaveBeenCalledTimes(3);
       expect(mockGet.mock.calls[0][0])
-        // browse/authorities?limit=20&precedingRecordsCount=5&query=(headingRef>="test" or headingRef<"test") and authRefType==Authorized
-        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=%28headingRef%3E%3D%22test%22%20or%20headingRef%3C%22test%22%29%20and%20authRefType%3D%3DAuthorized');
+        // browse/authorities?limit=20&precedingRecordsCount=5&query=(headingRef>="test" or headingRef<"test") and authRefType==Authorized and headingType==("Personal Name")
+        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=%28headingRef%3E%3D%22test%22%20or%20headingRef%3C%22test%22%29%20and%20authRefType%3D%3DAuthorized%20and%20headingType%3D%3D%28%22Personal%20Name%22%29');
       expect(mockGet.mock.calls[1][0])
-        // browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef<"authority_0" and authRefType==Authorized
-        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3C%22authority_0_0%22%20and%20authRefType%3D%3DAuthorized');
-
+        // browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef<"authority_0" and authRefType==Authorized and headingType==("Personal Name")
+        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3C%22authority_0_0%22%20and%20authRefType%3D%3DAuthorized%20and%20headingType%3D%3D%28%22Personal%20Name%22%29');
       expect(mockGet.mock.calls[2][0])
-        // browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef>"authority_49" and authRefType==Authorized
-        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3E%22authority_0_49%22%20and%20authRefType%3D%3DAuthorized');
+        // browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef>"authority_49" and authRefType==Authorized and headingType==("Personal Name")
+        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3E%22authority_0_49%22%20and%20authRefType%3D%3DAuthorized%20and%20headingType%3D%3D%28%22Personal%20Name%22%29');
     });
   });
 
@@ -135,8 +133,8 @@ describe('Given useAuthoritiesBrowse', () => {
 
       expect(mockGet).toHaveBeenCalledTimes(1);
       expect(mockGet.mock.calls[0][0])
-        // browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef<"authority_1_0"
-        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3C%22authority_1_0%22');
+        // browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef<"authority_1_0" and headingType==("Personal Name")
+        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3C%22authority_1_0%22%20and%20headingType%3D%3D%28%22Personal%20Name%22%29');
     });
   });
 
@@ -205,15 +203,14 @@ describe('Given useAuthoritiesBrowse', () => {
 
       expect(mockGet).toHaveBeenCalledTimes(6);
       expect(mockGet.mock.calls[3][0])
-        // browse/authorities?limit=20&precedingRecordsCount=5&query=(headingRef>="test2" or headingRef<"test2")
-        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=%28headingRef%3E%3D%22test2%22%20or%20headingRef%3C%22test2%22%29');
+        // browse/authorities?limit=20&precedingRecordsCount=5&query=(headingRef>="test2" or headingRef<"test2") and headingType==("Personal Name")
+        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=%28headingRef%3E%3D%22test2%22%20or%20headingRef%3C%22test2%22%29%20and%20headingType%3D%3D%28%22Personal%20Name%22%29');
       expect(mockGet.mock.calls[4][0])
-        // browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef<"authority_3_0"
-        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3C%22authority_3_0%22');
-
+        // browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef<"authority_3_0" and headingType==("Personal Name")
+        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3C%22authority_3_0%22%20and%20headingType%3D%3D%28%22Personal%20Name%22%29');
       expect(mockGet.mock.calls[5][0])
-        // browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef>"authority_3_49"
-        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3E%22authority_3_49%22');
+        // browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef>"authority_3_49" and headingType==("Personal Name")
+        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3E%22authority_3_49%22%20and%20headingType%3D%3D%28%22Personal%20Name%22%29');
     });
   });
 });

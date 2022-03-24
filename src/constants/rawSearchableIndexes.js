@@ -15,7 +15,6 @@ export const rawDefaultSearchableIndexes = [
 ];
 
 export const rawBrowseSearchableIndexes = [
-  { label: 'ui-marc-authorities.none', value: searchableIndexesValues.NONE },
   { label: 'ui-marc-authorities.personalName', value: searchableIndexesValues.PERSONAL_NAME },
   { label: 'ui-marc-authorities.corporateConferenceName', value: searchableIndexesValues.CORPORATE_CONFERENCE_NAME },
   { label: 'ui-marc-authorities.geographicName', value: searchableIndexesValues.GEOGRAPHIC_NAME },
