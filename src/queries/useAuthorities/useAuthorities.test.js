@@ -146,7 +146,7 @@ describe('Given useAuthorities', () => {
 
       await waitFor(() => !result.current.isLoading);
 
-      expect(result.current.query).toEqual('(identifiers.value=="n  00000001 ")');
+      expect(result.current.query).toEqual('(identifiers.value=="n  00000001 " and authRefType=="Authorized")');
     });
   });
 
@@ -171,7 +171,7 @@ describe('Given useAuthorities', () => {
         sortedColumn: '',
       }), { wrapper });
 
-      expect(result.current.query).toEqual('(keyword=="advancedTest1") not (identifiers.value=="advancedTest2")');
+      expect(result.current.query).toEqual('(keyword=="advancedTest1") not (identifiers.value=="advancedTest2" and authRefType=="Authorized")');
     });
   });
 });

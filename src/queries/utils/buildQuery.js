@@ -3,6 +3,7 @@ import { upperFirst } from 'lodash';
 import {
   searchableIndexesValues,
   searchableIndexesMap,
+  searchResultListColumns,
 } from '../../constants';
 
 const indexesWithSpecialExcludeSeeFromLimiterQuery = [
@@ -26,6 +27,12 @@ const buildQuery = ({
     const childrenSubjectHeadingData = indexData[0];
 
     return `(${searchableIndexesValues.KEYWORD}=="%{query}" and ${childrenSubjectHeadingData.name}=="b")`;
+  }
+
+  if (searchIndex === searchableIndexesValues.IDENTIFIER) {
+    const authRefType = searchResultListColumns.AUTH_REF_TYPE;
+
+    return `(${searchableIndexesValues.IDENTIFIER}=="%{query}" and ${authRefType}=="Authorized")`;
   }
 
   const queryStrings = indexData.map(data => {
