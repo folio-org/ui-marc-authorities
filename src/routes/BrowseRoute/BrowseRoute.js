@@ -20,9 +20,9 @@ const PRECEDING_RECORDS_COUNT = 5;
 
 const BrowseRoute = ({ children }) => {
   const {
+    filters,
     searchQuery,
     searchIndex,
-    isExcludedSeeFromLimiter,
     setSearchQuery,
     setSearchIndex,
     searchInputValue,
@@ -39,9 +39,9 @@ const BrowseRoute = ({ children }) => {
     query,
     totalRecords,
   } = useAuthoritiesBrowse({
+    filters,
     searchQuery,
     searchIndex,
-    isExcludedSeeFromLimiter,
     pageSize: PAGE_SIZE,
     precedingRecordsCount: PRECEDING_RECORDS_COUNT,
   });

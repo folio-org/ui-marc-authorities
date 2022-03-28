@@ -50,7 +50,6 @@ describe('Given useAuthorities', () => {
       updatedDate: ['2021-01-01:2021-12-31'],
       subjectHeadings: ['Other'],
     };
-    const isExcludedSeeFromLimiter = false;
     const pageSize = 20;
 
     const {
@@ -60,7 +59,6 @@ describe('Given useAuthorities', () => {
       searchQuery,
       searchIndex,
       filters,
-      isExcludedSeeFromLimiter,
       pageSize,
       sortOrder: '',
       sortedColumn: '',
@@ -119,7 +117,6 @@ describe('Given useAuthorities', () => {
       } = renderHook(() => useAuthorities({
         searchIndex,
         filters: {},
-        isExcludedSeeFromLimiter: false,
         sortOrder: '',
         sortedColumn: '',
       }), { wrapper });
@@ -139,7 +136,6 @@ describe('Given useAuthorities', () => {
         searchQuery: 'n  00000001 ',
         searchIndex: searchableIndexesValues.IDENTIFIER,
         filters: {},
-        isExcludedSeeFromLimiter: false,
         sortOrder: '',
         sortedColumn: '',
       }), { wrapper });
@@ -166,7 +162,6 @@ describe('Given useAuthorities', () => {
           searchOption: searchableIndexesValues.IDENTIFIER,
         }],
         filters: {},
-        isExcludedSeeFromLimiter: false,
         sortOrder: '',
         sortedColumn: '',
       }), { wrapper });

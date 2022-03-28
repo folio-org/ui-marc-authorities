@@ -39,16 +39,13 @@ jest.mock('../MultiSelectionFacet', () => ({
 }));
 
 const mockSetFilters = jest.fn();
-const mockSetIsExcludedSeeFromLimiter = jest.fn();
 
 const defaultCtxValue = {
-  setIsExcludedSeeFromLimiter: mockSetIsExcludedSeeFromLimiter,
   setFilters: mockSetFilters,
   filters: {
     headingType: ['val-a', 'val-b'],
     subjectHeadings: ['Other'],
   },
-  isExcludedSeeFromLimiter: false,
   navigationSegmentValue: navigationSegments.search,
 };
 
@@ -128,18 +125,6 @@ describe('Given SearchFilters', () => {
       expect(queryByText('headingType')).toBeNull();
       expect(queryByText('createdDate')).toBeNull();
       expect(queryByText('updatedDate')).toBeNull();
-    });
-  });
-
-  describe('when clicking on exclude see from checkbox', () => {
-    it('should call setIsExcludedSeeFromLimiter', () => {
-      mockSetIsExcludedSeeFromLimiter.mockImplementation(setter => setter(defaultCtxValue.isExcludedSeeFromLimiter));
-
-      const { getByRole } = renderSearchFilters();
-
-      fireEvent.click(getByRole('checkbox', { name: 'ui-marc-authorities.search.excludeSeeFrom' }));
-
-      expect(mockSetIsExcludedSeeFromLimiter.mock.results[0].value).toEqual(true);
     });
   });
 

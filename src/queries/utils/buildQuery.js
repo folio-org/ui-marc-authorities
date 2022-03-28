@@ -4,20 +4,20 @@ import {
   searchableIndexesValues,
   searchableIndexesMap,
   searchResultListColumns,
+  FILTERS,
+  REFERENCES_VALUES_MAP,
 } from '../../constants';
-
-const indexesWithSpecialExcludeSeeFromLimiterQuery = [
-  searchableIndexesValues.KEYWORD,
-  searchableIndexesValues.IDENTIFIER,
-];
 
 const buildQuery = ({
   searchIndex,
   comparator = '==',
   seeAlsoJoin = 'or',
-  isExcludedSeeFromLimiter = false,
+  filters = {},
 }) => {
   const indexData = searchableIndexesMap[searchIndex];
+
+  const isExcludeSeeFrom = filters[FILTERS.REFERENCES]?.includes(REFERENCES_VALUES_MAP.excludeSeeFrom);
+  const isExcludeSeeFromAlso = filters[FILTERS.REFERENCES]?.includes(REFERENCES_VALUES_MAP.excludeSeeFromAlso);
 
   if (!indexData) {
     return '';
@@ -46,37 +46,29 @@ const buildQuery = ({
       queryParts.push(query);
     }
 
-    if (isExcludedSeeFromLimiter) {
-      if (indexesWithSpecialExcludeSeeFromLimiterQuery.some(index => index === searchIndex)) {
-        return [`${searchIndex}=="%{query}" and authRefType == "Authorized"`];
-      }
-
-      return queryParts;
-    }
-
     if ((data.sft || data.saft) && data.plain) {
       const name = upperFirst(data.name);
 
-      if (data.sft) {
+      if (data.sft && !isExcludeSeeFrom) {
         const query = queryTemplate(`sft${name}`);
 
         queryParts.push(query);
       }
 
-      if (data.saft) {
+      if (data.saft && !isExcludeSeeFromAlso) {
         const query = queryTemplate(`saft${name}`);
 
         queryParts.push(query);
       }
     }
 
-    if (data.sft && !data.plain) {
+    if (data.sft && !data.plain && !isExcludeSeeFrom) {
       const query = queryTemplate(data.name);
 
       queryParts.push(query);
     }
 
-    if (data.saft && !data.plain) {
+    if (data.saft && !data.plain && !isExcludeSeeFromAlso) {
       const query = queryTemplate(data.name);
 
       queryParts.push(query);

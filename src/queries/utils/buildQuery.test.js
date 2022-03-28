@@ -1,5 +1,9 @@
 import buildQuery from './buildQuery';
-import { searchableIndexesValues } from '../../constants';
+import {
+  FILTERS,
+  REFERENCES_VALUES_MAP,
+  searchableIndexesValues,
+} from '../../constants';
 
 describe('Given buildQuery', () => {
   describe('when index with plain, sft, and saft prefixes provided', () => {
@@ -9,17 +13,6 @@ describe('Given buildQuery', () => {
       });
 
       expect(query).toBe('(personalNameTitle=="%{query}" or sftPersonalNameTitle=="%{query}" or saftPersonalNameTitle=="%{query}")');
-    });
-
-    describe('when isExcludedSeeFromLimiter is true', () => {
-      it('should return correct query', () => {
-        const query = buildQuery({
-          searchIndex: searchableIndexesValues.PERSONAL_NAME,
-          isExcludedSeeFromLimiter: true,
-        });
-
-        expect(query).toBe('(personalNameTitle=="%{query}")');
-      });
     });
   });
 
@@ -51,17 +44,6 @@ describe('Given buildQuery', () => {
 
       expect(query).toBe('(keyword=="%{query}")');
     });
-
-    describe('when isExcludedSeeFromLimiter is true', () => {
-      it('should return correct query', () => {
-        const query = buildQuery({
-          searchIndex: searchableIndexesValues.KEYWORD,
-          isExcludedSeeFromLimiter: true,
-        });
-
-        expect(query).toBe('(keyword=="%{query}" and authRefType == "Authorized")');
-      });
-    });
   });
 
   describe('when identifier index provided', () => {
@@ -92,6 +74,44 @@ describe('Given buildQuery', () => {
       });
 
       expect(query).toBe('(keyword=="%{query}" and subjectHeadings=="b")');
+    });
+  });
+
+  describe('when \'reference filter\' values are provided', () => {
+    it('should return correct query when \'excludeSeeFrom\' is selected', () => {
+      const query = buildQuery({
+        searchIndex: searchableIndexesValues.PERSONAL_NAME,
+        filters: {
+          [FILTERS.REFERENCES]: [REFERENCES_VALUES_MAP.excludeSeeFrom],
+        },
+      });
+
+      expect(query).toEqual('(personalNameTitle=="%{query}" or saftPersonalNameTitle=="%{query}")');
+    });
+
+    it('should return correct query when \'excludeSeeFromAlso\' is selected', () => {
+      const query = buildQuery({
+        searchIndex: searchableIndexesValues.PERSONAL_NAME,
+        filters: {
+          [FILTERS.REFERENCES]: [REFERENCES_VALUES_MAP.excludeSeeFromAlso],
+        },
+      });
+
+      expect(query).toEqual('(personalNameTitle=="%{query}" or sftPersonalNameTitle=="%{query}")');
+    });
+
+    it('should return correct query when both \'excludeSeeFromAlso\' and \'excludeSeeFromAlso\' are selected', () => {
+      const query = buildQuery({
+        searchIndex: searchableIndexesValues.PERSONAL_NAME,
+        filters: {
+          [FILTERS.REFERENCES]: [
+            REFERENCES_VALUES_MAP.excludeSeeFrom,
+            REFERENCES_VALUES_MAP.excludeSeeFromAlso,
+          ],
+        },
+      });
+
+      expect(query).toEqual('(personalNameTitle=="%{query}")');
     });
   });
 });

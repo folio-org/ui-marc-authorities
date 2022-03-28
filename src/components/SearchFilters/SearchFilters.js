@@ -7,11 +7,6 @@ import { useIntl } from 'react-intl';
 import omit from 'lodash/omit';
 
 import {
-  Accordion,
-  Checkbox,
-  FilterAccordionHeader,
-} from '@folio/stripes/components';
-import {
   AcqDateRangeFilter,
 } from '@folio/stripes-acq-components';
 
@@ -24,6 +19,7 @@ import {
   FILTERS,
 } from '../../constants';
 import { AuthoritiesSearchContext } from '../../context';
+import { ReferencesFilter } from './ReferencesFilter/ReferencesFilter';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 
@@ -40,8 +36,6 @@ const SearchFilters = ({
   const {
     filters,
     setFilters,
-    isExcludedSeeFromLimiter,
-    setIsExcludedSeeFromLimiter,
     navigationSegmentValue,
   } = useContext(AuthoritiesSearchContext);
 
@@ -73,10 +67,6 @@ const SearchFilters = ({
     setFilters(currentFilters => omit(currentFilters, filter));
   };
 
-  const toggleExcludeSeeFromLimiter = () => {
-    setIsExcludedSeeFromLimiter(isExcluded => !isExcluded);
-  };
-
   const getSubjectHeadingsFacetOptions = () => {
     return facets[FILTERS.SUBJECT_HEADINGS]?.values.map(value => {
       const subjectHeadingsName = Object.keys(subjectHeadingsMap).find(key => {
@@ -93,24 +83,14 @@ const SearchFilters = ({
 
   return (
     <>
-      <Accordion
+      <ReferencesFilter
+        activeFilters={filters?.[FILTERS.REFERENCES]}
         closedByDefault
-        displayClearButton={isExcludedSeeFromLimiter}
-        header={FilterAccordionHeader}
-        headerProps={{
-          label: intl.formatMessage({ id: 'ui-marc-authorities.search.references' }),
-        }}
-        label={intl.formatMessage({ id: 'ui-marc-authorities.search.references' })}
-        aria-label={intl.formatMessage({ id: 'ui-marc-authorities.search.references' })}
-        onClearFilter={() => setIsExcludedSeeFromLimiter(false)}
-      >
-        <Checkbox
-          aria-label={intl.formatMessage({ id: 'ui-marc-authorities.search.excludeSeeFrom' })}
-          label={intl.formatMessage({ id: 'ui-marc-authorities.search.excludeSeeFrom' })}
-          onChange={toggleExcludeSeeFromLimiter}
-          checked={isExcludedSeeFromLimiter}
-        />
-      </Accordion>
+        disabled={isLoading}
+        id={FILTERS.REFERENCES}
+        onChange={applyFilters}
+        name={FILTERS.REFERENCES}
+      />
 
       {isSearchNavigationSegment && (
         <>

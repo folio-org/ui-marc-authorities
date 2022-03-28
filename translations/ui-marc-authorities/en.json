@@ -21,6 +21,7 @@
   "search.headingType": "Type of heading",
   "search.references": "References",
   "search.excludeSeeFrom": "Exclude see from",
+  "search.excludeSeeFromAlso": "Exclude see from also",
   "query": "Query",
   "keyword": "Keyword",
   "identifier": "Identifier (all)",

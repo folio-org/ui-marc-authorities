@@ -1,8 +1,10 @@
 
+export * from './authRefTypes';
 export * from './browseHeadingTypesMap';
 export * from './headingTypesValues';
 export * from './searchableIndexesValues';
 export * from './rawSearchableIndexes';
+export * from './references';
 export * from './advancedSearchIndexes';
 export * from './searchableIndexesMap';
 export * from './searchResultsListColumns';
