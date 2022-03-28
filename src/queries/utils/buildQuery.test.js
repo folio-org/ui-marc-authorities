@@ -1,5 +1,9 @@
 import buildQuery from './buildQuery';
-import { FILTERS, REFERENCES_VALUES_MAP, searchableIndexesValues } from '../../constants';
+import {
+  FILTERS,
+  REFERENCES_VALUES_MAP,
+  searchableIndexesValues,
+} from '../../constants';
 
 describe('Given buildQuery', () => {
   describe('when index with plain, sft, and saft prefixes provided', () => {

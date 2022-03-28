@@ -1,5 +1,8 @@
 import { REFERENCES_VALUES_MAP } from '../references';
-import { filterConfig, FILTERS } from './filterConfig';
+import {
+  filterConfig,
+  FILTERS,
+} from './filterConfig';
 
 jest.mock('../../utils', () => ({
   buildDateRangeQuery: () => jest.fn().mockReturnValue('called buildDateRangeQuery'),

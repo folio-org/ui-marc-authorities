@@ -1,5 +1,9 @@
 import user from '@testing-library/user-event';
-import { act, render, screen } from '@testing-library/react';
+import {
+  act,
+  render,
+  screen,
+} from '@testing-library/react';
 
 import { ReferencesFilter } from './ReferencesFilter';
 
