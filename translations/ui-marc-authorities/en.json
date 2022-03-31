@@ -42,6 +42,7 @@
   "permission.app.enabled": "UI: MARC Authorities module is enabled",
   "permission.authority-record.view": "View MARC authority record",
   "permission.authority-record.edit": "Edit MARC authority record",
+  "permission.authority-record.delete": "Delete MARC authority record",
 
   "navigation.app": "MARC authority app Search",
   "navigation.content": "MARC authority documentation",

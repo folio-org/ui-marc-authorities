@@ -1,6 +1,6 @@
 {
   "name": "@folio/marc-authorities",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "MARC Authorities module",
   "main": "src/index.js",
   "repository": "https://github.com/folio-org/ui-marc-authorities",
@@ -120,6 +120,14 @@
         "subPermissions": [
           "ui-marc-authorities.authority-record.view",
           "records-editor.records.item.put"
+        ],
+        "visible": true
+      },
+      {
+        "permissionName": "ui-marc-authorities.authority-record.delete",
+        "displayName": "Delete MARC authority record",
+        "subPermissions": [
+          "records-editor.records.item.delete"
         ],
         "visible": true
       }
