@@ -5,6 +5,7 @@
 * [UIMARCAUTH-86](https://issues.folio.org/browse/UIMARCAUTH-86) Change Browse option default selection label and behavior.
 * [UIMARCAUTH-75](https://issues.folio.org/browse/UIMARCAUTH-75) Searching MARC authority records: Split up Exclude See from filters into two filters.
 * [UIMARCAUTH-110](https://issues.folio.org/browse/UIMARCAUTH-110) When searching Identifier (all) search option Then only return results with Authorized/Reference type = Authorized.
+* [UIMARCAUTH-88](https://issues.folio.org/browse/UIMARCAUTH-88) Browse authorities: Add Heading type facet.
 
 ## [1.0.2](https://github.com/folio-org/ui-marc-authorities/tree/v1.0.2) (2022-03-29)
 * [UIMARCAUTH-108](https://issues.folio.org/browse/UIMARCAUTH-108) Cannot assign MARC authority permissions only.
