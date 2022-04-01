@@ -46,7 +46,9 @@
     "label.search.textArea": "قم بإدخال استعلام البحث",
     "query": "استعلام",
     "advancedSearch": "بحث متقدم",
-    "none": "لا شيء",
     "browse.noMatch.wouldBeHereLabel": "سيكون هنا",
-    "search.subjectHeadings": "رأس الموضوع/قاموس المرادفات"
+    "search.subjectHeadings": "قاموس المرادفات",
+    "browseSelectPlaceholder": "حدد خيار استعراض",
+    "search.excludeSeeFromAlso": "استبعاد انظر من أيضاً",
+    "permission.authority-record.delete": "MARC Authority: Delete MARC authority record"
 }

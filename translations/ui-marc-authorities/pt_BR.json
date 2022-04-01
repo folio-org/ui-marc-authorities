@@ -46,7 +46,9 @@
     "label.search.textArea": "Digite a consulta para busca",
     "query": "Consulta",
     "advancedSearch": "Busca avançada",
-    "none": "Nenhum(a)",
     "browse.noMatch.wouldBeHereLabel": "estaria aqui",
-    "search.subjectHeadings": "Cabeçalho do assunto/thesaurus"
+    "search.subjectHeadings": "Thesaurus",
+    "browseSelectPlaceholder": "Selecione uma opção de navegação",
+    "search.excludeSeeFromAlso": "Excluir Também Ver De",
+    "permission.authority-record.delete": "MARC Authority: Delete MARC authority record"
 }

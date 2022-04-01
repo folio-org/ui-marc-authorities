@@ -1,8 +1,8 @@
 {
     "meta.title": "MARC 權威控制",
     "permission.app.enabled": "使用者介面：已啟用 MARC 權威控制模組",
-    "permission.authority-record.view": "View MARC authority record",
-    "permission.authority-record.edit": "Edit MARC authority record",
+    "permission.authority-record.view": "MARC Authority: View MARC authority record",
+    "permission.authority-record.edit": "MARC Authority: Edit MARC authority record",
     "search-results-list.authRefType": "Authorized/Reference",
     "search-results-list.headingRef": "Heading/Reference",
     "search-results-list.headingType": "Type of heading",
@@ -46,7 +46,9 @@
     "label.search.textArea": "輸入查詢名稱",
     "query": "查詢",
     "advancedSearch": "進階搜尋",
-    "none": "None",
     "browse.noMatch.wouldBeHereLabel": "would be here",
-    "search.subjectHeadings": "Subject heading/thesaurus"
+    "search.subjectHeadings": "Thesaurus",
+    "browseSelectPlaceholder": "Select a browse option",
+    "search.excludeSeeFromAlso": "Exclude see from also",
+    "permission.authority-record.delete": "MARC Authority: Delete MARC authority record"
 }
