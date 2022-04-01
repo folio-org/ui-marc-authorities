@@ -102,7 +102,7 @@
       },
       {
         "permissionName": "ui-marc-authorities.authority-record.view",
-        "displayName": "View MARC authority record",
+        "displayName": "MARC Authority: View MARC authority record",
         "subPermissions": [
           "module.marc-authorities.enabled",
           "browse.authorities.collection.get",
@@ -116,7 +116,7 @@
       },
       {
         "permissionName": "ui-marc-authorities.authority-record.edit",
-        "displayName": "Edit MARC authority record",
+        "displayName": "MARC Authority: Edit MARC authority record",
         "subPermissions": [
           "ui-marc-authorities.authority-record.view",
           "records-editor.records.item.put"
@@ -125,7 +125,7 @@
       },
       {
         "permissionName": "ui-marc-authorities.authority-record.delete",
-        "displayName": "Delete MARC authority record",
+        "displayName": "MARC Authority: Delete MARC authority record",
         "subPermissions": [
           "records-editor.records.item.delete"
         ],
