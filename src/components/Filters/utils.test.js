@@ -34,24 +34,26 @@ describe('Given Filters utils', () => {
     it('should handle setFilters', () => {
       const name = 'headingType';
       const values = ['Geographic Name'];
-      const setFilters = jest.fn();
+      const setFilters = jest.fn()
+        .mockImplementation(setter => setter({ headingType: ['Geographic Name'] }));
 
       utils.updateFilters({ name, values, setFilters });
 
       expect(setFilters).toHaveBeenCalledTimes(1);
-      expect(setFilters).toHaveBeenCalledWith(expect.any(Function));
+      expect(setFilters.mock.results[0].value).toMatchObject({});
     });
   });
 
   describe('onClearFilter', () => {
     it('should handle setFilters', () => {
       const filter = 'headingType';
-      const setFilters = jest.fn();
+      const setFilters = jest.fn()
+        .mockImplementation(setter => setter({ headingType: ['Geographic Name'] }));
 
       utils.onClearFilter({ filter, setFilters });
 
       expect(setFilters).toHaveBeenCalledTimes(1);
-      expect(setFilters).toHaveBeenCalledWith(expect.any(Function));
+      expect(setFilters.mock.results[0].value).toMatchObject({});
     });
   });
 });
