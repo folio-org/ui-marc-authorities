@@ -4,6 +4,7 @@ import {
   useContext,
 } from 'react';
 import {
+  useHistory,
   useLocation,
 } from 'react-router-dom';
 import {
@@ -34,9 +35,11 @@ import {
   AppIcon,
   useNamespace,
 } from '@folio/stripes/core';
+import { buildSearch } from '@folio/stripes-acq-components';
 
 import {
   SearchResultsList,
+  BrowseFilters,
   SearchFilters,
   AuthoritiesSearchForm,
 } from '../../components';
@@ -87,6 +90,7 @@ const AuthoritiesSearch = ({
   const intl = useIntl();
   const [, getNamespace] = useNamespace();
 
+  const history = useHistory();
   const location = useLocation();
 
   const {
@@ -130,9 +134,20 @@ const AuthoritiesSearch = ({
       queryParams.sort = `${order}${sortedColumn}`;
     }
 
+    const searchString = `${buildSearch(queryParams)}`;
+
+    const pathname = isGoingToBaseURL
+      ? '/marc-authorities'
+      : location.pathname;
+
     if (isGoingToBaseURL) {
       setIsGoingToBaseURL(false);
     }
+
+    history.replace({
+      pathname,
+      search: searchString,
+    });
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -230,10 +245,19 @@ const AuthoritiesSearch = ({
             onSubmitSearch={onSubmitSearch}
             onChangeSortOption={onChangeSortOption}
           />
-          <SearchFilters
-            isSearching={isLoading}
-            cqlQuery={query}
-          />
+
+          {
+            navigationSegmentValue === navigationSegments.browse
+              ? (
+                <BrowseFilters cqlQuery={query} />
+              )
+              : (
+                <SearchFilters
+                  isSearching={isLoading}
+                  cqlQuery={query}
+                />
+              )
+          }
         </Pane>
       }
       <Pane
