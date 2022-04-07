@@ -6,11 +6,11 @@ import {
 import { runAxeTest } from '@folio/stripes-testing';
 
 import SearchFilters from './SearchFilters';
-import Harness from '../../../test/jest/helpers/harness';
-import { navigationSegments } from '../../constants';
+import Harness from '../../../../test/jest/helpers/harness';
+import { navigationSegments } from '../../../constants';
 
-jest.mock('../../queries', () => ({
-  ...jest.requireActual('../../queries'),
+jest.mock('../../../queries', () => ({
+  ...jest.requireActual('../../../queries'),
   useFacets: jest.fn().mockReturnValue({
     isLoading: false,
     facets: {
@@ -29,7 +29,7 @@ jest.mock('@folio/stripes-acq-components', () => ({
   AcqDateRangeFilter: ({ name }) => <div>{name}</div>,
 }));
 
-jest.mock('../MultiSelectionFacet', () => ({
+jest.mock('../../MultiSelectionFacet', () => ({
   MultiSelectionFacet: ({ name, onClearFilter }) => (
     <div>
       {name}
@@ -62,23 +62,24 @@ const renderSearchFilters = (props = {}, ctxValue = defaultCtxValue) => render(
 describe('Given SearchFilters', () => {
   afterEach(() => jest.clearAllMocks());
 
-  it('should render Type of heading filter', () => {
-    const { getByText } = renderSearchFilters();
+  it('should display "References" accordion and its checkboxes', () => {
+    const { getByRole } = renderSearchFilters();
 
-    expect(getByText('headingType')).toBeDefined();
+    expect(getByRole('heading', { name: 'ui-marc-authorities.search.references' })).toBeDefined();
+    expect(getByRole('checkbox', { name: 'ui-marc-authorities.search.excludeSeeFrom' })).toBeDefined();
+    expect(getByRole('checkbox', { name: 'ui-marc-authorities.search.excludeSeeFromAlso' })).toBeDefined();
   });
 
-  it('should render Subject heading/thesaurus filter', () => {
+  it('should render Thesaurus filter', () => {
     const { getByText } = renderSearchFilters();
 
     expect(getByText('subjectHeadings')).toBeDefined();
   });
 
-  it('should display "References" accordion and "Exclude see from" checkbox', () => {
-    const { getByRole } = renderSearchFilters();
+  it('should render Type of heading filter', () => {
+    const { getByText } = renderSearchFilters();
 
-    expect(getByRole('heading', { name: 'ui-marc-authorities.search.references' })).toBeDefined();
-    expect(getByRole('checkbox', { name: 'ui-marc-authorities.search.excludeSeeFrom' })).toBeDefined();
+    expect(getByText('headingType')).toBeDefined();
   });
 
   it('should render created date filter', () => {
@@ -102,29 +103,6 @@ describe('Given SearchFilters', () => {
       fireEvent.click(getByText('Clear headingType'));
 
       expect(mockSetFilters.mock.results[0].value).toMatchObject({});
-    });
-  });
-
-  describe('when navigation segment is Browse', () => {
-    it('should display "References" accordion and "Exclude see from" checkbox', () => {
-      const { getByRole } = renderSearchFilters(null, {
-        ...defaultCtxValue,
-        navigationSegmentValue: navigationSegments.browse,
-      });
-
-      expect(getByRole('heading', { name: 'ui-marc-authorities.search.references' })).toBeDefined();
-      expect(getByRole('checkbox', { name: 'ui-marc-authorities.search.excludeSeeFrom' })).toBeDefined();
-    });
-
-    it('should not display other filters except for "References" accordion', () => {
-      const { queryByText } = renderSearchFilters(null, {
-        ...defaultCtxValue,
-        navigationSegmentValue: navigationSegments.browse,
-      });
-
-      expect(queryByText('headingType')).toBeNull();
-      expect(queryByText('createdDate')).toBeNull();
-      expect(queryByText('updatedDate')).toBeNull();
     });
   });
 

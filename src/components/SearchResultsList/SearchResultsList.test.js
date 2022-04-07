@@ -179,22 +179,22 @@ describe('Given SearchResultsList', () => {
     });
   });
 
-  describe('When there is only one record', () => {
+  describe('when there is only one record', () => {
     afterAll(() => {
       jest.resetAllMocks();
     });
-    it('Should call history.replace with specefic params', () => {
+
+    it('should call history.replace with specific params', () => {
       renderSearchResultsList({
-        authorities: [
-          {
-            id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
-            headingType: 'Geographic Name',
-            authRefType: 'Authorized',
-            headingRef: 'Springfield (Colo.)',
-          },
-        ],
+        authorities: [{
+          id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
+          headingType: 'Geographic Name',
+          authRefType: 'Authorized',
+          headingRef: 'Springfield (Colo.)',
+        }],
         totalResults: 1,
       });
+
       expect(mockHistoryReplace).toHaveBeenCalledWith(
         '/authorities/cbc03a36-2870-4184-9777-0c44d07edfe4?authRefType=Authorized&headingRef=Springfield%20%28Colo.%29',
       );
