@@ -6,6 +6,8 @@ import AuthorityQuickMarcEditRoute from './AuthorityQuickMarcEditRoute';
 
 const mockHistoryPush = jest.fn();
 
+jest.useFakeTimers();
+
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
   useHistory: () => ({
@@ -44,6 +46,7 @@ describe('Given AuthorityQuickMarcEditRoute', () => {
       const { getByText } = renderAuthorityQuickMarcEditRoute();
 
       fireEvent.click(getByText('close'));
+      jest.runAllTimers();
 
       expect(mockHistoryPush).toHaveBeenCalled();
     });
