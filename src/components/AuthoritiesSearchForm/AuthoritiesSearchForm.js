@@ -69,8 +69,10 @@ const AuthoritiesSearchForm = ({
 
   const handleResetAll = () => {
     resetAll();
-    onChangeSortOption('');
     setSelectedAuthorityRecordContext(null);
+    if (onChangeSortOption) {
+      onChangeSortOption('');
+    }
   };
 
   const handleAdvancedSearch = (searchString, searchRows) => {

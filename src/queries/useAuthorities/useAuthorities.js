@@ -150,6 +150,7 @@ const useAuthorities = ({
       return ky.get(path).json();
     }, {
       keepPreviousData: true,
+      cacheTime: 0,
     },
   );
 

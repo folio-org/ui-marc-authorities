@@ -16,10 +16,12 @@ const AuthorityQuickMarcEditRoute = () => {
   const onClose = useCallback((recordRoute) => {
     const recordId = recordRoute.split('/')[1];
 
-    history.push({
-      pathname: `/marc-authorities/authorities/${recordId}`,
-      search: location.search,
-    });
+    setTimeout(() => {
+      history.push({
+        pathname: `/marc-authorities/authorities/${recordId}`,
+        search: location.search,
+      });
+    }, 1000);
   }, [location.search, history]);
 
   return (

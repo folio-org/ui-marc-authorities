@@ -67,6 +67,7 @@ const useBrowseRequest = ({
     }, {
       keepPreviousData: true,
       staleTime: 5 * 60 * 1000,
+      cacheTime: 0,
     },
   );
 

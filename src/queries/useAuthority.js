@@ -37,6 +37,9 @@ export const useAuthority = (recordId, authRefType = null, headingRef = null) =>
         return [...acc, ...authorities];
       }, []);
     },
+    {
+      cacheTime:0,
+    },
   );
 
   const authorityByAuthRefType = filter(data, matches({ authRefType, headingRef }))[0];
