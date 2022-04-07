@@ -19,10 +19,16 @@ import {
 } from '@folio/stripes/components';
 import { SearchAndSortNoResultsMessage } from '@folio/stripes/smart-components';
 
-import { SelectedAuthorityRecordContext } from '../../context';
+import {
+  AuthoritiesSearchContext,
+  SelectedAuthorityRecordContext,
+} from '../../context';
 
 import { AuthorityShape } from '../../constants/shapes';
-import { searchResultListColumns } from '../../constants';
+import {
+  navigationSegments,
+  searchResultListColumns,
+} from '../../constants';
 
 import css from './SearchResultsList.css';
 
@@ -68,6 +74,7 @@ const SearchResultsList = ({
   const location = useLocation();
   const history = useHistory();
 
+  const { navigationSegmentValue } = useContext(AuthoritiesSearchContext);
   const [selectedAuthorityRecordContext, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
   const columnMapping = {
@@ -94,10 +101,19 @@ const SearchResultsList = ({
   };
 
   useEffect(() => {
-    if (totalResults === 1) {
-      history.push(formatAuthorityRecordLink(authorities[0]));
+    const firstAuthority = authorities[0];
+    const isDetailViewNeedsToBeOpen = navigationSegmentValue === navigationSegments.browse
+      ? firstAuthority?.isAnchor && firstAuthority?.isExactMatch && totalResults === 1
+      : totalResults === 1;
+
+    if (isDetailViewNeedsToBeOpen) {
+      history.push(formatAuthorityRecordLink(firstAuthority));
     }
-  }, [totalResults, authorities[0]]);
+  }, [
+    totalResults,
+    authorities[0],
+    navigationSegmentValue,
+  ]);
 
   const formatter = {
     authRefType: (authority) => {

@@ -1,8 +1,8 @@
 {
     "meta.title": "Autoridades MARC",
     "permission.app.enabled": "UI: El módulo de Autoridades MARC está activado",
-    "permission.authority-record.view": "View MARC authority record",
-    "permission.authority-record.edit": "Edit MARC authority record",
+    "permission.authority-record.view": "MARC Authority: View MARC authority record",
+    "permission.authority-record.edit": "MARC Authority: Edit MARC authority record",
     "search-results-list.authRefType": "Authorized/Reference",
     "search-results-list.headingRef": "Heading/Reference",
     "search-results-list.headingType": "Type of heading",
@@ -46,7 +46,9 @@
     "label.search.textArea": "Enter search query",
     "query": "Query",
     "advancedSearch": "Advanced search",
-    "none": "Ninguno",
     "browse.noMatch.wouldBeHereLabel": "would be here",
-    "search.subjectHeadings": "Subject heading/thesaurus"
+    "search.subjectHeadings": "Thesaurus",
+    "browseSelectPlaceholder": "Select a browse option",
+    "search.excludeSeeFromAlso": "Exclude see from also",
+    "permission.authority-record.delete": "MARC Authority: Delete MARC authority record"
 }

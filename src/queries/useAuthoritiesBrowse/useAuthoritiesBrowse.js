@@ -6,6 +6,7 @@ import {
 import { useQuery } from 'react-query';
 import queryString from 'query-string';
 import get from 'lodash/get';
+import remove from 'lodash/remove';
 
 import {
   useOkapiKy,
@@ -57,7 +58,7 @@ const useBrowseRequest = ({
   } = useQuery(
     [namespace, 'authoritiesBrowse', searchParams],
     async () => {
-      if (!searchQuery) {
+      if (!searchQuery && !Object.values(filters).find(value => value.length > 0)) {
         return { items: [], totalRecords: 0 };
       }
 
@@ -195,6 +196,10 @@ const useAuthoritiesBrowse = ({
   const allRequestsFetching = mainRequest.isFetching || prevPageRequest.isFetching || nextPageRequest.isFetching;
 
   useEffect(() => {
+    // remove item with an empty headingRef which appears
+    // when apply Type of heading facet without search query
+    remove(mainRequest.data?.items, item => !item.authority && !item.headingRef);
+
     setItems(mainRequest.data?.items || []);
   }, [mainRequest.data]);
 

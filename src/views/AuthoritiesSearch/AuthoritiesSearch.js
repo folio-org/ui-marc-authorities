@@ -39,6 +39,7 @@ import { buildSearch } from '@folio/stripes-acq-components';
 
 import {
   SearchResultsList,
+  BrowseFilters,
   SearchFilters,
   AuthoritiesSearchForm,
 } from '../../components';
@@ -242,10 +243,19 @@ const AuthoritiesSearch = ({
             onSubmitSearch={onSubmitSearch}
             onChangeSortOption={onChangeSortOption}
           />
-          <SearchFilters
-            isSearching={isLoading}
-            cqlQuery={query}
-          />
+
+          {
+            navigationSegmentValue === navigationSegments.browse
+              ? (
+                <BrowseFilters cqlQuery={query} />
+              )
+              : (
+                <SearchFilters
+                  isSearching={isLoading}
+                  cqlQuery={query}
+                />
+              )
+          }
         </Pane>
       }
       <Pane
