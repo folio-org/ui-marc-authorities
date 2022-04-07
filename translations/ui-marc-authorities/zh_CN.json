@@ -46,7 +46,9 @@
     "label.search.textArea": "输入搜索查询",
     "query": "查询",
     "advancedSearch": "高级搜索",
-    "none": "无",
-    "browse.noMatch.wouldBeHereLabel": "would be here",
-    "search.subjectHeadings": "Subject heading/thesaurus"
+    "browse.noMatch.wouldBeHereLabel": "会在这里",
+    "search.subjectHeadings": "叙词表",
+    "browseSelectPlaceholder": "选择浏览选项",
+    "search.excludeSeeFromAlso": "排除也见自",
+    "permission.authority-record.delete": "MARC Authority: Delete MARC authority record"
 }

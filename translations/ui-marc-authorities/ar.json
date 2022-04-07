@@ -1,8 +1,8 @@
 {
     "meta.title": "استناد مارك",
     "permission.app.enabled": "واجهة المستخدم: تم تفعيل وحدة استنادات مارك",
-    "permission.authority-record.view": "عرض تسجيلة استناد مارك",
-    "permission.authority-record.edit": "تحرير تسجيلة استناد مارك",
+    "permission.authority-record.view": "استناد مارك: عرض تسجيلة استناد مارك",
+    "permission.authority-record.edit": "استناد مارك: تحرير تسجيلة استناد مارك",
     "search-results-list.authRefType": "مصرح به/مرجع",
     "search-results-list.headingRef": "الرأس/المرجع",
     "search-results-list.headingType": "نوع الرأس",
@@ -46,7 +46,9 @@
     "label.search.textArea": "قم بإدخال استعلام البحث",
     "query": "استعلام",
     "advancedSearch": "بحث متقدم",
-    "none": "لا شيء",
     "browse.noMatch.wouldBeHereLabel": "سيكون هنا",
-    "search.subjectHeadings": "رأس الموضوع/قاموس المرادفات"
+    "search.subjectHeadings": "قاموس المرادفات",
+    "browseSelectPlaceholder": "حدد خيار استعراض",
+    "search.excludeSeeFromAlso": "استبعاد انظر من أيضاً",
+    "permission.authority-record.delete": "استناد مارك: حذف تسجيلة استناد مارك"
 }
