@@ -7,6 +7,7 @@
 - [UIMARCAUTH-111](https://issues.folio.org/browse/UIMARCAUTH-111) If only one result is returned then automatically display detail record.
 - [UIMARCAUTH-67](https://issues.folio.org/browse/UIMARCAUTH-67) Permission: Delete MARC authority record.
 - [UIMARCAUTH-88](https://issues.folio.org/browse/UIMARCAUTH-88) Browse authorities: Add Heading type facet.
+- [UIMARCAUTH-114](https://issues.folio.org/browse/UIMARCAUTH-114) Search for MARC Authority record with " & " special character in title - returns no results.
 - [UIMARCAUTH-115](https://issues.folio.org/browse/UIMARCAUTH-115) Updated Heading and Reference is not displayed on results list.
 
 ## [1.0.3](https://github.com/folio-org/ui-marc-authorities/tree/v1.0.3) (2022-03-30)

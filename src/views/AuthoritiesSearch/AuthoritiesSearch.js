@@ -89,7 +89,6 @@ const AuthoritiesSearch = ({
 }) => {
   const intl = useIntl();
   const [, getNamespace] = useNamespace();
-
   const history = useHistory();
   const location = useLocation();
 
@@ -144,11 +143,10 @@ const AuthoritiesSearch = ({
       setIsGoingToBaseURL(false);
     }
 
-    history.replace({
+    history.push({
       pathname,
       search: searchString,
     });
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     searchQuery,

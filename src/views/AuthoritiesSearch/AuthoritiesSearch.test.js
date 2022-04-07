@@ -19,12 +19,12 @@ import {
 } from '../../constants';
 import { useSortColumnManager } from '../../hooks';
 
-const mockHistoryReplace = jest.fn();
+const mockHistoryPush = jest.fn();
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
   useHistory: () => ({
-    replace: mockHistoryReplace,
+    push: mockHistoryPush,
   }),
   useLocation: jest.fn().mockImplementation(() => ({
     pathname: '',

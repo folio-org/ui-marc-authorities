@@ -107,7 +107,7 @@ const SearchResultsList = ({
       : totalResults === 1;
 
     if (isDetailViewNeedsToBeOpen) {
-      history.replace(formatAuthorityRecordLink(firstAuthority));
+      history.push(formatAuthorityRecordLink(firstAuthority));
     }
   }, [
     totalResults,
