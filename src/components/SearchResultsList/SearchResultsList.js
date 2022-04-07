@@ -95,7 +95,7 @@ const SearchResultsList = ({
 
   useEffect(() => {
     if (totalResults === 1) {
-      history.replace(formatAuthorityRecordLink(authorities[0]));
+      history.push(formatAuthorityRecordLink(authorities[0]));
     }
   }, [totalResults, authorities[0]]);
 
