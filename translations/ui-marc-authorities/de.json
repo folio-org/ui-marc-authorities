@@ -46,7 +46,9 @@
     "label.search.textArea": "Suchanfrage eingeben",
     "query": "Suchanfrage",
     "advancedSearch": "Erweiterte Suche",
-    "none": "None",
     "browse.noMatch.wouldBeHereLabel": "would be here",
-    "search.subjectHeadings": "Subject heading/thesaurus"
+    "search.subjectHeadings": "Thesaurus",
+    "browseSelectPlaceholder": "Select a browse option",
+    "search.excludeSeeFromAlso": "Exclude see from also",
+    "permission.authority-record.delete": "MARC Authority: Delete MARC authority record"
 }

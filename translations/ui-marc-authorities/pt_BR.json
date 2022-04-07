@@ -1,8 +1,8 @@
 {
     "meta.title": "Autoridades MARC",
     "permission.app.enabled": "UI: O módulo Autoridades MARC está habilitado",
-    "permission.authority-record.view": "Ver registro de autoridade MARC",
-    "permission.authority-record.edit": "Editar registro de MARC Autoridade",
+    "permission.authority-record.view": "Autoridade MARC: Ver registro de autoridade MARC",
+    "permission.authority-record.edit": "Autoridade MARC: Editar registro de autoridade MARC",
     "search-results-list.authRefType": "Autorizada/Referência",
     "search-results-list.headingRef": "Cabeçalho/Referência",
     "search-results-list.headingType": "Tipo de cabeçalho",
@@ -46,7 +46,9 @@
     "label.search.textArea": "Digite a consulta para busca",
     "query": "Consulta",
     "advancedSearch": "Busca avançada",
-    "none": "Nenhum(a)",
     "browse.noMatch.wouldBeHereLabel": "estaria aqui",
-    "search.subjectHeadings": "Cabeçalho do assunto/thesaurus"
+    "search.subjectHeadings": "Thesaurus",
+    "browseSelectPlaceholder": "Selecione uma opção de navegação",
+    "search.excludeSeeFromAlso": "Excluir Também Ver De",
+    "permission.authority-record.delete": "Autoridade MARC: Excluir registro de autoridade MARC"
 }
