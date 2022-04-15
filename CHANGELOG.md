@@ -1,5 +1,9 @@
 # Change history for ui-marc-authorities
 
+## [1.0.5](IN PROGRESS)
+
+- [UIMARCAUTH-122](https://issues.folio.org/browse/UIMARCAUTH-122) Correctly allow horizontal scrolling in details pane.
+
 ## [1.0.4](https://github.com/folio-org/ui-marc-authorities/tree/v1.0.4) (2022-04-08)
 
 - [UIMARCAUTH-114](https://issues.folio.org/browse/UIMARCAUTH-114) Search for MARC Authority record with " & " special character in title - returns no results.

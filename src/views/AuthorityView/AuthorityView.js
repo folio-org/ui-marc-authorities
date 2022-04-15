@@ -37,13 +37,13 @@ const propTypes = {
       headingRef: PropTypes.string,
       headingType: PropTypes.string,
       id: PropTypes.string,
-    }).isRequired,
+    }),
     isLoading: PropTypes.bool.isRequired,
   }).isRequired,
   marcSource: PropTypes.shape({
-    data: PropTypes.object.isRequired,
+    data: PropTypes.object,
     isLoading: PropTypes.bool.isRequired,
-  }).isRequired,
+  }),
 };
 
 const AuthorityView = ({
@@ -134,32 +134,31 @@ const AuthorityView = ({
       onEdit={redirectToQuickMarcEditPage}
       canEdit={hasEditPermission()}
     >
-      <div data-testid="authority-marc-view">
-        <MarcView
-          paneTitle={authority.data.headingRef}
-          paneSub={intl.formatMessage({
-            id: 'ui-marc-authorities.authorityRecordSubtitle',
-          }, {
-            heading: authority.data.headingType,
-            lastUpdatedDate: intl.formatDate(marcSource.data.metadata.updatedDate),
-          })}
-          isPaneset={false}
-          marcTitle={intl.formatMessage({ id: 'ui-marc-authorities.marcHeading' })}
-          marc={markHighlightedFields().data}
-          onClose={onClose}
-          lastMenu={(
-            <IfPermission perm="ui-marc-authorities.authority-record.edit">
-              <Button
-                buttonStyle="primary"
-                marginBottom0
-                onClick={redirectToQuickMarcEditPage}
-              >
-                <FormattedMessage id="ui-marc-authorities.authority-record.edit" />
-              </Button>
-            </IfPermission>
-           )}
-        />
-      </div>
+      <MarcView
+        paneWidth="40%"
+        paneTitle={authority.data.headingRef}
+        paneSub={intl.formatMessage({
+          id: 'ui-marc-authorities.authorityRecordSubtitle',
+        }, {
+          heading: authority.data.headingType,
+          lastUpdatedDate: intl.formatDate(marcSource.data.metadata.updatedDate),
+        })}
+        isPaneset={false}
+        marcTitle={intl.formatMessage({ id: 'ui-marc-authorities.marcHeading' })}
+        marc={markHighlightedFields().data}
+        onClose={onClose}
+        lastMenu={(
+          <IfPermission perm="ui-marc-authorities.authority-record.edit">
+            <Button
+              buttonStyle="primary"
+              marginBottom0
+              onClick={redirectToQuickMarcEditPage}
+            >
+              <FormattedMessage id="ui-marc-authorities.authority-record.edit" />
+            </Button>
+          </IfPermission>
+          )}
+      />
     </KeyShortCutsWrapper>
   );
 };
