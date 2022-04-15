@@ -1,6 +1,6 @@
 # Change history for ui-marc-authorities
 
-## [1.0.5](IN PROGRESS)
+## [1.0.5](https://github.com/folio-org/ui-marc-authorities/tree/v1.0.5) (2022-04-15)
 
 - [UIMARCAUTH-122](https://issues.folio.org/browse/UIMARCAUTH-122) Correctly allow horizontal scrolling in details pane.
 
