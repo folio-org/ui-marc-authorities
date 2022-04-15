@@ -118,7 +118,11 @@ const AuthoritiesSearchForm = ({
   };
 
   const getHandlers = (rowState) => ({
-    search:(e) => onSubmitSearch(e, rowState),
+    search:(e) => {
+      if (isSearchButtonDisabled) return e.preventDefault();
+
+      return onSubmitSearch(e, rowState);
+    },
   });
 
   const placeholderValue = navigationSegmentValue === navigationSegments.browse
