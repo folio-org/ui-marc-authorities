@@ -27,14 +27,14 @@ const useBrowseRequest = ({
   precedingRecordsCount,
 }) => {
   const ky = useOkapiKy();
-  const [namespace] = useNamespace();
+  const [namespace] = useNamespace({ key: 'authorities' });
 
   const cqlSearch = startingSearch ? [startingSearch] : [];
 
   const cqlFilters = Object.entries(filters)
     .filter(([, filterValues]) => filterValues.length)
     .map(([filterName, filterValues]) => {
-      const filterData = filterConfig.find(filter => filter.name === filterName);
+      const filterData = filterConfig.find((filter) => filter.name === filterName);
 
       return filterData ? filterData.parse(filterValues) : null;
     });
@@ -56,9 +56,9 @@ const useBrowseRequest = ({
     isFetched,
     data,
   } = useQuery(
-    [namespace, 'authoritiesBrowse', searchParams],
+    [namespace, 'authorities', searchParams],
     async () => {
-      if (!searchQuery && !Object.values(filters).find(value => value.length > 0)) {
+      if (!searchQuery && !Object.values(filters).find((value) => value.length > 0)) {
         return { items: [], totalRecords: 0 };
       }
 
@@ -198,13 +198,13 @@ const useAuthoritiesBrowse = ({
   useEffect(() => {
     // remove item with an empty headingRef which appears
     // when apply Type of heading facet without search query
-    remove(mainRequest.data?.items, item => !item.authority && !item.headingRef);
+    remove(mainRequest.data?.items, (item) => !item.authority && !item.headingRef);
 
     setItems(mainRequest.data?.items || []);
   }, [mainRequest.data]);
 
   const hasEmptyAnchor = useMemo(() => {
-    return page === 0 && totalRecords !== 0 && !!mainRequest.data?.items.find(item => !item.authority);
+    return (page === 0 && totalRecords !== 0 && !!mainRequest.data?.items.find((item) => !item.authority));
   }, [mainRequest.data]);
 
   const itemsWithPrevAndNextPages = useMemo(() => {

@@ -10,6 +10,9 @@
   "actions.menuSection.sortBy.relevance": "Relevance",
 
   "authority-record.edit": "Edit",
+  "authority-record.delete": "Delete",
+  "authority-record.delete.success": "MARC authority record <strong> {headingRef} </strong> has been deleted",
+  "authority-record.delete.error": "Unable to delete MARC authority record <strong> {headingRef} </strong>. Please try again. ",
 
   "label.search": "Search",
   "label.search.textArea": "Enter search query",
@@ -57,5 +60,8 @@
   "shortcut.copy": "Copy",
   "shortcut.cut": "Cut",
   "shortcut.paste": "Paste",
-  "shortcut.find": "Find"
+  "shortcut.find": "Find",
+
+  "notes.deleteNote": "Confirm deletion of authority record",
+  "notes.message": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>?"
 }

@@ -74,7 +74,7 @@ const useAuthorities = ({
   sortedColumn,
 }) => {
   const ky = useOkapiKy();
-  const [namespace] = useNamespace();
+  const [namespace] = useNamespace({ key: 'authorities' });
 
   const [offset, setOffset] = useState(0);
 
@@ -100,12 +100,12 @@ const useAuthorities = ({
   const cqlFilters = Object.entries(filters)
     .filter(([, filterValues]) => filterValues.length)
     .map(([filterName, filterValues]) => {
-      const filterData = filterConfig.find(filter => filter.name === filterName);
+      const filterData = filterConfig.find((filter) => filter.name === filterName);
 
       let finalFilterValues = filterValues;
 
       if (filterName === FILTERS.SUBJECT_HEADINGS) {
-        const filterValuesForSubjectHeadings = filterValues.map(name => subjectHeadingsMap[name]);
+        const filterValuesForSubjectHeadings = filterValues.map((name) => subjectHeadingsMap[name]);
 
         finalFilterValues = filterValuesForSubjectHeadings;
       }
@@ -140,7 +140,7 @@ const useAuthorities = ({
   } = useQuery(
     [namespace, searchParams],
     async () => {
-      if (!searchQuery && !Object.values(filters).find(value => value.length > 0)) {
+      if (!searchQuery && !Object.values(filters).find((value) => value.length > 0)) {
         return { authorities: [], totalRecords: 0 };
       }
 
