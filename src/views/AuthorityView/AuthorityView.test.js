@@ -289,12 +289,12 @@ describe('Given AuthorityView', () => {
         canEdit: canEditMock,
       });
 
-      const testDiv = getByTestId('authority-marc-view');
+      const testDiv = getByTestId('marc-view-pane');
 
       openEditShortcut(testDiv);
 
       expect(mockHistoryPush).toHaveBeenCalled();
-      expect(queryByTestId('authority-marc-view')).not.toBeNull();
+      expect(queryByTestId('marc-view-pane')).not.toBeNull();
     });
   });
 

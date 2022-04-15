@@ -9,6 +9,7 @@
 - [UIMARCAUTH-67](https://issues.folio.org/browse/UIMARCAUTH-67) Permission: Delete MARC authority record.
 - [UIMARCAUTH-88](https://issues.folio.org/browse/UIMARCAUTH-88) Browse authorities: Add Heading type facet.
 - [UIMARCAUTH-64](https://issues.folio.org/browse/UIMARCAUTH-64) Add DELETE action for individual MARC Authority records.
+- [UIMARCAUTH-122](https://issues.folio.org/browse/UIMARCAUTH-122) Correctly allow horizontal scrolling in details pane.
 
 ## [1.0.4](https://github.com/folio-org/ui-marc-authorities/tree/v1.0.4) (2022-04-08)
 
