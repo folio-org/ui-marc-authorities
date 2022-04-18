@@ -87,6 +87,8 @@ const SearchRoute = ({ children }) => {
       onHeaderClick={onHeaderClick}
       onSubmitSearch={onSubmitSearch}
       handleLoadMore={handleLoadMore}
+      sortOrder={sortOrder}
+      sortedColumn={sortedColumn}
     >
       {children}
     </AuthoritiesSearch>
