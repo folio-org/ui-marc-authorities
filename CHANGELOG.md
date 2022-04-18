@@ -9,7 +9,8 @@
 - [UIMARCAUTH-67](https://issues.folio.org/browse/UIMARCAUTH-67) Permission: Delete MARC authority record.
 - [UIMARCAUTH-88](https://issues.folio.org/browse/UIMARCAUTH-88) Browse authorities: Add Heading type facet.
 - [UIMARCAUTH-64](https://issues.folio.org/browse/UIMARCAUTH-64) Add DELETE action for individual MARC Authority records.
-- [UIMARCAUTH-119](https://issues.folio.org/browse/UIMARCAUTH-119) Browse "Enter" run search when placeholder "Select a browse option" active
+- [UIMARCAUTH-119](https://issues.folio.org/browse/UIMARCAUTH-119) Browse "Enter" run search when placeholder "Select a browse option" active.
+- [UIMARCAUTH-123](https://issues.folio.org/browse/UIMARCAUTH-123) Fix losing third pane after search and editing first result.
 
 ## [1.0.5](https://github.com/folio-org/ui-marc-authorities/tree/v1.0.5) (2022-04-15)
 
