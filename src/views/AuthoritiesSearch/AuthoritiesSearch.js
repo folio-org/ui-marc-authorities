@@ -1,7 +1,6 @@
 import {
   useState,
   useEffect,
-  useRef,
   useContext,
 } from 'react';
 import {
@@ -93,8 +92,6 @@ const AuthoritiesSearch = ({
   const history = useHistory();
   const location = useLocation();
 
-  const isInitialMount = useRef(true);
-
   const {
     searchQuery,
     searchIndex,
@@ -115,13 +112,6 @@ const AuthoritiesSearch = ({
   } = useColumnManager(prefix, columnMapping);
 
   const filterPaneVisibilityKey = getNamespace({ key: 'marcAuthoritiesFilterPaneVisibility' });
-
-  useEffect(() => {
-    if (isInitialMount.current) {
-      setIsGoingToBaseURL(false);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isGoingToBaseURL]);
 
   useEffect(() => {
     const selectedIndex = searchIndex !== searchableIndexesValues.KEYWORD ? searchIndex : '';

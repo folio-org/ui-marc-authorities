@@ -1,28 +1,30 @@
-import { useCallback } from 'react';
+import {
+  useCallback,
+  useContext,
+} from 'react';
 import {
   useHistory,
   useRouteMatch,
-  useLocation,
 } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 
 import { Pluggable } from '@folio/stripes/core';
 
+import { AuthoritiesSearchContext } from '../../context';
+
 const AuthorityQuickMarcEditRoute = () => {
   const history = useHistory();
-  const location = useLocation();
   const match = useRouteMatch();
 
-  const onClose = useCallback((recordRoute) => {
-    const recordId = recordRoute.split('/')[1];
+  const { setIsGoingToBaseURL } = useContext(AuthoritiesSearchContext);
 
+  const onClose = useCallback(() => {
     setTimeout(() => {
-      history.push({
-        pathname: `/marc-authorities/authorities/${recordId}`,
-        search: location.search,
-      });
+      setIsGoingToBaseURL(false);
+
+      history.goBack();
     }, 1000);
-  }, [location.search, history]);
+  }, [setIsGoingToBaseURL, history]);
 
   return (
     <Pluggable
