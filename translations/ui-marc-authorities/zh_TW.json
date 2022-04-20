@@ -50,5 +50,10 @@
     "search.subjectHeadings": "Thesaurus",
     "browseSelectPlaceholder": "Select a browse option",
     "search.excludeSeeFromAlso": "Exclude see from also",
-    "permission.authority-record.delete": "MARC Authority: Delete MARC authority record"
+    "permission.authority-record.delete": "MARC Authority: Delete MARC authority record",
+    "authority-record.delete": "Delete",
+    "authority-record.delete.success": "MARC authority record <strong> {headingRef} </strong> has been deleted",
+    "authority-record.delete.error": "Unable to delete MARC authority record <strong> {headingRef} </strong>. Please try again. ",
+    "notes.deleteNote": "Confirm deletion of authority record",
+    "notes.message": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>?"
 }
