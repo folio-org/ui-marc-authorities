@@ -3,15 +3,16 @@ import {
   render,
 } from '@testing-library/react';
 import AuthorityQuickMarcEditRoute from './AuthorityQuickMarcEditRoute';
+import Harness from '../../../test/jest/helpers/harness';
 
-const mockHistoryPush = jest.fn();
+const mockHistoryGoBack = jest.fn();
 
 jest.useFakeTimers();
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
   useHistory: () => ({
-    push: mockHistoryPush,
+    goBack: mockHistoryGoBack,
   }),
   useLocation: jest.fn().mockReturnValue({ search: '' }),
   useRouteMatch: jest.fn().mockReturnValue({ path: '' }),
@@ -32,7 +33,11 @@ jest.mock('@folio/stripes-core', () => ({
   ),
 }));
 
-const renderAuthorityQuickMarcEditRoute = () => render(<AuthorityQuickMarcEditRoute />);
+const renderAuthorityQuickMarcEditRoute = () => render(
+  <Harness>
+    <AuthorityQuickMarcEditRoute />
+  </Harness>,
+);
 
 describe('Given AuthorityQuickMarcEditRoute', () => {
   it('should render quick marc plugin', () => {
@@ -42,13 +47,13 @@ describe('Given AuthorityQuickMarcEditRoute', () => {
   });
 
   describe('when click on close button', () => {
-    it('should handle history.push', () => {
+    it('should handle history.goBack', () => {
       const { getByText } = renderAuthorityQuickMarcEditRoute();
 
       fireEvent.click(getByText('close'));
       jest.runAllTimers();
 
-      expect(mockHistoryPush).toHaveBeenCalled();
+      expect(mockHistoryGoBack).toHaveBeenCalled();
     });
   });
 });
