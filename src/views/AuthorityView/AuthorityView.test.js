@@ -30,10 +30,10 @@ jest.mock('@folio/stripes/components', () => ({
     <div>
       <span>Confirmation modal</span>
       <button type="button" onClick={onCancel}>
-          Cancel
+        Cancel
       </button>
       <button type="button" id="confirmButton" onClick={onConfirm}>
-          Delete
+        Delete
       </button>
     </div>
   ) : null)),

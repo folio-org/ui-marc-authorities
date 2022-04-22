@@ -12,7 +12,7 @@ jest.mock('../../views', () => ({
   AuthoritiesSearch:
   ({ children }) => (
     <>
-       AuthoritiesSearch
+      AuthoritiesSearch
       <button
         type="button"
         onSubmitSearch={mockOnSubmitSearch('advancedSearchRowState')}
