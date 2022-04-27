@@ -2,6 +2,7 @@ import {
   useMemo,
   useContext,
   useEffect,
+  useRef,
 } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
@@ -11,6 +12,11 @@ import {
   useHistory,
 } from 'react-router';
 import queryString from 'query-string';
+import { differenceBy } from 'lodash';
+import isEqual from 'lodash/isEqual';
+import isNil from 'lodash/isNil';
+import filter from 'lodash/filter';
+import pick from 'lodash/pick';
 
 import {
   MultiColumnList,
@@ -73,9 +79,10 @@ const SearchResultsList = ({
   const match = useRouteMatch();
   const location = useLocation();
   const history = useHistory();
+  const prevAuthorities = useRef();
 
   const { navigationSegmentValue } = useContext(AuthoritiesSearchContext);
-  const [selectedAuthorityRecordContext, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
+  const [selectedAuthorityRecord, setSelectedAuthorityRecord] = useContext(SelectedAuthorityRecordContext);
 
   const columnMapping = {
     [searchResultListColumns.AUTH_REF_TYPE]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.authRefType' }),
@@ -100,20 +107,62 @@ const SearchResultsList = ({
     return `${match.path}/authorities/${authority.id}?${newSearch}`;
   };
 
+  const redirectToAuthorityRecord = (authority) => {
+    history.push(formatAuthorityRecordLink(authority));
+  };
+
+  const areRecordsEqual = (a, b) => {
+    const comparedProperties = ['authRefType', 'headingRef', 'id', 'headingType'];
+
+    return isEqual(pick(a, comparedProperties), pick(b, comparedProperties));
+  };
+
+  const findRecordToHighlight = () => {
+    // first we have to check that there still exists a record that exactly matches what we have in context
+    // is it exists - that means that edited fields were not related to Heading/Ref
+    const exactMatchExists = !!authorities.find(authority => areRecordsEqual(authority, selectedAuthorityRecord));
+
+    if (exactMatchExists) {
+      return;
+    }
+
+    // if exact match doesn't exist we have to search for a record which Heading/Ref changed after editing
+    // this `difference` will remove all records whose Heading/Ref did not change
+    // and we're left with records whose Heading/Ref changed
+    const diff = differenceBy(filter(authorities, (val) => !isNil(val)), prevAuthorities.current, 'headingRef');
+
+    if (diff.length === 1) {
+      setSelectedAuthorityRecord(diff[0]);
+      redirectToAuthorityRecord(diff[0]);
+    }
+  };
+
   useEffect(() => {
+    if (totalResults !== 1) {
+      return;
+    }
+
     const firstAuthority = authorities[0];
     const isDetailViewNeedsToBeOpen = navigationSegmentValue === navigationSegments.browse
-      ? firstAuthority?.isAnchor && firstAuthority?.isExactMatch && totalResults === 1
-      : totalResults === 1;
+      ? firstAuthority?.isAnchor && firstAuthority?.isExactMatch
+      : true;
 
     if (isDetailViewNeedsToBeOpen) {
-      history.push(formatAuthorityRecordLink(firstAuthority));
+      redirectToAuthorityRecord(firstAuthority);
     }
-  }, [
-    totalResults,
-    authorities[0],
-    navigationSegmentValue,
-  ]);
+  }, [totalResults, authorities, navigationSegmentValue]);
+
+  useEffect(() => {
+    if (prevAuthorities.current === authorities) {
+      return;
+    }
+
+    findRecordToHighlight();
+  }, [authorities]);
+
+  useEffect(() => {
+    prevAuthorities.current = authorities;
+  }, [authorities]);
 
   const formatter = {
     authRefType: (authority) => {
@@ -148,7 +197,11 @@ const SearchResultsList = ({
   };
 
   const onRowClick = (e, row) => {
-    setSelectedAuthorityRecordContext(row);
+    setSelectedAuthorityRecord(row);
+  };
+
+  const checkIsRowSelected = ({ item, criteria }) => {
+    return areRecordsEqual(item, criteria);
   };
 
   const source = useMemo(
@@ -170,7 +223,8 @@ const SearchResultsList = ({
       id="authority-result-list"
       onNeedMoreData={onNeedMoreData}
       visibleColumns={visibleColumns}
-      selectedRow={selectedAuthorityRecordContext}
+      selectedRow={selectedAuthorityRecord}
+      isSelected={checkIsRowSelected}
       onRowClick={onRowClick}
       totalCount={totalResults}
       pagingType="prev-next"

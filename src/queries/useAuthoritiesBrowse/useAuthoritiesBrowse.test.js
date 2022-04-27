@@ -104,7 +104,7 @@ describe('Given useAuthoritiesBrowse', () => {
 
       await waitFor(() => !result.current.isLoading);
 
-      expect(mockGet).toHaveBeenCalledTimes(2);
+      expect(mockGet).toHaveBeenCalledTimes(1);
       expect(mockGet.mock.calls[0][0])
         // browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef<"authority_1_0" and headingType==("Personal Name")
         .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef%3C%22authority_1_0%22%20and%20headingType%3D%3D%28%22Personal%20Name%22%29');
@@ -139,7 +139,7 @@ describe('Given useAuthoritiesBrowse', () => {
 
       await waitFor(() => !result.current.isLoading);
 
-      expect(mockGet).toHaveBeenCalledTimes(2);
+      expect(mockGet).toHaveBeenCalledTimes(0);
     });
   });
 
