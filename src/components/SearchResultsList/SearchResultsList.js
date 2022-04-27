@@ -12,7 +12,7 @@ import {
   useHistory,
 } from 'react-router';
 import queryString from 'query-string';
-import { differenceBy } from 'lodash';
+import differenceBy from 'lodash/differenceBy';
 import isEqual from 'lodash/isEqual';
 import isNil from 'lodash/isNil';
 import filter from 'lodash/filter';
@@ -131,10 +131,23 @@ const SearchResultsList = ({
     // and we're left with records whose Heading/Ref changed
     const diff = differenceBy(filter(authorities, (val) => !isNil(val)), prevAuthorities.current, 'headingRef');
 
+    let updatedRecord = null;
+
     if (diff.length === 1) {
-      setSelectedAuthorityRecord(diff[0]);
-      redirectToAuthorityRecord(diff[0]);
+      // if only one record's Heading/Ref changed - that's the record we edited
+      updatedRecord = diff[0];
+    } else {
+      // however if there are more than one - we just have to find record with same id and hope that it's the one we edited
+      // unfortunately there's no 100% certain way to know which record was edited in this case
+      updatedRecord = diff.find(authority => authority.id === selectedAuthorityRecord?.id);
     }
+
+    if (!updatedRecord) {
+      return;
+    }
+
+    setSelectedAuthorityRecord(updatedRecord);
+    redirectToAuthorityRecord(updatedRecord);
   };
 
   useEffect(() => {
