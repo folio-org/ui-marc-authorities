@@ -1,8 +1,10 @@
-import { useCallback } from 'react';
+import {
+  useCallback,
+  useContext,
+} from 'react';
 import {
   useHistory,
   useRouteMatch,
-  useLocation,
 } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import { useQueryClient } from 'react-query';
@@ -14,23 +16,23 @@ import {
 
 import { QUERY_KEY_AUTHORITIES } from '../../constants';
 
+import { AuthoritiesSearchContext } from '../../context';
+
 const AuthorityQuickMarcEditRoute = () => {
   const history = useHistory();
-  const location = useLocation();
   const match = useRouteMatch();
   const queryClient = useQueryClient();
   const [namespace] = useNamespace({ key: QUERY_KEY_AUTHORITIES });
 
-  const onClose = useCallback(async (recordRoute) => {
-    const recordId = recordRoute.split('/')[1];
+  const { setIsGoingToBaseURL } = useContext(AuthoritiesSearchContext);
 
+  const onClose = useCallback(async () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
+
     queryClient.invalidateQueries(namespace);
-    history.push({
-      pathname: `/marc-authorities/authorities/${recordId}`,
-      search: location.search,
-    });
-  }, [location.search, history]);
+    setIsGoingToBaseURL(false);
+    history.goBack();
+  }, [setIsGoingToBaseURL, history]);
 
   return (
     <Pluggable

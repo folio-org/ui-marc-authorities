@@ -33,16 +33,16 @@ const buildRegularSearch = (searchIndex, query, filters) => {
     { interpolate: /%{([\s\S]+?)}/g },
   );
 
-  let cqlSearch = [];
+  const cqlSearch = [];
 
   if (query) {
-    if (searchIndex === searchableIndexesValues.IDENTIFIER) {
-      const compiledQuery = compileQuery({ query });
+    const queryParam = searchIndex === searchableIndexesValues.IDENTIFIER
+      ? query
+      : query.trim();
 
-      cqlSearch.push(compiledQuery);
-    } else {
-      cqlSearch = compileQuery({ query: query.trim() });
-    }
+    const compiledQuery = compileQuery({ query: queryParam });
+
+    cqlSearch.push(compiledQuery);
   }
 
   return cqlSearch;
@@ -115,7 +115,7 @@ const useAuthorities = ({
       return filterData.parse(finalFilterValues);
     });
 
-  let cqlQuery = [cqlSearch, ...cqlFilters].join(' and ');
+  let cqlQuery = [...cqlSearch, ...cqlFilters].join(' and ');
 
   if (sortOrder && sortedColumn) {
     cqlQuery += ` sortBy ${sortedColumn}/sort.${sortOrder}`;
