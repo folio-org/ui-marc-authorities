@@ -6,7 +6,7 @@ import {
   FilterAccordionHeader,
 } from '@folio/stripes/components';
 
-import { FacetOptionFormatter } from '../../components';
+import { FacetOptionFormatter } from '../../components/FacetOptionFormatter';
 
 const propTypes = {
   displayClearButton: PropTypes.bool.isRequired,
