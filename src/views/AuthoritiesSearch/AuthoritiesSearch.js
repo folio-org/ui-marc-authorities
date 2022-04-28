@@ -19,6 +19,8 @@ import {
 import queryString from 'query-string';
 
 import {
+  Button,
+  Icon,
   Pane,
   PaneMenu,
   MenuSection,
@@ -48,9 +50,11 @@ import {
   navigationSegments,
   searchableIndexesValues,
   searchResultListColumns,
+  sortableSearchResultListColumns,
   sortOrders,
 } from '../../constants';
 import { AuthorityShape } from '../../constants/shapes';
+import css from './AuthoritiesSearch.css';
 
 const prefix = 'authorities';
 
@@ -102,6 +106,7 @@ const AuthoritiesSearch = ({
   } = useContext(AuthoritiesSearchContext);
 
   const columnMapping = {
+    [searchResultListColumns.SELECT]: null,
     [searchResultListColumns.AUTH_REF_TYPE]: <FormattedMessage id="ui-marc-authorities.search-results-list.authRefType" />,
     [searchResultListColumns.HEADING_REF]: <FormattedMessage id="ui-marc-authorities.search-results-list.headingRef" />,
     [searchResultListColumns.HEADING_TYPE]: <FormattedMessage id="ui-marc-authorities.search-results-list.headingType" />,
@@ -159,6 +164,27 @@ const AuthoritiesSearch = ({
 
   const [storedFilterPaneVisibility] = useLocalStorage(filterPaneVisibilityKey, true);
   const [isFilterPaneVisible, setIsFilterPaneVisible] = useState(storedFilterPaneVisibility);
+  const [selectedRows, setSelectedRows] = useState({});
+
+  const selectedRowsCount = Object.keys(selectedRows).length;
+
+  const getNextSelectedRowsState = (prevSelectedRows, row) => {
+    const { id } = row;
+    const isRowSelected = !!prevSelectedRows[id];
+    const newSelectedRows = { ...prevSelectedRows };
+
+    if (isRowSelected) {
+      delete newSelectedRows[id];
+    } else {
+      newSelectedRows[id] = row;
+    }
+
+    return newSelectedRows;
+  };
+
+  const toggleRowSelection = (row) => {
+    setSelectedRows(prev => getNextSelectedRowsState(prev, row));
+  };
 
   const toggleFilterPane = () => {
     setIsFilterPaneVisible(!isFilterPaneVisible);
@@ -179,7 +205,7 @@ const AuthoritiesSearch = ({
     );
   };
 
-  const options = Object.values(searchResultListColumns).map((option) => ({
+  const options = Object.values(sortableSearchResultListColumns).map((option) => ({
     value: option,
     label: intl.formatMessage({ id: `ui-marc-authorities.search-results-list.${option}` }),
   }));
@@ -213,9 +239,32 @@ const AuthoritiesSearch = ({
           visibleColumns={visibleColumns}
           toggleColumn={toggleColumn}
           columnMapping={columnMapping}
-          excludeColumns={[searchResultListColumns.HEADING_REF]}
+          excludeColumns={[searchResultListColumns.SELECT, searchResultListColumns.HEADING_REF]}
         />
       </>
+    );
+  };
+
+  const renderPaneSub = () => {
+    return (
+      <span className={css.delimiter}>
+        <span>
+          {intl.formatMessage({
+            id: 'ui-marc-authorities.search-results-list.paneSub',
+          }, {
+            totalRecords,
+          })}
+        </span>
+        {
+          !!selectedRowsCount &&
+          <span>
+            <FormattedMessage
+              id="ui-inventory.instances.rows.recordsSelected"
+              values={{ count: selectedRowsCount }}
+            />
+          </span>
+        }
+      </span>
     );
   };
 
@@ -263,13 +312,7 @@ const AuthoritiesSearch = ({
         appIcon={<AppIcon app="marc-authorities" />}
         defaultWidth="fill"
         paneTitle={intl.formatMessage({ id: 'ui-marc-authorities.meta.title' })}
-        paneSub={(
-          intl.formatMessage({
-            id: 'ui-marc-authorities.search-results-list.paneSub',
-          }, {
-            totalRecords,
-          })
-        )}
+        paneSub={renderPaneSub()}
         firstMenu={renderResultsFirstMenu()}
         actionMenu={renderActionMenu}
         padContent={false}
@@ -283,11 +326,13 @@ const AuthoritiesSearch = ({
           loading={isLoading}
           loaded={isLoaded}
           visibleColumns={visibleColumns}
+          selectedRows={selectedRows}
           sortedColumn={sortedColumn}
           sortOrder={sortOrder}
           onHeaderClick={onHeaderClick}
           isFilterPaneVisible={isFilterPaneVisible}
           toggleFilterPane={toggleFilterPane}
+          toggleRowSelection={toggleRowSelection}
           hasFilters={!!filters.length}
           query={searchQuery}
           hidePageIndices={hidePageIndices}

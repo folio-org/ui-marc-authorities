@@ -296,6 +296,7 @@ describe('Given AuthoritiesSearch', () => {
         fireEvent.click(getByRole('checkbox', { name: 'ui-marc-authorities.search-results-list.headingType' }));
 
         expect(getByTestId('SearchResultsList')).toHaveAttribute('visibleColumns', JSON.stringify([
+          searchResultListColumns.SELECT,
           searchResultListColumns.AUTH_REF_TYPE,
           searchResultListColumns.HEADING_REF,
         ]));
