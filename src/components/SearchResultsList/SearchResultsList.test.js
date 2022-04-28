@@ -150,6 +150,7 @@ describe('Given SearchResultsList', () => {
           searchResultListColumns.HEADING_REF,
           searchResultListColumns.HEADING_TYPE,
         ],
+        selectedRows: {},
       });
 
       expect(queryByText('ui-marc-authorities.search-results-list.select')).toBeDefined();
