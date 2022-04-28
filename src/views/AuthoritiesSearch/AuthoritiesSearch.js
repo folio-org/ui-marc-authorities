@@ -19,8 +19,6 @@ import {
 import queryString from 'query-string';
 
 import {
-  Button,
-  Icon,
   Pane,
   PaneMenu,
   MenuSection,
