@@ -7,7 +7,6 @@ import {
   useLocation,
   useHistory,
 } from 'react-router';
-
 import differenceBy from 'lodash/differenceBy';
 import isNil from 'lodash/isNil';
 import filter from 'lodash/filter';
@@ -48,9 +47,13 @@ export const useHighlightEditedRecord = (authorities) => {
       // if only one record's Heading/Ref changed - that's the record we edited
       updatedRecord = diff[0];
     } else {
-      // however if there are more than one - we just have to find record with same id and authRefType and hope that it's the one we edited
+      // however if there are more than one - we just have to find record with same id, authRefType and headingType and hope that it's the one we edited
       // unfortunately there's no 100% certain way to know which record was edited in this case
-      updatedRecord = diff.find(authority => authority.id === selectedAuthorityRecord?.id && authority.authRefType === selectedAuthorityRecord?.authRefType);
+      updatedRecord = diff.find(authority => {
+        return authority.id === selectedAuthorityRecord?.id
+          && authority.authRefType === selectedAuthorityRecord?.authRefType
+          && authority.headingType === selectedAuthorityRecord?.headingType;
+      });
     }
 
     return updatedRecord;
