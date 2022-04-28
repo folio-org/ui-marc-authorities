@@ -199,4 +199,6 @@ describe('Given SearchResultsList', () => {
       );
     });
   });
+
+  describe('when ')
 });

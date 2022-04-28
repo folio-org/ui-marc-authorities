@@ -23,16 +23,21 @@ const AuthorityQuickMarcEditRoute = () => {
   const match = useRouteMatch();
   const queryClient = useQueryClient();
   const [namespace] = useNamespace({ key: QUERY_KEY_AUTHORITIES });
-
   const { setIsGoingToBaseURL } = useContext(AuthoritiesSearchContext);
 
-  const onClose = useCallback(async () => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+  const onClose = useCallback(async (recordRoute) => {
+    const recordId = recordRoute.split('/')[1];
 
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    
     queryClient.invalidateQueries(namespace);
     setIsGoingToBaseURL(false);
-    history.goBack();
-  }, [setIsGoingToBaseURL, history]);
+    history.push({
+      pathname: `/marc-authorities/authorities/${recordId}`,
+      search: location.search,
+      state: { editSuccessful: true },
+    });
+  }, [setIsGoingToBaseURL, location.search, history]);
 
   return (
     <Pluggable

@@ -2,7 +2,6 @@ import {
   useMemo,
   useContext,
   useEffect,
-  useRef,
 } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
@@ -12,11 +11,6 @@ import {
   useHistory,
 } from 'react-router';
 import queryString from 'query-string';
-import differenceBy from 'lodash/differenceBy';
-import isEqual from 'lodash/isEqual';
-import isNil from 'lodash/isNil';
-import filter from 'lodash/filter';
-import pick from 'lodash/pick';
 
 import {
   MultiColumnList,
@@ -29,12 +23,14 @@ import {
   AuthoritiesSearchContext,
   SelectedAuthorityRecordContext,
 } from '../../context';
-
-import { AuthorityShape } from '../../constants/shapes';
+import { areRecordsEqual } from './utils';
+import { useHighlightEditedRecord } from './useHighlightEditedRecord';
 import {
+  AUTH_REF_TYPES,
   navigationSegments,
   searchResultListColumns,
 } from '../../constants';
+import { AuthorityShape } from '../../constants/shapes';
 
 import css from './SearchResultsList.css';
 
@@ -55,8 +51,6 @@ const propTypes = {
   totalResults: PropTypes.number,
   visibleColumns: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
-
-const authorizedTypes = ['Authorized'];
 
 const SearchResultsList = ({
   authorities,
@@ -79,10 +73,11 @@ const SearchResultsList = ({
   const match = useRouteMatch();
   const location = useLocation();
   const history = useHistory();
-  const prevAuthorities = useRef();
 
   const { navigationSegmentValue } = useContext(AuthoritiesSearchContext);
   const [selectedAuthorityRecord, setSelectedAuthorityRecord] = useContext(SelectedAuthorityRecordContext);
+
+  const recordToHighlight = useHighlightEditedRecord(authorities);
 
   const columnMapping = {
     [searchResultListColumns.AUTH_REF_TYPE]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.authRefType' }),
@@ -111,45 +106,6 @@ const SearchResultsList = ({
     history.push(formatAuthorityRecordLink(authority));
   };
 
-  const areRecordsEqual = (a, b) => {
-    const comparedProperties = ['authRefType', 'headingRef', 'id', 'headingType'];
-
-    return isEqual(pick(a, comparedProperties), pick(b, comparedProperties));
-  };
-
-  const findRecordToHighlight = () => {
-    // first we have to check that there still exists a record that exactly matches what we have in context
-    // is it exists - that means that edited fields were not related to Heading/Ref
-    const exactMatchExists = !!authorities.find(authority => areRecordsEqual(authority, selectedAuthorityRecord));
-
-    if (exactMatchExists) {
-      return;
-    }
-
-    // if exact match doesn't exist we have to search for a record which Heading/Ref changed after editing
-    // this `difference` will remove all records whose Heading/Ref did not change
-    // and we're left with records whose Heading/Ref changed
-    const diff = differenceBy(filter(authorities, (val) => !isNil(val)), prevAuthorities.current, 'headingRef');
-
-    let updatedRecord = null;
-
-    if (diff.length === 1) {
-      // if only one record's Heading/Ref changed - that's the record we edited
-      updatedRecord = diff[0];
-    } else {
-      // however if there are more than one - we just have to find record with same id and hope that it's the one we edited
-      // unfortunately there's no 100% certain way to know which record was edited in this case
-      updatedRecord = diff.find(authority => authority.id === selectedAuthorityRecord?.id);
-    }
-
-    if (!updatedRecord) {
-      return;
-    }
-
-    setSelectedAuthorityRecord(updatedRecord);
-    redirectToAuthorityRecord(updatedRecord);
-  };
-
   useEffect(() => {
     if (totalResults !== 1) {
       return;
@@ -166,20 +122,17 @@ const SearchResultsList = ({
   }, [totalResults, authorities, navigationSegmentValue]);
 
   useEffect(() => {
-    if (prevAuthorities.current === authorities) {
+    if (!recordToHighlight) {
       return;
     }
 
-    findRecordToHighlight();
-  }, [authorities]);
-
-  useEffect(() => {
-    prevAuthorities.current = authorities;
-  }, [authorities]);
+    setSelectedAuthorityRecord(recordToHighlight);
+    redirectToAuthorityRecord(recordToHighlight);
+  }, [recordToHighlight]);
 
   const formatter = {
     authRefType: (authority) => {
-      return authorizedTypes.includes(authority.authRefType)
+      return authority.authRefType === AUTH_REF_TYPES.AUTHORIZED
         ? <b>{authority.authRefType}</b>
         : authority.authRefType;
     },
