@@ -219,6 +219,12 @@ const AuthoritiesSearch = ({
   const renderActionMenu = () => {
     return (
       <>
+        <MenuSection
+          data-testid="menu-section-actions"
+          label={intl.formatMessage({ id: 'ui-marc-authorities.actions' })}
+        >
+          actions...
+        </MenuSection>
         {navigationSegmentValue !== navigationSegments.browse &&
           <MenuSection
             data-testid="menu-section-sort-by"
