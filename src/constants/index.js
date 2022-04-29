@@ -7,6 +7,7 @@ export * from './references';
 export * from './advancedSearchIndexes';
 export * from './searchableIndexesMap';
 export * from './searchResultsListColumns';
+export * from './sortableSearchResultListColumns';
 export * from './filterConfig';
 export * from './sortOrders';
 export * from './navigationSegments';
