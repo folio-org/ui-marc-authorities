@@ -141,6 +141,25 @@ describe('Given SearchResultsList', () => {
     });
   });
 
+  describe('when show columns checkbox for "Select" is checked', () => {
+    it('should display 4 columns', () => {
+      const { queryByText } = renderSearchResultsList({
+        visibleColumns: [
+          searchResultListColumns.SELECT,
+          searchResultListColumns.AUTH_REF_TYPE,
+          searchResultListColumns.HEADING_REF,
+          searchResultListColumns.HEADING_TYPE,
+        ],
+        selectedRows: {},
+      });
+
+      expect(queryByText('ui-marc-authorities.search-results-list.select')).toBeDefined();
+      expect(queryByText('ui-marc-authorities.search-results-list.authRefType')).toBeDefined();
+      expect(queryByText('ui-marc-authorities.search-results-list.headingRef')).toBeDefined();
+      expect(queryByText('ui-marc-authorities.search-results-list.headingType')).toBeDefined();
+    });
+  });
+
   describe('when record is an anchor', () => {
     it('should display an exclamation-circle icon', () => {
       const { container } = renderSearchResultsList({

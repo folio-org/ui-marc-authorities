@@ -40,6 +40,24 @@ describe('Given useSortColumnManager', () => {
       expect(result.current.sortedColumn).toBe(searchResultListColumns.AUTH_REF_TYPE);
     });
 
+    describe('when given sortableColumns option parameter', () => {
+      it('should return sortOrder and selected sortedColumn for sortableColumns only', () => {
+        const sortableColumns = [
+          searchResultListColumns.AUTH_REF_TYPE,
+          searchResultListColumns.HEADING_REF,
+          searchResultListColumns.HEADING_TYPE,
+        ];
+        const { result } = renderHook(() => useSortColumnManager({ sortableColumns }));
+
+        act(() => {
+          result.current.onHeaderClick('', { name: searchResultListColumns.SELECT });
+        });
+
+        expect(result.current.sortOrder).toBe('');
+        expect(result.current.sortedColumn).toBe('');
+      });
+    });
+
     describe('when handle "onHeaderClick" twice on the same column', () => {
       it('should return descending sortOrder and selected sortedColumn', () => {
         const { result } = renderHook(() => useSortColumnManager());

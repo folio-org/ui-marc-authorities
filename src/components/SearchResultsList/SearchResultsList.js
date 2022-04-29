@@ -13,6 +13,7 @@ import {
 import queryString from 'query-string';
 
 import {
+  Checkbox,
   MultiColumnList,
   TextLink,
   Icon,
@@ -43,9 +44,11 @@ const propTypes = {
   onNeedMoreData: PropTypes.func.isRequired,
   pageSize: PropTypes.number.isRequired,
   query: PropTypes.string.isRequired,
+  selectedRows: PropTypes.object.isRequired,
   sortedColumn: PropTypes.string.isRequired,
   sortOrder: PropTypes.string.isRequired,
   toggleFilterPane: PropTypes.func.isRequired,
+  toggleRowSelection: PropTypes.func.isRequired,
   totalResults: PropTypes.number,
   visibleColumns: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
@@ -60,12 +63,14 @@ const SearchResultsList = ({
   pageSize,
   onNeedMoreData,
   visibleColumns,
+  selectedRows,
   sortedColumn,
   sortOrder,
   onHeaderClick,
   isFilterPaneVisible,
   query,
   toggleFilterPane,
+  toggleRowSelection,
   hasFilters,
   hidePageIndices,
 }) => {
@@ -78,12 +83,14 @@ const SearchResultsList = ({
   const [selectedAuthorityRecordContext, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
   const columnMapping = {
+    [searchResultListColumns.SELECT]: null,
     [searchResultListColumns.AUTH_REF_TYPE]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.authRefType' }),
     [searchResultListColumns.HEADING_REF]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.headingRef' }),
     [searchResultListColumns.HEADING_TYPE]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.headingType' }),
   };
 
   const columnWidths = {
+    [searchResultListColumns.SELECT]: { min: 30, max: 30 },
     [searchResultListColumns.AUTH_REF_TYPE]: { min: 200 },
     [searchResultListColumns.HEADING_REF]: { min: 400 },
     [searchResultListColumns.HEADING_TYPE]: { min: 200 },
@@ -116,6 +123,23 @@ const SearchResultsList = ({
   ]);
 
   const formatter = {
+    // eslint-disable-next-line react/prop-types
+    select: ({ id, ...rowData }) => id && (
+      <div // eslint-disable-line jsx-a11y/click-events-have-key-events
+        tabIndex="0"
+        role="button"
+        onClick={e => e.stopPropagation()}
+      >
+        <Checkbox
+          checked={Boolean(selectedRows[id])}
+          aria-label={intl.formatMessage({ id: 'ui-inventory.instances.rows.select' })}
+          onChange={() => toggleRowSelection({
+            id,
+            ...rowData,
+          })}
+        />
+      </div>
+    ),
     authRefType: (authority) => {
       return authorizedTypes.includes(authority.authRefType)
         ? <b>{authority.authRefType}</b>

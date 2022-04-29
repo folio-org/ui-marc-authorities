@@ -8,7 +8,10 @@ import {
 } from '../../context';
 import { useAuthorities } from '../../queries';
 import { useSortColumnManager } from '../../hooks';
-import { searchableIndexesValues } from '../../constants';
+import {
+  searchableIndexesValues,
+  sortableSearchResultListColumns,
+} from '../../constants';
 
 const propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
@@ -36,7 +39,7 @@ const SearchRoute = ({ children }) => {
     sortedColumn,
     onChangeSortOption,
     onHeaderClick,
-  } = useSortColumnManager();
+  } = useSortColumnManager({ sortableColumns: sortableSearchResultListColumns });
 
   const isAdvancedSearch = searchIndex === searchableIndexesValues.ADVANCED_SEARCH;
 

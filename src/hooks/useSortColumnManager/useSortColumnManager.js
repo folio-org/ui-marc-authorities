@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 
 import { sortOrders } from '../../constants';
 
-const useSortColumnManager = () => {
+const useSortColumnManager = (options) => {
   const location = useLocation();
   const [sortedColumn, setSortedColumn] = useState('');
   const [sortOrder, setSortOrder] = useState('');
@@ -16,6 +16,8 @@ const useSortColumnManager = () => {
     const { name } = metadata;
 
     let newOrder;
+
+    if (options?.sortableColumns && !options?.sortableColumns.includes(name)) return;
 
     if (name !== sortedColumn) {
       setSortedColumn(name);
