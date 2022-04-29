@@ -3,7 +3,7 @@ import { noop } from 'lodash';
 
 import { exportCsv } from '@folio/stripes/util';
 
-const isTestEnv = process.env.NODE_ENV === 'test';
+const isTestEnv = () => process.env.NODE_ENV === 'test';
 
 const useReportGenerator = (fileNamePrefix) => {
   const parse = (records) => {
