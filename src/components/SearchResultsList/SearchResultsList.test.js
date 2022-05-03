@@ -22,13 +22,17 @@ jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
   useHistory: () => ({
     push: mockHistoryPush,
+    replace: jest.fn(),
   }),
-  useLocation: jest.fn().mockReturnValue({ search: '' }),
+  useLocation: jest.fn().mockReturnValue({
+    search: '',
+    state: { editSuccessful: true },
+  }),
   useRouteMatch: jest.fn().mockReturnValue({ path: '' }),
 }));
 
-const renderSearchResultsList = (props = {}) => render(
-  <Harness selectedRecordCtxValue={[null, mockSetSelectedAuthorityRecordContext]}>
+const getSearchResultsList = (props = {}, selectedRecord = null) => (
+  <Harness selectedRecordCtxValue={[selectedRecord, mockSetSelectedAuthorityRecordContext]}>
     <SearchResultsList
       authorities={authorities}
       visibleColumns={[
@@ -50,11 +54,16 @@ const renderSearchResultsList = (props = {}) => render(
       onHeaderClick={jest.fn()}
       {...props}
     />
-  </Harness>,
+  </Harness>
 );
+
+const renderSearchResultsList = (...params) => render(getSearchResultsList(...params));
 
 describe('Given SearchResultsList', () => {
   mockOffsetSize(500, 500);
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
   it('should render MCL component', async () => {
     const { getAllByText } = renderSearchResultsList();
@@ -199,10 +208,6 @@ describe('Given SearchResultsList', () => {
   });
 
   describe('when there is only one record', () => {
-    afterAll(() => {
-      jest.resetAllMocks();
-    });
-
     it('should call history.replace with specific params', () => {
       renderSearchResultsList({
         authorities: [{
@@ -216,6 +221,52 @@ describe('Given SearchResultsList', () => {
       expect(mockHistoryPush).toHaveBeenCalledWith(
         '/authorities/cbc03a36-2870-4184-9777-0c44d07edfe4?authRefType=Authorized&headingRef=Springfield%20%28Colo.%29',
       );
+    });
+  });
+
+  describe('when there is an updated record to highlight', () => {
+    it('should redirect to that updated record', () => {
+      const { rerender } = renderSearchResultsList({
+        authorities: [{
+          id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
+          headingType: 'Geographic Name',
+          authRefType: 'Authorized',
+          headingRef: 'Springfield (Colo.)',
+        }, {
+          id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
+          headingType: 'Geographic Name',
+          authRefType: 'Reference',
+          headingRef: 'Springfield (Colo.) Reference',
+        }],
+        totalResults: 2,
+      }, {
+        id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
+        headingType: 'Geographic Name',
+        authRefType: 'Reference',
+        headingRef: 'Springfield',
+      });
+
+      rerender(getSearchResultsList({
+        authorities: [{
+          id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
+          headingType: 'Geographic Name',
+          authRefType: 'Authorized',
+          headingRef: 'Springfield (Colo.)',
+        }, {
+          id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
+          headingType: 'Geographic Name',
+          authRefType: 'Reference',
+          headingRef: 'SpringfieldEDITED',
+        }],
+        totalResults: 2,
+      }, {
+        id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
+        headingType: 'Geographic Name',
+        authRefType: 'Reference',
+        headingRef: 'Springfield',
+      }));
+
+      expect(mockHistoryPush).toHaveBeenCalledWith('/authorities/cbc03a36-2870-4184-9777-0c44d07edfe4?authRefType=Reference&headingRef=SpringfieldEDITED');
     });
   });
 });

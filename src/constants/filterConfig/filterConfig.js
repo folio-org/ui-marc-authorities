@@ -1,5 +1,5 @@
 import { buildDateRangeQuery } from '../../utils';
-import { authRefTypes } from '../authRefTypes';
+import { AUTH_REF_TYPES } from '../authRefTypes';
 import { REFERENCES_VALUES_MAP } from '../references';
 
 export const FILTERS = {
@@ -31,13 +31,13 @@ export const filterConfig = [
     name: FILTERS.REFERENCES,
     parse: (values) => {
       const excludedAuthRefTypes = {
-        [REFERENCES_VALUES_MAP.excludeSeeFrom]: [authRefTypes.REFERENCE],
-        [REFERENCES_VALUES_MAP.excludeSeeFromAlso]: [authRefTypes.AUTH_REF],
+        [REFERENCES_VALUES_MAP.excludeSeeFrom]: [AUTH_REF_TYPES.REFERENCE],
+        [REFERENCES_VALUES_MAP.excludeSeeFromAlso]: [AUTH_REF_TYPES.AUTH_REF],
       };
 
       const resultAuthRefTypes = values.reduce((acc, curr) => (
         acc.filter(authRefType => !(excludedAuthRefTypes[curr] || []).includes(authRefType))
-      ), Object.values(authRefTypes));
+      ), Object.values(AUTH_REF_TYPES));
 
       const valuesInQuotes = resultAuthRefTypes.map(value => `"${value}"`).join(' or ');
 
