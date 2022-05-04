@@ -1,8 +1,8 @@
 {
     "meta.title": "MARC规范",
     "permission.app.enabled": "UI：已启用MARC规范模块",
-    "permission.authority-record.view": "查看MARC规范记录",
-    "permission.authority-record.edit": "编辑MARC规范记录",
+    "permission.authority-record.view": "MARC规范：查看MARC规范记录",
+    "permission.authority-record.edit": "MARC规范：编辑MARC规范记录",
     "search-results-list.authRefType": "授权/参考",
     "search-results-list.headingRef": "标头/参考",
     "search-results-list.headingType": "标头类型",
@@ -50,10 +50,10 @@
     "search.subjectHeadings": "叙词表",
     "browseSelectPlaceholder": "选择浏览选项",
     "search.excludeSeeFromAlso": "排除也见自",
-    "permission.authority-record.delete": "MARC Authority: Delete MARC authority record",
-    "authority-record.delete": "Delete",
-    "authority-record.delete.success": "MARC authority record <strong> {headingRef} </strong> has been deleted",
-    "authority-record.delete.error": "Unable to delete MARC authority record <strong> {headingRef} </strong>. Please try again. ",
-    "notes.deleteNote": "Confirm deletion of authority record",
-    "notes.message": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>?"
+    "permission.authority-record.delete": "MARC规范：删除MARC规范记录",
+    "authority-record.delete": "删除",
+    "authority-record.delete.success": "MARC规范记录<strong> {headingRef} </strong>已删除",
+    "authority-record.delete.error": "无法删除MARC规范记录<strong> {headingRef} </strong> 。请再试一次。",
+    "notes.deleteNote": "确认删除规范记录",
+    "notes.message": "确定要永久删除规范记录： <strong> {headingRef} </strong>吗？"
 }
