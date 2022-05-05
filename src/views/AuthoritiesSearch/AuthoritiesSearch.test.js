@@ -202,7 +202,37 @@ describe('Given AuthoritiesSearch', () => {
     });
   });
 
+  describe('selected rows count', () => {
+    it('count of selected rows should not be displayed untill no any selected rows', () => {
+      const { queryByText } = renderAuthoritiesSearch();
+
+      expect(queryByText('ui-inventory.instances.rows.recordsSelected')).toBeNull();
+    });
+  });
+
   describe('when click on "Actions" button', () => {
+    it('should display "Actions" section', () => {
+      const {
+        getByRole,
+        getByText,
+      } = renderAuthoritiesSearch();
+
+      fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+
+      expect(getByText('ui-marc-authorities.actions')).toBeDefined();
+    });
+
+    it('should display disabled "Export selected records (CSV/MARC)" button', () => {
+      const { getByRole } = renderAuthoritiesSearch();
+
+      fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+
+      const exportRecordsButton = getByRole('button', { name: 'ui-marc-authorities.export-selected-records' });
+
+      expect(exportRecordsButton).toBeDefined();
+      expect(exportRecordsButton).toBeDisabled();
+    });
+
     it('should display "Sort by" section', () => {
       const {
         getByRole,

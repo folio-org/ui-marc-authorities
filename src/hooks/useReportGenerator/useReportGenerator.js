@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { noop } from 'lodash';
+import noop from 'lodash/noop';
 
 import { exportCsv } from '@folio/stripes/util';
 
