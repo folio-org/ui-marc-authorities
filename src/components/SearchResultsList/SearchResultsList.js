@@ -71,6 +71,8 @@ const SearchResultsList = ({
   query,
   toggleFilterPane,
   toggleRowSelection,
+  toggleSelectAll,
+  selectAll,
   hasFilters,
   hidePageIndices,
 }) => {
@@ -83,7 +85,7 @@ const SearchResultsList = ({
   const [selectedAuthorityRecordContext, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
   const columnMapping = {
-    [searchResultListColumns.SELECT]: null,
+    [searchResultListColumns.SELECT]: <Checkbox onChange={()=>toggleSelectAll()} checked={selectAll} title={selectAll ? "Unselect all records on this page" : "Select all records on this page"} />,
     [searchResultListColumns.AUTH_REF_TYPE]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.authRefType' }),
     [searchResultListColumns.HEADING_REF]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.headingRef' }),
     [searchResultListColumns.HEADING_TYPE]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.headingType' }),

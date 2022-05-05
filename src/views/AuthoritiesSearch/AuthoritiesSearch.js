@@ -2,6 +2,7 @@ import {
   useState,
   useEffect,
   useContext,
+  useMemo,
 } from 'react';
 import {
   useHistory,
@@ -163,15 +164,23 @@ const AuthoritiesSearch = ({
   const [storedFilterPaneVisibility] = useLocalStorage(filterPaneVisibilityKey, true);
   const [isFilterPaneVisible, setIsFilterPaneVisible] = useState(storedFilterPaneVisibility);
   const [selectedRows, setSelectedRows] = useState({});
+  const [selectAll, setSelectAll] = useState(false);
 
-  const selectedRowsCount = Object.keys(selectedRows).length;
+  const selectedRowsCount = useMemo(()=>(Object.keys(selectedRows).length),[selectedRows]);
+  const uniqueAuthoritiesCount = useMemo(() => {
+    // determine count of unique ids in authorities array.
+    // this is needed to check or uncheck "Select all" checkbox in header when all rows are explicitly
+    // checked or unchecked.
+    const uniqAuthorities = new Set(authorities.map(auth => auth.id));
+    return uniqAuthorities.size;
+  }, [authorities]);
 
-  const getNextSelectedRowsState = (prevSelectedRows, row) => {
+  const getNextSelectedRowsState = (row) => {
     const { id } = row;
-    const isRowSelected = !!prevSelectedRows[id];
-    const newSelectedRows = { ...prevSelectedRows };
+    const isRowSelected = !!selectedRows[id];
+    const newSelectedRows = { ...selectedRows };
 
-    if (isRowSelected) {
+    if (isRowSelected || selectAll) {
       delete newSelectedRows[id];
     } else {
       newSelectedRows[id] = row;
@@ -180,9 +189,32 @@ const AuthoritiesSearch = ({
     return newSelectedRows;
   };
 
+  const getSelectAllRowsState = () => {
+    if(!selectAll) {
+      const newSelectedRows = {};
+      authorities.map((item) => {
+        newSelectedRows[item.id] = item;
+      });
+      return newSelectedRows;
+    }
+    else
+      return {};
+  }
+
   const toggleRowSelection = (row) => {
-    setSelectedRows(prev => getNextSelectedRowsState(prev, row));
+    const newRows = getNextSelectedRowsState(row);
+    setSelectedRows(newRows);
+    if(
+      (Object.keys(newRows).length === uniqueAuthoritiesCount && !selectAll) ||
+      (Object.keys(newRows).length === 0 && selectAll)
+    )
+      setSelectAll(prev => !prev);
   };
+
+  const toggleSelectAll = () => {
+    setSelectedRows(getSelectAllRowsState());
+    setSelectAll(prev => !prev);
+  }
 
   const toggleFilterPane = () => {
     setIsFilterPaneVisible(!isFilterPaneVisible);
@@ -331,6 +363,8 @@ const AuthoritiesSearch = ({
           isFilterPaneVisible={isFilterPaneVisible}
           toggleFilterPane={toggleFilterPane}
           toggleRowSelection={toggleRowSelection}
+          toggleSelectAll={toggleSelectAll}
+          selectAll={selectAll}
           hasFilters={!!filters.length}
           query={searchQuery}
           hidePageIndices={hidePageIndices}
