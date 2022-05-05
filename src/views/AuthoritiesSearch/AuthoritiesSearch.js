@@ -167,7 +167,7 @@ const AuthoritiesSearch = ({
   const [selectedRows, setSelectedRows] = useState({});
   const [selectAll, setSelectAll] = useState(false);
 
-  const selectedRowsCount = useMemo(()=>(Object.keys(selectedRows).length),[selectedRows]);
+  const selectedRowsCount = useMemo(() => (Object.keys(selectedRows).length), [selectedRows]);
   const uniqueAuthoritiesCount = useMemo(() => {
     // determine count of unique ids in authorities array.
     // this is needed to check or uncheck "Select all" checkbox in header when all rows are explicitly
@@ -178,6 +178,7 @@ const AuthoritiesSearch = ({
         filteredAuthorities.push(auth.id);
     });
     const uniqAuthorities = new Set(filteredAuthorities);
+    
     return uniqAuthorities.size;
   }, [authorities]);
 
