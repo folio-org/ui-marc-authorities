@@ -172,7 +172,12 @@ const AuthoritiesSearch = ({
     // determine count of unique ids in authorities array.
     // this is needed to check or uncheck "Select all" checkbox in header when all rows are explicitly
     // checked or unchecked.
-    const uniqAuthorities = new Set(authorities.map(auth => auth.id));
+    const filteredAuthorities = [];
+    authorities.forEach(auth => {
+      if(auth.id)
+        filteredAuthorities.push(auth.id);
+    });
+    const uniqAuthorities = new Set(filteredAuthorities);
     return uniqAuthorities.size;
   }, [authorities]);
 
@@ -193,8 +198,9 @@ const AuthoritiesSearch = ({
   const getSelectAllRowsState = () => {
     if(!selectAll) {
       const newSelectedRows = {};
-      authorities.map((item) => {
-        newSelectedRows[item.id] = item;
+      authorities.forEach((item) => {
+        if(item.id)
+          newSelectedRows[item.id] = item;
       });
       return newSelectedRows;
     }
