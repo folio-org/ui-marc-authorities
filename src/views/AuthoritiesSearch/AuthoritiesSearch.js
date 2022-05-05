@@ -150,6 +150,7 @@ const AuthoritiesSearch = ({
     history.push({
       pathname,
       search: searchString,
+      state: location.state,
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [

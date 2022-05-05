@@ -114,9 +114,14 @@ const AuthorityView = ({
   }
 
   const redirectToQuickMarcEditPage = () => {
+    const searchParams = new URLSearchParams(location.search);
+
+    searchParams.delete('relatedRecordVersion');
+    searchParams.append('relatedRecordVersion', marcSource.data.generation);
+
     history.push({
       pathname: `/marc-authorities/quick-marc/edit-authority/${authority.data.id}`,
-      search: location.search,
+      search: searchParams.toString(),
     });
   };
 

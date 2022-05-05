@@ -1,6 +1,7 @@
 import {
   useState,
   useEffect,
+  useMemo,
 } from 'react';
 import { useQuery } from 'react-query';
 import queryString from 'query-string';
@@ -18,6 +19,7 @@ import {
   searchableIndexesValues,
   subjectHeadingsMap,
   FILTERS,
+  QUERY_KEY_AUTHORITIES,
 } from '../../constants';
 
 const AUTHORITIES_API = 'search/authorities';
@@ -74,7 +76,7 @@ const useAuthorities = ({
   sortedColumn,
 }) => {
   const ky = useOkapiKy();
-  const [namespace] = useNamespace({ key: 'authorities' });
+  const [namespace] = useNamespace({ key: QUERY_KEY_AUTHORITIES });
 
   const [offset, setOffset] = useState(0);
 
@@ -125,14 +127,6 @@ const useAuthorities = ({
     offset,
   };
 
-  const fillOffsetWithNull = (authorities = []) => {
-    const authoritiesArray = new Array(offset);
-
-    authoritiesArray.splice(offset, 0, ...authorities);
-
-    return authoritiesArray;
-  };
-
   const {
     isFetching,
     isFetched,
@@ -149,13 +143,20 @@ const useAuthorities = ({
       return ky.get(path).json();
     }, {
       keepPreviousData: true,
-      cacheTime: 0,
     },
   );
 
+  const authoritiesWithNull = useMemo(() => {
+    const authoritiesArray = new Array(offset);
+
+    authoritiesArray.splice(offset, 0, ...data?.authorities || []);
+
+    return authoritiesArray;
+  }, [data?.authorities]);
+
   return ({
     totalRecords: data?.totalRecords || 0,
-    authorities: fillOffsetWithNull(data?.authorities),
+    authorities: authoritiesWithNull,
     isLoading: isFetching,
     isLoaded: isFetched,
     query: cqlQuery,

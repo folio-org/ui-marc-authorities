@@ -1,10 +1,19 @@
-import { useMutation, useQueryClient } from 'react-query';
-import { useOkapiKy, useNamespace } from '@folio/stripes/core';
+import {
+  useMutation,
+  useQueryClient,
+} from 'react-query';
+
+import {
+  useOkapiKy,
+  useNamespace,
+} from '@folio/stripes/core';
+
+import { QUERY_KEY_AUTHORITIES } from '../../constants';
 
 const useAuthorityDelete = ({ onError, onSuccess, ...restOptions }) => {
   const ky = useOkapiKy();
   const queryClient = useQueryClient();
-  const [namespace] = useNamespace({ key: 'authorities' });
+  const [namespace] = useNamespace({ key: QUERY_KEY_AUTHORITIES });
 
   const customOptions = {
     onError,

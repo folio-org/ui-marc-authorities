@@ -16,10 +16,8 @@ import {
   HotKeys,
 } from '@folio/stripes/components';
 
-import {
-  SearchTextareaField,
-  FilterNavigation,
-} from '../index';
+import { SearchTextareaField } from '../SearchTextareaField';
+import { FilterNavigation } from '../FilterNavigation';
 import {
   AuthoritiesSearchContext,
   SelectedAuthorityRecordContext,
