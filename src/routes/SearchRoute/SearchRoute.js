@@ -34,12 +34,17 @@ const SearchRoute = ({ children }) => {
   } = useContext(AuthoritiesSearchContext);
   const [, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
+  const sortableColumns = [
+    searchResultListColumns.AUTH_REF_TYPE,
+    searchResultListColumns.HEADING_REF,
+    searchResultListColumns.HEADING_TYPE,
+  ];
   const {
     sortOrder,
     sortedColumn,
     onChangeSortOption,
     onHeaderClick,
-  } = useSortColumnManager({ sortableColumns: sortableSearchResultListColumns });
+  } = useSortColumnManager(sortableColumns);
 
   const isAdvancedSearch = searchIndex === searchableIndexesValues.ADVANCED_SEARCH;
 
