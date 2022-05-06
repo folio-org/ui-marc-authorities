@@ -89,7 +89,13 @@ const SearchResultsList = ({
   const recordToHighlight = useHighlightEditedRecord(authorities);
 
   const columnMapping = {
-    [searchResultListColumns.SELECT]: <Checkbox onChange={() => toggleSelectAll()} checked={selectAll} title={selectAll ? 'Unselect all records on this page' : 'Select all records on this page'} />,
+    [searchResultListColumns.SELECT]: (
+      <Checkbox 
+        onChange={() => toggleSelectAll()}
+        checked={selectAll}
+        title={selectAll ? intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.selectAll' }) : intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.unselectAll' })}
+      />
+    ),
     [searchResultListColumns.AUTH_REF_TYPE]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.authRefType' }),
     [searchResultListColumns.HEADING_REF]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.headingRef' }),
     [searchResultListColumns.HEADING_TYPE]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.headingType' }),
