@@ -10,7 +10,7 @@ import { useAuthorities } from '../../queries';
 import { useSortColumnManager } from '../../hooks';
 import {
   searchableIndexesValues,
-  sortableSearchResultListColumns,
+  searchResultListColumns,
 } from '../../constants';
 
 const propTypes = {
