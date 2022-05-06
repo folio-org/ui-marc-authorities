@@ -175,6 +175,10 @@ const AuthoritiesSearch = ({
   const selectedRowsIds = Object.keys(selectedRows);
   const selectedRowsCount = selectedRowsIds.length;
 
+  const resetSelectedRows = () => {
+    setSelectedRows({});
+  };
+
   const { exportRecords } = useAuthorityExport({
     onError: () => {
       const message = (
@@ -196,7 +200,7 @@ const AuthoritiesSearch = ({
       );
 
       callout.sendCallout({ type: 'success', message });
-      setSelectedRows({});
+      resetSelectedRows();
     },
   });
 
@@ -340,6 +344,7 @@ const AuthoritiesSearch = ({
             isAuthoritiesLoading={isLoading}
             onSubmitSearch={onSubmitSearch}
             onChangeSortOption={onChangeSortOption}
+            resetSelectedRows={resetSelectedRows}
           />
 
           {

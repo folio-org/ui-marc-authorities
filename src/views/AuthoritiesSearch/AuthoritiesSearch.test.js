@@ -347,7 +347,7 @@ describe('Given AuthoritiesSearch', () => {
           fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.export-selected-records' }));
 
           expect(queryByText('ui-marc-authorities.export.success')).toBeDefined();
-          await waitFor(() => queryByText('ui-inventory.instances.rows.recordsSelected').toBeNull);
+          await waitFor(() => expect(queryByText('ui-inventory.instances.rows.recordsSelected')).toBeNull);
         });
 
         it('should be able to show error toast message', () => {
