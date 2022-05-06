@@ -36,12 +36,14 @@ const propTypes = {
   isAuthoritiesLoading: PropTypes.bool.isRequired,
   onChangeSortOption: PropTypes.func.isRequired,
   onSubmitSearch: PropTypes.func.isRequired,
+  resetSelectedRows: PropTypes.func.isRequired,
 };
 
 const AuthoritiesSearchForm = ({
   isAuthoritiesLoading,
   onSubmitSearch,
   onChangeSortOption,
+  resetSelectedRows,
 }) => {
   const intl = useIntl();
 
@@ -67,6 +69,7 @@ const AuthoritiesSearchForm = ({
 
   const handleResetAll = () => {
     resetAll();
+    resetSelectedRows();
     setSelectedAuthorityRecordContext(null);
     if (onChangeSortOption) {
       onChangeSortOption('');

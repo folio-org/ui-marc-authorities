@@ -26,6 +26,7 @@ jest.mock('react-router', () => ({
 const mockOnChangeSortOption = jest.fn();
 const mockOnSubmitSearch = jest.fn();
 const mockSetSelectedAuthorityRecordContext = jest.fn();
+const mockResetSelectedRows = jest.fn();
 
 const renderAuthoritiesSearchForm = (props = {}) => render(
   <Harness selectedRecordCtxValue={[null, mockSetSelectedAuthorityRecordContext]}>
@@ -33,6 +34,7 @@ const renderAuthoritiesSearchForm = (props = {}) => render(
       onChangeSortOption={mockOnChangeSortOption}
       onSubmitSearch={mockOnSubmitSearch}
       isAuthoritiesLoading={false}
+      resetSelectedRows={mockResetSelectedRows}
       {...props}
     />
   </Harness>,
