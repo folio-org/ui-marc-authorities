@@ -10,6 +10,7 @@ import mockMapValues from 'lodash/mapValues';
 import { runAxeTest } from '@folio/stripes-testing';
 
 import AuthoritiesSearch from './AuthoritiesSearch';
+import authorities from '../../../mocks/authorities';
 
 import '../../../test/jest/__mock__';
 import Harness from '../../../test/jest/helpers/harness';
@@ -20,6 +21,7 @@ import {
 import { useSortColumnManager } from '../../hooks';
 
 const mockHistoryPush = jest.fn();
+const mockedExportRecords = jest.fn();
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
@@ -40,12 +42,22 @@ jest.mock('../../queries/useAuthorities', () => ({
   useAuthorities: () => ({ authorities: [] }),
 }));
 
+jest.mock('../../queries/useAuthorityExport', () => ({
+  useAuthorityExport: () => ({ exportRecords: mockedExportRecords }),
+}));
+
 jest.mock('../../components', () => ({
   ...jest.requireActual('../../components'),
   SearchResultsList: (props) => {
     const mapedProps = mockMapValues(props, (prop) => ((typeof prop === 'object') ? JSON.stringify(prop) : prop));
 
-    return (<div data-testid="SearchResultsList" {...mapedProps} />);
+    return (
+      <div data-testid="SearchResultsList" {...mapedProps}>
+        {props.authorities.map((authority) => (
+          <button type="button" data-testid="row-toggle-button" onClick={() => props.toggleRowSelection({ ...authority })}>row-toggle-button</button>
+        ))}
+      </div>
+    );
   },
   SearchFilters: () => <div>SearchFilters</div>,
   AuthoritiesSearchForm: () => <div>AuthoritiesSearchForm</div>,
@@ -128,6 +140,12 @@ describe('Given AuthoritiesSearch', () => {
     expect(getByTestId('SearchResultsList')).toHaveAttribute('sortedColumn', 'headingRef');
   });
 
+  it('should not display count of selected rows on panesub untill no rows are selected', () => {
+    const { queryByText } = renderAuthoritiesSearch();
+
+    expect(queryByText('ui-inventory.instances.rows.recordsSelected')).toBeNull();
+  });
+
   describe('when click on toggle filter pane button', () => {
     describe('when filters were shown', () => {
       it('should hide filters', async () => {
@@ -202,9 +220,26 @@ describe('Given AuthoritiesSearch', () => {
     });
   });
 
-  describe('selected rows count', () => {
-    it('count of selected rows should not be displayed untill no any selected rows', () => {
-      const { queryByText } = renderAuthoritiesSearch();
+  describe('when click on row checkbox', () => {
+    it('should select record', () => {
+      const { getAllByTestId, queryByText } = renderAuthoritiesSearch({ authorities });
+
+      const rowToggleButtons = getAllByTestId('row-toggle-button');
+
+      fireEvent.click(rowToggleButtons[0]);
+
+      expect(queryByText('ui-inventory.instances.rows.recordsSelected')).toBeDefined();
+    });
+  });
+
+  describe('when double click on the same row checkbox', () => {
+    it('should unselect record', () => {
+      const { getAllByTestId, queryByText } = renderAuthoritiesSearch({ authorities });
+
+      const rowToggleButtons = getAllByTestId('row-toggle-button');
+
+      fireEvent.click(rowToggleButtons[0]);
+      fireEvent.click(rowToggleButtons[0]);
 
       expect(queryByText('ui-inventory.instances.rows.recordsSelected')).toBeNull();
     });
@@ -282,6 +317,36 @@ describe('Given AuthoritiesSearch', () => {
 
       expect(getByRole('checkbox', { name: 'ui-marc-authorities.search-results-list.authRefType' })).toBeChecked();
       expect(getByRole('checkbox', { name: 'ui-marc-authorities.search-results-list.headingType' })).toBeChecked();
+    });
+
+    describe('when there are selected rows', () => {
+      it('"Export selected records (CSV/MARC)" button should be enabled', () => {
+        const { getAllByTestId, getByRole } = renderAuthoritiesSearch({ authorities });
+
+        fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+
+        const rowToggleButtons = getAllByTestId('row-toggle-button');
+
+        fireEvent.click(rowToggleButtons[0]);
+
+        const exportRecordsButton = getByRole('button', { name: 'ui-marc-authorities.export-selected-records' });
+
+        expect(exportRecordsButton).toBeDefined();
+        expect(exportRecordsButton).toBeEnabled();
+      });
+
+      it('should be able to export records', () => {
+        const { getAllByTestId, getByRole } = renderAuthoritiesSearch({ authorities });
+
+        const rowToggleButtons = getAllByTestId('row-toggle-button');
+
+        fireEvent.click(rowToggleButtons[0]);
+
+        fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+        fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.export-selected-records' }));
+
+        expect(mockedExportRecords).toHaveBeenCalled();
+      });
     });
 
     describe('when change sorted column throught selection to "Type of heading"', () => {
