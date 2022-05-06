@@ -21,7 +21,6 @@ import {
 import { useSortColumnManager } from '../../hooks';
 
 const mockHistoryPush = jest.fn();
-const mockedExportRecords = jest.fn();
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
@@ -36,14 +35,11 @@ jest.mock('react-router', () => ({
 jest.mock('../../hooks', () => ({
   ...jest.requireActual('../../hooks'),
   useSortColumnManager: jest.fn(),
+  useReportGenerator: jest.fn(),
 }));
 
 jest.mock('../../queries/useAuthorities', () => ({
   useAuthorities: () => ({ authorities: [] }),
-}));
-
-jest.mock('../../queries/useAuthorityExport', () => ({
-  useAuthorityExport: () => ({ exportRecords: mockedExportRecords }),
 }));
 
 jest.mock('../../components', () => ({
@@ -335,17 +331,41 @@ describe('Given AuthoritiesSearch', () => {
         expect(exportRecordsButton).toBeEnabled();
       });
 
-      it('should be able to export records', () => {
-        const { getAllByTestId, getByRole } = renderAuthoritiesSearch({ authorities });
+      describe('when click on "Export selected records (CSV/MARC)" button', () => {
+        it('should be able to show success toast message and unselect records', async () => {
+          jest.mock('../../queries/useAuthorityExport', () => ({
+            useAuthorityExport: ({ onSuccess }) => ({ exportRecords: (data) => onSuccess(data) }),
+          }));
 
-        const rowToggleButtons = getAllByTestId('row-toggle-button');
+          const { getAllByTestId, getByRole, queryByText } = renderAuthoritiesSearch({ authorities });
 
-        fireEvent.click(rowToggleButtons[0]);
+          const rowToggleButtons = getAllByTestId('row-toggle-button');
 
-        fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
-        fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.export-selected-records' }));
+          fireEvent.click(rowToggleButtons[0]);
 
-        expect(mockedExportRecords).toHaveBeenCalled();
+          fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+          fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.export-selected-records' }));
+
+          expect(queryByText('ui-marc-authorities.export.success')).toBeDefined();
+          await waitFor(() => queryByText('ui-inventory.instances.rows.recordsSelected').toBeNull);
+        });
+
+        it('should be able to show error toast message', () => {
+          jest.mock('../../queries/useAuthorityExport', () => ({
+            useAuthorityExport: ({ onError }) => ({ exportRecords: () => onError() }),
+          }));
+
+          const { getAllByTestId, getByRole, queryByText } = renderAuthoritiesSearch({ authorities });
+
+          const rowToggleButtons = getAllByTestId('row-toggle-button');
+
+          fireEvent.click(rowToggleButtons[0]);
+
+          fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+          fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.export-selected-records' }));
+
+          expect(queryByText('ui-marc-authorities.export.failure')).toBeDefined();
+        });
       });
     });
 
