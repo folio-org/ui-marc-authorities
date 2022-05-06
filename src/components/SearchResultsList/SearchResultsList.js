@@ -24,12 +24,14 @@ import {
   AuthoritiesSearchContext,
   SelectedAuthorityRecordContext,
 } from '../../context';
-
-import { AuthorityShape } from '../../constants/shapes';
+import { areRecordsEqual } from './utils';
+import { useHighlightEditedRecord } from './useHighlightEditedRecord';
 import {
+  AUTH_REF_TYPES,
   navigationSegments,
   searchResultListColumns,
 } from '../../constants';
+import { AuthorityShape } from '../../constants/shapes';
 
 import css from './SearchResultsList.css';
 
@@ -52,8 +54,6 @@ const propTypes = {
   totalResults: PropTypes.number,
   visibleColumns: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
-
-const authorizedTypes = ['Authorized'];
 
 const SearchResultsList = ({
   authorities,
@@ -80,7 +80,9 @@ const SearchResultsList = ({
   const history = useHistory();
 
   const { navigationSegmentValue } = useContext(AuthoritiesSearchContext);
-  const [selectedAuthorityRecordContext, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
+  const [selectedAuthorityRecord, setSelectedAuthorityRecord] = useContext(SelectedAuthorityRecordContext);
+
+  const recordToHighlight = useHighlightEditedRecord(authorities);
 
   const columnMapping = {
     [searchResultListColumns.SELECT]: null,
@@ -107,20 +109,33 @@ const SearchResultsList = ({
     return `${match.path}/authorities/${authority.id}?${newSearch}`;
   };
 
+  const redirectToAuthorityRecord = (authority) => {
+    history.push(formatAuthorityRecordLink(authority));
+  };
+
   useEffect(() => {
+    if (totalResults !== 1) {
+      return;
+    }
+
     const firstAuthority = authorities[0];
     const isDetailViewNeedsToBeOpen = navigationSegmentValue === navigationSegments.browse
-      ? firstAuthority?.isAnchor && firstAuthority?.isExactMatch && totalResults === 1
-      : totalResults === 1;
+      ? firstAuthority?.isAnchor && firstAuthority?.isExactMatch
+      : true;
 
     if (isDetailViewNeedsToBeOpen) {
-      history.push(formatAuthorityRecordLink(firstAuthority));
+      redirectToAuthorityRecord(firstAuthority);
     }
-  }, [
-    totalResults,
-    authorities[0],
-    navigationSegmentValue,
-  ]);
+  }, [totalResults, authorities, navigationSegmentValue]);
+
+  useEffect(() => {
+    if (!recordToHighlight) {
+      return;
+    }
+
+    setSelectedAuthorityRecord(recordToHighlight);
+    redirectToAuthorityRecord(recordToHighlight);
+  }, [recordToHighlight]);
 
   const formatter = {
     // eslint-disable-next-line react/prop-types
@@ -141,7 +156,7 @@ const SearchResultsList = ({
       </div>
     ),
     authRefType: (authority) => {
-      return authorizedTypes.includes(authority.authRefType)
+      return authority.authRefType === AUTH_REF_TYPES.AUTHORIZED
         ? <b>{authority.authRefType}</b>
         : authority.authRefType;
     },
@@ -172,7 +187,11 @@ const SearchResultsList = ({
   };
 
   const onRowClick = (e, row) => {
-    setSelectedAuthorityRecordContext(row);
+    setSelectedAuthorityRecord(row);
+  };
+
+  const checkIsRowSelected = ({ item, criteria }) => {
+    return areRecordsEqual(item, criteria);
   };
 
   const source = useMemo(
@@ -194,7 +213,8 @@ const SearchResultsList = ({
       id="authority-result-list"
       onNeedMoreData={onNeedMoreData}
       visibleColumns={visibleColumns}
-      selectedRow={selectedAuthorityRecordContext}
+      selectedRow={selectedAuthorityRecord}
+      isSelected={checkIsRowSelected}
       onRowClick={onRowClick}
       totalCount={totalResults}
       pagingType="prev-next"

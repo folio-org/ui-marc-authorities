@@ -14,7 +14,10 @@ import {
 } from '@folio/stripes/core';
 
 import { buildHeadingTypeQuery } from '../utils';
-import { filterConfig } from '../../constants';
+import {
+  filterConfig,
+  QUERY_KEY_AUTHORITIES,
+} from '../../constants';
 
 const AUTHORITIES_BROWSE_API = 'browse/authorities';
 
@@ -27,7 +30,7 @@ const useBrowseRequest = ({
   precedingRecordsCount,
 }) => {
   const ky = useOkapiKy();
-  const [namespace] = useNamespace({ key: 'authorities' });
+  const [namespace] = useNamespace({ key: QUERY_KEY_AUTHORITIES });
 
   const cqlSearch = startingSearch ? [startingSearch] : [];
 
@@ -68,7 +71,6 @@ const useBrowseRequest = ({
     }, {
       keepPreviousData: true,
       staleTime: 5 * 60 * 1000,
-      cacheTime: 0,
     },
   );
 
@@ -149,7 +151,6 @@ const useAuthoritiesBrowse = ({
 }) => {
   const [currentQuery, setCurrentQuery] = useState(searchQuery);
   const [currentIndex, setCurrentIndex] = useState(searchIndex);
-  const [items, setItems] = useState([]);
   const {
     page,
     setPage,
@@ -195,21 +196,19 @@ const useAuthoritiesBrowse = ({
   const allRequestsFetched = mainRequest.isFetched && prevPageRequest.isFetched && nextPageRequest.isFetched;
   const allRequestsFetching = mainRequest.isFetching || prevPageRequest.isFetching || nextPageRequest.isFetching;
 
-  useEffect(() => {
-    // remove item with an empty headingRef which appears
-    // when apply Type of heading facet without search query
-    remove(mainRequest.data?.items, (item) => !item.authority && !item.headingRef);
-
-    setItems(mainRequest.data?.items || []);
-  }, [mainRequest.data]);
-
   const hasEmptyAnchor = useMemo(() => {
-    return (page === 0 && totalRecords !== 0 && !!mainRequest.data?.items.find((item) => !item.authority));
-  }, [mainRequest.data]);
+    return (page === 0 && mainRequest.data?.totalRecords !== 0 && !!mainRequest.data?.items.find((item) => !item.authority));
+  }, [mainRequest.data, page]);
 
   const itemsWithPrevAndNextPages = useMemo(() => {
+    const authorities = [...(mainRequest.data?.items || [])];
+
+    // remove item with an empty headingRef which appears
+    // when apply Type of heading facet without search query
+    remove(authorities, (item) => !item.authority && !item.headingRef);
+
     if (allRequestsFetching) {
-      return [];
+      return authorities;
     }
 
     let totalItemsLength = mainRequest.data?.items?.length + prevPageRequest.data?.items?.length + nextPageRequest.data?.items?.length;
@@ -220,13 +219,13 @@ const useAuthoritiesBrowse = ({
 
     const newItems = new Array(totalItemsLength);
 
-    newItems.splice(prevPageRequest.data?.items?.length, items.length, ...items);
+    newItems.splice(prevPageRequest.data?.items?.length, authorities.length, ...authorities);
 
     return newItems;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [items, allRequestsFetching]);
+  }, [mainRequest.data, allRequestsFetching]);
 
-  const handleLoadMore = (askAmount, index, firstIndex, direction) => {
+  const handleLoadMore = (_askAmount, _index, _firstIndex, direction) => {
     if (direction === 'prev') { // clicked Prev
       setPage(page - 1, mainRequest.firstResult);
     } else { // clicked Next
