@@ -44,7 +44,7 @@ const SearchRoute = ({ children }) => {
     sortedColumn,
     onChangeSortOption,
     onHeaderClick,
-  } = useSortColumnManager(sortableColumns);
+  } = useSortColumnManager({ sortableColumns });
 
   const isAdvancedSearch = searchIndex === searchableIndexesValues.ADVANCED_SEARCH;
 
