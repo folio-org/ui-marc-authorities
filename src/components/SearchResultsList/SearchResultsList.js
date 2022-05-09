@@ -46,7 +46,7 @@ const propTypes = {
   onNeedMoreData: PropTypes.func.isRequired,
   pageSize: PropTypes.number.isRequired,
   query: PropTypes.string.isRequired,
-  selectAll: PropTypes.func.isRequired,
+  selectAll: PropTypes.bool.isRequired,
   selectedRows: PropTypes.object.isRequired,
   sortedColumn: PropTypes.string.isRequired,
   sortOrder: PropTypes.string.isRequired,
@@ -92,6 +92,7 @@ const SearchResultsList = ({
     [searchResultListColumns.SELECT]: (
       <Checkbox
         onChange={() => toggleSelectAll()}
+        name="select all authorities"
         checked={selectAll}
         title={selectAll ? intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.selectAll' }) : intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.unselectAll' })}
       />

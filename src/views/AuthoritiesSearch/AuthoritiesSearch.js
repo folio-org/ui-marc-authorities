@@ -231,14 +231,12 @@ const AuthoritiesSearch = ({
 
   const getSelectAllRowsState = () => {
     if (!selectAll) {
-      const newSelectedRows = authorities.filter(item => !!item.id).reduce((acc, item) => {
+      return authorities.filter(item => !!item.id).reduce((acc, item) => {
         return {
           ...acc,
           [item.id]: item,
         };
       }, {});
-
-      return newSelectedRows;
     } else {
       return {};
     }

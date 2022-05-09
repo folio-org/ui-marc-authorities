@@ -49,6 +49,7 @@ jest.mock('../../components', () => ({
 
     return (
       <div data-testid="SearchResultsList" {...mapedProps}>
+        <button type="button" data-testid="select-all-rows-toggle-button" onClick={() => props.toggleSelectAll()}>select-all-rows-toggle-button</button>
         {props.authorities.map((authority) => (
           <button type="button" data-testid="row-toggle-button" onClick={() => props.toggleRowSelection({ ...authority })}>row-toggle-button</button>
         ))}
@@ -416,6 +417,18 @@ describe('Given AuthoritiesSearch', () => {
           searchResultListColumns.HEADING_REF,
         ]));
       });
+    });
+  });
+
+  describe('should select all rows when header checkbox is clicked', () => {
+    it('should select all rows', () => {
+      const { getByTestId, queryByText } = renderAuthoritiesSearch({ authorities });
+
+      const selectAllRowsToggleButton = getByTestId('select-all-rows-toggle-button');
+
+      fireEvent.click(selectAllRowsToggleButton);
+
+      expect(queryByText('ui-inventory.instances.rows.recordsSelected')).toBeDefined();
     });
   });
 });
