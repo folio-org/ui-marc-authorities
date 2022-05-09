@@ -173,9 +173,8 @@ const AuthoritiesSearch = ({
     // this is needed to check or uncheck "Select all" checkbox in header when all rows are explicitly
     // checked or unchecked.
     const filteredAuthorities = authorities.map(authority => authority.id).filter(id => !!id);
-    const uniqueAuthoritiesCount = new Set(filteredAuthorities).size;
-    
-    return uniqueAuthoritiesCount;
+
+    return new Set(filteredAuthorities).size;
   }, [authorities]);
 
   const getNextSelectedRowsState = (row) => {
@@ -193,27 +192,30 @@ const AuthoritiesSearch = ({
   };
 
   const getSelectAllRowsState = () => {
-    if(!selectAll) {
+    if (!selectAll) {
       const newSelectedRows = authorities.filter(item => !!item.id).reduce((acc, item) => {
         return {
           ...acc,
           [item.id]: item,
         };
       }, {});
+
       return newSelectedRows;
-    }
-    else
+    } else {
       return {};
-  }
+    }
+  };
 
   const toggleRowSelection = (row) => {
     const newRows = getNextSelectedRowsState(row);
+
     setSelectedRows(newRows);
-    if(
+    if (
       (Object.keys(newRows).length === uniqueAuthoritiesCount && !selectAll) ||
       (Object.keys(newRows).length === 0 && selectAll)
-    )
+    ) {
       setSelectAll(prev => !prev);
+    }
   };
 
   const toggleSelectAll = () => {

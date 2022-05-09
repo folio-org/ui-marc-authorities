@@ -46,13 +46,13 @@ const propTypes = {
   onNeedMoreData: PropTypes.func.isRequired,
   pageSize: PropTypes.number.isRequired,
   query: PropTypes.string.isRequired,
+  selectAll: PropTypes.func.isRequired,
   selectedRows: PropTypes.object.isRequired,
   sortedColumn: PropTypes.string.isRequired,
   sortOrder: PropTypes.string.isRequired,
   toggleFilterPane: PropTypes.func.isRequired,
   toggleRowSelection: PropTypes.func.isRequired,
   toggleSelectAll: PropTypes.func.isRequired,
-  selectAll: PropTypes.func.isRequired,
   totalResults: PropTypes.number,
   visibleColumns: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
@@ -90,7 +90,7 @@ const SearchResultsList = ({
 
   const columnMapping = {
     [searchResultListColumns.SELECT]: (
-      <Checkbox 
+      <Checkbox
         onChange={() => toggleSelectAll()}
         checked={selectAll}
         title={selectAll ? intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.selectAll' }) : intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.unselectAll' })}
