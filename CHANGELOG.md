@@ -17,6 +17,7 @@
 - [UIMARCAUTH-132](https://issues.folio.org/browse/UIMARCAUTH-132) Apply to MARC Authority: Optimistic locking: display error message to inform user about OL.
 - [UIMARCAUTH-118](https://issues.folio.org/browse/UIMARCAUTH-118) Highlighting the row with "Heading/reference" value at result list after editing of record
 - [UIMARCAUTH-121](https://issues.folio.org/browse/UIMARCAUTH-121) Export .csv file to load to Data export to create the .mrc file of selected authority records
+- [UIMARCAUTH-135](https://issues.folio.org/browse/UIMARCAUTH-135) The search result list doesn't sort by clicking on the title of column
 
 ## [1.0.5](https://github.com/folio-org/ui-marc-authorities/tree/v1.0.5) (2022-04-15)
 

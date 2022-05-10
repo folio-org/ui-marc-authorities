@@ -74,7 +74,7 @@ const propTypes = {
   pageSize: PropTypes.number.isRequired,
   query: PropTypes.string,
   sortedColumn: PropTypes.string.isRequired,
-  sortOrder: PropTypes.oneOf([sortOrders.ASC, sortOrders.DESC]).isRequired,
+  sortOrder: PropTypes.oneOf([sortOrders.ASC, sortOrders.DES]).isRequired,
   totalRecords: PropTypes.number.isRequired,
 };
 
