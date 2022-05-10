@@ -94,7 +94,10 @@ const SearchResultsList = ({
         onChange={() => toggleSelectAll()}
         name="select all authorities"
         checked={selectAll}
-        title={selectAll ? intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.selectAll' }) : intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.unselectAll' })}
+        title={selectAll
+          ? intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.selectAll' })
+          : intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.unselectAll' })
+        }
       />
     ),
     [searchResultListColumns.AUTH_REF_TYPE]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.authRefType' }),
