@@ -96,12 +96,8 @@ const SearchResultsList = ({
         checked={selectAll}
         title={selectAll
           ? intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.selectAll' })
-<<<<<<< HEAD
           : intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.unselectAll' })
         }
-=======
-          : intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.unselectAll' })}
->>>>>>> dc3669629302226938976a59367f56be8d919974
       />
     ),
     [searchResultListColumns.AUTH_REF_TYPE]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.authRefType' }),
