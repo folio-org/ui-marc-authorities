@@ -55,5 +55,9 @@
     "authority-record.delete.success": "MARC规范记录<strong> {headingRef} </strong>已删除",
     "authority-record.delete.error": "无法删除MARC规范记录<strong> {headingRef} </strong> 。请再试一次。",
     "notes.deleteNote": "确认删除规范记录",
-    "notes.message": "确定要永久删除规范记录： <strong> {headingRef} </strong>吗？"
+    "notes.message": "确定要永久删除规范记录： <strong> {headingRef} </strong>吗？",
+    "export-selected-records": "Export selected records (CSV/MARC)",
+    "export.success": "{exportJobName} is complete. The .csv downloaded contains selected records' UIIDs. To retrieve the .mrc file, please go to the Data export app.",
+    "export.failure": "Unable to complete request, please try again.",
+    "actions": "Actions"
 }
