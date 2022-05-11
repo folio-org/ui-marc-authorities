@@ -11,9 +11,7 @@ import {
   checkScope,
 } from '@folio/stripes/components';
 
-import {
-  AppContextMenu,
-} from '@folio/stripes/core';
+import { AppContextMenu } from '@folio/stripes/core';
 
 import commands from '../../commands';
 
@@ -46,7 +44,7 @@ const MarcAuthoritiesAppContext = () => {
   return (
     <>
       <AppContextMenu>
-        {(handleToggle) => (
+        {handleToggle => (
           <NavList>
             <NavListSection>
               <NavListItem
@@ -57,7 +55,7 @@ const MarcAuthoritiesAppContext = () => {
                 <FormattedMessage id="ui-marc-authorities.navigation.app" />
               </NavListItem>
               <NavListItem
-                onClick={(e) => shortcutsModalToggle(e, handleToggle)}
+                onClick={e => shortcutsModalToggle(e, handleToggle)}
               >
                 <FormattedMessage id="ui-marc-authorities.navigation.keyboardShortcuts" />
               </NavListItem>

@@ -5,7 +5,7 @@ export const getSelectedFacets = (filterAccordions) => {
 };
 
 export const updateFilters = ({ name, values, setFilters }) => {
-  setFilters(currentFilters => {
+  setFilters((currentFilters) => {
     return {
       ...currentFilters,
       [name]: values,

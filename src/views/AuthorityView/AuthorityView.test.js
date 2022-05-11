@@ -26,17 +26,19 @@ jest.mock('react-router', () => ({
 jest.mock('@folio/stripes/components', () => ({
   ...jest.requireActual('@folio/stripes/components'),
   LoadingView: () => (<div>Loading view</div>),
-  ConfirmationModal: jest.fn(({ open, onCancel, onConfirm }) => (open ? (
-    <div>
-      <span>Confirmation modal</span>
-      <button type="button" onClick={onCancel}>
-        Cancel
-      </button>
-      <button type="button" id="confirmButton" onClick={onConfirm}>
-        Delete
-      </button>
-    </div>
-  ) : null)),
+  ConfirmationModal: jest.fn(({ open, onCancel, onConfirm }) => (open
+    ? (
+      <div>
+        <span>Confirmation modal</span>
+        <button type="button" onClick={onCancel}>
+          Cancel
+        </button>
+        <button type="button" id="confirmButton" onClick={onConfirm}>
+          Delete
+        </button>
+      </div>
+    )
+    : null)),
 }));
 
 const marcSource = {

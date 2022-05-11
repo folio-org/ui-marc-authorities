@@ -4,9 +4,13 @@ import {
 } from 'react';
 import PropTypes from 'prop-types';
 
-export const SelectedAuthorityRecordContext = createContext();
+const SelectedAuthorityRecordContext = createContext();
 
-export const SelectedAuthorityRecordContextProvider = ({ children }) => {
+const propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+const SelectedAuthorityRecordContextProvider = ({ children }) => {
   const [selectedAuthorityRecordContext, setSelectedAuthorityRecordContext] = useState(null);
 
   return (
@@ -16,6 +20,9 @@ export const SelectedAuthorityRecordContextProvider = ({ children }) => {
   );
 };
 
-SelectedAuthorityRecordContextProvider.propTypes = {
-  children: PropTypes.node,
+SelectedAuthorityRecordContextProvider.propTypes = propTypes;
+
+export {
+  SelectedAuthorityRecordContext,
+  SelectedAuthorityRecordContextProvider,
 };

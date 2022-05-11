@@ -13,7 +13,8 @@
         "react/prop-types": "off",
         "jsx-a11y/control-has-associated-label": "off",
         "react/jsx-fragments": "off",
-        "func-names": "off"
+        "func-names": "off",
+        "react/no-multi-comp": "off"
       }
     }, {
       "files": ["test/jest/**/*"],
@@ -38,13 +39,34 @@
     "jsx-quotes": ["error", "prefer-double"],
     "no-console": "warn",
     "react/forbid-prop-types": "off",
-    "react/destructuring-assignment": "off",
     "react/sort-prop-types": ["error"],
     "no-unused-vars": ["error", { "ignoreRestSiblings": true }],
     "padding-line-between-statements": ["error",
       { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*"},
       { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"]}
-    ]
+    ],
+
+    "no-else-return": ["error", { "allowElseIf": false }],
+    "no-nested-ternary": "error",
+    "prefer-arrow-callback": "error",
+    "arrow-parens": [2, "as-needed", { "requireForBlockBody": true }],
+    "multiline-ternary": ["error", "always-multiline"],
+    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }],
+    "react/destructuring-assignment": [2, "always"],
+    "react/function-component-definition": [2, {
+      "namedComponents": "arrow-function",
+    }],
+    "react/hook-use-state": "error",
+    "react/no-array-index-key": "error",
+    "react/no-multi-comp": "error",
+    "react/require-default-props": "error",
+    "react/jsx-key": "error",
+    "react/jsx-max-props-per-line": "error",
+    "react/jsx-one-expression-per-line": "error",
+    "object-curly-newline": ["error", {
+      "ImportDeclaration": { "multiline": true },
+      "ExportDeclaration": { "multiline": true },
+    }],
   },
   "plugins": ["jest"]
 }

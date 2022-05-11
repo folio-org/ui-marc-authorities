@@ -12,7 +12,10 @@ import {
 import { useAuthoritiesBrowse } from '../../queries';
 
 const propTypes = {
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]).isRequired,
 };
 
 const PAGE_SIZE = 100;
@@ -59,7 +62,7 @@ const BrowseRoute = ({ children }) => {
   };
 
   const formattedAuthoritiesForView = useMemo(() => {
-    return authorities.map(authorityItem => {
+    return authorities.map((authorityItem) => {
       const authority = authorityItem.authority || {
         headingRef: authorityItem.headingRef,
       };

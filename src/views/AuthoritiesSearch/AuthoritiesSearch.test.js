@@ -43,7 +43,7 @@ jest.mock('../../queries/useAuthorities', () => ({
 jest.mock('../../components', () => ({
   ...jest.requireActual('../../components'),
   SearchResultsList: (props) => {
-    const mapedProps = mockMapValues(props, (prop) => ((typeof prop === 'object') ? JSON.stringify(prop) : prop));
+    const mapedProps = mockMapValues(props, prop => ((typeof prop === 'object') ? JSON.stringify(prop) : prop));
 
     return (<div data-testid="SearchResultsList" {...mapedProps} />);
   },

@@ -38,7 +38,7 @@ export const useHighlightEditedRecord = (authorities) => {
     // this `difference` will remove all records whose Heading/Ref did not change
     // and we're left with records whose Heading/Ref changed
     const prevList = prevAuthorities.current.filter(authority => authority.id === selectedAuthorityRecord?.id);
-    const currentList = filter(authorities, (val) => !isNil(val)).filter(authority => authority.id === selectedAuthorityRecord?.id);
+    const currentList = filter(authorities, val => !isNil(val)).filter(authority => authority.id === selectedAuthorityRecord?.id);
     const diff = differenceBy(currentList, prevList, 'headingRef');
 
     let updatedRecord = null;
@@ -49,7 +49,7 @@ export const useHighlightEditedRecord = (authorities) => {
     } else {
       // however if there are more than one - we just have to find record with same id, authRefType and headingType and hope that it's the one we edited
       // unfortunately there's no 100% certain way to know which record was edited in this case
-      updatedRecord = diff.find(authority => {
+      updatedRecord = diff.find((authority) => {
         return authority.id === selectedAuthorityRecord?.id
           && authority.authRefType === selectedAuthorityRecord?.authRefType
           && authority.headingType === selectedAuthorityRecord?.headingType;

@@ -115,7 +115,7 @@ const AuthoritiesSearchForm = ({
     search: ['enter'],
   };
 
-  const getHandlers = (rowState) => ({
+  const getHandlers = rowState => ({
     search:(e) => {
       if (isSearchButtonDisabled) return e.preventDefault();
 
@@ -141,7 +141,7 @@ const AuthoritiesSearchForm = ({
           keyMap={hotKeys}
           handlers={getHandlers(rowState)}
         >
-          <form onSubmit={(e) => onSubmitSearch(e, rowState)}>
+          <form onSubmit={e => onSubmitSearch(e, rowState)}>
             <FilterNavigation />
             <div className={css.searchGroupWrap}>
               <SearchTextareaField
@@ -184,7 +184,6 @@ const AuthoritiesSearchForm = ({
                   </Icon>
                 </Button>
               </Col>
-
               <Col xs="12" sm="6">
                 {navigationSegmentValue !== navigationSegments.browse && (
                   <Button

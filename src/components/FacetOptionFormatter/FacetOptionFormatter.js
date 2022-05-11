@@ -17,7 +17,11 @@ const FacetOptionFormatter = ({ option, searchTerm }) => {
   return (
     <OptionSegment searchTerm={searchTerm}>
       <span className={styles.optionLabel}>{option.label}</span>
-      <span className={styles.totalRecordsLabel}>({option.totalRecords})</span>
+      <span className={styles.totalRecordsLabel}>
+        (
+        {option.totalRecords}
+        )
+      </span>
     </OptionSegment>
   );
 };
@@ -25,6 +29,7 @@ const FacetOptionFormatter = ({ option, searchTerm }) => {
 FacetOptionFormatter.propTypes = propTypes;
 
 FacetOptionFormatter.defaultProps = {
+  option: null,
   searchTerm: '',
 };
 

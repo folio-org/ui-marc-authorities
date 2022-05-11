@@ -46,7 +46,7 @@ const MultiSelectionFacet = ({
   };
 
   const missingValuesInOptions = selectedValues
-    .filter(selectedValue => !options.find(option => {
+    .filter(selectedValue => !options.find((option) => {
       return option.label
         ? option.label === selectedValue
         : option.id === selectedValue;
@@ -102,6 +102,7 @@ const MultiSelectionFacet = ({
 
 MultiSelectionFacet.defaultProps = {
   selectedValues: [],
+  options: [],
 };
 
 MultiSelectionFacet.propTypes = propTypes;

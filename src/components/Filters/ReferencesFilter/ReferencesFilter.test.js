@@ -12,6 +12,7 @@ const defaultProps = {
   disabled: false,
   onChange: jest.fn(),
   name: 'references-filter',
+  id: 'references-filter',
 };
 
 const renderReferencesFilter = (props = {}) => render(

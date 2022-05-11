@@ -35,7 +35,7 @@ const buildQuery = ({
     return `(${searchableIndexesValues.IDENTIFIER}=="%{query}" and ${authRefType}=="Authorized")`;
   }
 
-  const queryStrings = indexData.map(data => {
+  const queryStrings = indexData.map((data) => {
     const queryParts = [];
 
     const queryTemplate = name => `${name}${comparator}"%{query}"`;

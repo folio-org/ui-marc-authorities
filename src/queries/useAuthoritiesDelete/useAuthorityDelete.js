@@ -19,7 +19,7 @@ const useAuthorityDelete = ({ onError, onSuccess, ...restOptions }) => {
     onError,
     onSuccess: async () => {
       // Creating a delay because result list takes some time to update
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 500));
       queryClient.invalidateQueries(namespace);
       return onSuccess();
     },

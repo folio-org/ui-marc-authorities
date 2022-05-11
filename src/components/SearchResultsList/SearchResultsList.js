@@ -160,7 +160,7 @@ const SearchResultsList = ({
         ? <b>{authority.authRefType}</b>
         : authority.authRefType;
     },
-    headingRef: (authority) => (
+    headingRef: authority => (
       authority.isAnchor && !authority.isExactMatch
         ? (
           <Icon
@@ -226,21 +226,28 @@ const SearchResultsList = ({
       autosize
       hidePageIndices={hidePageIndices}
       isEmptyMessage={
-        source ? (
-          <div data-test-agreements-no-results-message>
-            <SearchAndSortNoResultsMessage
-              filterPaneIsVisible={isFilterPaneVisible}
-              searchTerm={query || ''}
-              source={source}
-              toggleFilterPane={toggleFilterPane}
-            />
-          </div>
-        ) : '...'
+        source
+          ? (
+            <div data-test-agreements-no-results-message>
+              <SearchAndSortNoResultsMessage
+                filterPaneIsVisible={isFilterPaneVisible}
+                searchTerm={query || ''}
+                source={source}
+                toggleFilterPane={toggleFilterPane}
+              />
+            </div>
+          )
+          : '...'
       }
     />
   );
 };
 
 SearchResultsList.propTypes = propTypes;
+
+SearchResultsList.defaultProps = {
+  hidePageIndices: false,
+  totalResults: NaN,
+};
 
 export default SearchResultsList;

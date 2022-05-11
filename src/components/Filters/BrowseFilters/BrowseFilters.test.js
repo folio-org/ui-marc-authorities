@@ -33,7 +33,10 @@ jest.mock('../../MultiSelectionFacet', () => ({
   MultiSelectionFacet: ({ name, onClearFilter }) => (
     <div>
       {name}
-      <button type="button" onClick={() => onClearFilter(name)}>Clear {name}</button>
+      <button type="button" onClick={() => onClearFilter(name)}>
+        Clear
+        {name}
+      </button>
     </div>
   ),
 }));
