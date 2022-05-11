@@ -55,5 +55,9 @@
     "authority-record.delete.success": "O registro de autoridade MARC <strong> {headingRef} </strong> foi excluído",
     "authority-record.delete.error": "Não foi possível excluir o registro de autoridade MARC <strong> {headingRef} . </strong> Por favor, tente novamente. ",
     "notes.deleteNote": "Confirme a exclusão do registro de autoridade",
-    "notes.message": "Tem certeza de que deseja excluir permanentemente o registro de autoridade: <strong> {headingRef} </strong> ?"
+    "notes.message": "Tem certeza de que deseja excluir permanentemente o registro de autoridade: <strong> {headingRef} </strong> ?",
+    "export-selected-records": "Export selected records (CSV/MARC)",
+    "export.success": "{exportJobName} is complete. The .csv downloaded contains selected records' UIIDs. To retrieve the .mrc file, please go to the Data export app.",
+    "export.failure": "Unable to complete request, please try again.",
+    "actions": "Actions"
 }

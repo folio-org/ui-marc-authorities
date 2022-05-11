@@ -1,11 +1,16 @@
 {
   "meta.title": "MARC authority",
 
+  "export-selected-records": "Export selected records (CSV/MARC)",
+  "export.success": "{exportJobName} is complete. The .csv downloaded contains selected records' UIIDs. To retrieve the .mrc file, please go to the Data export app.",
+  "export.failure": "Unable to complete request, please try again.",
+
   "search-results-list.authRefType": "Authorized/Reference",
   "search-results-list.headingRef": "Heading/Reference",
   "search-results-list.headingType": "Type of heading",
   "search-results-list.paneSub": "{totalRecords, number} {totalRecords, plural, one {record found} other {records found}}",
 
+  "actions": "Actions",
   "actions.menuSection.sortBy": "Sort by",
   "actions.menuSection.sortBy.relevance": "Relevance",
 

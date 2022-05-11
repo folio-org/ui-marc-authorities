@@ -19,6 +19,8 @@ import {
 import queryString from 'query-string';
 
 import {
+  Button,
+  Icon,
   Pane,
   PaneMenu,
   MenuSection,
@@ -34,9 +36,12 @@ import {
 import {
   AppIcon,
   useNamespace,
+  CalloutContext,
 } from '@folio/stripes/core';
 import { buildSearch } from '@folio/stripes-acq-components';
 
+import { useAuthorityExport } from '../../queries';
+import { useReportGenerator } from '../../hooks';
 import {
   SearchResultsList,
   BrowseFilters,
@@ -72,7 +77,7 @@ const propTypes = {
   pageSize: PropTypes.number.isRequired,
   query: PropTypes.string,
   sortedColumn: PropTypes.string.isRequired,
-  sortOrder: PropTypes.oneOf([sortOrders.ASC, sortOrders.DESC]).isRequired,
+  sortOrder: PropTypes.oneOf([sortOrders.ASC, sortOrders.DES]).isRequired,
   totalRecords: PropTypes.number.isRequired,
 };
 
@@ -105,6 +110,7 @@ const AuthoritiesSearch = ({
     isGoingToBaseURL,
     setIsGoingToBaseURL,
   } = useContext(AuthoritiesSearchContext);
+  const callout = useContext(CalloutContext);
 
   const columnMapping = {
     [searchResultListColumns.SELECT]: null,
@@ -117,6 +123,7 @@ const AuthoritiesSearch = ({
     toggleColumn,
   } = useColumnManager(prefix, columnMapping);
 
+  const reportGenerator = useReportGenerator('QuickAuthorityExport');
   const filterPaneVisibilityKey = getNamespace({ key: 'marcAuthoritiesFilterPaneVisibility' });
 
   useEffect(() => {
@@ -168,7 +175,37 @@ const AuthoritiesSearch = ({
   const [isFilterPaneVisible, setIsFilterPaneVisible] = useState(storedFilterPaneVisibility);
   const [selectedRows, setSelectedRows] = useState({});
 
-  const selectedRowsCount = Object.keys(selectedRows).length;
+  const selectedRowsIds = Object.keys(selectedRows);
+  const selectedRowsCount = selectedRowsIds.length;
+
+  const resetSelectedRows = () => {
+    setSelectedRows({});
+  };
+
+  const { exportRecords } = useAuthorityExport({
+    onError: () => {
+      const message = (
+        <FormattedMessage
+          id="ui-marc-authorities.export.failure"
+        />
+      );
+
+      callout.sendCallout({ type: 'error', message });
+    },
+    onSuccess: (data) => {
+      reportGenerator.toCSV(selectedRowsIds);
+
+      const message = (
+        <FormattedMessage
+          id="ui-marc-authorities.export.success"
+          values={{ exportJobName: data.jobExecutionId }}
+        />
+      );
+
+      callout.sendCallout({ type: 'success', message });
+      resetSelectedRows();
+    },
+  });
 
   const getNextSelectedRowsState = (prevSelectedRows, row) => {
     const { id } = row;
@@ -223,6 +260,23 @@ const AuthoritiesSearch = ({
   const renderActionMenu = () => {
     return (
       <>
+        <MenuSection
+          data-testid="menu-section-actions"
+          label={intl.formatMessage({ id: 'ui-marc-authorities.actions' })}
+        >
+          <Button
+            buttonStyle="dropdownItem"
+            id="dropdown-clickable-export-marc"
+            disabled={!selectedRowsCount}
+            onClick={() => exportRecords(selectedRowsIds)}
+          >
+            <Icon
+              icon="download"
+              size="medium"
+            />
+            <FormattedMessage id="ui-marc-authorities.export-selected-records" />
+          </Button>
+        </MenuSection>
         {navigationSegmentValue !== navigationSegments.browse &&
           <MenuSection
             data-testid="menu-section-sort-by"
@@ -293,6 +347,7 @@ const AuthoritiesSearch = ({
             isAuthoritiesLoading={isLoading}
             onSubmitSearch={onSubmitSearch}
             onChangeSortOption={onChangeSortOption}
+            resetSelectedRows={resetSelectedRows}
           />
           {
             navigationSegmentValue === navigationSegments.browse
