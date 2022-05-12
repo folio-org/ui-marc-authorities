@@ -30,7 +30,7 @@ const AuthorityQuickMarcEditRoute = () => {
   const onClose = useCallback(async (recordRoute) => {
     const recordId = recordRoute.split('/')[1];
 
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     queryClient.invalidateQueries(namespace);
     setIsGoingToBaseURL(false);

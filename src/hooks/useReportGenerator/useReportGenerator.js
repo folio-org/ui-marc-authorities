@@ -7,7 +7,7 @@ const isTestEnv = () => process.env.NODE_ENV === 'test';
 
 const useReportGenerator = (fileNamePrefix) => {
   const parse = (records) => {
-    return records.map(record => ({ id: record }));
+    return records.map((record) => ({ id: record }));
   };
 
   const toCSV = (records) => {

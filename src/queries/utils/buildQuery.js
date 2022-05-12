@@ -38,7 +38,7 @@ const buildQuery = ({
   const queryStrings = indexData.map((data) => {
     const queryParts = [];
 
-    const queryTemplate = name => `${name}${comparator}"%{query}"`;
+    const queryTemplate = (name) => `${name}${comparator}"%{query}"`;
 
     if (data.plain) {
       const query = queryTemplate(data.name);

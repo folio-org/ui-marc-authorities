@@ -45,12 +45,18 @@ jest.mock('../../queries/useAuthorities', () => ({
 jest.mock('../../components', () => ({
   ...jest.requireActual('../../components'),
   SearchResultsList: (props) => {
-    const mapedProps = mockMapValues(props, prop => ((typeof prop === 'object') ? JSON.stringify(prop) : prop));
+    const mapedProps = mockMapValues(props, (prop) => ((typeof prop === 'object') ? JSON.stringify(prop) : prop));
 
     return (
       <div data-testid="SearchResultsList" {...mapedProps}>
         {props.authorities.map((authority) => (
-          <button type="button" data-testid="row-toggle-button" onClick={() => props.toggleRowSelection({ ...authority })}>row-toggle-button</button>
+          <button
+            type="button"
+            data-testid="row-toggle-button"
+            onClick={() => props.toggleRowSelection({ ...authority })}
+          >
+            row-toggle-button
+          </button>
         ))}
       </div>
     );

@@ -33,10 +33,7 @@ jest.mock('../../MultiSelectionFacet', () => ({
   MultiSelectionFacet: ({ name, onClearFilter }) => (
     <div>
       {name}
-      <button type="button" onClick={() => onClearFilter(name)}>
-        Clear
-        {name}
-      </button>
+      <button type="button" onClick={() => onClearFilter(name)}>Clear {name}</button>
     </div>
   ),
 }));
@@ -81,7 +78,7 @@ describe('Given BrowseFilters', () => {
 
   describe('when clearing a filter', () => {
     it('should call setFilters with correct filters', () => {
-      mockSetFilters.mockImplementation(setter => setter(defaultCtxValue.filters));
+      mockSetFilters.mockImplementation((setter) => setter(defaultCtxValue.filters));
 
       const { getByText } = renderBrowseFilters();
 

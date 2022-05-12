@@ -12,7 +12,7 @@ jest.mock('react-router', () => ({
   }),
 }));
 
-const getWrapper = selectedRecord => function ({ children }) {
+const getWrapper = (selectedRecord) => function ({ children }) {
   return (
     <Harness
       selectedRecordCtxValue={[selectedRecord]}

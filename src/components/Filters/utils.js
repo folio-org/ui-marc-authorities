@@ -1,7 +1,7 @@
 import omit from 'lodash/omit';
 
 export const getSelectedFacets = (filterAccordions) => {
-  return Object.keys(filterAccordions).filter(accordion => filterAccordions[accordion]);
+  return Object.keys(filterAccordions).filter((accordion) => filterAccordions[accordion]);
 };
 
 export const updateFilters = ({ name, values, setFilters }) => {
@@ -14,5 +14,5 @@ export const updateFilters = ({ name, values, setFilters }) => {
 };
 
 export const onClearFilter = ({ filter, setFilters }) => {
-  setFilters(currentFilters => omit(currentFilters, filter));
+  setFilters((currentFilters) => omit(currentFilters, filter));
 };

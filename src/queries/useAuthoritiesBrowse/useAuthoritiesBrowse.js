@@ -37,7 +37,7 @@ const useBrowseRequest = ({
   const cqlFilters = Object.entries(filters)
     .filter(([, filterValues]) => filterValues.length)
     .map(([filterName, filterValues]) => {
-      const filterData = filterConfig.find(filter => filter.name === filterName);
+      const filterData = filterConfig.find((filter) => filter.name === filterName);
 
       return filterData ? filterData.parse(filterValues) : null;
     });
@@ -61,7 +61,7 @@ const useBrowseRequest = ({
   } = useQuery(
     [namespace, 'authorities', searchParams],
     async () => {
-      if (!searchQuery && !Object.values(filters).find(value => value.length > 0)) {
+      if (!searchQuery && !Object.values(filters).find((value) => value.length > 0)) {
         return { items: [], totalRecords: 0 };
       }
 
@@ -117,7 +117,7 @@ const useBrowserPaging = (initialQuery) => {
 
     setPage(newPage);
     setMainRequestSearch(getMainRequestSearch(newQuery, newPage));
-    setPageSearchCache(currentPageSearchCache => ({
+    setPageSearchCache((currentPageSearchCache) => ({
       ...currentPageSearchCache,
       [newPage]: currentPageSearchCache[newPage] || getMainRequestSearch(newQuery, newPage),
     }));
@@ -197,7 +197,7 @@ const useAuthoritiesBrowse = ({
   const allRequestsFetching = mainRequest.isFetching || prevPageRequest.isFetching || nextPageRequest.isFetching;
 
   const hasEmptyAnchor = useMemo(() => {
-    return (page === 0 && mainRequest.data?.totalRecords !== 0 && !!mainRequest.data?.items.find(item => !item.authority));
+    return (page === 0 && mainRequest.data?.totalRecords !== 0 && !!mainRequest.data?.items.find((item) => !item.authority));
   }, [mainRequest.data, page]);
 
   const itemsWithPrevAndNextPages = useMemo(() => {
@@ -205,7 +205,7 @@ const useAuthoritiesBrowse = ({
 
     // remove item with an empty headingRef which appears
     // when apply Type of heading facet without search query
-    remove(authorities, item => !item.authority && !item.headingRef);
+    remove(authorities, (item) => !item.authority && !item.headingRef);
 
     if (allRequestsFetching) {
       return authorities;

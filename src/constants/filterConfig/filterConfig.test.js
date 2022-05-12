@@ -11,7 +11,7 @@ jest.mock('../../utils', () => ({
 describe('filterConfig', () => {
   describe('createdDate filter', () => {
     it('should call buildDateRangeQuery', () => {
-      const filter = filterConfig.find(config => config.name === 'createdDate');
+      const filter = filterConfig.find((config) => config.name === 'createdDate');
 
       expect(filter.parse()).toEqual('called buildDateRangeQuery');
     });
@@ -19,7 +19,7 @@ describe('filterConfig', () => {
 
   describe('updatedDate filter', () => {
     it('should call buildDateRangeQuery', () => {
-      const filter = filterConfig.find(config => config.name === 'updatedDate');
+      const filter = filterConfig.find((config) => config.name === 'updatedDate');
 
       expect(filter.parse()).toEqual('called buildDateRangeQuery');
     });
@@ -27,7 +27,7 @@ describe('filterConfig', () => {
 
   describe('headingType filter', () => {
     it('should return correct search string', () => {
-      const filter = filterConfig.find(config => config.name === 'headingType');
+      const filter = filterConfig.find((config) => config.name === 'headingType');
 
       const searchString = filter.parse(['val1', 'val2']);
 
@@ -37,7 +37,7 @@ describe('filterConfig', () => {
 
   describe('references filter', () => {
     it('should return correct search string when \'excludeSeeFrom\' is selected', () => {
-      const filter = filterConfig.find(config => config.name === FILTERS.REFERENCES);
+      const filter = filterConfig.find((config) => config.name === FILTERS.REFERENCES);
 
       const searchString = filter.parse([REFERENCES_VALUES_MAP.excludeSeeFrom]);
 
@@ -45,7 +45,7 @@ describe('filterConfig', () => {
     });
 
     it('should return correct search string when \'excludeSeeFromAlso\' is selected', () => {
-      const filter = filterConfig.find(config => config.name === FILTERS.REFERENCES);
+      const filter = filterConfig.find((config) => config.name === FILTERS.REFERENCES);
 
       const searchString = filter.parse([REFERENCES_VALUES_MAP.excludeSeeFromAlso]);
 
@@ -53,7 +53,7 @@ describe('filterConfig', () => {
     });
 
     it('should return correct search string when both \'excludeSeeFrom\' and \'excludeSeeFromAlso\' are selected', () => {
-      const filter = filterConfig.find(config => config.name === FILTERS.REFERENCES);
+      const filter = filterConfig.find((config) => config.name === FILTERS.REFERENCES);
 
       const searchString = filter.parse([
         REFERENCES_VALUES_MAP.excludeSeeFrom,
@@ -66,7 +66,7 @@ describe('filterConfig', () => {
 
   describe('subjectHeadings filter', () => {
     it('should return correct search string', () => {
-      const filter = filterConfig.find(config => config.name === 'subjectHeadings');
+      const filter = filterConfig.find((config) => config.name === 'subjectHeadings');
 
       const searchString = filter.parse(['val1', 'val2']);
 

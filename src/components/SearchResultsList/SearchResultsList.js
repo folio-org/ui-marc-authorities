@@ -143,7 +143,7 @@ const SearchResultsList = ({
       <div // eslint-disable-line jsx-a11y/click-events-have-key-events
         tabIndex="0"
         role="button"
-        onClick={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
       >
         <Checkbox
           checked={Boolean(selectedRows[id])}
@@ -160,7 +160,7 @@ const SearchResultsList = ({
         ? <b>{authority.authRefType}</b>
         : authority.authRefType;
     },
-    headingRef: authority => (
+    headingRef: (authority) => (
       authority.isAnchor && !authority.isExactMatch
         ? (
           <Icon

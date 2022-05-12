@@ -21,7 +21,7 @@ const FilterNavigation = () => {
       role="tablist"
     >
       {
-        Object.keys(navigationSegments).map(name => (
+        Object.keys(navigationSegments).map((name) => (
           <Button
             key={`${name}`}
             to={`/marc-authorities?segment=${name}`}

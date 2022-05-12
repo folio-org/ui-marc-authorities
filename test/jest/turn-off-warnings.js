@@ -21,7 +21,7 @@ const errorBlacklist = [
 global.beforeAll(() => {
   // eslint-disable-next-line no-console
   console.warn = function (...args) {
-    if (blacklist.some(rx => rx.test(args[0]))) {
+    if (blacklist.some((rx) => rx.test(args[0]))) {
       return;
     }
     warn.apply(console, args);
@@ -29,7 +29,7 @@ global.beforeAll(() => {
 
   // eslint-disable-next-line no-console
   console.error = function (...args) {
-    if (errorBlacklist.some(rx => rx.test(args[0]))) {
+    if (errorBlacklist.some((rx) => rx.test(args[0]))) {
       return;
     }
     error.apply(console, args);

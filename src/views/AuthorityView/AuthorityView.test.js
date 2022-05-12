@@ -162,7 +162,7 @@ describe('Given AuthorityView', () => {
     it('should highlight 1xx marc field', () => {
       const { container } = renderAuthorityView();
 
-      const highlightedContent = [...container.querySelectorAll('mark')].map(mark => mark.textContent).join(' ');
+      const highlightedContent = [...container.querySelectorAll('mark')].map((mark) => mark.textContent).join(' ');
 
       expect(highlightedContent).toEqual('heading-ref');
     });
@@ -180,7 +180,7 @@ describe('Given AuthorityView', () => {
         },
       });
 
-      const highlightedContent = [...container.querySelectorAll('mark')].map(mark => mark.textContent).join(' ');
+      const highlightedContent = [...container.querySelectorAll('mark')].map((mark) => mark.textContent).join(' ');
 
       expect(highlightedContent).toEqual('heading-ref heading-ref');
     });
@@ -198,7 +198,7 @@ describe('Given AuthorityView', () => {
         },
       });
 
-      const highlightedContent = [...container.querySelectorAll('mark')].map(mark => mark.textContent).join(' ');
+      const highlightedContent = [...container.querySelectorAll('mark')].map((mark) => mark.textContent).join(' ');
 
       expect(highlightedContent).toEqual('heading-ref');
     });
@@ -208,7 +208,7 @@ describe('Given AuthorityView', () => {
     it('should not highlight tag value', () => {
       const { container } = renderAuthorityView();
 
-      const highlightedContent = [...container.querySelectorAll('mark')].map(mark => mark.textContent).join(' ');
+      const highlightedContent = [...container.querySelectorAll('mark')].map((mark) => mark.textContent).join(' ');
 
       expect(highlightedContent).not.toEqual('value contains heading-ref string');
     });
@@ -226,7 +226,7 @@ describe('Given AuthorityView', () => {
         },
       });
 
-      const highlightedContent = [...container.querySelectorAll('mark')].map(mark => mark.textContent).join(' ');
+      const highlightedContent = [...container.querySelectorAll('mark')].map((mark) => mark.textContent).join(' ');
 
       expect(highlightedContent).toEqual('value contains heading-ref string');
     });
