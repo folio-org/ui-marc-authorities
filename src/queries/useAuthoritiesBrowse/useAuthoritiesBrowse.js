@@ -17,6 +17,7 @@ import { buildHeadingTypeQuery } from '../utils';
 import {
   filterConfig,
   QUERY_KEY_AUTHORITIES,
+  searchableIndexesValues,
 } from '../../constants';
 
 const AUTHORITIES_BROWSE_API = 'browse/authorities';
@@ -33,6 +34,12 @@ const useBrowseRequest = ({
   const [namespace] = useNamespace({ key: QUERY_KEY_AUTHORITIES });
 
   const cqlSearch = startingSearch ? [startingSearch] : [];
+
+  if (searchIndex === searchableIndexesValues.NAME_TITLE) {
+    cqlSearch.push('headingTypeExt=="Title"');
+  } else {
+    cqlSearch.push('headingTypeExt<>"Title"');
+  }
 
   const cqlFilters = Object.entries(filters)
     .filter(([, filterValues]) => filterValues.length)
