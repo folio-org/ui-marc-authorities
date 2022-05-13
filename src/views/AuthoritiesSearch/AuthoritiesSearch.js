@@ -189,13 +189,13 @@ const AuthoritiesSearch = ({
 
       callout.sendCallout({ type: 'error', message });
     },
-    onSuccess: (data) => {
-      reportGenerator.toCSV(selectedRowsIds);
+    onSuccess: () => {
+      const { filename } = reportGenerator.toCSV(selectedRowsIds);
 
       const message = (
         <FormattedMessage
           id="ui-marc-authorities.export.success"
-          values={{ exportJobName: data.jobExecutionId }}
+          values={{ exportJobName: filename }}
         />
       );
 
@@ -254,7 +254,7 @@ const AuthoritiesSearch = ({
     ...options,
   ];
 
-  const renderActionMenu = () => {
+  const renderActionMenu = ({ onToggle }) => {
     return (
       <>
         <MenuSection
@@ -265,7 +265,10 @@ const AuthoritiesSearch = ({
             buttonStyle="dropdownItem"
             id="dropdown-clickable-export-marc"
             disabled={!selectedRowsCount}
-            onClick={() => exportRecords(selectedRowsIds)}
+            onClick={() => {
+              exportRecords(selectedRowsIds);
+              onToggle();
+            }}
           >
             <Icon
               icon="download"

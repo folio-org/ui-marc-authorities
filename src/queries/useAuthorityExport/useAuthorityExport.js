@@ -2,6 +2,8 @@ import { useMutation } from 'react-query';
 
 import { useOkapiKy } from '@folio/stripes/core';
 
+import { EXPORT_AUTHORITY_JOB_PROFILE_ID } from '../../constants';
+
 const useAuthorityExport = ({ onError, onSuccess, ...restOptions }) => {
   const ky = useOkapiKy();
 
@@ -23,6 +25,7 @@ const useAuthorityExport = ({ onError, onSuccess, ...restOptions }) => {
             uuids: instanceIds,
             type: 'uuid',
             recordType: 'AUTHORITY',
+            jobProfileId: EXPORT_AUTHORITY_JOB_PROFILE_ID,
           },
         },
       );
