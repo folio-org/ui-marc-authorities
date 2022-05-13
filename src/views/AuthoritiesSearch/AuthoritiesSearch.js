@@ -2,6 +2,7 @@ import {
   useState,
   useEffect,
   useContext,
+  useMemo,
 } from 'react';
 import {
   useHistory,
@@ -174,9 +175,19 @@ const AuthoritiesSearch = ({
   const [storedFilterPaneVisibility] = useLocalStorage(filterPaneVisibilityKey, true);
   const [isFilterPaneVisible, setIsFilterPaneVisible] = useState(storedFilterPaneVisibility);
   const [selectedRows, setSelectedRows] = useState({});
+  const [selectAll, setSelectAll] = useState(false);
 
   const selectedRowsIds = Object.keys(selectedRows);
-  const selectedRowsCount = selectedRowsIds.length;
+  const selectedRowsCount = useMemo(() => (Object.keys(selectedRows).length), [selectedRows]);
+
+  const uniqueAuthoritiesCount = useMemo(() => {
+    // determine count of unique ids in authorities array.
+    // this is needed to check or uncheck "Select all" checkbox in header when all rows are explicitly
+    // checked or unchecked.
+    const filteredAuthorities = authorities.map(authority => authority.id).filter(id => !!id);
+
+    return new Set(filteredAuthorities).size;
+  }, [authorities]);
 
   const resetSelectedRows = () => {
     setSelectedRows({});
@@ -207,12 +218,12 @@ const AuthoritiesSearch = ({
     },
   });
 
-  const getNextSelectedRowsState = (prevSelectedRows, row) => {
+  const getNextSelectedRowsState = row => {
     const { id } = row;
-    const isRowSelected = !!prevSelectedRows[id];
-    const newSelectedRows = { ...prevSelectedRows };
+    const isRowSelected = !!selectedRows[id];
+    const newSelectedRows = { ...selectedRows };
 
-    if (isRowSelected) {
+    if (isRowSelected || selectAll) {
       delete newSelectedRows[id];
     } else {
       newSelectedRows[id] = row;
@@ -221,8 +232,34 @@ const AuthoritiesSearch = ({
     return newSelectedRows;
   };
 
+  const getSelectAllRowsState = () => {
+    if (!selectAll) {
+      return authorities.filter(item => !!item.id).reduce((acc, item) => {
+        return {
+          ...acc,
+          [item.id]: item,
+        };
+      }, {});
+    }
+
+    return {};
+  };
+
   const toggleRowSelection = row => {
-    setSelectedRows(prev => getNextSelectedRowsState(prev, row));
+    const newRows = getNextSelectedRowsState(row);
+
+    setSelectedRows(newRows);
+    if (
+      (Object.keys(newRows).length === uniqueAuthoritiesCount && !selectAll) ||
+      (Object.keys(newRows).length === 0 && selectAll)
+    ) {
+      setSelectAll(prev => !prev);
+    }
+  };
+
+  const toggleSelectAll = () => {
+    setSelectedRows(getSelectAllRowsState());
+    setSelectAll(prev => !prev);
   };
 
   const toggleFilterPane = () => {
@@ -389,6 +426,8 @@ const AuthoritiesSearch = ({
           isFilterPaneVisible={isFilterPaneVisible}
           toggleFilterPane={toggleFilterPane}
           toggleRowSelection={toggleRowSelection}
+          toggleSelectAll={toggleSelectAll}
+          selectAll={selectAll}
           hasFilters={!!filters.length}
           query={searchQuery}
           hidePageIndices={hidePageIndices}
