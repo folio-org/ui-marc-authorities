@@ -1,9 +1,9 @@
 import { browseHeadingTypesMap } from '../../constants';
 
-export const buildHeadingTypeQuery = (searchIndex) => {
+export const buildHeadingTypeQuery = searchIndex => {
   const query = (
     (browseHeadingTypesMap[searchIndex] || [])
-      .map((value) => `"${value}"`)
+      .map(value => `"${value}"`)
       .join(' or ')
   );
 

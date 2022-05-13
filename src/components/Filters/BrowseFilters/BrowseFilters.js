@@ -63,7 +63,7 @@ const BrowseFilters = ({ cqlQuery }) => {
         options={facets[FILTERS.HEADING_TYPE]?.values}
         selectedValues={filters[FILTERS.HEADING_TYPE]}
         onFilterChange={applyFilters}
-        onClearFilter={(filter) => onClearFilter({ filter, setFilters })}
+        onClearFilter={filter => onClearFilter({ filter, setFilters })}
         displayClearButton={!!filters[FILTERS.HEADING_TYPE]?.length}
         handleSectionToggle={handleSectionToggle}
         isPending={isLoading}

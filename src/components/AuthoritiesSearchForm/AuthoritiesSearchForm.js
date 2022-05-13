@@ -97,12 +97,12 @@ const AuthoritiesSearchForm = ({
     ? rawBrowseSearchableIndexes
     : rawDefaultSearchableIndexes;
 
-  const searchableIndexes = rawSearchableIndexes.map((index) => ({
+  const searchableIndexes = rawSearchableIndexes.map(index => ({
     label: intl.formatMessage({ id: index.label }),
     value: index.value,
   }));
 
-  const advancedSearchOptions = advancedSearchIndexes.map((index) => ({
+  const advancedSearchOptions = advancedSearchIndexes.map(index => ({
     label: intl.formatMessage({ id: index.label }),
     value: index.value,
   }));
@@ -111,15 +111,15 @@ const AuthoritiesSearchForm = ({
     || !searchInputValue
     || isAuthoritiesLoading;
 
-  const isFiltersApplied = Object.values(filters).find((value) => value.length > 0);
+  const isFiltersApplied = Object.values(filters).find(value => value.length > 0);
   const isResetAllButtonDisabled = (!searchInputValue && !isFiltersApplied) || isAuthoritiesLoading;
 
   const hotKeys = {
     search: ['enter'],
   };
 
-  const getHandlers = (rowState) => ({
-    search:(e) => {
+  const getHandlers = rowState => ({
+    search:e => {
       if (isSearchButtonDisabled) return e.preventDefault();
 
       return onSubmitSearch(e, rowState);
@@ -144,7 +144,7 @@ const AuthoritiesSearchForm = ({
           keyMap={hotKeys}
           handlers={getHandlers(rowState)}
         >
-          <form onSubmit={(e) => onSubmitSearch(e, rowState)}>
+          <form onSubmit={e => onSubmitSearch(e, rowState)}>
             <FilterNavigation />
             <div className={css.searchGroupWrap}>
               <SearchTextareaField

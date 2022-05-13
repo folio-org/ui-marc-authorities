@@ -20,7 +20,7 @@ import css from './MarcAuthoritiesAppContext.css';
 const MarcAuthoritiesAppContext = () => {
   const [isShortcutsModalOpen, setIsShortcutsModalOpen] = useState(false);
 
-  const focusSearchField = (handleToggle) => {
+  const focusSearchField = handleToggle => {
     handleToggle();
     const searchElement = document.getElementById('textarea-authorities-search');
 
@@ -44,7 +44,7 @@ const MarcAuthoritiesAppContext = () => {
   return (
     <>
       <AppContextMenu>
-        {(handleToggle) => (
+        {handleToggle => (
           <NavList>
             <NavListSection>
               <NavListItem
@@ -55,7 +55,7 @@ const MarcAuthoritiesAppContext = () => {
                 <FormattedMessage id="ui-marc-authorities.navigation.app" />
               </NavListItem>
               <NavListItem
-                onClick={(e) => shortcutsModalToggle(e, handleToggle)}
+                onClick={e => shortcutsModalToggle(e, handleToggle)}
               >
                 <FormattedMessage id="ui-marc-authorities.navigation.keyboardShortcuts" />
               </NavListItem>

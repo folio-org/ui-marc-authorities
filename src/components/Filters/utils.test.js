@@ -35,7 +35,7 @@ describe('Given Filters utils', () => {
       const name = 'headingType';
       const values = ['Geographic Name'];
       const setFilters = jest.fn()
-        .mockImplementation((setter) => setter({ headingType: ['Geographic Name'] }));
+        .mockImplementation(setter => setter({ headingType: ['Geographic Name'] }));
 
       utils.updateFilters({ name, values, setFilters });
 
@@ -48,7 +48,7 @@ describe('Given Filters utils', () => {
     it('should handle setFilters', () => {
       const filter = 'headingType';
       const setFilters = jest.fn()
-        .mockImplementation((setter) => setter({ headingType: ['Geographic Name'] }));
+        .mockImplementation(setter => setter({ headingType: ['Geographic Name'] }));
 
       utils.onClearFilter({ filter, setFilters });
 

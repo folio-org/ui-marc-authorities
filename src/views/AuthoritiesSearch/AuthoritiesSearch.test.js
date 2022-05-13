@@ -44,12 +44,12 @@ jest.mock('../../queries/useAuthorities', () => ({
 
 jest.mock('../../components', () => ({
   ...jest.requireActual('../../components'),
-  SearchResultsList: (props) => {
-    const mapedProps = mockMapValues(props, (prop) => ((typeof prop === 'object') ? JSON.stringify(prop) : prop));
+  SearchResultsList: props => {
+    const mapedProps = mockMapValues(props, prop => ((typeof prop === 'object') ? JSON.stringify(prop) : prop));
 
     return (
       <div data-testid="SearchResultsList" {...mapedProps}>
-        {props.authorities.map((authority) => (
+        {props.authorities.map(authority => (
           <button
             type="button"
             data-testid="row-toggle-button"
@@ -340,7 +340,7 @@ describe('Given AuthoritiesSearch', () => {
       describe('when click on "Export selected records (CSV/MARC)" button', () => {
         it('should be able to show success toast message and unselect records', async () => {
           jest.mock('../../queries/useAuthorityExport', () => ({
-            useAuthorityExport: ({ onSuccess }) => ({ exportRecords: (data) => onSuccess(data) }),
+            useAuthorityExport: ({ onSuccess }) => ({ exportRecords: data => onSuccess(data) }),
           }));
 
           const { getAllByTestId, getByRole, queryByText } = renderAuthoritiesSearch({ authorities });

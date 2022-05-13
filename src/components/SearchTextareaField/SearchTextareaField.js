@@ -83,7 +83,7 @@ const SearchTextareaField = ({
         disabled={loading}
         id={`${id}-qindex`}
         marginBottom0
-        onChange={(e) => setSearchDropdownValue(e.target.value)}
+        onChange={e => setSearchDropdownValue(e.target.value)}
         selectClass={css.select}
         value={searchDropdownValue}
         data-testid="search-select"
@@ -95,7 +95,7 @@ const SearchTextareaField = ({
         id={id}
         data-testid="search-textarea"
         loading={loading}
-        onChange={(e) => setSearchInputValue(e.target.value)}
+        onChange={e => setSearchInputValue(e.target.value)}
         type="search"
         value={searchInputValue || ''}
         readOnly={loading || rest.readOnly}

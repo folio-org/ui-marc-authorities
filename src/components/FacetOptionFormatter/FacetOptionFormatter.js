@@ -14,7 +14,7 @@ const FacetOptionFormatter = ({ option, searchTerm }) => {
     return null;
   }
 
-  const formatTotalRecords = (totalRecords) => `(${totalRecords})`;
+  const formatTotalRecords = totalRecords => `(${totalRecords})`;
 
   return (
     <OptionSegment searchTerm={searchTerm}>

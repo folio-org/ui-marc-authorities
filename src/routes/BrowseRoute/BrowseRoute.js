@@ -49,7 +49,7 @@ const BrowseRoute = ({ children }) => {
     precedingRecordsCount: PRECEDING_RECORDS_COUNT,
   });
 
-  const onSubmitSearch = (e) => {
+  const onSubmitSearch = e => {
     if (e && e.preventDefault) {
       e.preventDefault();
       e.stopPropagation();
@@ -62,7 +62,7 @@ const BrowseRoute = ({ children }) => {
   };
 
   const formattedAuthoritiesForView = useMemo(() => {
-    return authorities.map((authorityItem) => {
+    return authorities.map(authorityItem => {
       const authority = authorityItem.authority || {
         headingRef: authorityItem.headingRef,
       };

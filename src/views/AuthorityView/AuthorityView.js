@@ -140,7 +140,7 @@ const AuthorityView = ({
       'Auth/Ref': /5\d\d/,
     };
 
-    const marcFields = marcSource.data.parsedRecord.content.fields.map((field) => {
+    const marcFields = marcSource.data.parsedRecord.content.fields.map(field => {
       const tag = Object.keys(field)[0];
 
       const isHighlightedTag = highlightAuthRefFields[authority.data.authRefType].test(tag);

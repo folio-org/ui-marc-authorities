@@ -96,7 +96,7 @@ describe('Given SearchFilters', () => {
 
   describe('when clearing a filter', () => {
     it('should call setFilters with correct filters', () => {
-      mockSetFilters.mockImplementation((setter) => setter(defaultCtxValue.filters));
+      mockSetFilters.mockImplementation(setter => setter(defaultCtxValue.filters));
 
       const { getByText } = renderSearchFilters();
 

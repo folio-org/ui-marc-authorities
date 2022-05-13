@@ -38,20 +38,20 @@ const MultiSelectionFacet = ({
   displayClearButton,
   ...props
 }) => {
-  const onChange = (newOptions) => {
+  const onChange = newOptions => {
     onFilterChange({
       name,
-      values: newOptions.map((option) => option.value),
+      values: newOptions.map(option => option.value),
     });
   };
 
   const missingValuesInOptions = selectedValues
-    .filter((selectedValue) => !options.find((option) => {
+    .filter(selectedValue => !options.find(option => {
       return option.label
         ? option.label === selectedValue
         : option.id === selectedValue;
     }))
-    .map((value) => ({
+    .map(value => ({
       label: value,
       value,
       totalRecords: 0,
@@ -59,17 +59,17 @@ const MultiSelectionFacet = ({
 
   // include options returned from backend
   // if some selected options are missing from response we're adding them here with 0 results
-  const dataOptions = [...options.map((option) => ({
+  const dataOptions = [...options.map(option => ({
     label: option.label || option.id,
     value: option.label || option.id,
     totalRecords: option.totalRecords,
   })), ...missingValuesInOptions];
 
-  const itemToString = (option) => {
+  const itemToString = option => {
     return option?.label || '';
   };
 
-  const selectedOptions = dataOptions.filter((option) => selectedValues.includes(option.value));
+  const selectedOptions = dataOptions.filter(option => selectedValues.includes(option.value));
 
   return (
     <Accordion

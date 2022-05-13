@@ -51,7 +51,7 @@
     "no-else-return": ["error", { "allowElseIf": false }],
     "no-nested-ternary": "error",
     "prefer-arrow-callback": "error",
-    "arrow-parens": [2, "always"],
+    "arrow-parens": [2, "as-needed"],
     "multiline-ternary": ["error", "always-multiline"],
     "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }],
     "react/destructuring-assignment": [2, "always"],

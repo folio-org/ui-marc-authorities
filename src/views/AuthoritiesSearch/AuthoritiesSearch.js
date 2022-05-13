@@ -192,7 +192,7 @@ const AuthoritiesSearch = ({
 
       callout.sendCallout({ type: 'error', message });
     },
-    onSuccess: (data) => {
+    onSuccess: data => {
       reportGenerator.toCSV(selectedRowsIds);
 
       const message = (
@@ -221,8 +221,8 @@ const AuthoritiesSearch = ({
     return newSelectedRows;
   };
 
-  const toggleRowSelection = (row) => {
-    setSelectedRows((prev) => getNextSelectedRowsState(prev, row));
+  const toggleRowSelection = row => {
+    setSelectedRows(prev => getNextSelectedRowsState(prev, row));
   };
 
   const toggleFilterPane = () => {
@@ -244,7 +244,7 @@ const AuthoritiesSearch = ({
     );
   };
 
-  const options = Object.values(sortableSearchResultListColumns).map((option) => ({
+  const options = Object.values(sortableSearchResultListColumns).map(option => ({
     value: option,
     label: intl.formatMessage({ id: `ui-marc-authorities.search-results-list.${option}` }),
   }));
@@ -286,7 +286,7 @@ const AuthoritiesSearch = ({
               data-testid="sort-by-selection"
               dataOptions={sortByOptions}
               value={sortedColumn}
-              onChange={(e) => onChangeSortOption(e.target.value)}
+              onChange={e => onChangeSortOption(e.target.value)}
             />
           </MenuSection>
         }

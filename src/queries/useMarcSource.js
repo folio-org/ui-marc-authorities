@@ -5,9 +5,9 @@ import {
   useNamespace,
 } from '@folio/stripes/core';
 
-const MARC_SOURCE_API = (id) => `source-storage/records/${id}/formatted?idType=AUTHORITY`;
+const MARC_SOURCE_API = id => `source-storage/records/${id}/formatted?idType=AUTHORITY`;
 
-export const useMarcSource = (recordId) => {
+export const useMarcSource = recordId => {
   const ky = useOkapiKy();
   const [namespace] = useNamespace();
 

@@ -98,7 +98,7 @@ const SearchResultsList = ({
     [searchResultListColumns.HEADING_TYPE]: { min: 200 },
   };
 
-  const formatAuthorityRecordLink = (authority) => {
+  const formatAuthorityRecordLink = authority => {
     const search = queryString.parse(location.search);
     const newSearch = queryString.stringify({
       ...search,
@@ -109,7 +109,7 @@ const SearchResultsList = ({
     return `${match.path}/authorities/${authority.id}?${newSearch}`;
   };
 
-  const redirectToAuthorityRecord = (authority) => {
+  const redirectToAuthorityRecord = authority => {
     history.push(formatAuthorityRecordLink(authority));
   };
 
@@ -143,7 +143,7 @@ const SearchResultsList = ({
       <div // eslint-disable-line jsx-a11y/click-events-have-key-events
         tabIndex="0"
         role="button"
-        onClick={(e) => e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
       >
         <Checkbox
           checked={Boolean(selectedRows[id])}
@@ -155,12 +155,12 @@ const SearchResultsList = ({
         />
       </div>
     ),
-    authRefType: (authority) => {
+    authRefType: authority => {
       return authority.authRefType === AUTH_REF_TYPES.AUTHORIZED
         ? <b>{authority.authRefType}</b>
         : authority.authRefType;
     },
-    headingRef: (authority) => (
+    headingRef: authority => (
       authority.isAnchor && !authority.isExactMatch
         ? (
           <Icon
