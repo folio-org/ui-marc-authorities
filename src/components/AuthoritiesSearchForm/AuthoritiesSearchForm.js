@@ -188,7 +188,7 @@ const AuthoritiesSearchForm = ({
                 </Button>
               </Col>
 
-              <Col xs="12" sm="6">
+              <Col xs={12} sm={6}>
                 {navigationSegmentValue !== navigationSegments.browse && (
                   <Button
                     fullWidth

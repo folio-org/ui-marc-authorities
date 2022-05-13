@@ -55,5 +55,9 @@
     "authority-record.delete.success": "تم حذف تسجيلة مارك الاستنادية <strong> {headingRef}</strong>",
     "authority-record.delete.error": "تعذر حذف تسجيلة مارك الاستنادية <strong> {headingRef} </strong>. يرجى إعادة المحاولة مرة أخرى.",
     "notes.deleteNote": "تأكيد حذف التسجيلة الاستنادية",
-    "notes.message": "هل أنت متأكد من أنك تريد حذف التسجيلة الاستنادية: <strong>{headingRef}</strong> نهائياً؟"
+    "notes.message": "هل أنت متأكد من أنك تريد حذف التسجيلة الاستنادية: <strong>{headingRef}</strong> نهائياً؟",
+    "export-selected-records": "تصدير التسجيلات المحددة (CSV/MARC)",
+    "export.success": "اكتمل {exportJobName} . يحتوي ملف .csv الذي تم تنزيله على المعرفات العمومية الفريدة للتسجيلات المحددة. لاسترداد ملف .mrc، يرجى الانتقال إلى تطبيق تصدير البيانات.",
+    "export.failure": "تعذر إتمام الطلب، يرجى إعادة المحاولة مرة أخرى.",
+    "actions": "الإجراءات"
 }

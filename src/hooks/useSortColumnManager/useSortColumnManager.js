@@ -17,7 +17,7 @@ const useSortColumnManager = (options) => {
 
     let newOrder;
 
-    if (options?.sortableColumns && !options?.sortableColumns.includes(name)) return;
+    if (options?.sortableColumns && !options.sortableColumns.includes(name)) return;
 
     if (name !== sortedColumn) {
       setSortedColumn(name);

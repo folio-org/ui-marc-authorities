@@ -46,11 +46,13 @@ const propTypes = {
   onNeedMoreData: PropTypes.func.isRequired,
   pageSize: PropTypes.number.isRequired,
   query: PropTypes.string.isRequired,
+  selectAll: PropTypes.bool.isRequired,
   selectedRows: PropTypes.object.isRequired,
   sortedColumn: PropTypes.string.isRequired,
   sortOrder: PropTypes.string.isRequired,
   toggleFilterPane: PropTypes.func.isRequired,
   toggleRowSelection: PropTypes.func.isRequired,
+  toggleSelectAll: PropTypes.func.isRequired,
   totalResults: PropTypes.number,
   visibleColumns: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
@@ -71,6 +73,8 @@ const SearchResultsList = ({
   query,
   toggleFilterPane,
   toggleRowSelection,
+  toggleSelectAll,
+  selectAll,
   hasFilters,
   hidePageIndices,
 }) => {
@@ -85,7 +89,17 @@ const SearchResultsList = ({
   const recordToHighlight = useHighlightEditedRecord(authorities);
 
   const columnMapping = {
-    [searchResultListColumns.SELECT]: null,
+    [searchResultListColumns.SELECT]: (
+      <Checkbox
+        onChange={() => toggleSelectAll()}
+        name="select all authorities"
+        checked={selectAll}
+        title={selectAll
+          ? intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.selectAll' })
+          : intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.unselectAll' })
+        }
+      />
+    ),
     [searchResultListColumns.AUTH_REF_TYPE]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.authRefType' }),
     [searchResultListColumns.HEADING_REF]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.headingRef' }),
     [searchResultListColumns.HEADING_TYPE]: intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.headingType' }),
