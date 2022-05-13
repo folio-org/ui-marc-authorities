@@ -56,8 +56,10 @@
     "authority-record.delete.error": "Não foi possível excluir o registro de autoridade MARC <strong> {headingRef} . </strong> Por favor, tente novamente. ",
     "notes.deleteNote": "Confirme a exclusão do registro de autoridade",
     "notes.message": "Tem certeza de que deseja excluir permanentemente o registro de autoridade: <strong> {headingRef} </strong> ?",
-    "export-selected-records": "Export selected records (CSV/MARC)",
-    "export.success": "{exportJobName} is complete. The .csv downloaded contains selected records' UIIDs. To retrieve the .mrc file, please go to the Data export app.",
-    "export.failure": "Unable to complete request, please try again.",
-    "actions": "Actions"
+    "export-selected-records": "Exportar registros selecionados (CSV/MARC)",
+    "export.success": "{exportJobName} está completo. O .csv baixado contém UIIDs de registros selecionados. Para recuperar o arquivo .mrc, acesse o aplicativo Exportação de Dados.",
+    "export.failure": "Não foi possível concluir a solicitação, por favor tente novamente.",
+    "actions": "Ações",
+    "search-results-list.selectAll": "Unselect all records on this page",
+    "search-results-list.unselectAll": "Select all records on this page"
 }

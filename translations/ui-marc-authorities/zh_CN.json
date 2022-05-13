@@ -59,5 +59,7 @@
     "export-selected-records": "Export selected records (CSV/MARC)",
     "export.success": "{exportJobName} is complete. The .csv downloaded contains selected records' UIIDs. To retrieve the .mrc file, please go to the Data export app.",
     "export.failure": "Unable to complete request, please try again.",
-    "actions": "Actions"
+    "actions": "Actions",
+    "search-results-list.selectAll": "Unselect all records on this page",
+    "search-results-list.unselectAll": "Select all records on this page"
 }
