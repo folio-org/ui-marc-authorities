@@ -215,35 +215,6 @@ const AuthoritiesSearch = ({
     return new Set(filteredAuthorities).size;
   }, [authorities]);
 
-  const resetSelectedRows = () => {
-    setSelectedRows({});
-  };
-
-  const { exportRecords } = useAuthorityExport({
-    onError: () => {
-      const message = (
-        <FormattedMessage
-          id="ui-marc-authorities.export.failure"
-        />
-      );
-
-      callout.sendCallout({ type: 'error', message });
-    },
-    onSuccess: (data) => {
-      reportGenerator.toCSV(selectedRowsIds);
-
-      const message = (
-        <FormattedMessage
-          id="ui-marc-authorities.export.success"
-          values={{ exportJobName: data.jobExecutionId }}
-        />
-      );
-
-      callout.sendCallout({ type: 'success', message });
-      resetSelectedRows();
-    },
-  });
-
   const getNextSelectedRowsState = (row) => {
     const { id } = row;
     const isRowSelected = !!selectedRows[id];
