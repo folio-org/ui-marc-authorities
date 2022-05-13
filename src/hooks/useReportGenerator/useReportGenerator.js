@@ -19,6 +19,8 @@ const useReportGenerator = fileNamePrefix => {
     const generateReport = !isTestEnv() ? exportCsv : noop;
 
     generateReport(parsedRecords, fileTitle);
+
+    return { filename: fileTitle.filename };
   };
 
   return {
