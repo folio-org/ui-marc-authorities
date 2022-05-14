@@ -1,5 +1,11 @@
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { renderHook, act } from '@testing-library/react-hooks';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query';
+import {
+  renderHook,
+  act,
+} from '@testing-library/react-hooks';
 import { useOkapiKy } from '@folio/stripes/core';
 
 import useAuthorityDelete from './useAuthorityDelete';
@@ -20,11 +26,13 @@ describe('useAuthorityDeleteMutation', () => {
   });
 
   it('should make delete request and call onSuccess', async () => {
-    const deleteMock = jest.fn().mockResolvedValue({});
+    const deleteMock = jest.fn().mockResolvedValue({ json: () => ({ actionId: 'actionId' }) });
+    const getMock = jest.fn().mockResolvedValue({ json: () => ({ status: 'COMPLETED' }) });
     const successMock = jest.fn();
 
     useOkapiKy.mockClear().mockReturnValue({
       delete: deleteMock,
+      get: getMock,
     });
 
     const { result, waitForNextUpdate } = renderHook(
