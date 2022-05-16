@@ -19,6 +19,7 @@
 - [UIMARCAUTH-135](https://issues.folio.org/browse/UIMARCAUTH-135) The search result list doesn't sort by clicking on the title of column
 - [UIMARCAUTH-130](https://issues.folio.org/browse/UIMARCAUTH-130) Add a Select all/Un-select all on Results List
 - [UIMARCAUTH-121](https://issues.folio.org/browse/UIMARCAUTH-121) Export .csv file to load to Data export to create the .mrc file of selected authority records
+- [FOLIO-3477](https://issues.folio.org/browse/FOLIO-3477) FE: update outdated dependencies.
 
 ## [1.0.5](https://github.com/folio-org/ui-marc-authorities/tree/v1.0.5) (2022-04-15)
 
