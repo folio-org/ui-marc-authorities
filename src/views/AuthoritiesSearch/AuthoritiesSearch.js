@@ -177,15 +177,6 @@ const AuthoritiesSearch = ({
   const selectedRowsIds = Object.keys(selectedRows);
   const selectedRowsCount = useMemo(() => (Object.keys(selectedRows).length), [selectedRows]);
 
-  const uniqueAuthoritiesCount = useMemo(() => {
-    // determine count of unique ids in authorities array.
-    // this is needed to check or uncheck "Select all" checkbox in header when all rows are explicitly
-    // checked or unchecked.
-    const filteredAuthorities = authorities.map(authority => authority.id).filter(id => !!id);
-
-    return new Set(filteredAuthorities).size;
-  }, [authorities]);
-
   const resetSelectedRows = () => {
     setSelectedRows({});
   };
@@ -200,13 +191,13 @@ const AuthoritiesSearch = ({
 
       callout.sendCallout({ type: 'error', message });
     },
-    onSuccess: (data) => {
-      reportGenerator.toCSV(selectedRowsIds);
+    onSuccess: () => {
+      const { filename } = reportGenerator.toCSV(selectedRowsIds);
 
       const message = (
         <FormattedMessage
           id="ui-marc-authorities.export.success"
-          values={{ exportJobName: data.jobExecutionId }}
+          values={{ exportJobName: filename }}
         />
       );
 
@@ -214,6 +205,15 @@ const AuthoritiesSearch = ({
       resetSelectedRows();
     },
   });
+
+  const uniqueAuthoritiesCount = useMemo(() => {
+    // determine count of unique ids in authorities array.
+    // this is needed to check or uncheck "Select all" checkbox in header when all rows are explicitly
+    // checked or unchecked.
+    const filteredAuthorities = authorities.map(authority => authority.id).filter(id => !!id);
+
+    return new Set(filteredAuthorities).size;
+  }, [authorities]);
 
   const getNextSelectedRowsState = (row) => {
     const { id } = row;
@@ -291,7 +291,7 @@ const AuthoritiesSearch = ({
     ...options,
   ];
 
-  const renderActionMenu = () => {
+  const renderActionMenu = ({ onToggle }) => {
     return (
       <>
         <MenuSection
@@ -302,7 +302,10 @@ const AuthoritiesSearch = ({
             buttonStyle="dropdownItem"
             id="dropdown-clickable-export-marc"
             disabled={!selectedRowsCount}
-            onClick={() => exportRecords(selectedRowsIds)}
+            onClick={() => {
+              exportRecords(selectedRowsIds);
+              onToggle();
+            }}
           >
             <Icon
               icon="download"
