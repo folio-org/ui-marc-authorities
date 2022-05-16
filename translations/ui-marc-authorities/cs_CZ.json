@@ -55,5 +55,11 @@
     "authority-record.delete.success": "Záznam autority MARC <strong> {headingRef} </strong> byl odstraněn",
     "authority-record.delete.error": "Nelze odstranit záznam autority MARC <strong> {headingRef} </strong>. Zkuste to prosím znovu.",
     "notes.deleteNote": "Potvrďte smazání autoritního záznamu",
-    "notes.message": "Opravdu chcete trvale odstranit záznam autority: <strong> {headingRef} </strong>?"
+    "notes.message": "Opravdu chcete trvale odstranit záznam autority: <strong> {headingRef} </strong>?",
+    "export-selected-records": "Export vybraných záznamů (CSV/MARC)",
+    "export.success": "{exportJobName} je dokončen. Stažená .csv obsahuje identifikátory UIID vybraných záznamů. Chcete-li načíst soubor .mrc, přejděte do aplikace Pro export dat.",
+    "export.failure": "Požadavek nelze dokončit, zkuste to prosím znovu.",
+    "actions": "Akce",
+    "search-results-list.selectAll": "Zrušte výběr všech záznamů na této stránce",
+    "search-results-list.unselectAll": "Vyberte všechny záznamy na této stránce"
 }

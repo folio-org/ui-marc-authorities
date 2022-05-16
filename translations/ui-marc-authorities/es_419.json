@@ -55,5 +55,11 @@
     "authority-record.delete.success": "MARC authority record <strong> {headingRef} </strong> has been deleted",
     "authority-record.delete.error": "Unable to delete MARC authority record <strong> {headingRef} </strong>. Please try again. ",
     "notes.deleteNote": "Confirm deletion of authority record",
-    "notes.message": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>?"
+    "notes.message": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>?",
+    "export-selected-records": "Export selected records (CSV/MARC)",
+    "export.success": "{exportJobName} is complete. The .csv downloaded contains selected records' UIIDs. To retrieve the .mrc file, please go to the Data export app.",
+    "export.failure": "Unable to complete request, please try again.",
+    "actions": "Actions",
+    "search-results-list.selectAll": "Unselect all records on this page",
+    "search-results-list.unselectAll": "Select all records on this page"
 }
