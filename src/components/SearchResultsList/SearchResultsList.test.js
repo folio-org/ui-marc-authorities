@@ -10,9 +10,7 @@ import { mockOffsetSize } from '@folio/stripes-acq-components/test/jest/helpers/
 import Harness from '../../../test/jest/helpers/harness';
 import SearchResultsList from './SearchResultsList';
 import authorities from '../../../mocks/authorities';
-import {
-  searchResultListColumns,
-} from '../../constants';
+import { searchResultListColumns } from '../../constants';
 
 const mockToggleFilterPane = jest.fn();
 const mockSetSelectedAuthorityRecordContext = jest.fn();

@@ -112,7 +112,7 @@ const SearchResultsList = ({
     [searchResultListColumns.HEADING_TYPE]: { min: 200 },
   };
 
-  const formatAuthorityRecordLink = (authority) => {
+  const formatAuthorityRecordLink = authority => {
     const search = queryString.parse(location.search);
     const newSearch = queryString.stringify({
       ...search,
@@ -123,7 +123,7 @@ const SearchResultsList = ({
     return `${match.path}/authorities/${authority.id}?${newSearch}`;
   };
 
-  const redirectToAuthorityRecord = (authority) => {
+  const redirectToAuthorityRecord = authority => {
     history.push(formatAuthorityRecordLink(authority));
   };
 
@@ -169,12 +169,12 @@ const SearchResultsList = ({
         />
       </div>
     ),
-    authRefType: (authority) => {
+    authRefType: authority => {
       return authority.authRefType === AUTH_REF_TYPES.AUTHORIZED
         ? <b>{authority.authRefType}</b>
         : authority.authRefType;
     },
-    headingRef: (authority) => (
+    headingRef: authority => (
       authority.isAnchor && !authority.isExactMatch
         ? (
           <Icon
@@ -240,21 +240,28 @@ const SearchResultsList = ({
       autosize
       hidePageIndices={hidePageIndices}
       isEmptyMessage={
-        source ? (
-          <div data-test-agreements-no-results-message>
-            <SearchAndSortNoResultsMessage
-              filterPaneIsVisible={isFilterPaneVisible}
-              searchTerm={query || ''}
-              source={source}
-              toggleFilterPane={toggleFilterPane}
-            />
-          </div>
-        ) : '...'
+        source
+          ? (
+            <div data-test-agreements-no-results-message>
+              <SearchAndSortNoResultsMessage
+                filterPaneIsVisible={isFilterPaneVisible}
+                searchTerm={query || ''}
+                source={source}
+                toggleFilterPane={toggleFilterPane}
+              />
+            </div>
+          )
+          : '...'
       }
     />
   );
 };
 
 SearchResultsList.propTypes = propTypes;
+
+SearchResultsList.defaultProps = {
+  hidePageIndices: false,
+  totalResults: NaN,
+};
 
 export default SearchResultsList;

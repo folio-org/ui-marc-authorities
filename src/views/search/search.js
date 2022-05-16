@@ -2,14 +2,15 @@ import PropTypes from 'prop-types';
 
 import { PersistedPaneset } from '@folio/stripes/components';
 
-import {
-  SearchResultsList,
-} from '../../components';
+import { SearchResultsList } from '../../components';
 import { AuthorityShape } from '../../constants/shapes';
 
 const propTypes = {
   authorities: PropTypes.arrayOf(AuthorityShape).isRequired,
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]).isRequired,
   loading: PropTypes.bool.isRequired,
   onFetchNextPage: PropTypes.func.isRequired,
   pageSize: PropTypes.number.isRequired,

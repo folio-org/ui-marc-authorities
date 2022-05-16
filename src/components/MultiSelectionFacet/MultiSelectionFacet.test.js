@@ -1,6 +1,4 @@
-import {
-  render,
-} from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import MultiSelectionFacet from './MultiSelectionFacet';
 import Harness from '../../../test/jest/helpers/harness';

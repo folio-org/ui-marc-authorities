@@ -14,7 +14,7 @@ import filter from 'lodash/filter';
 import { SelectedAuthorityRecordContext } from '../../../context';
 import { areRecordsEqual } from '../utils';
 
-export const useHighlightEditedRecord = (authorities) => {
+export const useHighlightEditedRecord = authorities => {
   const prevAuthorities = useRef();
   const location = useLocation();
   const history = useHistory();
@@ -38,7 +38,7 @@ export const useHighlightEditedRecord = (authorities) => {
     // this `difference` will remove all records whose Heading/Ref did not change
     // and we're left with records whose Heading/Ref changed
     const prevList = prevAuthorities.current.filter(authority => authority.id === selectedAuthorityRecord?.id);
-    const currentList = filter(authorities, (val) => !isNil(val)).filter(authority => authority.id === selectedAuthorityRecord?.id);
+    const currentList = filter(authorities, val => !isNil(val)).filter(authority => authority.id === selectedAuthorityRecord?.id);
     const diff = differenceBy(currentList, prevList, 'headingRef');
 
     let updatedRecord = null;

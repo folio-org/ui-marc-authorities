@@ -64,7 +64,10 @@ const prefix = 'authorities';
 
 const propTypes = {
   authorities: PropTypes.arrayOf(AuthorityShape).isRequired,
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]).isRequired,
   handleLoadMore: PropTypes.func.isRequired,
   hidePageIndices: PropTypes.bool,
   isLoaded: PropTypes.bool.isRequired,
@@ -177,15 +180,6 @@ const AuthoritiesSearch = ({
   const selectedRowsIds = Object.keys(selectedRows);
   const selectedRowsCount = useMemo(() => (Object.keys(selectedRows).length), [selectedRows]);
 
-  const uniqueAuthoritiesCount = useMemo(() => {
-    // determine count of unique ids in authorities array.
-    // this is needed to check or uncheck "Select all" checkbox in header when all rows are explicitly
-    // checked or unchecked.
-    const filteredAuthorities = authorities.map(authority => authority.id).filter(id => !!id);
-
-    return new Set(filteredAuthorities).size;
-  }, [authorities]);
-
   const resetSelectedRows = () => {
     setSelectedRows({});
   };
@@ -200,13 +194,13 @@ const AuthoritiesSearch = ({
 
       callout.sendCallout({ type: 'error', message });
     },
-    onSuccess: (data) => {
-      reportGenerator.toCSV(selectedRowsIds);
+    onSuccess: () => {
+      const { filename } = reportGenerator.toCSV(selectedRowsIds);
 
       const message = (
         <FormattedMessage
           id="ui-marc-authorities.export.success"
-          values={{ exportJobName: data.jobExecutionId }}
+          values={{ exportJobName: filename }}
         />
       );
 
@@ -215,7 +209,16 @@ const AuthoritiesSearch = ({
     },
   });
 
-  const getNextSelectedRowsState = (row) => {
+  const uniqueAuthoritiesCount = useMemo(() => {
+    // determine count of unique ids in authorities array.
+    // this is needed to check or uncheck "Select all" checkbox in header when all rows are explicitly
+    // checked or unchecked.
+    const filteredAuthorities = authorities.map(authority => authority.id).filter(id => !!id);
+
+    return new Set(filteredAuthorities).size;
+  }, [authorities]);
+
+  const getNextSelectedRowsState = row => {
     const { id } = row;
     const isRowSelected = !!selectedRows[id];
     const newSelectedRows = { ...selectedRows };
@@ -237,12 +240,12 @@ const AuthoritiesSearch = ({
           [item.id]: item,
         };
       }, {});
-    } else {
-      return {};
     }
+
+    return {};
   };
 
-  const toggleRowSelection = (row) => {
+  const toggleRowSelection = row => {
     const newRows = getNextSelectedRowsState(row);
 
     setSelectedRows(newRows);
@@ -278,7 +281,7 @@ const AuthoritiesSearch = ({
     );
   };
 
-  const options = Object.values(sortableSearchResultListColumns).map((option) => ({
+  const options = Object.values(sortableSearchResultListColumns).map(option => ({
     value: option,
     label: intl.formatMessage({ id: `ui-marc-authorities.search-results-list.${option}` }),
   }));
@@ -291,7 +294,7 @@ const AuthoritiesSearch = ({
     ...options,
   ];
 
-  const renderActionMenu = () => {
+  const renderActionMenu = ({ onToggle }) => {
     return (
       <>
         <MenuSection
@@ -302,7 +305,10 @@ const AuthoritiesSearch = ({
             buttonStyle="dropdownItem"
             id="dropdown-clickable-export-marc"
             disabled={!selectedRowsCount}
-            onClick={() => exportRecords(selectedRowsIds)}
+            onClick={() => {
+              exportRecords(selectedRowsIds);
+              onToggle();
+            }}
           >
             <Icon
               icon="download"
@@ -383,7 +389,6 @@ const AuthoritiesSearch = ({
             onChangeSortOption={onChangeSortOption}
             resetSelectedRows={resetSelectedRows}
           />
-
           {
             navigationSegmentValue === navigationSegments.browse
               ? (
@@ -437,5 +442,9 @@ const AuthoritiesSearch = ({
 };
 
 AuthoritiesSearch.propTypes = propTypes;
+AuthoritiesSearch.defaultProps = {
+  hidePageIndices: false,
+  query: '',
+};
 
 export default AuthoritiesSearch;

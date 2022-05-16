@@ -2,12 +2,14 @@ import { useMutation } from 'react-query';
 
 import { useOkapiKy } from '@folio/stripes/core';
 
+import { EXPORT_AUTHORITY_JOB_PROFILE_ID } from '../../constants';
+
 const useAuthorityExport = ({ onError, onSuccess, ...restOptions }) => {
   const ky = useOkapiKy();
 
   const customOptions = {
     onError,
-    onSuccess: async (response) => {
+    onSuccess: async response => {
       const data = await response.json();
 
       return onSuccess(data);
@@ -15,7 +17,7 @@ const useAuthorityExport = ({ onError, onSuccess, ...restOptions }) => {
   };
 
   const { mutate } = useMutation({
-    mutationFn: (instanceIds) => {
+    mutationFn: instanceIds => {
       return ky.post(
         'data-export/quick-export',
         {
@@ -23,6 +25,7 @@ const useAuthorityExport = ({ onError, onSuccess, ...restOptions }) => {
             uuids: instanceIds,
             type: 'uuid',
             recordType: 'AUTHORITY',
+            jobProfileId: EXPORT_AUTHORITY_JOB_PROFILE_ID,
           },
         },
       );

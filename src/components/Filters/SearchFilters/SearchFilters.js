@@ -5,9 +5,7 @@ import {
 import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
 
-import {
-  AcqDateRangeFilter,
-} from '@folio/stripes-acq-components';
+import { AcqDateRangeFilter } from '@folio/stripes-acq-components';
 
 import { MultiSelectionFacet } from '../../MultiSelectionFacet';
 import { useSectionToggle } from '../../../hooks';
@@ -82,35 +80,32 @@ const SearchFilters = ({
         onChange={applyFilters}
         name={FILTERS.REFERENCES}
       />
-
       <MultiSelectionFacet
         id={FILTERS.SUBJECT_HEADINGS}
         label={intl.formatMessage({ id: `ui-marc-authorities.search.${FILTERS.SUBJECT_HEADINGS}` })}
         name={FILTERS.SUBJECT_HEADINGS}
         open={filterAccordions[FILTERS.SUBJECT_HEADINGS]}
-        options={getSubjectHeadingsFacetOptions() || []}
+        options={getSubjectHeadingsFacetOptions()}
         selectedValues={filters[FILTERS.SUBJECT_HEADINGS]}
         onFilterChange={applyFilters}
-        onClearFilter={(filter) => onClearFilter({ filter, setFilters })}
+        onClearFilter={filter => onClearFilter({ filter, setFilters })}
         displayClearButton={!!filters[FILTERS.SUBJECT_HEADINGS]?.length}
         handleSectionToggle={handleSectionToggle}
         isPending={isLoading}
       />
-
       <MultiSelectionFacet
         id={FILTERS.HEADING_TYPE}
         label={intl.formatMessage({ id: `ui-marc-authorities.search.${FILTERS.HEADING_TYPE}` })}
         name={FILTERS.HEADING_TYPE}
         open={filterAccordions[FILTERS.HEADING_TYPE]}
-        options={facets[FILTERS.HEADING_TYPE]?.values || []}
+        options={facets[FILTERS.HEADING_TYPE]?.values}
         selectedValues={filters[FILTERS.HEADING_TYPE]}
         onFilterChange={applyFilters}
-        onClearFilter={(filter) => onClearFilter({ filter, setFilters })}
+        onClearFilter={filter => onClearFilter({ filter, setFilters })}
         displayClearButton={!!filters[FILTERS.HEADING_TYPE]?.length}
         handleSectionToggle={handleSectionToggle}
         isPending={isLoading}
       />
-
       <AcqDateRangeFilter
         activeFilters={filters?.createdDate || []}
         labelId="ui-marc-authorities.search.createdDate"
@@ -121,7 +116,6 @@ const SearchFilters = ({
         closedByDefault
         dateFormat={DATE_FORMAT}
       />
-
       <AcqDateRangeFilter
         activeFilters={filters?.updatedDate || []}
         labelId="ui-marc-authorities.search.updatedDate"
@@ -137,5 +131,9 @@ const SearchFilters = ({
 };
 
 SearchFilters.propTypes = propTypes;
+
+SearchFilters.defaultProps = {
+  cqlQuery: '',
+};
 
 export default SearchFilters;
