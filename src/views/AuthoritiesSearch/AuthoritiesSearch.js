@@ -174,11 +174,21 @@ const AuthoritiesSearch = ({
   const [selectedRows, setSelectedRows] = useState({});
   const [selectAll, setSelectAll] = useState(false);
 
-  const selectedRowsIds = Object.keys(selectedRows);
+  const selectedRowsIds = useMemo(() => (Object.keys(selectedRows)), [selectedRows]);
   const selectedRowsCount = useMemo(() => (Object.keys(selectedRows).length), [selectedRows]);
+
+  const rowExistsInSelectedRows = (row) => {
+    return selectedRowsIds.includes(row.id);
+  };
+
+  useEffect(() => {
+    // on pagination, when authorities search list change, update "selectAll" checkbox based on the selected rows in the page.
+    setSelectAll(authorities.every(rowExistsInSelectedRows));
+  }, [authorities]);
 
   const resetSelectedRows = () => {
     setSelectedRows({});
+    setSelectAll(false);
   };
 
   const { exportRecords } = useAuthorityExport({
@@ -220,7 +230,7 @@ const AuthoritiesSearch = ({
     const isRowSelected = !!selectedRows[id];
     const newSelectedRows = { ...selectedRows };
 
-    if (isRowSelected || selectAll) {
+    if (isRowSelected) {
       delete newSelectedRows[id];
     } else {
       newSelectedRows[id] = row;
@@ -247,8 +257,8 @@ const AuthoritiesSearch = ({
 
     setSelectedRows(newRows);
     if (
-      (Object.keys(newRows).length === uniqueAuthoritiesCount && !selectAll) ||
-      (Object.keys(newRows).length === 0 && selectAll)
+      (selectAll && (Object.keys(newRows).length !== uniqueAuthoritiesCount)) ||
+      (!selectAll && (Object.keys(newRows).length === uniqueAuthoritiesCount))
     ) {
       setSelectAll(prev => !prev);
     }
