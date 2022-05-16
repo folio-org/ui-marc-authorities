@@ -43,7 +43,7 @@ jest.mock('@folio/stripes-core', () => {
   const STRIPES = buildStripes();
 
   // eslint-disable-next-line react/prop-types
-  const stripesConnect = (Component) => ({ mutator, resources, stripes, ...rest }) => {
+  const stripesConnect = Component => function ({ mutator, resources, stripes, ...rest }) {
     const fakeMutator = mutator || Object.keys(Component.manifest).reduce((acc, mutatorName) => {
       const returnValue = Component.manifest[mutatorName].records ? [] : {};
 
@@ -77,16 +77,16 @@ jest.mock('@folio/stripes-core', () => {
   const useNamespace = () => ['@folio/marc-authorities', jest.fn()];
 
   // eslint-disable-next-line react/prop-types
-  const withStripes = (Component) => ({ stripes, ...rest }) => {
+  const withStripes = Component => function ({ stripes, ...rest }) {
     const fakeStripes = stripes || STRIPES;
 
     return <Component {...rest} stripes={fakeStripes} />;
   };
 
   // eslint-disable-next-line react/prop-types
-  const IfPermission = (props) => <>{props.children}</>;
+  const IfPermission = ({ children }) => <>{children}</>;
 
-  const AppContextMenu = (props) => <>{props.children()}</>;
+  const AppContextMenu = ({ children }) => <>{children()}</>;
 
   STRIPES.connect = stripesConnect;
 

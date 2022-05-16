@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 
 import { sortOrders } from '../../constants';
 
-const useSortColumnManager = (options) => {
+const useSortColumnManager = options => {
   const location = useLocation();
   const [sortedColumn, setSortedColumn] = useState('');
   const [sortOrder, setSortOrder] = useState('');

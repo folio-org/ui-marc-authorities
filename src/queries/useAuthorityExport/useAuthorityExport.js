@@ -9,7 +9,7 @@ const useAuthorityExport = ({ onError, onSuccess, ...restOptions }) => {
 
   const customOptions = {
     onError,
-    onSuccess: async (response) => {
+    onSuccess: async response => {
       const data = await response.json();
 
       return onSuccess(data);
@@ -17,7 +17,7 @@ const useAuthorityExport = ({ onError, onSuccess, ...restOptions }) => {
   };
 
   const { mutate } = useMutation({
-    mutationFn: (instanceIds) => {
+    mutationFn: instanceIds => {
       return ky.post(
         'data-export/quick-export',
         {

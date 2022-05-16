@@ -33,9 +33,10 @@ describe('Given useAuthoritiesBrowse', () => {
   const searchIndex = searchableIndexesValues.PERSONAL_NAME;
   const precedingRecordsCount = 5;
 
-  const generateTestAuthorities = (count, headingRef = 'authority') => new Array(count).fill({}).map((_, index) => ({
-    headingRef: `${headingRef}_${index}`,
-  }));
+  const generateTestAuthorities = (count, headingRef = 'authority') => new Array(count).fill({})
+    .map((_, index) => ({
+      headingRef: `${headingRef}_${index}`,
+    }));
 
   const mockGet = jest.fn();
 

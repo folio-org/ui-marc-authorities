@@ -4,7 +4,16 @@ import { AcqCheckboxFilter } from '@folio/stripes-acq-components';
 
 import { REFERENCES_OPTIONS } from '../../../constants';
 
-export const ReferencesFilter = ({
+const propTypes = {
+  activeFilters: PropTypes.arrayOf(PropTypes.string),
+  closedByDefault: PropTypes.bool,
+  disabled: PropTypes.bool,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+const ReferencesFilter = ({
   activeFilters,
   closedByDefault = true,
   disabled,
@@ -24,11 +33,11 @@ export const ReferencesFilter = ({
   />
 );
 
-ReferencesFilter.propTypes = {
-  activeFilters: PropTypes.arrayOf(PropTypes.string),
-  closedByDefault: PropTypes.bool,
-  disabled: PropTypes.bool,
-  id: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+ReferencesFilter.propTypes = propTypes;
+ReferencesFilter.defaultProps = {
+  activeFilters: [],
+  closedByDefault: false,
+  disabled: false,
 };
+
+export { ReferencesFilter };

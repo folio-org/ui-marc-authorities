@@ -4,7 +4,12 @@ import BrowseRoute from './BrowseRoute';
 import Harness from '../../../test/jest/helpers/harness';
 
 jest.mock('../../views', () => ({
-  AuthoritiesSearch: ({ children }) => <div>AuthoritiesSearch <div>{children}</div></div>,
+  AuthoritiesSearch: ({ children }) => (
+    <div>
+      AuthoritiesSearch
+      <div>{children}</div>
+    </div>
+  ),
 }));
 
 const renderBrowseRoute = () => render(

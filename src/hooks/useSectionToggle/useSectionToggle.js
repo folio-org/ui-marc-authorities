@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { expandAllFunction } from '@folio/stripes/components';
 
-const useSectionToggle = (initialSections) => {
+const useSectionToggle = initialSections => {
   const [sections, setSections] = useState(initialSections);
 
   const handleSectionToggle = ({ id }) => {
@@ -12,11 +12,11 @@ const useSectionToggle = (initialSections) => {
     });
   };
 
-  const handleExpandAll = (expandedSections) => {
+  const handleExpandAll = expandedSections => {
     setSections(expandedSections);
   };
 
-  const toggleAllSections = (expand) => {
+  const toggleAllSections = expand => {
     const next = expandAllFunction(sections, expand);
 
     setSections(next);
