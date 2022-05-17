@@ -185,8 +185,9 @@ const AuthoritiesSearch = ({
   };
 
   useEffect(() => {
-    // on pagination, when authorities search list change, update "selectAll" checkbox based on the selected rows in the page.
+    // on pagination, when authorities search list change, update "selectAll" checkbox based on the selected rows in the searchList.
     setSelectAll(authorities.every(rowExistsInSelectedRows));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authorities]);
 
   const resetSelectedRows = () => {
@@ -242,19 +243,6 @@ const AuthoritiesSearch = ({
     return newSelectedRows;
   };
 
-  const getSelectAllRowsState = () => {
-    if (!selectAll) {
-      return authorities.filter(item => !!item.id).reduce((acc, item) => {
-        return {
-          ...acc,
-          [item.id]: item,
-        };
-      }, {});
-    }
-
-    return {};
-  };
-
   const toggleRowSelection = row => {
     const newRows = getNextSelectedRowsState(row);
 
@@ -265,6 +253,29 @@ const AuthoritiesSearch = ({
     ) {
       setSelectAll(prev => !prev);
     }
+  };
+
+  const getSelectAllRowsState = () => {
+    const uniqueAuthsInCurrPage = authorities.filter(item => !!item.id);
+    const newSelectedRows = { ...selectedRows };
+
+    if (!selectAll) {
+      // check each of the authorities, if it is not present in selectedRows, add to it
+      uniqueAuthsInCurrPage.forEach(item => {
+        if (!selectedRowsIds.includes(item.id)) {
+          newSelectedRows[item.id] = item;
+        }
+      });
+    } else {
+      // check each of the authorities, if it is present in selectedRows, remove it
+      uniqueAuthsInCurrPage.forEach(item => {
+        if (selectedRowsIds.includes(item.id)) {
+          delete newSelectedRows[item.id];
+        }
+      });
+    }
+
+    return newSelectedRows;
   };
 
   const toggleSelectAll = () => {
