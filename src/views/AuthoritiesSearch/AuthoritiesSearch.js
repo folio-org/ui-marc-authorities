@@ -180,7 +180,7 @@ const AuthoritiesSearch = ({
   const selectedRowsIds = useMemo(() => (Object.keys(selectedRows)), [selectedRows]);
   const selectedRowsCount = useMemo(() => (Object.keys(selectedRows).length), [selectedRows]);
 
-  const rowExistsInSelectedRows = (row) => {
+  const rowExistsInSelectedRows = row => {
     return selectedRowsIds.includes(row.id);
   };
 
