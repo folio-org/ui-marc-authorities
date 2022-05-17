@@ -64,7 +64,10 @@ const prefix = 'authorities';
 
 const propTypes = {
   authorities: PropTypes.arrayOf(AuthorityShape).isRequired,
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]).isRequired,
   handleLoadMore: PropTypes.func.isRequired,
   hidePageIndices: PropTypes.bool,
   isLoaded: PropTypes.bool.isRequired,
@@ -225,7 +228,7 @@ const AuthoritiesSearch = ({
     return new Set(filteredAuthorities).size;
   }, [authorities]);
 
-  const getNextSelectedRowsState = (row) => {
+  const getNextSelectedRowsState = row => {
     const { id } = row;
     const isRowSelected = !!selectedRows[id];
     const newSelectedRows = { ...selectedRows };
@@ -247,12 +250,12 @@ const AuthoritiesSearch = ({
           [item.id]: item,
         };
       }, {});
-    } else {
-      return {};
     }
+
+    return {};
   };
 
-  const toggleRowSelection = (row) => {
+  const toggleRowSelection = row => {
     const newRows = getNextSelectedRowsState(row);
 
     setSelectedRows(newRows);
@@ -288,7 +291,7 @@ const AuthoritiesSearch = ({
     );
   };
 
-  const options = Object.values(sortableSearchResultListColumns).map((option) => ({
+  const options = Object.values(sortableSearchResultListColumns).map(option => ({
     value: option,
     label: intl.formatMessage({ id: `ui-marc-authorities.search-results-list.${option}` }),
   }));
@@ -396,7 +399,6 @@ const AuthoritiesSearch = ({
             onChangeSortOption={onChangeSortOption}
             resetSelectedRows={resetSelectedRows}
           />
-
           {
             navigationSegmentValue === navigationSegments.browse
               ? (
@@ -450,5 +452,9 @@ const AuthoritiesSearch = ({
 };
 
 AuthoritiesSearch.propTypes = propTypes;
+AuthoritiesSearch.defaultProps = {
+  hidePageIndices: false,
+  query: '',
+};
 
 export default AuthoritiesSearch;

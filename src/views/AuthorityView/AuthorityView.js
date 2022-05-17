@@ -50,7 +50,7 @@ const propTypes = {
   marcSource: PropTypes.shape({
     data: PropTypes.object,
     isLoading: PropTypes.bool.isRequired,
-  }),
+  }).isRequired,
 };
 
 const AuthorityView = ({

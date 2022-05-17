@@ -12,7 +12,7 @@ describe('Given buildQuery', () => {
         searchIndex: searchableIndexesValues.PERSONAL_NAME,
       });
 
-      expect(query).toBe('(personalNameTitle=="%{query}" or sftPersonalNameTitle=="%{query}" or saftPersonalNameTitle=="%{query}")');
+      expect(query).toBe('(personalName=="%{query}" or sftPersonalName=="%{query}" or saftPersonalName=="%{query}")');
     });
   });
 
@@ -86,7 +86,7 @@ describe('Given buildQuery', () => {
         },
       });
 
-      expect(query).toEqual('(personalNameTitle=="%{query}" or saftPersonalNameTitle=="%{query}")');
+      expect(query).toEqual('(personalName=="%{query}" or saftPersonalName=="%{query}")');
     });
 
     it('should return correct query when \'excludeSeeFromAlso\' is selected', () => {
@@ -97,7 +97,7 @@ describe('Given buildQuery', () => {
         },
       });
 
-      expect(query).toEqual('(personalNameTitle=="%{query}" or sftPersonalNameTitle=="%{query}")');
+      expect(query).toEqual('(personalName=="%{query}" or sftPersonalName=="%{query}")');
     });
 
     it('should return correct query when both \'excludeSeeFromAlso\' and \'excludeSeeFromAlso\' are selected', () => {
@@ -111,7 +111,7 @@ describe('Given buildQuery', () => {
         },
       });
 
-      expect(query).toEqual('(personalNameTitle=="%{query}")');
+      expect(query).toEqual('(personalName=="%{query}")');
     });
   });
 });

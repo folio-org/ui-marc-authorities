@@ -1,6 +1,6 @@
 import { fireEvent } from '@testing-library/react';
 
-export const openEditShortcut = (element) => {
+export const openEditShortcut = element => {
   fireEvent.keyDown(element, {
     key: 'Ctrl',
     code: 'CtrlLeft',
@@ -23,7 +23,7 @@ export const openEditShortcut = (element) => {
   });
 };
 
-export const focusSearchShortcut = (element) => {
+export const focusSearchShortcut = element => {
   fireEvent.keyDown(element, {
     key: 'Ctrl',
     code: 'CtrlLeft',

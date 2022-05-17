@@ -21,7 +21,7 @@ export const filterConfig = [
   },
   {
     name: FILTERS.HEADING_TYPE,
-    parse: (values) => {
+    parse: values => {
       const valuesInQuotes = values.map(value => `"${value}"`).join(' or ');
 
       return `(headingType==(${valuesInQuotes}))`;
@@ -29,7 +29,7 @@ export const filterConfig = [
   },
   {
     name: FILTERS.REFERENCES,
-    parse: (values) => {
+    parse: values => {
       const excludedAuthRefTypes = {
         [REFERENCES_VALUES_MAP.excludeSeeFrom]: [AUTH_REF_TYPES.REFERENCE],
         [REFERENCES_VALUES_MAP.excludeSeeFromAlso]: [AUTH_REF_TYPES.AUTH_REF],
@@ -46,7 +46,7 @@ export const filterConfig = [
   },
   {
     name: FILTERS.SUBJECT_HEADINGS,
-    parse: (values) => {
+    parse: values => {
       const valuesInQuotes = values.map(value => `"${value}"`).join(' or ');
 
       return `(subjectHeadings==(${valuesInQuotes}))`;

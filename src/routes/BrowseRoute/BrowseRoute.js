@@ -12,7 +12,10 @@ import {
 import { useAuthoritiesBrowse } from '../../queries';
 
 const propTypes = {
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]).isRequired,
 };
 
 const PAGE_SIZE = 100;
@@ -46,7 +49,7 @@ const BrowseRoute = ({ children }) => {
     precedingRecordsCount: PRECEDING_RECORDS_COUNT,
   });
 
-  const onSubmitSearch = (e) => {
+  const onSubmitSearch = e => {
     if (e && e.preventDefault) {
       e.preventDefault();
       e.stopPropagation();
