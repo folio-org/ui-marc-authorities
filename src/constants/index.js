@@ -15,3 +15,4 @@ export * from './subjectHeadingsValues';
 export * from './subjectHeadingsMap';
 export * from './queryKeys';
 export * from './exportAuthorityJobProfileId';
+export * from './deleteMarcAuthority';
