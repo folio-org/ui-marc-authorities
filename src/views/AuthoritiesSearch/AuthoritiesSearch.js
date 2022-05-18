@@ -177,11 +177,22 @@ const AuthoritiesSearch = ({
   const [selectedRows, setSelectedRows] = useState({});
   const [selectAll, setSelectAll] = useState(false);
 
-  const selectedRowsIds = Object.keys(selectedRows);
+  const selectedRowsIds = useMemo(() => (Object.keys(selectedRows)), [selectedRows]);
   const selectedRowsCount = useMemo(() => (Object.keys(selectedRows).length), [selectedRows]);
+
+  const rowExistsInSelectedRows = row => {
+    return selectedRowsIds.includes(row.id);
+  };
+
+  useEffect(() => {
+    // on pagination, when authorities search list change, update "selectAll" checkbox based on the selected rows in the searchList.
+    setSelectAll(authorities.every(rowExistsInSelectedRows));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authorities]);
 
   const resetSelectedRows = () => {
     setSelectedRows({});
+    setSelectAll(false);
   };
 
   const { exportRecords } = useAuthorityExport({
@@ -223,7 +234,7 @@ const AuthoritiesSearch = ({
     const isRowSelected = !!selectedRows[id];
     const newSelectedRows = { ...selectedRows };
 
-    if (isRowSelected || selectAll) {
+    if (isRowSelected) {
       delete newSelectedRows[id];
     } else {
       newSelectedRows[id] = row;
@@ -232,29 +243,39 @@ const AuthoritiesSearch = ({
     return newSelectedRows;
   };
 
-  const getSelectAllRowsState = () => {
-    if (!selectAll) {
-      return authorities.filter(item => !!item.id).reduce((acc, item) => {
-        return {
-          ...acc,
-          [item.id]: item,
-        };
-      }, {});
-    }
-
-    return {};
-  };
-
   const toggleRowSelection = row => {
     const newRows = getNextSelectedRowsState(row);
 
     setSelectedRows(newRows);
     if (
-      (Object.keys(newRows).length === uniqueAuthoritiesCount && !selectAll) ||
-      (Object.keys(newRows).length === 0 && selectAll)
+      (selectAll && (Object.keys(newRows).length !== uniqueAuthoritiesCount)) ||
+      (!selectAll && (Object.keys(newRows).length === uniqueAuthoritiesCount))
     ) {
       setSelectAll(prev => !prev);
     }
+  };
+
+  const getSelectAllRowsState = () => {
+    const uniqueAuthsInCurrPage = authorities.filter(item => !!item.id);
+    const newSelectedRows = { ...selectedRows };
+
+    if (!selectAll) {
+      // check each of the authorities, if it is not present in selectedRows, add to it
+      uniqueAuthsInCurrPage.forEach(item => {
+        if (!selectedRowsIds.includes(item.id)) {
+          newSelectedRows[item.id] = item;
+        }
+      });
+    } else {
+      // check each of the authorities, if it is present in selectedRows, remove it
+      uniqueAuthsInCurrPage.forEach(item => {
+        if (selectedRowsIds.includes(item.id)) {
+          delete newSelectedRows[item.id];
+        }
+      });
+    }
+
+    return newSelectedRows;
   };
 
   const toggleSelectAll = () => {
