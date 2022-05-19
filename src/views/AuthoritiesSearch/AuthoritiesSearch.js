@@ -180,6 +180,17 @@ const AuthoritiesSearch = ({
   const selectedRowsIds = useMemo(() => (Object.keys(selectedRows)), [selectedRows]);
   const selectedRowsCount = useMemo(() => (Object.keys(selectedRows).length), [selectedRows]);
 
+  const uniqueAuthorities = useMemo(() => authorities.filter(item => !!item.id), [authorities]);
+
+  const uniqueAuthoritiesCount = useMemo(() => {
+    // determine count of unique ids in authorities array.
+    // this is needed to check or uncheck "Select all" checkbox in header when all rows are explicitly
+    // checked or unchecked.
+    const filteredAuthorities = authorities.map(authority => authority.id).filter(id => !!id);
+
+    return new Set(filteredAuthorities).size;
+  }, [authorities]);
+
   const rowExistsInSelectedRows = row => {
     return selectedRowsIds.includes(row.id);
   };
@@ -220,15 +231,6 @@ const AuthoritiesSearch = ({
     },
   });
 
-  const uniqueAuthoritiesCount = useMemo(() => {
-    // determine count of unique ids in authorities array.
-    // this is needed to check or uncheck "Select all" checkbox in header when all rows are explicitly
-    // checked or unchecked.
-    const filteredAuthorities = authorities.map(authority => authority.id).filter(id => !!id);
-
-    return new Set(filteredAuthorities).size;
-  }, [authorities]);
-
   const getNextSelectedRowsState = row => {
     const { id } = row;
     const isRowSelected = !!selectedRows[id];
@@ -247,28 +249,32 @@ const AuthoritiesSearch = ({
     const newRows = getNextSelectedRowsState(row);
 
     setSelectedRows(newRows);
+
+    // while selectAll is false, if all rows in current page are selected, update the state "selectAll" to true
+    // while select all is true, if one of the rows is unselected, then update select all false
+    const newSelectedRowIds = Object.keys(newRows);
+
     if (
-      (selectAll && (Object.keys(newRows).length !== uniqueAuthoritiesCount)) ||
-      (!selectAll && (Object.keys(newRows).length === uniqueAuthoritiesCount))
+      (!selectAll && uniqueAuthorities.every(item => newSelectedRowIds.includes(item.id))) ||
+      (selectAll && (Object.keys(newRows).length !== uniqueAuthoritiesCount))
     ) {
       setSelectAll(prev => !prev);
     }
   };
 
   const getSelectAllRowsState = () => {
-    const uniqueAuthsInCurrPage = authorities.filter(item => !!item.id);
     const newSelectedRows = { ...selectedRows };
 
     if (!selectAll) {
       // check each of the authorities, if it is not present in selectedRows, add to it
-      uniqueAuthsInCurrPage.forEach(item => {
+      uniqueAuthorities.forEach(item => {
         if (!selectedRowsIds.includes(item.id)) {
           newSelectedRows[item.id] = item;
         }
       });
     } else {
       // check each of the authorities, if it is present in selectedRows, remove it
-      uniqueAuthsInCurrPage.forEach(item => {
+      uniqueAuthorities.forEach(item => {
         if (selectedRowsIds.includes(item.id)) {
           delete newSelectedRows[item.id];
         }
