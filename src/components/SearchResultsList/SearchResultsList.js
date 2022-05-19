@@ -37,6 +37,8 @@ import css from './SearchResultsList.css';
 
 const propTypes = {
   authorities: PropTypes.arrayOf(AuthorityShape).isRequired,
+  hasNextPage: PropTypes.bool,
+  hasPrevPage: PropTypes.bool,
   hasFilters: PropTypes.bool.isRequired,
   hidePageIndices: PropTypes.bool,
   isFilterPaneVisible: PropTypes.bool.isRequired,
@@ -77,6 +79,8 @@ const SearchResultsList = ({
   selectAll,
   hasFilters,
   hidePageIndices,
+  hasNextPage,
+  hasPrevPage,
 }) => {
   const intl = useIntl();
   const match = useRouteMatch();
@@ -239,6 +243,8 @@ const SearchResultsList = ({
       onHeaderClick={onHeaderClick}
       autosize
       hidePageIndices={hidePageIndices}
+      canGoNext={hasNextPage}
+      canGoPrevious={hasPrevPage}
       isEmptyMessage={
         source
           ? (

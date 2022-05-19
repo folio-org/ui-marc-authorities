@@ -21,6 +21,7 @@
 - [UIMARCAUTH-121](https://issues.folio.org/browse/UIMARCAUTH-121) Export .csv file to load to Data export to create the .mrc file of selected authority records
 - [FOLIO-3477](https://issues.folio.org/browse/FOLIO-3477) FE: update outdated dependencies.
 - [UIMARCAUTH-143](https://issues.folio.org/browse/UIMARCAUTH-143) FE: Update Personal name, Corporate/Conference name and Corporate name Search/Browse options
+- [UIMARCAUTH-140](https://issues.folio.org/browse/UIMARCAUTH-140) [Browse] The page without results is displayed when user go to the last page of result list.
 
 ## [1.0.5](https://github.com/folio-org/ui-marc-authorities/tree/v1.0.5) (2022-04-15)
 
