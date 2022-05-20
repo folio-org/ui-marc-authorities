@@ -243,8 +243,8 @@ const SearchResultsList = ({
       onHeaderClick={onHeaderClick}
       autosize
       hidePageIndices={hidePageIndices}
-      canGoNext={hasNextPage}
-      canGoPrevious={hasPrevPage}
+      pagingCanGoNext={hasNextPage}
+      pagingCanGoPrevious={hasPrevPage}
       isEmptyMessage={
         source
           ? (
