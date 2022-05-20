@@ -108,7 +108,8 @@
           "search.authorities.collection.get",
           "search.facets.collection.get",
           "source-storage.records.get",
-          "inventory-storage.authorities.item.get"
+          "inventory-storage.authorities.item.get",
+          "data-export.quick.export.post"
         ],
         "visible": true
       },
