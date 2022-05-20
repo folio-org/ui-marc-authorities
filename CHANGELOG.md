@@ -22,6 +22,7 @@
 - [FOLIO-3477](https://issues.folio.org/browse/FOLIO-3477) FE: update outdated dependencies.
 - [UIMARCAUTH-143](https://issues.folio.org/browse/UIMARCAUTH-143) FE: Update Personal name, Corporate/Conference name and Corporate name Search/Browse options
 - Pin @vue/compiler-sfc to fix formatjs-compile errors
+- [UIMARCAUTH-146](https://issues.folio.org/browse/UIMARCAUTH-146) Export ".csv" file failed because of missing permission
 
 ## [1.0.5](https://github.com/folio-org/ui-marc-authorities/tree/v1.0.5) (2022-04-15)
 
