@@ -35,11 +35,7 @@ const useBrowseRequest = ({
 
   const cqlSearch = startingSearch ? [startingSearch] : [];
 
-  if (searchIndex === searchableIndexesValues.NAME_TITLE) {
-    cqlSearch.push('headingTypeExt=="Title"');
-  } else {
-    cqlSearch.push('headingTypeExt<>"Title"');
-  }
+  cqlSearch.push(`isTitleHeadingRef==${searchIndex === searchableIndexesValues.NAME_TITLE}`);
 
   const cqlFilters = Object.entries(filters)
     .filter(([, filterValues]) => filterValues.length)
