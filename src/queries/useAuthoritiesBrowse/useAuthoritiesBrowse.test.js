@@ -77,11 +77,11 @@ describe('Given useAuthoritiesBrowse', () => {
 
     expect(mockGet).toHaveBeenCalledTimes(3);
     expect(decodeURIWithEquals(mockGet.mock.calls[0][0]))
-      .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=(headingRef>="test" or headingRef<"test") and headingTypeExt<>"Title" and headingType==("Personal Name")');
+      .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=(headingRef>="test" or headingRef<"test") and isTitleHeadingRef==false and headingType==("Personal Name")');
     expect(decodeURIWithEquals(mockGet.mock.calls[1][0]))
-      .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef<"authority_0_0" and headingTypeExt<>"Title" and headingType==("Personal Name")');
+      .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef<"authority_0_0" and isTitleHeadingRef==false and headingType==("Personal Name")');
     expect(decodeURIWithEquals(mockGet.mock.calls[2][0]))
-      .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef>"authority_0_49" and headingTypeExt<>"Title" and headingType==("Personal Name")');
+      .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef>"authority_0_49" and isTitleHeadingRef==false and headingType==("Personal Name")');
   });
 
   describe('when requesting a previous page', () => {
@@ -108,7 +108,7 @@ describe('Given useAuthoritiesBrowse', () => {
 
       expect(mockGet).toHaveBeenCalledTimes(1);
       expect(decodeURIWithEquals(mockGet.mock.calls[0][0]))
-        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef<"authority_1_0" and headingTypeExt<>"Title" and headingType==("Personal Name")');
+        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef<"authority_1_0" and isTitleHeadingRef==false and headingType==("Personal Name")');
     });
   });
 
@@ -175,11 +175,11 @@ describe('Given useAuthoritiesBrowse', () => {
 
       expect(mockGet).toHaveBeenCalledTimes(6);
       expect(decodeURIWithEquals(mockGet.mock.calls[3][0]))
-        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=(headingRef>="test2" or headingRef<"test2") and headingTypeExt<>"Title" and headingType==("Personal Name")');
+        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=(headingRef>="test2" or headingRef<"test2") and isTitleHeadingRef==false and headingType==("Personal Name")');
       expect(decodeURIWithEquals(mockGet.mock.calls[4][0]))
-        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef<"authority_3_0" and headingTypeExt<>"Title" and headingType==("Personal Name")');
+        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef<"authority_3_0" and isTitleHeadingRef==false and headingType==("Personal Name")');
       expect(decodeURIWithEquals(mockGet.mock.calls[5][0]))
-        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef>"authority_3_49" and headingTypeExt<>"Title" and headingType==("Personal Name")');
+        .toBe('browse/authorities?limit=20&precedingRecordsCount=5&query=headingRef>"authority_3_49" and isTitleHeadingRef==false and headingType==("Personal Name")');
     });
   });
 
