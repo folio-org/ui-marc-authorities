@@ -146,8 +146,5 @@
         "visible": true
       }
     ]
-  },
-  "resolutions": {
-    "@vue/compiler-sfc": "3.2.33"
   }
 }

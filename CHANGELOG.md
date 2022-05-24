@@ -25,6 +25,7 @@
 - [UIMARCAUTH-146](https://issues.folio.org/browse/UIMARCAUTH-146) Export ".csv" file failed because of missing permission
 - [UIMARCAUTH-144](https://issues.folio.org/browse/UIMARCAUTH-144) Deleted "MARC Authority" records display at result list
 - [UIMARCAUTH-151](https://issues.folio.org/browse/UIMARCAUTH-151) Change request param headingTypeExt to isTitleHeadingRef
+- [UIMARCAUTH-145](https://issues.folio.org/browse/UIMARCAUTH-145) FE: update outdated dependencies
 
 ## [1.0.5](https://github.com/folio-org/ui-marc-authorities/tree/v1.0.5) (2022-04-15)
 
