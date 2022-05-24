@@ -27,9 +27,7 @@ const AuthorityQuickMarcEditRoute = () => {
   const [namespace] = useNamespace({ key: QUERY_KEY_AUTHORITIES });
   const { setIsGoingToBaseURL } = useContext(AuthoritiesSearchContext);
 
-  const onClose = useCallback(async recordRoute => {
-    const recordId = recordRoute.split('/')[1];
-
+  const onClose = useCallback(async recordId => {
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     queryClient.invalidateQueries(namespace);
@@ -46,6 +44,7 @@ const AuthorityQuickMarcEditRoute = () => {
       type="quick-marc"
       basePath={match.path}
       onClose={onClose}
+      externalRecordPath="/marc-authorities/authorities"
     >
       <FormattedMessage id="ui-inventory.quickMarcNotAvailable" />
     </Pluggable>
