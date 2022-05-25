@@ -31,7 +31,7 @@ const useAuthorityDelete = ({ onError, onSuccess, ...restOptions }) => {
 
       while (deleteRequestStatus !== 'COMPLETED' && requestCount !== maxRequestAttempts) {
         const statusResponse = await ky.get(MARC_RECORD_STATUS_API, { searchParams: { actionId } });
-        const { status } = statusResponse.json();
+        const { status } = await statusResponse.json();
 
         deleteRequestStatus = status;
         requestCount++;
