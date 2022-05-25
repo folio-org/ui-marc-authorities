@@ -69,6 +69,8 @@ const propTypes = {
     PropTypes.arrayOf(PropTypes.node),
   ]).isRequired,
   handleLoadMore: PropTypes.func.isRequired,
+  hasNextPage: PropTypes.bool,
+  hasPrevPage: PropTypes.bool,
   hidePageIndices: PropTypes.bool,
   isLoaded: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
@@ -97,6 +99,8 @@ const AuthoritiesSearch = ({
   pageSize,
   onSubmitSearch,
   hidePageIndices,
+  hasNextPage,
+  hasPrevPage,
 }) => {
   const intl = useIntl();
   const [, getNamespace] = useNamespace();
@@ -443,6 +447,8 @@ const AuthoritiesSearch = ({
       >
         <SearchResultsList
           authorities={authorities}
+          hasNextPage={hasNextPage}
+          hasPrevPage={hasPrevPage}
           totalResults={totalRecords}
           pageSize={pageSize}
           onNeedMoreData={handleLoadMore}
@@ -472,6 +478,8 @@ AuthoritiesSearch.propTypes = propTypes;
 AuthoritiesSearch.defaultProps = {
   hidePageIndices: false,
   query: '',
+  hasNextPage: null,
+  hasPrevPage: null,
 };
 
 export default AuthoritiesSearch;

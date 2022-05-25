@@ -203,30 +203,15 @@ const useAuthoritiesBrowse = ({
     return (page === 0 && mainRequest.data?.totalRecords !== 0 && !!mainRequest.data?.items.find(item => !item.authority));
   }, [mainRequest.data, page]);
 
-  const itemsWithPrevAndNextPages = useMemo(() => {
+  const itemsWithoutEmptyHeadingRef = useMemo(() => {
     const authorities = [...(mainRequest.data?.items || [])];
 
     // remove item with an empty headingRef which appears
     // when apply Type of heading facet without search query
     remove(authorities, item => !item.authority && !item.headingRef);
 
-    if (allRequestsFetching) {
-      return authorities;
-    }
-
-    let totalItemsLength = mainRequest.data?.items?.length + prevPageRequest.data?.items?.length + nextPageRequest.data?.items?.length;
-
-    if (Number.isNaN(totalItemsLength)) {
-      totalItemsLength = 0;
-    }
-
-    const newItems = new Array(totalItemsLength);
-
-    newItems.splice(prevPageRequest.data?.items?.length, authorities.length, ...authorities);
-
-    return newItems;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mainRequest.data, allRequestsFetching]);
+    return authorities;
+  }, [mainRequest.data]);
 
   const handleLoadMore = (_askAmount, _index, _firstIndex, direction) => {
     if (direction === 'prev') { // clicked Prev
@@ -242,7 +227,9 @@ const useAuthoritiesBrowse = ({
 
   return ({
     totalRecords,
-    authorities: itemsWithPrevAndNextPages,
+    authorities: itemsWithoutEmptyHeadingRef,
+    hasPrevPage: !!prevPageRequest.data?.items?.length,
+    hasNextPage: !!nextPageRequest.data?.items?.length,
     isLoading: allRequestsFetching,
     isLoaded: allRequestsFetched,
     handleLoadMore,
