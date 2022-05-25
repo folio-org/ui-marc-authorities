@@ -161,11 +161,18 @@ const AuthoritiesSearch = ({
       setIsGoingToBaseURL(false);
     }
 
-    history.push({
-      pathname,
-      search: searchString,
-      state: location.state,
-    });
+    const { pathname: curPathname, search: curSearch } = location;
+
+    // change history only if the pathname and search are different from
+    // the current pathname and search params.
+    // https://issues.folio.org/browse/UIMARCAUTH-147
+    if (`${curPathname}${curSearch}` !== `${pathname}?${searchString}`) {
+      history.push({
+        pathname,
+        search: searchString,
+        state: location.state,
+      });
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     searchQuery,

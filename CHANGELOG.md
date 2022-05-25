@@ -21,6 +21,7 @@
 - [UIMARCAUTH-121](https://issues.folio.org/browse/UIMARCAUTH-121) Export .csv file to load to Data export to create the .mrc file of selected authority records
 - [FOLIO-3477](https://issues.folio.org/browse/FOLIO-3477) FE: update outdated dependencies.
 - [UIMARCAUTH-143](https://issues.folio.org/browse/UIMARCAUTH-143) FE: Update Personal name, Corporate/Conference name and Corporate name Search/Browse options
+- [UIMARCAUTH-147](https://issues.folio.org/browse/UIMARCAUTH-147) Fix history push to support code splitting.
 - Pin @vue/compiler-sfc to fix formatjs-compile errors
 - [UIMARCAUTH-146](https://issues.folio.org/browse/UIMARCAUTH-146) Export ".csv" file failed because of missing permission
 - [UIMARCAUTH-144](https://issues.folio.org/browse/UIMARCAUTH-144) Deleted "MARC Authority" records display at result list
