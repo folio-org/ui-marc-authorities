@@ -22,6 +22,11 @@
 - [FOLIO-3477](https://issues.folio.org/browse/FOLIO-3477) FE: update outdated dependencies.
 - [UIMARCAUTH-143](https://issues.folio.org/browse/UIMARCAUTH-143) FE: Update Personal name, Corporate/Conference name and Corporate name Search/Browse options
 - [UIMARCAUTH-147](https://issues.folio.org/browse/UIMARCAUTH-147) Fix history push to support code splitting.
+- Pin @vue/compiler-sfc to fix formatjs-compile errors
+- [UIMARCAUTH-146](https://issues.folio.org/browse/UIMARCAUTH-146) Export ".csv" file failed because of missing permission
+- [UIMARCAUTH-144](https://issues.folio.org/browse/UIMARCAUTH-144) Deleted "MARC Authority" records display at result list
+- [UIMARCAUTH-151](https://issues.folio.org/browse/UIMARCAUTH-151) Change request param headingTypeExt to isTitleHeadingRef
+- [UIMARCAUTH-140](https://issues.folio.org/browse/UIMARCAUTH-140) [Browse] The page without results is displayed when user go to the last page of result list.
 
 ## [1.0.5](https://github.com/folio-org/ui-marc-authorities/tree/v1.0.5) (2022-04-15)
 
