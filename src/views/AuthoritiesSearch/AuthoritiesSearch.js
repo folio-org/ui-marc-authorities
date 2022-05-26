@@ -69,6 +69,8 @@ const propTypes = {
     PropTypes.arrayOf(PropTypes.node),
   ]).isRequired,
   handleLoadMore: PropTypes.func.isRequired,
+  hasNextPage: PropTypes.bool,
+  hasPrevPage: PropTypes.bool,
   hidePageIndices: PropTypes.bool,
   isLoaded: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
@@ -97,6 +99,8 @@ const AuthoritiesSearch = ({
   pageSize,
   onSubmitSearch,
   hidePageIndices,
+  hasNextPage,
+  hasPrevPage,
 }) => {
   const intl = useIntl();
   const [, getNamespace] = useNamespace();
@@ -157,11 +161,18 @@ const AuthoritiesSearch = ({
       setIsGoingToBaseURL(false);
     }
 
-    history.push({
-      pathname,
-      search: searchString,
-      state: location.state,
-    });
+    const { pathname: curPathname, search: curSearch } = location;
+
+    // change history only if the pathname and search are different from
+    // the current pathname and search params.
+    // https://issues.folio.org/browse/UIMARCAUTH-147
+    if (`${curPathname}${curSearch}` !== `${pathname}?${searchString}`) {
+      history.push({
+        pathname,
+        search: searchString,
+        state: location.state,
+      });
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     searchQuery,
@@ -443,6 +454,8 @@ const AuthoritiesSearch = ({
       >
         <SearchResultsList
           authorities={authorities}
+          hasNextPage={hasNextPage}
+          hasPrevPage={hasPrevPage}
           totalResults={totalRecords}
           pageSize={pageSize}
           onNeedMoreData={handleLoadMore}
@@ -472,6 +485,8 @@ AuthoritiesSearch.propTypes = propTypes;
 AuthoritiesSearch.defaultProps = {
   hidePageIndices: false,
   query: '',
+  hasNextPage: null,
+  hasPrevPage: null,
 };
 
 export default AuthoritiesSearch;

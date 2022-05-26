@@ -36,6 +36,8 @@ const BrowseRoute = ({ children }) => {
 
   const {
     authorities,
+    hasNextPage,
+    hasPrevPage,
     isLoading,
     isLoaded,
     handleLoadMore,
@@ -78,6 +80,8 @@ const BrowseRoute = ({ children }) => {
   return (
     <AuthoritiesSearch
       authorities={formattedAuthoritiesForView}
+      hasNextPage={hasNextPage}
+      hasPrevPage={hasPrevPage}
       totalRecords={totalRecords}
       isLoading={isLoading}
       isLoaded={isLoaded}
