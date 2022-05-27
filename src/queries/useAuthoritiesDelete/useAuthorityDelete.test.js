@@ -45,7 +45,7 @@ describe('useAuthorityDeleteMutation', () => {
     await waitForNextUpdate();
 
     expect(deleteMock).toHaveBeenCalled();
-    act(() => jest.advanceTimersByTime(600));
+    act(() => jest.advanceTimersByTime(1600));
     expect(await successMock).toHaveBeenCalled();
   });
 

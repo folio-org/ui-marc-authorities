@@ -17,6 +17,7 @@ import { buildHeadingTypeQuery } from '../utils';
 import {
   filterConfig,
   QUERY_KEY_AUTHORITIES,
+  searchableIndexesValues,
 } from '../../constants';
 
 const AUTHORITIES_BROWSE_API = 'browse/authorities';
@@ -34,10 +35,12 @@ const useBrowseRequest = ({
 
   const cqlSearch = startingSearch ? [startingSearch] : [];
 
+  cqlSearch.push(`isTitleHeadingRef==${searchIndex === searchableIndexesValues.NAME_TITLE}`);
+
   const cqlFilters = Object.entries(filters)
     .filter(([, filterValues]) => filterValues.length)
     .map(([filterName, filterValues]) => {
-      const filterData = filterConfig.find((filter) => filter.name === filterName);
+      const filterData = filterConfig.find(filter => filter.name === filterName);
 
       return filterData ? filterData.parse(filterValues) : null;
     });
@@ -61,7 +64,7 @@ const useBrowseRequest = ({
   } = useQuery(
     [namespace, 'authorities', searchParams],
     async () => {
-      if (!searchQuery && !Object.values(filters).find((value) => value.length > 0)) {
+      if (!searchQuery && !Object.values(filters).find(value => value.length > 0)) {
         return { items: [], totalRecords: 0 };
       }
 
@@ -84,7 +87,7 @@ const useBrowseRequest = ({
   });
 };
 
-const useBrowserPaging = (initialQuery) => {
+const useBrowserPaging = initialQuery => {
   const [page, setPage] = useState(0);
   const [pageSearchCache, setPageSearchCache] = useState({});
 
@@ -117,7 +120,7 @@ const useBrowserPaging = (initialQuery) => {
 
     setPage(newPage);
     setMainRequestSearch(getMainRequestSearch(newQuery, newPage));
-    setPageSearchCache((currentPageSearchCache) => ({
+    setPageSearchCache(currentPageSearchCache => ({
       ...currentPageSearchCache,
       [newPage]: currentPageSearchCache[newPage] || getMainRequestSearch(newQuery, newPage),
     }));
@@ -197,33 +200,18 @@ const useAuthoritiesBrowse = ({
   const allRequestsFetching = mainRequest.isFetching || prevPageRequest.isFetching || nextPageRequest.isFetching;
 
   const hasEmptyAnchor = useMemo(() => {
-    return (page === 0 && mainRequest.data?.totalRecords !== 0 && !!mainRequest.data?.items.find((item) => !item.authority));
+    return (page === 0 && mainRequest.data?.totalRecords !== 0 && !!mainRequest.data?.items.find(item => !item.authority));
   }, [mainRequest.data, page]);
 
-  const itemsWithPrevAndNextPages = useMemo(() => {
+  const itemsWithoutEmptyHeadingRef = useMemo(() => {
     const authorities = [...(mainRequest.data?.items || [])];
 
     // remove item with an empty headingRef which appears
     // when apply Type of heading facet without search query
-    remove(authorities, (item) => !item.authority && !item.headingRef);
+    remove(authorities, item => !item.authority && !item.headingRef);
 
-    if (allRequestsFetching) {
-      return authorities;
-    }
-
-    let totalItemsLength = mainRequest.data?.items?.length + prevPageRequest.data?.items?.length + nextPageRequest.data?.items?.length;
-
-    if (Number.isNaN(totalItemsLength)) {
-      totalItemsLength = 0;
-    }
-
-    const newItems = new Array(totalItemsLength);
-
-    newItems.splice(prevPageRequest.data?.items?.length, authorities.length, ...authorities);
-
-    return newItems;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mainRequest.data, allRequestsFetching]);
+    return authorities;
+  }, [mainRequest.data]);
 
   const handleLoadMore = (_askAmount, _index, _firstIndex, direction) => {
     if (direction === 'prev') { // clicked Prev
@@ -239,7 +227,9 @@ const useAuthoritiesBrowse = ({
 
   return ({
     totalRecords,
-    authorities: itemsWithPrevAndNextPages,
+    authorities: itemsWithoutEmptyHeadingRef,
+    hasPrevPage: !!prevPageRequest.data?.items?.length,
+    hasNextPage: !!nextPageRequest.data?.items?.length,
     isLoading: allRequestsFetching,
     isLoaded: allRequestsFetched,
     handleLoadMore,

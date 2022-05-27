@@ -7,9 +7,7 @@ import {
 } from '@folio/stripes/components';
 
 import { AuthoritiesSearchContext } from '../../context';
-import {
-  navigationSegments,
-} from '../../constants';
+import { navigationSegments } from '../../constants';
 
 const FilterNavigation = () => {
   const {

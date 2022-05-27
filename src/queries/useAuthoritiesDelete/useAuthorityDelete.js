@@ -24,7 +24,7 @@ const useAuthorityDelete = ({ onError, onSuccess, ...restOptions }) => {
 
   const customOptions = {
     onError,
-    onSuccess: async (deleteResult) => {
+    onSuccess: async deleteResult => {
       const { actionId } = await deleteResult.json();
 
       let deleteRequestStatus;
@@ -37,6 +37,7 @@ const useAuthorityDelete = ({ onError, onSuccess, ...restOptions }) => {
         requestCount++;
       }
 
+      await new Promise(resolve => setTimeout(resolve, 1500));
       queryClient.invalidateQueries(namespace);
 
       return onSuccess();
@@ -44,7 +45,7 @@ const useAuthorityDelete = ({ onError, onSuccess, ...restOptions }) => {
   };
 
   const { mutate } = useMutation({
-    mutationFn: (id) => {
+    mutationFn: id => {
       return ky.delete(`records-editor/records/${id}`);
     },
     ...customOptions,

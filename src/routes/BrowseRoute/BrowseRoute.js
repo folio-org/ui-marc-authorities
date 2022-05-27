@@ -12,7 +12,10 @@ import {
 import { useAuthoritiesBrowse } from '../../queries';
 
 const propTypes = {
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]).isRequired,
 };
 
 const PAGE_SIZE = 100;
@@ -33,6 +36,8 @@ const BrowseRoute = ({ children }) => {
 
   const {
     authorities,
+    hasNextPage,
+    hasPrevPage,
     isLoading,
     isLoaded,
     handleLoadMore,
@@ -46,7 +51,7 @@ const BrowseRoute = ({ children }) => {
     precedingRecordsCount: PRECEDING_RECORDS_COUNT,
   });
 
-  const onSubmitSearch = (e) => {
+  const onSubmitSearch = e => {
     if (e && e.preventDefault) {
       e.preventDefault();
       e.stopPropagation();
@@ -75,6 +80,8 @@ const BrowseRoute = ({ children }) => {
   return (
     <AuthoritiesSearch
       authorities={formattedAuthoritiesForView}
+      hasNextPage={hasNextPage}
+      hasPrevPage={hasPrevPage}
       totalRecords={totalRecords}
       isLoading={isLoading}
       isLoaded={isLoaded}

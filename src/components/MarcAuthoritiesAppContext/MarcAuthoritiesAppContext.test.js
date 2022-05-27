@@ -1,6 +1,4 @@
-import {
-  render,
-} from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import Harness from '../../../test/jest/helpers/harness';
 import MarcAuthoritiesAppContext from './MarcAuthoritiesAppContext';

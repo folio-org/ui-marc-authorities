@@ -55,16 +55,15 @@ const BrowseFilters = ({ cqlQuery }) => {
         onChange={applyFilters}
         name={FILTERS.REFERENCES}
       />
-
       <MultiSelectionFacet
         id={FILTERS.HEADING_TYPE}
         label={intl.formatMessage({ id: `ui-marc-authorities.search.${FILTERS.HEADING_TYPE}` })}
         name={FILTERS.HEADING_TYPE}
         open={filterAccordions[FILTERS.HEADING_TYPE]}
-        options={facets[FILTERS.HEADING_TYPE]?.values || []}
+        options={facets[FILTERS.HEADING_TYPE]?.values}
         selectedValues={filters[FILTERS.HEADING_TYPE]}
         onFilterChange={applyFilters}
-        onClearFilter={(filter) => onClearFilter({ filter, setFilters })}
+        onClearFilter={filter => onClearFilter({ filter, setFilters })}
         displayClearButton={!!filters[FILTERS.HEADING_TYPE]?.length}
         handleSectionToggle={handleSectionToggle}
         isPending={isLoading}
@@ -74,5 +73,9 @@ const BrowseFilters = ({ cqlQuery }) => {
 };
 
 BrowseFilters.propTypes = propTypes;
+
+BrowseFilters.defaultProps = {
+  cqlQuery: '',
+};
 
 export default BrowseFilters;

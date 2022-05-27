@@ -2,13 +2,19 @@ import {
   useCallback,
   useMemo,
 } from 'react';
-
 import PropTypes from 'prop-types';
 
 import {
   checkScope,
   HasCommand,
 } from '@folio/stripes/components';
+
+const propTypes = {
+  canEdit: PropTypes.bool,
+  children: PropTypes.node.isRequired,
+  focusSearchField: PropTypes.func,
+  onEdit: PropTypes.func,
+};
 
 const KeyShortCutsWrapper = ({
   children,
@@ -62,11 +68,12 @@ const KeyShortCutsWrapper = ({
   );
 };
 
-KeyShortCutsWrapper.propTypes = {
-  canEdit: PropTypes.bool,
-  children: PropTypes.node.isRequired,
-  focusSearchField: PropTypes.func,
-  onEdit: PropTypes.func,
+KeyShortCutsWrapper.propTypes = propTypes;
+
+KeyShortCutsWrapper.defaultProps = {
+  canEdit: false,
+  focusSearchField: null,
+  onEdit: null,
 };
 
 export default KeyShortCutsWrapper;

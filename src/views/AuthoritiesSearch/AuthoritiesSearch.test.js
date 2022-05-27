@@ -44,20 +44,31 @@ jest.mock('../../queries/useAuthorities', () => ({
 
 jest.mock('../../components', () => ({
   ...jest.requireActual('../../components'),
-  SearchResultsList: (props) => {
-    const mapedProps = mockMapValues(props, (prop) => ((typeof prop === 'object') ? JSON.stringify(prop) : prop));
+  SearchResultsList: props => {
+    const mapedProps = mockMapValues(props, prop => ((typeof prop === 'object') ? JSON.stringify(prop) : prop));
 
     return (
       <div data-testid="SearchResultsList" {...mapedProps}>
         <button type="button" data-testid="select-all-rows-toggle-button" onClick={() => props.toggleSelectAll()}>select-all-rows-toggle-button</button>
-        {props.authorities.map((authority) => (
-          <button type="button" data-testid="row-toggle-button" onClick={() => props.toggleRowSelection({ ...authority })}>row-toggle-button</button>
+        {props.authorities.map(authority => (
+          <button
+            type="button"
+            data-testid="row-toggle-button"
+            onClick={() => props.toggleRowSelection({ ...authority })}
+          >
+            row-toggle-button
+          </button>
         ))}
       </div>
     );
   },
   SearchFilters: () => <div>SearchFilters</div>,
-  AuthoritiesSearchForm: () => <div>AuthoritiesSearchForm</div>,
+  AuthoritiesSearchForm: props => (
+    <div>
+      AuthoritiesSearchForm
+      <button type="button" data-testid="reset-all" onClick={() => props.resetSelectedRows()}>Reset all</button>
+    </div>
+  ),
 }));
 
 const mockHandleLoadMore = jest.fn();
@@ -335,7 +346,7 @@ describe('Given AuthoritiesSearch', () => {
       describe('when click on "Export selected records (CSV/MARC)" button', () => {
         it('should be able to show success toast message and unselect records', async () => {
           jest.mock('../../queries/useAuthorityExport', () => ({
-            useAuthorityExport: ({ onSuccess }) => ({ exportRecords: (data) => onSuccess(data) }),
+            useAuthorityExport: ({ onSuccess }) => ({ exportRecords: data => onSuccess(data) }),
           }));
 
           const { getAllByTestId, getByRole, queryByText } = renderAuthoritiesSearch({ authorities });
@@ -429,6 +440,31 @@ describe('Given AuthoritiesSearch', () => {
       fireEvent.click(selectAllRowsToggleButton);
 
       expect(queryByText('ui-inventory.instances.rows.recordsSelected')).toBeDefined();
+    });
+  });
+
+  describe('should unselect all rows when header checkbox is clicked twice', () => {
+    it('should unselect all rows', () => {
+      const { getByTestId, queryByText } = renderAuthoritiesSearch({ authorities });
+
+      const selectAllRowsToggleButton = getByTestId('select-all-rows-toggle-button');
+
+      fireEvent.click(selectAllRowsToggleButton);
+      fireEvent.click(selectAllRowsToggleButton);
+
+      expect(queryByText('ui-inventory.instances.rows.recordsSelected')).toBeNull();
+    });
+  });
+
+  describe('should clear the selected records when clicking on "reset all" button', () => {
+    it('should unselect all rows', () => {
+      const { getByTestId, queryByText } = renderAuthoritiesSearch({ authorities });
+
+      const resetAllButton = getByTestId('reset-all');
+
+      fireEvent.click(resetAllButton);
+
+      expect(queryByText('ui-inventory.instances.rows.recordsSelected')).toBeNull();
     });
   });
 });

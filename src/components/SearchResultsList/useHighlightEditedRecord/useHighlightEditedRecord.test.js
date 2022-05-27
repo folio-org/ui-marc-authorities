@@ -12,11 +12,15 @@ jest.mock('react-router', () => ({
   }),
 }));
 
-const getWrapper = (selectedRecord) => ({ children }) => (
-  <Harness selectedRecordCtxValue={[selectedRecord]}>
-    {children}
-  </Harness>
-);
+const getWrapper = selectedRecord => function ({ children }) {
+  return (
+    <Harness
+      selectedRecordCtxValue={[selectedRecord]}
+    >
+      {children}
+    </Harness>
+  );
+};
 
 describe('Given useHighlightEditedRecord', () => {
   describe('when previous authorities are empty', () => {

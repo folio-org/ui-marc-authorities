@@ -1,6 +1,6 @@
 import omit from 'lodash/omit';
 
-export const getSelectedFacets = (filterAccordions) => {
+export const getSelectedFacets = filterAccordions => {
   return Object.keys(filterAccordions).filter(accordion => filterAccordions[accordion]);
 };
 

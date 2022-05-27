@@ -10,18 +10,18 @@ export const searchableIndexesMap = {
     plain: true,
   }],
   [searchableIndexesValues.PERSONAL_NAME]: [{
-    name: 'personalNameTitle',
+    name: 'personalName',
     plain: true,
     sft: true,
     saft: true,
   }],
   [searchableIndexesValues.CORPORATE_CONFERENCE_NAME]: [{
-    name: 'corporateNameTitle',
+    name: 'corporateName',
     plain: true,
     sft: true,
     saft: true,
   }, {
-    name: 'meetingNameTitle',
+    name: 'meetingName',
     plain: true,
     sft: true,
     saft: true,
@@ -38,6 +38,14 @@ export const searchableIndexesMap = {
   }],
   [searchableIndexesValues.NAME_TITLE]: [{
     name: 'personalNameTitle',
+    plain: true,
+    sft: true,
+  }, {
+    name: 'corporateNameTitle',
+    plain: true,
+    sft: true,
+  }, {
+    name: 'conferenceNameTitle',
     plain: true,
     sft: true,
   }],

@@ -15,10 +15,19 @@
 - [UIMARCAUTH-125](https://issues.folio.org/browse/UIMARCAUTH-125) Replace `babel-eslint` with `@babel/eslint-parser`.
 - [UIMARCAUTH-120](https://issues.folio.org/browse/UIMARCAUTH-120) Allow user to select MARC authority record(s) to export.
 - [UIMARCAUTH-132](https://issues.folio.org/browse/UIMARCAUTH-132) Apply to MARC Authority: Optimistic locking: display error message to inform user about OL.
-- [UIMARCAUTH-118](https://issues.folio.org/browse/UIMARCAUTH-118) Highlighting the row with "Heading/reference" value at result list after editing of record.
-- [UIMARCAUTH-135](https://issues.folio.org/browse/UIMARCAUTH-135) The search result list doesn't sort by clicking on the title of column.
-- [UIMARCAUTH-130](https://issues.folio.org/browse/UIMARCAUTH-130) Add a Select all/Un-select all on Results List.
-- [UIMARCAUTH-121](https://issues.folio.org/browse/UIMARCAUTH-121) Export .csv file to load to Data export to create the .mrc file of selected authority records.
+- [UIMARCAUTH-118](https://issues.folio.org/browse/UIMARCAUTH-118) Highlighting the row with "Heading/reference" value at result list after editing of record
+- [UIMARCAUTH-135](https://issues.folio.org/browse/UIMARCAUTH-135) The search result list doesn't sort by clicking on the title of column
+- [UIMARCAUTH-130](https://issues.folio.org/browse/UIMARCAUTH-130) Add a Select all/Un-select all on Results List
+- [UIMARCAUTH-121](https://issues.folio.org/browse/UIMARCAUTH-121) Export .csv file to load to Data export to create the .mrc file of selected authority records
+- [FOLIO-3477](https://issues.folio.org/browse/FOLIO-3477) FE: update outdated dependencies.
+- [UIMARCAUTH-143](https://issues.folio.org/browse/UIMARCAUTH-143) FE: Update Personal name, Corporate/Conference name and Corporate name Search/Browse options
+- [UIMARCAUTH-147](https://issues.folio.org/browse/UIMARCAUTH-147) Fix history push to support code splitting.
+- Pin @vue/compiler-sfc to fix formatjs-compile errors
+- [UIMARCAUTH-146](https://issues.folio.org/browse/UIMARCAUTH-146) Export ".csv" file failed because of missing permission
+- [UIMARCAUTH-144](https://issues.folio.org/browse/UIMARCAUTH-144) Deleted "MARC Authority" records display at result list
+- [UIMARCAUTH-151](https://issues.folio.org/browse/UIMARCAUTH-151) Change request param headingTypeExt to isTitleHeadingRef
+- [UIMARCAUTH-140](https://issues.folio.org/browse/UIMARCAUTH-140) [Browse] The page without results is displayed when user go to the last page of result list.
+- [UIMARCAUTH-145](https://issues.folio.org/browse/UIMARCAUTH-145) FE: update outdated dependencies
 - [UIMARCAUTH-137](https://issues.folio.org/browse/UIMARCAUTH-137) Modify MARC authority processing for delete.
 
 ## [1.0.5](https://github.com/folio-org/ui-marc-authorities/tree/v1.0.5) (2022-04-15)

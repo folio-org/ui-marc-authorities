@@ -1,6 +1,4 @@
-import {
-  render,
-} from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import SearchTextareaField from './SearchTextareaField';
 import Harness from '../../../test/jest/helpers/harness';

@@ -38,7 +38,7 @@ const MultiSelectionFacet = ({
   displayClearButton,
   ...props
 }) => {
-  const onChange = (newOptions) => {
+  const onChange = newOptions => {
     onFilterChange({
       name,
       values: newOptions.map(option => option.value),
@@ -65,7 +65,7 @@ const MultiSelectionFacet = ({
     totalRecords: option.totalRecords,
   })), ...missingValuesInOptions];
 
-  const itemToString = (option) => {
+  const itemToString = option => {
     return option?.label || '';
   };
 
@@ -102,6 +102,7 @@ const MultiSelectionFacet = ({
 
 MultiSelectionFacet.defaultProps = {
   selectedValues: [],
+  options: [],
 };
 
 MultiSelectionFacet.propTypes = propTypes;

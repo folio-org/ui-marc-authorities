@@ -8,9 +8,7 @@ import {
 } from 'react-router-dom';
 import queryString from 'query-string';
 
-import {
-  Route,
-} from '@folio/stripes/core';
+import { Route } from '@folio/stripes/core';
 import { CommandList } from '@folio/stripes/components';
 
 import {
@@ -33,22 +31,11 @@ import { navigationSegments } from './constants';
 const propTypes = {
   focusSearchField: PropTypes.func,
   match: PropTypes.object.isRequired,
-  stripes: PropTypes.shape({
-    connect: PropTypes.func,
-  }),
 };
 
 const MarcAuthorities = ({
-  match: {
-    path,
-  },
-  focusSearchField = () => {
-    const searchElement = document.getElementById('textarea-authorities-search');
-
-    if (searchElement) {
-      searchElement.focus();
-    }
-  },
+  match: { path },
+  focusSearchField,
 }) => {
   const location = useLocation();
 
@@ -79,5 +66,14 @@ const MarcAuthorities = ({
 };
 
 MarcAuthorities.propTypes = propTypes;
+MarcAuthorities.defaultProps = {
+  focusSearchField: () => {
+    const searchElement = document.getElementById('textarea-authorities-search');
+
+    if (searchElement) {
+      searchElement.focus();
+    }
+  },
+};
 
 export default MarcAuthorities;

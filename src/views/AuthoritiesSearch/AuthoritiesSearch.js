@@ -64,8 +64,13 @@ const prefix = 'authorities';
 
 const propTypes = {
   authorities: PropTypes.arrayOf(AuthorityShape).isRequired,
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]).isRequired,
   handleLoadMore: PropTypes.func.isRequired,
+  hasNextPage: PropTypes.bool,
+  hasPrevPage: PropTypes.bool,
   hidePageIndices: PropTypes.bool,
   isLoaded: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
@@ -94,6 +99,8 @@ const AuthoritiesSearch = ({
   pageSize,
   onSubmitSearch,
   hidePageIndices,
+  hasNextPage,
+  hasPrevPage,
 }) => {
   const intl = useIntl();
   const [, getNamespace] = useNamespace();
@@ -154,11 +161,18 @@ const AuthoritiesSearch = ({
       setIsGoingToBaseURL(false);
     }
 
-    history.push({
-      pathname,
-      search: searchString,
-      state: location.state,
-    });
+    const { pathname: curPathname, search: curSearch } = location;
+
+    // change history only if the pathname and search are different from
+    // the current pathname and search params.
+    // https://issues.folio.org/browse/UIMARCAUTH-147
+    if (`${curPathname}${curSearch}` !== `${pathname}?${searchString}`) {
+      history.push({
+        pathname,
+        search: searchString,
+        state: location.state,
+      });
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     searchQuery,
@@ -174,11 +188,33 @@ const AuthoritiesSearch = ({
   const [selectedRows, setSelectedRows] = useState({});
   const [selectAll, setSelectAll] = useState(false);
 
-  const selectedRowsIds = Object.keys(selectedRows);
+  const selectedRowsIds = useMemo(() => (Object.keys(selectedRows)), [selectedRows]);
   const selectedRowsCount = useMemo(() => (Object.keys(selectedRows).length), [selectedRows]);
+
+  const uniqueAuthorities = useMemo(() => authorities.filter(item => !!item.id), [authorities]);
+
+  const uniqueAuthoritiesCount = useMemo(() => {
+    // determine count of unique ids in authorities array.
+    // this is needed to check or uncheck "Select all" checkbox in header when all rows are explicitly
+    // checked or unchecked.
+    const filteredAuthorities = authorities.map(authority => authority.id).filter(id => !!id);
+
+    return new Set(filteredAuthorities).size;
+  }, [authorities]);
+
+  const rowExistsInSelectedRows = row => {
+    return selectedRowsIds.includes(row.id);
+  };
+
+  useEffect(() => {
+    // on pagination, when authorities search list change, update "selectAll" checkbox based on the selected rows in the searchList.
+    setSelectAll(authorities.every(rowExistsInSelectedRows));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authorities]);
 
   const resetSelectedRows = () => {
     setSelectedRows({});
+    setSelectAll(false);
   };
 
   const { exportRecords } = useAuthorityExport({
@@ -206,21 +242,12 @@ const AuthoritiesSearch = ({
     },
   });
 
-  const uniqueAuthoritiesCount = useMemo(() => {
-    // determine count of unique ids in authorities array.
-    // this is needed to check or uncheck "Select all" checkbox in header when all rows are explicitly
-    // checked or unchecked.
-    const filteredAuthorities = authorities.map(authority => authority.id).filter(id => !!id);
-
-    return new Set(filteredAuthorities).size;
-  }, [authorities]);
-
-  const getNextSelectedRowsState = (row) => {
+  const getNextSelectedRowsState = row => {
     const { id } = row;
     const isRowSelected = !!selectedRows[id];
     const newSelectedRows = { ...selectedRows };
 
-    if (isRowSelected || selectAll) {
+    if (isRowSelected) {
       delete newSelectedRows[id];
     } else {
       newSelectedRows[id] = row;
@@ -229,29 +256,43 @@ const AuthoritiesSearch = ({
     return newSelectedRows;
   };
 
-  const getSelectAllRowsState = () => {
-    if (!selectAll) {
-      return authorities.filter(item => !!item.id).reduce((acc, item) => {
-        return {
-          ...acc,
-          [item.id]: item,
-        };
-      }, {});
-    } else {
-      return {};
-    }
-  };
-
-  const toggleRowSelection = (row) => {
+  const toggleRowSelection = row => {
     const newRows = getNextSelectedRowsState(row);
 
     setSelectedRows(newRows);
+
+    // while selectAll is false, if all rows in current page are selected, update the state "selectAll" to true
+    // while select all is true, if one of the rows is unselected, then update select all false
+    const newSelectedRowIds = Object.keys(newRows);
+
     if (
-      (Object.keys(newRows).length === uniqueAuthoritiesCount && !selectAll) ||
-      (Object.keys(newRows).length === 0 && selectAll)
+      (!selectAll && uniqueAuthorities.every(item => newSelectedRowIds.includes(item.id))) ||
+      (selectAll && (Object.keys(newRows).length !== uniqueAuthoritiesCount))
     ) {
       setSelectAll(prev => !prev);
     }
+  };
+
+  const getSelectAllRowsState = () => {
+    const newSelectedRows = { ...selectedRows };
+
+    if (!selectAll) {
+      // check each of the authorities, if it is not present in selectedRows, add to it
+      uniqueAuthorities.forEach(item => {
+        if (!selectedRowsIds.includes(item.id)) {
+          newSelectedRows[item.id] = item;
+        }
+      });
+    } else {
+      // check each of the authorities, if it is present in selectedRows, remove it
+      uniqueAuthorities.forEach(item => {
+        if (selectedRowsIds.includes(item.id)) {
+          delete newSelectedRows[item.id];
+        }
+      });
+    }
+
+    return newSelectedRows;
   };
 
   const toggleSelectAll = () => {
@@ -278,7 +319,7 @@ const AuthoritiesSearch = ({
     );
   };
 
-  const options = Object.values(sortableSearchResultListColumns).map((option) => ({
+  const options = Object.values(sortableSearchResultListColumns).map(option => ({
     value: option,
     label: intl.formatMessage({ id: `ui-marc-authorities.search-results-list.${option}` }),
   }));
@@ -386,7 +427,6 @@ const AuthoritiesSearch = ({
             onChangeSortOption={onChangeSortOption}
             resetSelectedRows={resetSelectedRows}
           />
-
           {
             navigationSegmentValue === navigationSegments.browse
               ? (
@@ -414,6 +454,8 @@ const AuthoritiesSearch = ({
       >
         <SearchResultsList
           authorities={authorities}
+          hasNextPage={hasNextPage}
+          hasPrevPage={hasPrevPage}
           totalResults={totalRecords}
           pageSize={pageSize}
           onNeedMoreData={handleLoadMore}
@@ -440,5 +482,11 @@ const AuthoritiesSearch = ({
 };
 
 AuthoritiesSearch.propTypes = propTypes;
+AuthoritiesSearch.defaultProps = {
+  hidePageIndices: false,
+  query: '',
+  hasNextPage: null,
+  hasPrevPage: null,
+};
 
 export default AuthoritiesSearch;

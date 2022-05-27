@@ -37,6 +37,8 @@ import css from './SearchResultsList.css';
 
 const propTypes = {
   authorities: PropTypes.arrayOf(AuthorityShape).isRequired,
+  hasNextPage: PropTypes.bool,
+  hasPrevPage: PropTypes.bool,
   hasFilters: PropTypes.bool.isRequired,
   hidePageIndices: PropTypes.bool,
   isFilterPaneVisible: PropTypes.bool.isRequired,
@@ -77,6 +79,8 @@ const SearchResultsList = ({
   selectAll,
   hasFilters,
   hidePageIndices,
+  hasNextPage,
+  hasPrevPage,
 }) => {
   const intl = useIntl();
   const match = useRouteMatch();
@@ -112,7 +116,7 @@ const SearchResultsList = ({
     [searchResultListColumns.HEADING_TYPE]: { min: 200 },
   };
 
-  const formatAuthorityRecordLink = (authority) => {
+  const formatAuthorityRecordLink = authority => {
     const search = queryString.parse(location.search);
     const newSearch = queryString.stringify({
       ...search,
@@ -123,7 +127,7 @@ const SearchResultsList = ({
     return `${match.path}/authorities/${authority.id}?${newSearch}`;
   };
 
-  const redirectToAuthorityRecord = (authority) => {
+  const redirectToAuthorityRecord = authority => {
     history.push(formatAuthorityRecordLink(authority));
   };
 
@@ -169,12 +173,12 @@ const SearchResultsList = ({
         />
       </div>
     ),
-    authRefType: (authority) => {
+    authRefType: authority => {
       return authority.authRefType === AUTH_REF_TYPES.AUTHORIZED
         ? <b>{authority.authRefType}</b>
         : authority.authRefType;
     },
-    headingRef: (authority) => (
+    headingRef: authority => (
       authority.isAnchor && !authority.isExactMatch
         ? (
           <Icon
@@ -239,22 +243,31 @@ const SearchResultsList = ({
       onHeaderClick={onHeaderClick}
       autosize
       hidePageIndices={hidePageIndices}
+      pagingCanGoNext={hasNextPage}
+      pagingCanGoPrevious={hasPrevPage}
       isEmptyMessage={
-        source ? (
-          <div data-test-agreements-no-results-message>
-            <SearchAndSortNoResultsMessage
-              filterPaneIsVisible={isFilterPaneVisible}
-              searchTerm={query || ''}
-              source={source}
-              toggleFilterPane={toggleFilterPane}
-            />
-          </div>
-        ) : '...'
+        source
+          ? (
+            <div data-test-agreements-no-results-message>
+              <SearchAndSortNoResultsMessage
+                filterPaneIsVisible={isFilterPaneVisible}
+                searchTerm={query || ''}
+                source={source}
+                toggleFilterPane={toggleFilterPane}
+              />
+            </div>
+          )
+          : '...'
       }
     />
   );
 };
 
 SearchResultsList.propTypes = propTypes;
+
+SearchResultsList.defaultProps = {
+  hidePageIndices: false,
+  totalResults: NaN,
+};
 
 export default SearchResultsList;
