@@ -29,6 +29,7 @@
 - [UIMARCAUTH-140](https://issues.folio.org/browse/UIMARCAUTH-140) [Browse] The page without results is displayed when user go to the last page of result list.
 - [UIMARCAUTH-145](https://issues.folio.org/browse/UIMARCAUTH-145) FE: update outdated dependencies
 - [UIMARCAUTH-153](https://issues.folio.org/browse/UIMARCAUTH-153) SelectAll/UnSelectAll checkbox functionality is buggy when placeholder row and pagination exists
+- [UIMARCAUTH-149](https://issues.folio.org/browse/UIMARCAUTH-149) Update NodeJS to v16 in GitHub Actions.
 
 ## [1.0.5](https://github.com/folio-org/ui-marc-authorities/tree/v1.0.5) (2022-04-15)
 
