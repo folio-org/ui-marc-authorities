@@ -208,9 +208,9 @@ const AuthoritiesSearch = ({
 
   useEffect(() => {
     // on pagination, when authorities search list change, update "selectAll" checkbox based on the selected rows in the searchList.
-    setSelectAll(authorities.every(rowExistsInSelectedRows));
+    setSelectAll(uniqueAuthorities.every(rowExistsInSelectedRows));
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authorities]);
+  }, [uniqueAuthorities]);
 
   const resetSelectedRows = () => {
     setSelectedRows({});

@@ -45,7 +45,7 @@ export const searchableIndexesMap = {
     plain: true,
     sft: true,
   }, {
-    name: 'conferenceNameTitle',
+    name: 'meetingNameTitle',
     plain: true,
     sft: true,
   }],
