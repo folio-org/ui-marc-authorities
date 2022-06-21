@@ -14,6 +14,7 @@
     "test": "jest --coverage --verbose",
     "test:color": "jest --coverage --verbose --color",
     "lint": "eslint .",
+    "lint:report": "eslint --output-file ./artifacts/eslint_report.json --format json .",
     "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-marc-authorities ./translations/ui-marc-authorities/compiled",
     "build-mod-descriptor": "stripes mod descriptor --full --strict | jq '.[]' > module-descriptor.json "
   },

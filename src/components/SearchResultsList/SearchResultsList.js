@@ -11,6 +11,7 @@ import {
   useHistory,
 } from 'react-router';
 import queryString from 'query-string';
+import noop from 'lodash/noop';
 
 import {
   Checkbox,
@@ -37,9 +38,9 @@ import css from './SearchResultsList.css';
 
 const propTypes = {
   authorities: PropTypes.arrayOf(AuthorityShape).isRequired,
+  hasFilters: PropTypes.bool.isRequired,
   hasNextPage: PropTypes.bool,
   hasPrevPage: PropTypes.bool,
-  hasFilters: PropTypes.bool.isRequired,
   hidePageIndices: PropTypes.bool,
   isFilterPaneVisible: PropTypes.bool.isRequired,
   loaded: PropTypes.bool.isRequired,
@@ -216,7 +217,7 @@ const SearchResultsList = ({
     () => ({
       loaded: () => (hasFilters || query) && loaded,
       pending: () => loading,
-      failure: () => null,
+      failure: noop,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [loading, hasFilters],
@@ -267,6 +268,8 @@ SearchResultsList.propTypes = propTypes;
 
 SearchResultsList.defaultProps = {
   hidePageIndices: false,
+  hasNextPage: false,
+  hasPrevPage: false,
   totalResults: NaN,
 };
 
