@@ -1,5 +1,5 @@
 {
-    "meta.title": "MARC authority",
+    "meta.title": "MARC de autoridades",
     "permission.app.enabled": "UI: MARC Authorities module is enabled",
     "permission.authority-record.view": "MARC Authority: View MARC authority record",
     "permission.authority-record.edit": "MARC Authority: Edit MARC authority record",
@@ -18,7 +18,7 @@
     "subject": "Subject",
     "childrenSubjectHeading": "Children's subject heading",
     "genre": "Genre",
-    "marcHeading": "MARC authority record",
+    "marcHeading": "Registro de autoridad MARC",
     "authorityRecordSubtitle": "{heading} • Last updated: {lastUpdatedDate}",
     "search-results-list.paneSub": "{totalRecords, number} {totalRecords, plural, one {record found} other {records found}}",
     "actions.menuSection.sortBy": "Sort by",
@@ -44,9 +44,9 @@
     "shortcut.find": "Buscar",
     "label.browse": "Browse",
     "label.search.textArea": "Enter search query",
-    "query": "Query",
+    "query": "Consulta",
     "advancedSearch": "Advanced search",
-    "browse.noMatch.wouldBeHereLabel": "would be here",
+    "browse.noMatch.wouldBeHereLabel": "estaría aquí",
     "search.subjectHeadings": "Thesaurus",
     "browseSelectPlaceholder": "Select a browse option",
     "search.excludeSeeFromAlso": "Exclude see from also",
@@ -58,8 +58,8 @@
     "notes.message": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>?",
     "export-selected-records": "Export selected records (CSV/MARC)",
     "export.success": "{exportJobName} is complete. The .csv downloaded contains selected records' UIIDs. To retrieve the .mrc file, please go to the Data export app.",
-    "export.failure": "Unable to complete request, please try again.",
-    "actions": "Actions",
+    "export.failure": "No se puede completar la solicitud, pruebe de nuevo",
+    "actions": "Acciones",
     "search-results-list.selectAll": "Unselect all records on this page",
     "search-results-list.unselectAll": "Select all records on this page"
 }
