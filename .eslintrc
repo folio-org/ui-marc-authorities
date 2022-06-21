@@ -16,7 +16,8 @@
         "func-names": "off",
         "react/no-multi-comp": "off",
         "react/destructuring-assignment": "off",
-        "react/jsx-key": "off"
+        "react/jsx-key": "off",
+        "arrow-parens": "off"
       }
     }, {
       "files": ["test/jest/**/*"],
