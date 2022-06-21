@@ -136,7 +136,7 @@ const SearchResultsList = ({
       return;
     }
 
-    const firstAuthority = authorities[0];
+    let firstAuthority = authorities[0];
     const isDetailViewNeedsToBeOpen = navigationSegmentValue === navigationSegments.browse
       ? firstAuthority?.isAnchor && firstAuthority?.isExactMatch
       : true;
