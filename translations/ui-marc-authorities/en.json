@@ -11,8 +11,10 @@
   "search-results-list.paneSub": "{totalRecords, number} {totalRecords, plural, one {record found} other {records found}}",
   "search-results-list.selectAll": "Unselect all records on this page",
   "search-results-list.unselectAll": "Select all records on this page",
-  
 
+  "authority.view.error.notFound": "Authority record not found",
+  "authority.view.error.unknown": "An unknown error occurred",
+  
   "actions": "Actions",
   "actions.menuSection.sortBy": "Sort by",
   "actions.menuSection.sortBy.relevance": "Relevance",
