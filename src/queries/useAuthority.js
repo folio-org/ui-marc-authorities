@@ -10,7 +10,7 @@ import {
 const AUTHORITIES_API = 'search/authorities';
 const AUTHORITY_CHUNK_SIZE = 500;
 
-export const useAuthority = (recordId, authRefType = null, headingRef = null) => {
+export const useAuthority = (recordId, authRefType = null, headingRef = null, { onError }) => {
   const ky = useOkapiKy();
   const [namespace] = useNamespace();
 
@@ -21,7 +21,8 @@ export const useAuthority = (recordId, authRefType = null, headingRef = null) =>
   const { isFetching, data = [] } = useQuery(
     [namespace, 'authority', recordId],
     async () => {
-      const { totalRecords } = await ky.get(AUTHORITIES_API, { searchParams: { ...searchParams, limit: 0 } }).json();
+      const { totalRecords } = await ky.get(AUTHORITIES_API, { searchParams: { ...searchParams, limit: 0 } }).json()
+        .catch(onError);
 
       const authorityBatchesPromises = (Array(Math.ceil(totalRecords / AUTHORITY_CHUNK_SIZE)))
         .fill(null)

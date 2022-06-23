@@ -5,8 +5,17 @@ import {
 import {
   useRouteMatch,
   useLocation,
+  useHistory,
 } from 'react-router';
+import { useQueryClient } from 'react-query';
+import { useIntl } from 'react-intl';
 import queryString from 'query-string';
+import omit from 'lodash/omit';
+
+import {
+  useNamespace,
+  useCallout,
+} from '@folio/stripes/core';
 
 import { AuthorityView } from '../../views';
 import { SelectedAuthorityRecordContext } from '../../context';
@@ -14,18 +23,46 @@ import {
   useMarcSource,
   useAuthority,
 } from '../../queries';
+import { QUERY_KEY_AUTHORITY_SOURCE } from '../../constants';
 
 const AuthorityViewRoute = () => {
   const { params: { id } } = useRouteMatch();
   const location = useLocation();
+  const history = useHistory();
+  const queryClient = useQueryClient();
   const [selectedAuthority, setSelectedAuthority] = useContext(SelectedAuthorityRecordContext);
+  const authoritySourceNamespace = useNamespace({ key: QUERY_KEY_AUTHORITY_SOURCE });
+  const callout = useCallout();
+  const intl = useIntl();
+
   const searchParams = queryString.parse(location.search);
 
   const headingRef = selectedAuthority?.headingRef || searchParams.headingRef;
   const authRefType = selectedAuthority?.authRefType || searchParams.authRefType;
 
-  const marcSource = useMarcSource(id);
-  const authority = useAuthority(id, authRefType, headingRef);
+  const handleAuthorityLoadError = async err => {
+    const errorResponse = await err.response;
+
+    const calloutMessageId = errorResponse.status === 404
+      ? 'ui-marc-authorities.authority.view.error.notFound'
+      : 'ui-marc-authorities.authority.view.error.unknown';
+
+    const search = omit(queryString.parse(location.search), ['authRefType', 'headingRef']);
+
+    callout.sendCallout({ type: 'error', message:  intl.formatMessage({ id: calloutMessageId }) });
+    queryClient.invalidateQueries(authoritySourceNamespace);
+    history.push({
+      pathname: '/marc-authorities',
+      search: queryString.stringify(search),
+    });
+  };
+
+  const marcSource = useMarcSource(id, {
+    onError: handleAuthorityLoadError,
+  });
+  const authority = useAuthority(id, authRefType, headingRef, {
+    onError: handleAuthorityLoadError,
+  });
 
   useEffect(() => {
     if (authority && !selectedAuthority) {
