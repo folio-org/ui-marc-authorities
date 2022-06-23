@@ -15,7 +15,7 @@ import omit from 'lodash/omit';
 import {
   useNamespace,
   useCallout,
-} from '@folio/stripes-core';
+} from '@folio/stripes/core';
 
 import { AuthorityView } from '../../views';
 import { SelectedAuthorityRecordContext } from '../../context';
@@ -49,7 +49,7 @@ const AuthorityViewRoute = () => {
 
     const search = omit(queryString.parse(location.search), ['authRefType', 'headingRef']);
 
-    callout.sendCallout({ type: 'error', message:  intl.formatMessage({ id: calloutMessageId })});
+    callout.sendCallout({ type: 'error', message:  intl.formatMessage({ id: calloutMessageId }) });
     queryClient.invalidateQueries(authoritySourceNamespace);
     history.push({
       pathname: '/marc-authorities',

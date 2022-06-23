@@ -317,4 +317,16 @@ describe('Given AuthorityView', () => {
       expect(mockHistoryPush).toHaveBeenCalled();
     });
   });
+
+  describe('when authority data is empty', () => {
+    it('should not render the page', () => {
+      const { queryByTestId } = renderAuthorityView({
+        authority: {
+          data: null,
+        },
+      });
+
+      expect(queryByTestId('marc-view-pane')).toBeNull();
+    });
+  });
 });
