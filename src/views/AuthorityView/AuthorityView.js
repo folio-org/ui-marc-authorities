@@ -18,7 +18,7 @@ import set from 'lodash/set';
 import omit from 'lodash/omit';
 
 import {
-  LoadingView,
+  LoadingPane,
   Dropdown,
   DropdownMenu,
   DropdownButton,
@@ -110,7 +110,7 @@ const AuthorityView = ({
   });
 
   if (marcSource.isLoading || authority.isLoading) {
-    return <LoadingView />;
+    return <LoadingPane />;
   }
 
   if (!authority.data) {
