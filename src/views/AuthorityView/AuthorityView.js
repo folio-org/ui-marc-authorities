@@ -117,6 +117,10 @@ const AuthorityView = ({
     return null;
   }
 
+  if (!authority.data) {
+    return null;
+  }
+
   const redirectToQuickMarcEditPage = () => {
     const searchParams = new URLSearchParams(location.search);
 
