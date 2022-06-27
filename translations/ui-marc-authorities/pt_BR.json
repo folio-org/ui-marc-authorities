@@ -61,5 +61,7 @@
     "export.failure": "Não foi possível concluir a solicitação, por favor tente novamente.",
     "actions": "Ações",
     "search-results-list.selectAll": "Desmarque todos os registros nesta página",
-    "search-results-list.unselectAll": "Selecione todos os registros nesta página"
+    "search-results-list.unselectAll": "Selecione todos os registros nesta página",
+    "authority.view.error.notFound": "Authority record not found",
+    "authority.view.error.unknown": "An unknown error occurred"
 }

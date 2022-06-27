@@ -61,5 +61,7 @@
     "export.failure": "Unable to complete request, please try again.",
     "actions": "Actions",
     "search-results-list.selectAll": "Unselect all records on this page",
-    "search-results-list.unselectAll": "Select all records on this page"
+    "search-results-list.unselectAll": "Select all records on this page",
+    "authority.view.error.notFound": "Authority record not found",
+    "authority.view.error.unknown": "Une erreur inconnue est survenue"
 }
