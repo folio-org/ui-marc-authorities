@@ -61,5 +61,7 @@
     "export.failure": "无法完成请求，请重试。",
     "actions": "操作",
     "search-results-list.selectAll": "取消选择本页所有记录",
-    "search-results-list.unselectAll": "选择本页所有记录"
+    "search-results-list.unselectAll": "选择本页所有记录",
+    "authority.view.error.notFound": "Authority record not found",
+    "authority.view.error.unknown": "An unknown error occurred"
 }

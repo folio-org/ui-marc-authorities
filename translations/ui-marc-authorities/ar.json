@@ -61,5 +61,7 @@
     "export.failure": "تعذر إتمام الطلب، يرجى إعادة المحاولة مرة أخرى.",
     "actions": "الإجراءات",
     "search-results-list.selectAll": "إلغاء تحديد كل التسجيلات الموجودة في هذه الصفحة",
-    "search-results-list.unselectAll": "تحديد كل التسجيلات الموجودة في هذه الصفحة"
+    "search-results-list.unselectAll": "تحديد كل التسجيلات الموجودة في هذه الصفحة",
+    "authority.view.error.notFound": "لم يتم العثور على تسجيلة الاستناد",
+    "authority.view.error.unknown": "حدث خطأ غير معروف"
 }
