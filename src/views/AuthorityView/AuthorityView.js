@@ -18,7 +18,7 @@ import set from 'lodash/set';
 import omit from 'lodash/omit';
 
 import {
-  LoadingView,
+  LoadingPane,
   Dropdown,
   DropdownMenu,
   DropdownButton,
@@ -110,7 +110,15 @@ const AuthorityView = ({
   });
 
   if (marcSource.isLoading || authority.isLoading) {
-    return <LoadingView />;
+    return <LoadingPane />;
+  }
+
+  if (!authority.data) {
+    return null;
+  }
+
+  if (!authority.data) {
+    return null;
   }
 
   const redirectToQuickMarcEditPage = () => {
@@ -178,96 +186,94 @@ const AuthorityView = ({
   };
 
   return (
-    <>
-      <KeyShortCutsWrapper
-        onEdit={redirectToQuickMarcEditPage}
-        canEdit={hasEditPermission()}
-      >
-        <MarcView
-          paneWidth="40%"
-          paneTitle={authority.data.headingRef}
-          paneSub={intl.formatMessage(
-            {
-              id: 'ui-marc-authorities.authorityRecordSubtitle',
-            },
-            {
-              heading: authority.data.headingType,
-              lastUpdatedDate: intl.formatDate(
-                marcSource.data.metadata.updatedDate,
-              ),
-            },
-          )}
-          isPaneset={false}
-          marcTitle={intl.formatMessage({
-            id: 'ui-marc-authorities.marcHeading',
-          })}
-          marc={markHighlightedFields().data}
-          onClose={onClose}
-          lastMenu={
-            <>
-              {(hasEditPermission || hasDeletePermission) && (
-                <Dropdown
-                  renderTrigger={({ getTriggerProps }) => (
-                    <DropdownButton
-                      buttonStyle="primary"
-                      marginBottom0
-                      {...getTriggerProps()}
-                    >
-                      Actions
-                    </DropdownButton>
-                  )}
-                  renderMenu={() => (
-                    <DropdownMenu
-                      data-role="menu"
-                      aria-label="available options"
-                    >
-                      <IfPermission perm="ui-marc-authorities.authority-record.edit">
-                        <Button
-                          buttonStyle="dropdownItem"
-                          onClick={redirectToQuickMarcEditPage}
-                        >
-                          <FormattedMessage id="ui-marc-authorities.authority-record.edit" />
-                        </Button>
-                      </IfPermission>
-                      <IfPermission perm="ui-marc-authorities.authority-record.delete">
-                        <Button
-                          onClick={() => setDeleteModalOpen(true)}
-                          buttonStyle="dropdownItem"
-                        >
-                          <FormattedMessage id="ui-marc-authorities.authority-record.delete" />
-                        </Button>
-                      </IfPermission>
-                    </DropdownMenu>
-                  )}
-                />
-              )}
-            </>
-          }
-        />
-        <ConfirmationModal
-          id="confirm-delete-note"
-          open={deleteModalOpen}
-          heading={
-            <FormattedMessage id="ui-marc-authorities.notes.deleteNote" />
-          }
-          ariaLabel={intl.formatMessage({
-            id: 'ui-marc-authorities.notes.deleteNote',
-          })}
-          message={
-            <FormattedMessage
-              id="ui-marc-authorities.notes.message"
-              values={{ headingRef: authority.data.headingRef }}
-            />
-          }
-          onConfirm={onConfirmDelete}
-          buttonStyle="danger"
-          onCancel={() => setDeleteModalOpen(false)}
-          confirmLabel={
-            <FormattedMessage id="stripes-smart-components.notes.delete" />
-          }
-        />
-      </KeyShortCutsWrapper>
-    </>
+    <KeyShortCutsWrapper
+      onEdit={redirectToQuickMarcEditPage}
+      canEdit={hasEditPermission()}
+    >
+      <MarcView
+        paneWidth="40%"
+        paneTitle={authority.data.headingRef}
+        paneSub={intl.formatMessage(
+          {
+            id: 'ui-marc-authorities.authorityRecordSubtitle',
+          },
+          {
+            heading: authority.data.headingType,
+            lastUpdatedDate: intl.formatDate(
+              marcSource.data.metadata.updatedDate,
+            ),
+          },
+        )}
+        isPaneset={false}
+        marcTitle={intl.formatMessage({
+          id: 'ui-marc-authorities.marcHeading',
+        })}
+        marc={markHighlightedFields().data}
+        onClose={onClose}
+        lastMenu={
+          <>
+            {(hasEditPermission || hasDeletePermission) && (
+              <Dropdown
+                renderTrigger={({ getTriggerProps }) => (
+                  <DropdownButton
+                    buttonStyle="primary"
+                    marginBottom0
+                    {...getTriggerProps()}
+                  >
+                    Actions
+                  </DropdownButton>
+                )}
+                renderMenu={() => (
+                  <DropdownMenu
+                    data-role="menu"
+                    aria-label="available options"
+                  >
+                    <IfPermission perm="ui-marc-authorities.authority-record.edit">
+                      <Button
+                        buttonStyle="dropdownItem"
+                        onClick={redirectToQuickMarcEditPage}
+                      >
+                        <FormattedMessage id="ui-marc-authorities.authority-record.edit" />
+                      </Button>
+                    </IfPermission>
+                    <IfPermission perm="ui-marc-authorities.authority-record.delete">
+                      <Button
+                        onClick={() => setDeleteModalOpen(true)}
+                        buttonStyle="dropdownItem"
+                      >
+                        <FormattedMessage id="ui-marc-authorities.authority-record.delete" />
+                      </Button>
+                    </IfPermission>
+                  </DropdownMenu>
+                )}
+              />
+            )}
+          </>
+        }
+      />
+      <ConfirmationModal
+        id="confirm-delete-note"
+        open={deleteModalOpen}
+        heading={
+          <FormattedMessage id="ui-marc-authorities.notes.deleteNote" />
+        }
+        ariaLabel={intl.formatMessage({
+          id: 'ui-marc-authorities.notes.deleteNote',
+        })}
+        message={
+          <FormattedMessage
+            id="ui-marc-authorities.notes.message"
+            values={{ headingRef: authority.data.headingRef }}
+          />
+        }
+        onConfirm={onConfirmDelete}
+        buttonStyle="danger"
+        onCancel={() => setDeleteModalOpen(false)}
+        confirmLabel={
+          <FormattedMessage id="stripes-smart-components.notes.delete" />
+        }
+      />
+    </KeyShortCutsWrapper>
   );
 };
 

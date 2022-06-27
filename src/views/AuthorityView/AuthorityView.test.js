@@ -25,7 +25,7 @@ jest.mock('react-router', () => ({
 
 jest.mock('@folio/stripes/components', () => ({
   ...jest.requireActual('@folio/stripes/components'),
-  LoadingView: () => (<div>Loading view</div>),
+  LoadingPane: () => (<div>Loading pane</div>),
   ConfirmationModal: jest.fn(({ open, onCancel, onConfirm }) => (open
     ? (
       <div>
@@ -122,7 +122,7 @@ describe('Given AuthorityView', () => {
   });
 
   describe('when data is not loaded', () => {
-    it('should show loading view', () => {
+    it('should show loading pane', () => {
       const { getByText } = renderAuthorityView({
         marcSource: {
           data: {},
@@ -134,7 +134,7 @@ describe('Given AuthorityView', () => {
         },
       });
 
-      expect(getByText('Loading view')).toBeDefined();
+      expect(getByText('Loading pane')).toBeDefined();
     });
   });
 
@@ -315,6 +315,18 @@ describe('Given AuthorityView', () => {
       fireEvent.click(getByLabelText('stripes-components.closeItem'));
 
       expect(mockHistoryPush).toHaveBeenCalled();
+    });
+  });
+
+  describe('when authority data is empty', () => {
+    it('should not render the page', () => {
+      const { queryByTestId } = renderAuthorityView({
+        authority: {
+          data: null,
+        },
+      });
+
+      expect(queryByTestId('marc-view-pane')).toBeNull();
     });
   });
 });
