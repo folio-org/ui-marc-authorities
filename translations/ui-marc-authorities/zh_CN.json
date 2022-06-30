@@ -62,6 +62,6 @@
     "actions": "操作",
     "search-results-list.selectAll": "取消选择本页所有记录",
     "search-results-list.unselectAll": "选择本页所有记录",
-    "authority.view.error.notFound": "Authority record not found",
-    "authority.view.error.unknown": "An unknown error occurred"
+    "authority.view.error.notFound": "未找到规范记录",
+    "authority.view.error.unknown": "发生未知错误"
 }
