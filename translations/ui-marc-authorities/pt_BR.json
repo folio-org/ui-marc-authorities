@@ -62,6 +62,6 @@
     "actions": "Ações",
     "search-results-list.selectAll": "Desmarque todos os registros nesta página",
     "search-results-list.unselectAll": "Selecione todos os registros nesta página",
-    "authority.view.error.notFound": "Authority record not found",
-    "authority.view.error.unknown": "An unknown error occurred"
+    "authority.view.error.notFound": "Registro de autoridade não encontrado",
+    "authority.view.error.unknown": "Ocorreu um erro desconhecido"
 }
