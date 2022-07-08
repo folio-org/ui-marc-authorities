@@ -1,6 +1,6 @@
 # Change history for ui-marc-authorities
 
-## [1.1.0] (IN PROGRESS)
+## [1.1.0](https://github.com/folio-org/ui-marc-authorities/tree/v1.1.0) (2022-07-08)
 
 - [UIMARCAUTH-86](https://issues.folio.org/browse/UIMARCAUTH-86) Change Browse option default selection label and behavior.
 - [UIMARCAUTH-75](https://issues.folio.org/browse/UIMARCAUTH-75) Searching MARC authority records: Split up Exclude See from filters into two filters.
