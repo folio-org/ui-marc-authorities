@@ -1,5 +1,9 @@
 # Change history for ui-marc-authorities
 
+## In Progress
+
+- [UIMARCAUTH-160](https://issues.folio.org/browse/UIMARCAUTH-160) components are incorrectly imported directly from stripes-* packages
+
 ## [1.1.0](https://github.com/folio-org/ui-marc-authorities/tree/v1.1.0) (2022-07-08)
 
 - [UIMARCAUTH-86](https://issues.folio.org/browse/UIMARCAUTH-86) Change Browse option default selection label and behavior.
