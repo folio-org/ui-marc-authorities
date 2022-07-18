@@ -11,7 +11,7 @@ import {
   useOkapiKy,
   useNamespace,
 } from '@folio/stripes/core';
-import { defaultAdvancedSearchQueryBuilder } from '@folio/stripes-components';
+import { defaultAdvancedSearchQueryBuilder } from '@folio/stripes/components';
 
 import { buildQuery } from '../utils';
 import {
