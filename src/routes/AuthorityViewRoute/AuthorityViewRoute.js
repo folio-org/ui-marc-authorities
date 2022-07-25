@@ -16,13 +16,13 @@ import {
   useNamespace,
   useCallout,
 } from '@folio/stripes/core';
-
-import { AuthorityView } from '../../views';
-import { SelectedAuthorityRecordContext } from '../../context';
 import {
+  SelectedAuthorityRecordContext,
   useMarcSource,
   useAuthority,
-} from '../../queries';
+} from '@folio/stripes-authority-components';
+
+import { AuthorityView } from '../../views';
 import { QUERY_KEY_AUTHORITY_SOURCE } from '../../constants';
 
 const AuthorityViewRoute = () => {

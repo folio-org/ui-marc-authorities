@@ -5,13 +5,6 @@
   "export.success": "{exportJobName} is complete. The .csv downloaded contains selected records' UIIDs. To retrieve the .mrc file, please go to the Data export app.",
   "export.failure": "Unable to complete request, please try again.",
 
-  "search-results-list.authRefType": "Authorized/Reference",
-  "search-results-list.headingRef": "Heading/Reference",
-  "search-results-list.headingType": "Type of heading",
-  "search-results-list.paneSub": "{totalRecords, number} {totalRecords, plural, one {record found} other {records found}}",
-  "search-results-list.selectAll": "Unselect all records on this page",
-  "search-results-list.unselectAll": "Select all records on this page",
-
   "authority.view.error.notFound": "Authority record not found",
   "authority.view.error.unknown": "An unknown error occurred",
   
@@ -19,38 +12,12 @@
   "actions.menuSection.sortBy": "Sort by",
   "actions.menuSection.sortBy.relevance": "Relevance",
 
+  "authorities.rows.recordsSelected": "{count, number} {count, plural, one {record} other {records}} selected",
+
   "authority-record.edit": "Edit",
   "authority-record.delete": "Delete",
   "authority-record.delete.success": "MARC authority record <strong> {headingRef} </strong> has been deleted",
   "authority-record.delete.error": "Unable to delete MARC authority record <strong> {headingRef} </strong>. Please try again. ",
-
-  "label.search": "Search",
-  "label.search.textArea": "Enter search query",
-  "label.browse": "Browse",
-  "search.searchAndFilter": "Search & filter",
-  "search.createdDate": "Date created",
-  "search.updatedDate": "Date updated",
-  "search.subjectHeadings": "Thesaurus",
-  "search.headingType": "Type of heading",
-  "search.references": "References",
-  "search.excludeSeeFrom": "Exclude see from",
-  "search.excludeSeeFromAlso": "Exclude see from also",
-  "query": "Query",
-  "keyword": "Keyword",
-  "identifier": "Identifier (all)",
-  "browseSelectPlaceholder": "Select a browse option",
-  "personalName": "Personal name",
-  "corporateConferenceName": "Corporate/Conference name",
-  "geographicName": "Geographic name",
-  "nameTitle": "Name-title",
-  "uniformTitle": "Uniform title",
-  "subject": "Subject",
-  "childrenSubjectHeading": "Children's subject heading",
-  "genre": "Genre",
-  "advancedSearch": "Advanced search",
-  "marcHeading": "MARC authority record",
-  "authorityRecordSubtitle": "{heading} • Last updated: {lastUpdatedDate}",
-  "browse.noMatch.wouldBeHereLabel": "would be here",
 
   "permission.app.enabled": "UI: MARC Authorities module is enabled",
   "permission.authority-record.view": "MARC Authority: View MARC authority record",
@@ -72,6 +39,7 @@
   "shortcut.paste": "Paste",
   "shortcut.find": "Find",
 
-  "notes.deleteNote": "Confirm deletion of authority record",
-  "notes.message": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>?"
+  "delete.buttonLabel": "Delete",
+  "delete.label": "Confirm deletion of authority record",
+  "delete.description": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>?"
 }

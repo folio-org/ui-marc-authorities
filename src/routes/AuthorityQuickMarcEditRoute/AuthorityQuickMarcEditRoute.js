@@ -14,10 +14,9 @@ import {
   Pluggable,
   useNamespace,
 } from '@folio/stripes/core';
+import { AuthoritiesSearchContext } from '@folio/stripes-authority-components';
 
 import { QUERY_KEY_AUTHORITIES } from '../../constants';
-
-import { AuthoritiesSearchContext } from '../../context';
 
 const AuthorityQuickMarcEditRoute = () => {
   const history = useHistory();

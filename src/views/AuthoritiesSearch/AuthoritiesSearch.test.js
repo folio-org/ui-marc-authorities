@@ -32,18 +32,9 @@ jest.mock('react-router', () => ({
   })),
 }));
 
-jest.mock('../../hooks', () => ({
-  ...jest.requireActual('../../hooks'),
-  useSortColumnManager: jest.fn(),
-  useReportGenerator: jest.fn(),
-}));
-
-jest.mock('../../queries/useAuthorities', () => ({
+jest.mock('@folio/stripes-authority-components', () => ({
+  ...jest.requireActual('@folio/stripes-authority-components'),
   useAuthorities: () => ({ authorities: [] }),
-}));
-
-jest.mock('../../components', () => ({
-  ...jest.requireActual('../../components'),
   SearchResultsList: props => {
     const mapedProps = mockMapValues(props, prop => ((typeof prop === 'object') ? JSON.stringify(prop) : prop));
 
@@ -62,13 +53,18 @@ jest.mock('../../components', () => ({
       </div>
     );
   },
-  SearchFilters: () => <div>SearchFilters</div>,
-  AuthoritiesSearchForm: props => (
+  AuthoritiesSearchPane: props => (
     <div>
-      AuthoritiesSearchForm
+      AuthoritiesSearchPane
       <button type="button" data-testid="reset-all" onClick={() => props.resetSelectedRows()}>Reset all</button>
     </div>
   ),
+}));
+
+jest.mock('../../hooks', () => ({
+  ...jest.requireActual('../../hooks'),
+  useSortColumnManager: jest.fn(),
+  useReportGenerator: jest.fn(),
 }));
 
 const mockHandleLoadMore = jest.fn();
@@ -118,16 +114,10 @@ describe('Given AuthoritiesSearch', () => {
     expect(getByTestId('marc-authorities-paneset')).toBeDefined();
   });
 
-  it('should display `Search & filter` label', () => {
+  it('should display AuthoritiesSearchPane', () => {
     const { getByText } = renderAuthoritiesSearch();
 
-    expect(getByText('ui-marc-authorities.search.searchAndFilter')).toBeDefined();
-  });
-
-  it('should display AuthoritiesSearchForm', () => {
-    const { getByText } = renderAuthoritiesSearch();
-
-    expect(getByText('AuthoritiesSearchForm')).toBeDefined();
+    expect(getByText('AuthoritiesSearchPane')).toBeDefined();
   });
 
   it('should display "Actions" button', () => {
@@ -152,80 +142,6 @@ describe('Given AuthoritiesSearch', () => {
     const { queryByText } = renderAuthoritiesSearch();
 
     expect(queryByText('ui-inventory.instances.rows.recordsSelected')).toBeNull();
-  });
-
-  describe('when click on toggle filter pane button', () => {
-    describe('when filters were shown', () => {
-      it('should hide filters', async () => {
-        jest.spyOn(routeData, 'useLocation').mockReturnValue({
-          pathname: 'pathname',
-          search: '?qindex=test&segment=browse',
-        });
-
-        let getByRoleFunction;
-        let getByTestIdFunction;
-        let queryByTestIdFunction;
-
-        await act(async () => {
-          const {
-            getByRole,
-            getByTestId,
-            queryByTestId,
-          } = await renderAuthoritiesSearch();
-
-          getByRoleFunction = getByRole;
-          getByTestIdFunction = getByTestId;
-          queryByTestIdFunction = queryByTestId;
-        });
-
-        const filterPaneTestId = 'pane-authorities-filters';
-        const hideFilterPaneButton = getByRoleFunction('button', { name: 'stripes-smart-components.hideSearchPane' });
-
-        expect(getByTestIdFunction(filterPaneTestId)).toBeDefined();
-
-        fireEvent.click(hideFilterPaneButton);
-
-        await waitFor(() => {
-          expect(queryByTestIdFunction(filterPaneTestId)).toBeNull();
-        });
-      });
-    });
-
-    describe('when filters were hidden', () => {
-      it('should show filters', async () => {
-        jest.spyOn(routeData, 'useLocation').mockReturnValue({
-          pathname: 'pathname',
-          search: '?excludeSeeFrom=true&query=test',
-        });
-
-        let getByRoleFunction;
-        let getByTestIdFunction;
-        let queryByTestIdFunction;
-
-        await act(async () => {
-          const {
-            getByRole,
-            getByTestId,
-            queryByTestId,
-          } = await renderAuthoritiesSearch();
-
-          getByRoleFunction = getByRole;
-          getByTestIdFunction = getByTestId;
-          queryByTestIdFunction = queryByTestId;
-        });
-
-        const filterPaneTestId = 'pane-authorities-filters';
-        const showFilterPaneButton = getByRoleFunction('button', { name: 'stripes-smart-components.showSearchPane' });
-
-        expect(queryByTestIdFunction(filterPaneTestId)).toBeNull();
-
-        fireEvent.click(showFilterPaneButton);
-
-        await waitFor(() => {
-          expect(getByTestIdFunction(filterPaneTestId)).toBeDefined();
-        });
-      });
-    });
   });
 
   describe('when click on row checkbox', () => {
@@ -314,8 +230,8 @@ describe('Given AuthoritiesSearch', () => {
 
       fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
 
-      expect(getByRole('checkbox', { name: 'ui-marc-authorities.search-results-list.authRefType' })).toBeDefined();
-      expect(getByRole('checkbox', { name: 'ui-marc-authorities.search-results-list.headingType' })).toBeDefined();
+      expect(getByRole('checkbox', { name: 'stripes-authority-components.search-results-list.authRefType' })).toBeDefined();
+      expect(getByRole('checkbox', { name: 'stripes-authority-components.search-results-list.headingType' })).toBeDefined();
     });
 
     it('should be checked by the default', () => {
@@ -323,8 +239,8 @@ describe('Given AuthoritiesSearch', () => {
 
       fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
 
-      expect(getByRole('checkbox', { name: 'ui-marc-authorities.search-results-list.authRefType' })).toBeChecked();
-      expect(getByRole('checkbox', { name: 'ui-marc-authorities.search-results-list.headingType' })).toBeChecked();
+      expect(getByRole('checkbox', { name: 'stripes-authority-components.search-results-list.authRefType' })).toBeChecked();
+      expect(getByRole('checkbox', { name: 'stripes-authority-components.search-results-list.headingType' })).toBeChecked();
     });
 
     describe('when there are selected rows', () => {
@@ -420,7 +336,7 @@ describe('Given AuthoritiesSearch', () => {
         } = renderAuthoritiesSearch();
 
         fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
-        fireEvent.click(getByRole('checkbox', { name: 'ui-marc-authorities.search-results-list.headingType' }));
+        fireEvent.click(getByRole('checkbox', { name: 'stripes-authority-components.search-results-list.headingType' }));
 
         expect(getByTestId('SearchResultsList')).toHaveAttribute('visibleColumns', JSON.stringify([
           searchResultListColumns.SELECT,
