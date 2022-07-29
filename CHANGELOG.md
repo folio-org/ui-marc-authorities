@@ -1,8 +1,9 @@
 # Change history for ui-marc-authorities
 
-## In Progress
+## [1.2.0] (IN PROGRESS)
 
 - [UIMARCAUTH-160](https://issues.folio.org/browse/UIMARCAUTH-160) components are incorrectly imported directly from stripes-* packages
+- [UIMARCAUTH-163](https://issues.folio.org/browse/UIMARCAUTH-163) Fix the row with "Heading/reference" value doesn't highlight at result list after editing matched tags value more than 1 time
 
 ## [1.1.0](https://github.com/folio-org/ui-marc-authorities/tree/v1.1.0) (2022-07-08)
 
