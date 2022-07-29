@@ -72,7 +72,20 @@ jest.mock('@folio/stripes-core', () => {
     return <Component {...rest} mutator={fakeMutator} resources={fakeResources} stripes={fakeStripes} />;
   };
 
-  const useOkapiKy = jest.fn();
+  const useOkapiKy = jest.fn().mockReturnValue({
+    get: jest.fn().mockReturnValue({
+      json: jest.fn().mockResolvedValue({}),
+    }),
+    post: jest.fn().mockReturnValue({
+      json: jest.fn().mockResolvedValue({}),
+    }),
+    put: jest.fn().mockReturnValue({
+      json: jest.fn().mockResolvedValue({}),
+    }),
+    delete: jest.fn().mockReturnValue({
+      json: jest.fn().mockResolvedValue({}),
+    }),
+  });
 
   const useNamespace = () => ['@folio/marc-authorities', jest.fn()];
 

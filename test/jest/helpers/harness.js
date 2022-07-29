@@ -6,13 +6,13 @@ import {
 } from 'react-query';
 
 import { StripesContext } from '@folio/stripes-core/src/StripesContext';
-
 import {
   AuthoritiesSearchContext,
   AuthoritiesSearchContextProvider,
   SelectedAuthorityRecordContext,
   SelectedAuthorityRecordContextProvider,
-} from '../../../src/context';
+} from '@folio/stripes-authority-components';
+
 import IntlProvider from './intl';
 import buildStripes from '../__mock__/stripesCore.mock';
 

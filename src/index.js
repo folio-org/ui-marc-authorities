@@ -10,6 +10,11 @@ import queryString from 'query-string';
 
 import { Route } from '@folio/stripes/core';
 import { CommandList } from '@folio/stripes/components';
+import {
+  AuthoritiesSearchContextProvider,
+  SelectedAuthorityRecordContextProvider,
+  navigationSegments,
+} from '@folio/stripes-authority-components';
 
 import {
   SearchRoute,
@@ -21,12 +26,7 @@ import {
   KeyShortCutsWrapper,
   MarcAuthoritiesAppContext,
 } from './components';
-import {
-  AuthoritiesSearchContextProvider,
-  SelectedAuthorityRecordContextProvider,
-} from './context';
 import commands from './commands';
-import { navigationSegments } from './constants';
 
 const propTypes = {
   focusSearchField: PropTypes.func,

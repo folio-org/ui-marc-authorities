@@ -31,10 +31,10 @@ import {
   CalloutContext,
 } from '@folio/stripes/core';
 import MarcView from '@folio/quick-marc/src/QuickMarcView/QuickMarcView';
+import { SelectedAuthorityRecordContext } from '@folio/stripes-authority-components';
 
 import { KeyShortCutsWrapper } from '../../components';
 
-import { SelectedAuthorityRecordContext } from '../../context';
 import useAuthorityDelete from '../../queries/useAuthoritiesDelete/useAuthorityDelete';
 
 const propTypes = {
@@ -255,14 +255,14 @@ const AuthorityView = ({
         id="confirm-delete-note"
         open={deleteModalOpen}
         heading={
-          <FormattedMessage id="ui-marc-authorities.notes.deleteNote" />
+          <FormattedMessage id="ui-marc-authorities.delete.label" />
         }
         ariaLabel={intl.formatMessage({
-          id: 'ui-marc-authorities.notes.deleteNote',
+          id: 'ui-marc-authorities.delete.label',
         })}
         message={
           <FormattedMessage
-            id="ui-marc-authorities.notes.message"
+            id="ui-marc-authorities.delete.description"
             values={{ headingRef: authority.data.headingRef }}
           />
         }
@@ -270,7 +270,7 @@ const AuthorityView = ({
         buttonStyle="danger"
         onCancel={() => setDeleteModalOpen(false)}
         confirmLabel={
-          <FormattedMessage id="stripes-smart-components.notes.delete" />
+          <FormattedMessage id="stripes-smart-components.delete.buttonLabel" />
         }
       />
     </KeyShortCutsWrapper>

@@ -28,7 +28,6 @@ import {
   Select,
 } from '@folio/stripes/components';
 import {
-  CollapseFilterPaneButton,
   ExpandFilterPaneButton,
   PersistedPaneset,
   useColumnManager,
@@ -40,24 +39,23 @@ import {
   CalloutContext,
 } from '@folio/stripes/core';
 import { buildSearch } from '@folio/stripes-acq-components';
+import {
+  AuthoritiesSearchContext,
+  AuthoritiesSearchPane,
+  SearchResultsList,
+  AuthorityShape,
+  navigationSegments,
+  searchableIndexesValues,
+  searchResultListColumns,
+} from '@folio/stripes-authority-components';
 
 import { useAuthorityExport } from '../../queries';
 import { useReportGenerator } from '../../hooks';
 import {
-  SearchResultsList,
-  BrowseFilters,
-  SearchFilters,
-  AuthoritiesSearchForm,
-} from '../../components';
-import { AuthoritiesSearchContext } from '../../context';
-import {
-  navigationSegments,
-  searchableIndexesValues,
-  searchResultListColumns,
   sortableSearchResultListColumns,
   sortOrders,
 } from '../../constants';
-import { AuthorityShape } from '../../constants/shapes';
+
 import css from './AuthoritiesSearch.css';
 
 const prefix = 'authorities';
@@ -119,9 +117,9 @@ const AuthoritiesSearch = ({
 
   const columnMapping = {
     [searchResultListColumns.SELECT]: null,
-    [searchResultListColumns.AUTH_REF_TYPE]: <FormattedMessage id="ui-marc-authorities.search-results-list.authRefType" />,
-    [searchResultListColumns.HEADING_REF]: <FormattedMessage id="ui-marc-authorities.search-results-list.headingRef" />,
-    [searchResultListColumns.HEADING_TYPE]: <FormattedMessage id="ui-marc-authorities.search-results-list.headingType" />,
+    [searchResultListColumns.AUTH_REF_TYPE]: <FormattedMessage id="stripes-authority-components.search-results-list.authRefType" />,
+    [searchResultListColumns.HEADING_REF]: <FormattedMessage id="stripes-authority-components.search-results-list.headingRef" />,
+    [searchResultListColumns.HEADING_TYPE]: <FormattedMessage id="stripes-authority-components.search-results-list.headingType" />,
   };
   const {
     visibleColumns,
@@ -305,23 +303,9 @@ const AuthoritiesSearch = ({
     writeStorage(filterPaneVisibilityKey, !isFilterPaneVisible);
   };
 
-  const renderResultsFirstMenu = () => {
-    if (isFilterPaneVisible) {
-      return null;
-    }
-
-    return (
-      <PaneMenu>
-        <ExpandFilterPaneButton
-          onClick={toggleFilterPane}
-        />
-      </PaneMenu>
-    );
-  };
-
   const options = Object.values(sortableSearchResultListColumns).map(option => ({
     value: option,
-    label: intl.formatMessage({ id: `ui-marc-authorities.search-results-list.${option}` }),
+    label: intl.formatMessage({ id: `stripes-authority-components.search-results-list.${option}` }),
   }));
 
   const sortByOptions = [
@@ -384,7 +368,7 @@ const AuthoritiesSearch = ({
       <span className={css.delimiter}>
         <span>
           {intl.formatMessage({
-            id: 'ui-marc-authorities.search-results-list.paneSub',
+            id: 'stripes-authority-components.search-results-list.paneSub',
           }, {
             totalRecords,
           })}
@@ -393,12 +377,26 @@ const AuthoritiesSearch = ({
           !!selectedRowsCount &&
           <span>
             <FormattedMessage
-              id="ui-inventory.instances.rows.recordsSelected"
+              id="ui-marc-authorities.authorities.rows.recordsSelected"
               values={{ count: selectedRowsCount }}
             />
           </span>
         }
       </span>
+    );
+  };
+
+  const renderResultsFirstMenu = () => {
+    if (isFilterPaneVisible) {
+      return null;
+    }
+
+    return (
+      <PaneMenu>
+        <ExpandFilterPaneButton
+          onClick={toggleFilterPane}
+        />
+      </PaneMenu>
     );
   };
 
@@ -408,44 +406,21 @@ const AuthoritiesSearch = ({
       id="marc-authorities-paneset"
       data-testid="marc-authorities-paneset"
     >
-      {isFilterPaneVisible &&
-        <Pane
-          defaultWidth="320px"
-          id="pane-authorities-filters"
-          data-testid="pane-authorities-filters"
-          fluidContentWidth
-          paneTitle={intl.formatMessage({ id: 'ui-marc-authorities.search.searchAndFilter' })}
-          lastMenu={(
-            <PaneMenu>
-              <CollapseFilterPaneButton onClick={toggleFilterPane} />
-            </PaneMenu>
-          )}
-        >
-          <AuthoritiesSearchForm
-            isAuthoritiesLoading={isLoading}
-            onSubmitSearch={onSubmitSearch}
-            onChangeSortOption={onChangeSortOption}
-            resetSelectedRows={resetSelectedRows}
-          />
-          {
-            navigationSegmentValue === navigationSegments.browse
-              ? (
-                <BrowseFilters cqlQuery={query} />
-              )
-              : (
-                <SearchFilters
-                  isSearching={isLoading}
-                  cqlQuery={query}
-                />
-              )
-          }
-        </Pane>
-      }
+      <AuthoritiesSearchPane
+        isFilterPaneVisible={isFilterPaneVisible}
+        toggleFilterPane={toggleFilterPane}
+        isLoading={isLoading}
+        onSubmitSearch={onSubmitSearch}
+        onChangeSortOption={onChangeSortOption}
+        resetSelectedRows={resetSelectedRows}
+        query={query}
+        hasAdvancedSearch
+      />
       <Pane
         id="authority-search-results-pane"
         appIcon={<AppIcon app="marc-authorities" />}
         defaultWidth="fill"
-        paneTitle={intl.formatMessage({ id: 'ui-marc-authorities.meta.title' })}
+        paneTitle={intl.formatMessage({ id: 'stripes-authority-components.meta.title' })}
         paneSub={renderPaneSub()}
         firstMenu={renderResultsFirstMenu()}
         actionMenu={renderActionMenu}

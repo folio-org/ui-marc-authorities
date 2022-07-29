@@ -1,17 +1,16 @@
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import { AuthoritiesSearch } from '../../views';
 import {
   AuthoritiesSearchContext,
   SelectedAuthorityRecordContext,
-} from '../../context';
-import { useAuthorities } from '../../queries';
-import { useSortColumnManager } from '../../hooks';
-import {
+  useAuthorities,
   searchableIndexesValues,
-  searchResultListColumns,
-} from '../../constants';
+} from '@folio/stripes-authority-components';
+
+import { AuthoritiesSearch } from '../../views';
+import { useSortColumnManager } from '../../hooks';
+import { searchResultListColumns } from '../../constants';
 
 const propTypes = {
   children: PropTypes.oneOfType([
