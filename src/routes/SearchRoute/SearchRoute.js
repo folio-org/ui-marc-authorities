@@ -1,5 +1,7 @@
 import { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import queryString from 'query-string';
 
 import { AuthoritiesSearch } from '../../views';
 import {
@@ -11,6 +13,7 @@ import { useSortColumnManager } from '../../hooks';
 import {
   searchableIndexesValues,
   searchResultListColumns,
+  sortOrders,
 } from '../../constants';
 
 const propTypes = {
@@ -22,7 +25,27 @@ const propTypes = {
 
 const PAGE_SIZE = 100;
 
+const getInitialSortParams = searchParams => {
+  const initialOrder = searchParams.sort?.[0] === '-' ? sortOrders.DES : sortOrders.ASC;
+
+  let initialSort;
+
+  if (!searchParams.sort) {
+    initialSort = '';
+  } else if (initialOrder === sortOrders.DES) {
+    initialSort = searchParams.sort.substring(1);
+  } else {
+    initialSort = searchParams.sort;
+  }
+
+  return {
+    sort: initialSort,
+    order: initialOrder,
+  };
+};
+
 const SearchRoute = ({ children }) => {
+  const location = useLocation();
   const {
     searchQuery,
     searchIndex,
@@ -37,6 +60,7 @@ const SearchRoute = ({ children }) => {
   } = useContext(AuthoritiesSearchContext);
   const [, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
+  const searchParams = queryString.parse(location.search);
   const sortableColumns = [
     searchResultListColumns.AUTH_REF_TYPE,
     searchResultListColumns.HEADING_REF,
@@ -47,7 +71,10 @@ const SearchRoute = ({ children }) => {
     sortedColumn,
     onChangeSortOption,
     onHeaderClick,
-  } = useSortColumnManager({ sortableColumns });
+  } = useSortColumnManager({
+    sortableColumns,
+    initialParams: getInitialSortParams(searchParams),
+  });
 
   const isAdvancedSearch = searchIndex === searchableIndexesValues.ADVANCED_SEARCH;
 

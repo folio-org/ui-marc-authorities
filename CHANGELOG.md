@@ -1,5 +1,9 @@
 # Change history for ui-marc-authorities
 
+## [1.1.1] (IN PROGRESS)
+
+- [UIMARCAUTH-163](https://issues.folio.org/browse/UIMARCAUTH-163) Fix the row with "Heading/reference" value doesn't highlight at result list after editing matched tags value more than 1 time
+
 ## [1.1.0](https://github.com/folio-org/ui-marc-authorities/tree/v1.1.0) (2022-07-08)
 
 - [UIMARCAUTH-86](https://issues.folio.org/browse/UIMARCAUTH-86) Change Browse option default selection label and behavior.
