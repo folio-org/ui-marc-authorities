@@ -6,6 +6,7 @@ import {
 } from '@testing-library/react';
 
 import { ReferencesFilter } from './ReferencesFilter';
+import { navigationSegments } from '../../../constants';
 
 const defaultProps = {
   activeFilters: [],
@@ -13,6 +14,7 @@ const defaultProps = {
   onChange: jest.fn(),
   name: 'references-filter',
   id: 'references-filter',
+  navigationSegment: navigationSegments.search,
 };
 
 const renderReferencesFilter = (props = {}) => render(
@@ -24,7 +26,7 @@ const renderReferencesFilter = (props = {}) => render(
 
 describe('ReferencesFilter', () => {
   beforeEach(() => {
-    defaultProps.onChange.mockClear();
+    jest.clearAllMocks();
   });
 
   it('should render filter with specified options', () => {
@@ -42,5 +44,15 @@ describe('ReferencesFilter', () => {
     act(() => user.click(excludeSeeFromOption));
 
     expect(defaultProps.onChange).toHaveBeenCalled();
+  });
+
+  describe('when navigation segment is Browse', () => {
+    it('should not show exclude see from also option', () => {
+      renderReferencesFilter({
+        navigationSegment: navigationSegments.browse,
+      });
+
+      expect(screen.queryByText('ui-marc-authorities.search.excludeSeeFromAlso')).not.toBeInTheDocument();
+    });
   });
 });

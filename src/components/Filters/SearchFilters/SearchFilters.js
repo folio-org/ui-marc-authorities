@@ -37,6 +37,7 @@ const SearchFilters = ({
   const {
     filters,
     setFilters,
+    navigationSegmentValue,
   } = useContext(AuthoritiesSearchContext);
 
   const [filterAccordions, { handleSectionToggle }] = useSectionToggle({
@@ -79,6 +80,7 @@ const SearchFilters = ({
         id={FILTERS.REFERENCES}
         onChange={applyFilters}
         name={FILTERS.REFERENCES}
+        navigationSegment={navigationSegmentValue}
       />
       <MultiSelectionFacet
         id={FILTERS.SUBJECT_HEADINGS}

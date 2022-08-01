@@ -26,6 +26,7 @@ const BrowseFilters = ({ cqlQuery }) => {
   const {
     filters,
     setFilters,
+    navigationSegmentValue,
   } = useContext(AuthoritiesSearchContext);
 
   const [filterAccordions, { handleSectionToggle }] = useSectionToggle({
@@ -54,6 +55,7 @@ const BrowseFilters = ({ cqlQuery }) => {
         id={FILTERS.REFERENCES}
         onChange={applyFilters}
         name={FILTERS.REFERENCES}
+        navigationSegment={navigationSegmentValue}
       />
       <MultiSelectionFacet
         id={FILTERS.HEADING_TYPE}

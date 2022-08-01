@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 import { AcqCheckboxFilter } from '@folio/stripes-acq-components';
 
-import { REFERENCES_OPTIONS } from '../../../constants';
+import { REFERENCES_OPTIONS_BY_SEGMENT } from '../../../constants';
 
 const propTypes = {
   activeFilters: PropTypes.arrayOf(PropTypes.string),
@@ -10,6 +10,7 @@ const propTypes = {
   disabled: PropTypes.bool,
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  navigationSegment: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
@@ -20,6 +21,7 @@ const ReferencesFilter = ({
   id,
   onChange,
   name,
+  navigationSegment,
 }) => (
   <AcqCheckboxFilter
     activeFilters={activeFilters}
@@ -29,7 +31,7 @@ const ReferencesFilter = ({
     labelId="ui-marc-authorities.search.references"
     name={name}
     onChange={onChange}
-    options={REFERENCES_OPTIONS}
+    options={REFERENCES_OPTIONS_BY_SEGMENT[navigationSegment]}
   />
 );
 
