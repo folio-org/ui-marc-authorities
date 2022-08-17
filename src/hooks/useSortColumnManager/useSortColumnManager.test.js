@@ -135,4 +135,18 @@ describe('Given useSortColumnManager', () => {
       expect(result.current.sortedColumn).toBe(searchResultListColumns.AUTH_REF_TYPE);
     });
   });
+
+  describe('when passing initial sort parameters', () => {
+    it('should return correct sortOrder and selected sortedColumn', () => {
+      const { result } = renderHook(() => useSortColumnManager({
+        initialParams: {
+          sort: searchResultListColumns.HEADING_REF,
+          order: sortOrders.DES,
+        },
+      }));
+
+      expect(result.current.sortOrder).toBe(sortOrders.DES);
+      expect(result.current.sortedColumn).toBe(searchResultListColumns.HEADING_REF);
+    });
+  });
 });
