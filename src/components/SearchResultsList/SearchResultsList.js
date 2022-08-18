@@ -20,19 +20,17 @@ import {
   Icon,
 } from '@folio/stripes/components';
 import { SearchAndSortNoResultsMessage } from '@folio/stripes/smart-components';
-
 import {
   AuthoritiesSearchContext,
   SelectedAuthorityRecordContext,
-} from '../../context';
-import { areRecordsEqual } from './utils';
-import { useHighlightEditedRecord } from './useHighlightEditedRecord';
-import {
   AUTH_REF_TYPES,
   navigationSegments,
-  searchResultListColumns,
-} from '../../constants';
-import { AuthorityShape } from '../../constants/shapes';
+  AuthorityShape,
+} from '@folio/stripes-authority-components';
+
+import { areRecordsEqual } from './utils';
+import { useHighlightEditedRecord } from './useHighlightEditedRecord';
+import { searchResultListColumns } from '../../constants';
 
 import css from './SearchResultsList.css';
 

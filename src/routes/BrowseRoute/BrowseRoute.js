@@ -4,12 +4,13 @@ import {
 } from 'react';
 import PropTypes from 'prop-types';
 
-import { AuthoritiesSearch } from '../../views';
 import {
   AuthoritiesSearchContext,
   SelectedAuthorityRecordContext,
-} from '../../context';
-import { useAuthoritiesBrowse } from '../../queries';
+  useAuthoritiesBrowse,
+} from '@folio/stripes-authority-components';
+
+import { AuthoritiesSearch } from '../../views';
 
 const propTypes = {
   children: PropTypes.oneOfType([

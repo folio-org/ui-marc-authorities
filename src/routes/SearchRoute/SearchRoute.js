@@ -3,15 +3,16 @@ import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 
-import { AuthoritiesSearch } from '../../views';
 import {
   AuthoritiesSearchContext,
   SelectedAuthorityRecordContext,
-} from '../../context';
-import { useAuthorities } from '../../queries';
+  useAuthorities,
+  searchableIndexesValues,
+} from '@folio/stripes-authority-components';
+
+import { AuthoritiesSearch } from '../../views';
 import { useSortColumnManager } from '../../hooks';
 import {
-  searchableIndexesValues,
   searchResultListColumns,
   sortOrders,
 } from '../../constants';

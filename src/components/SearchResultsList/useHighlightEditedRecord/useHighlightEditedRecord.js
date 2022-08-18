@@ -11,7 +11,8 @@ import differenceBy from 'lodash/differenceBy';
 import isNil from 'lodash/isNil';
 import filter from 'lodash/filter';
 
-import { SelectedAuthorityRecordContext } from '../../../context';
+import { SelectedAuthorityRecordContext } from '@folio/stripes-authority-components';
+
 import { areRecordsEqual } from '../utils';
 
 export const useHighlightEditedRecord = authorities => {

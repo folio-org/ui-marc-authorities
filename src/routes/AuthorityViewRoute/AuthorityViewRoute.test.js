@@ -1,7 +1,8 @@
 import { render } from '@testing-library/react';
 
+import { useMarcSource } from '@folio/stripes-authority-components';
+
 import AuthorityViewRoute from './AuthorityViewRoute';
-import { useMarcSource } from '../../queries';
 import Harness from '../../../test/jest/helpers/harness';
 
 const mockSendCallout = jest.fn().mockName('sendCalloutMock');
@@ -13,14 +14,14 @@ jest.mock('@folio/stripes/core', () => ({
   }),
 }));
 
+jest.mock('@folio/stripes-authority-components', () => ({
+  ...jest.requireActual('@folio/stripes-authority-components'),
+  useMarcSource: jest.fn(),
+}));
+
 jest.mock('../../views/AuthorityView/AuthorityView', () => function () {
   return <div>AuthorityView</div>;
 });
-
-jest.mock('../../queries', () => ({
-  ...jest.requireActual('../../queries'),
-  useMarcSource: jest.fn(),
-}));
 
 const renderAuthorityViewRoute = () => render(
   <Harness>
