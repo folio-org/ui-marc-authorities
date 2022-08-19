@@ -223,6 +223,7 @@ const SearchResultsList = ({
 
   return (
     <MultiColumnList
+      hasMargin
       columnMapping={columnMapping}
       columnWidths={columnWidths}
       contentData={authorities}

@@ -3,6 +3,7 @@
 ## [1.2.0] (IN PROGRESS)
 
 - [UIMARCAUTH-160](https://issues.folio.org/browse/UIMARCAUTH-160) components are incorrectly imported directly from stripes-* packages
+- [UIMARCAUTH-167](https://issues.folio.org/browse/UIMARCAUTH-167) Scroll bars display at the second pane when they don't need
 
 ## [1.1.1](https://github.com/folio-org/ui-marc-authorities/tree/v1.1.1) (2022-08-04)
 
