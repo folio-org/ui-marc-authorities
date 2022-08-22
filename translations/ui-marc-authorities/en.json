@@ -7,7 +7,7 @@
 
   "authority.view.error.notFound": "Authority record not found",
   "authority.view.error.unknown": "An unknown error occurred",
-  
+
   "actions": "Actions",
   "actions.menuSection.sortBy": "Sort by",
   "actions.menuSection.sortBy.relevance": "Relevance",

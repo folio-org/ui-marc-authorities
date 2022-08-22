@@ -8,6 +8,7 @@ import {
   useHistory,
   useLocation,
 } from 'react-router-dom';
+import { useRouteMatch } from 'react-router';
 import {
   FormattedMessage,
   useIntl,
@@ -23,12 +24,11 @@ import {
   Button,
   Icon,
   Pane,
-  PaneMenu,
   MenuSection,
   Select,
+  TextLink,
 } from '@folio/stripes/components';
 import {
-  ExpandFilterPaneButton,
   PersistedPaneset,
   useColumnManager,
   ColumnManagerMenu,
@@ -47,8 +47,10 @@ import {
   navigationSegments,
   searchableIndexesValues,
   searchResultListColumns,
+  useAutoOpenDetailView, SelectedAuthorityRecordContext,
 } from '@folio/stripes-authority-components';
 
+import { useHighlightEditedRecord } from '@folio/stripes-authority-components/lib/SearchResultsList/useHighlightEditedRecord';
 import { useAuthorityExport } from '../../queries';
 import { useReportGenerator } from '../../hooks';
 import {
@@ -102,6 +104,7 @@ const AuthoritiesSearch = ({
 }) => {
   const intl = useIntl();
   const [, getNamespace] = useNamespace();
+  const match = useRouteMatch();
   const history = useHistory();
   const location = useLocation();
 
@@ -114,6 +117,9 @@ const AuthoritiesSearch = ({
     setIsGoingToBaseURL,
   } = useContext(AuthoritiesSearchContext);
   const callout = useContext(CalloutContext);
+  const [, setSelectedAuthorityRecord] = useContext(SelectedAuthorityRecordContext);
+
+  const recordToHighlight = useHighlightEditedRecord(authorities);
 
   const columnMapping = {
     [searchResultListColumns.SELECT]: null,
@@ -316,6 +322,32 @@ const AuthoritiesSearch = ({
     ...options,
   ];
 
+  const formatAuthorityRecordLink = authority => {
+    const search = queryString.parse(location.search);
+    const newSearch = queryString.stringify({
+      ...search,
+      headingRef: authority.headingRef,
+      authRefType: authority.authRefType,
+    });
+
+    return `${match.path}/authorities/${authority.id}?${newSearch}`;
+  };
+
+  const redirectToAuthorityRecord = authority => {
+    history.push(formatAuthorityRecordLink(authority));
+  };
+
+  useAutoOpenDetailView({ authorities, totalRecords, redirectToAuthorityRecord });
+
+  useEffect(() => {
+    if (!recordToHighlight) {
+      return;
+    }
+
+    setSelectedAuthorityRecord(recordToHighlight);
+    redirectToAuthorityRecord(recordToHighlight);
+  }, [recordToHighlight]);
+
   const renderActionMenu = ({ onToggle }) => {
     return (
       <>
@@ -386,19 +418,14 @@ const AuthoritiesSearch = ({
     );
   };
 
-  const renderResultsFirstMenu = () => {
-    if (isFilterPaneVisible) {
-      return null;
-    }
-
-    return (
-      <PaneMenu>
-        <ExpandFilterPaneButton
-          onClick={toggleFilterPane}
-        />
-      </PaneMenu>
-    );
-  };
+  const renderHeadingRef = (authority, className) => (
+    <TextLink
+      className={className}
+      to={formatAuthorityRecordLink(authority)}
+    >
+      {authority.headingRef}
+    </TextLink>
+  );
 
   return (
     <PersistedPaneset
@@ -422,7 +449,6 @@ const AuthoritiesSearch = ({
         defaultWidth="fill"
         paneTitle={intl.formatMessage({ id: 'stripes-authority-components.meta.title' })}
         paneSub={renderPaneSub()}
-        firstMenu={renderResultsFirstMenu()}
         actionMenu={renderActionMenu}
         padContent={false}
         noOverflow
@@ -449,6 +475,7 @@ const AuthoritiesSearch = ({
           hasFilters={!!filters.length}
           query={searchQuery}
           hidePageIndices={hidePageIndices}
+          onRenderHeadingRef={renderHeadingRef}
         />
       </Pane>
       {children}

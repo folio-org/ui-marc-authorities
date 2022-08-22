@@ -1,9 +1,0 @@
-@import "@folio/stripes-components/lib/variables";
-
-.anchorLink {
-  font-weight: bold;
-}
-
-.browseNoMatchText {
-  color: var(--color-text);
-}

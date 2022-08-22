@@ -33,6 +33,7 @@ jest.mock('react-router', () => ({
 jest.mock('@folio/stripes-authority-components', () => ({
   ...jest.requireActual('@folio/stripes-authority-components'),
   useAuthorities: () => ({ authorities: [] }),
+  useAutoOpenDetailView: () => {},
   SearchResultsList: props => {
     const mapedProps = mockMapValues(props, prop => ((typeof prop === 'object') ? JSON.stringify(prop) : prop));
 
