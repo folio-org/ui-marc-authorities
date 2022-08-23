@@ -47,7 +47,7 @@ import {
   navigationSegments,
   searchableIndexesValues,
   searchResultListColumns,
-  useAutoOpenDetailView,
+  autoOpenDetailView,
   SelectedAuthorityRecordContext,
 } from '@folio/stripes-authority-components';
 
@@ -338,7 +338,13 @@ const AuthoritiesSearch = ({
     history.push(formatAuthorityRecordLink(authority));
   };
 
-  useAutoOpenDetailView({ authorities, totalRecords, redirectToAuthorityRecord });
+  useEffect(() => {
+    const isDetailViewNeedsToBeOpened = autoOpenDetailView(totalRecords, authorities[0], navigationSegmentValue);
+
+    if (isDetailViewNeedsToBeOpened) {
+      redirectToAuthorityRecord(authorities[0]);
+    }
+  }, [totalRecords, authorities, navigationSegmentValue])
 
   useEffect(() => {
     if (!recordToHighlight) {

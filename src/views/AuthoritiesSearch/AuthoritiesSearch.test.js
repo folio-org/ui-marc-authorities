@@ -6,7 +6,6 @@ import {
 import mockMapValues from 'lodash/mapValues';
 
 import { runAxeTest } from '@folio/stripes-testing';
-import { useAutoOpenDetailView } from '@folio/stripes-authority-components';
 
 import AuthoritiesSearch from './AuthoritiesSearch';
 import authorities from '../../../mocks/authorities';
@@ -391,16 +390,14 @@ describe('Given AuthoritiesSearch', () => {
   });
 
   describe('when there is only one record', () => {
-    it('should open the detail view', () => {
+    it('should call history.push with specific params', () => {
       renderAuthoritiesSearch({
-        authorities,
-        totalResults: 1,
+        authorities: [authorities[0]],
+        totalRecords: 1,
       });
-      expect(useAutoOpenDetailView).toHaveBeenCalledWith({
-        authorities,
-        redirectToAuthorityRecord: expect.any(Function),
-        totalRecords: 100,
-      });
+      expect(mockHistoryPush).toHaveBeenCalledWith(
+        '/authorities/5a404f5d-2c46-4426-9f28-db8d26881b30?authRefType=Auth%2FRef&headingRef=Twain%2C%20Mark',
+      );
     });
   });
 
