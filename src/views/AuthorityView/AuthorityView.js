@@ -30,9 +30,11 @@ import {
 } from '@folio/stripes/core';
 import MarcView from '@folio/quick-marc/src/QuickMarcView/QuickMarcView';
 import {
-  markHighlightedFields,
   SelectedAuthorityRecordContext,
 } from '@folio/stripes-authority-components';
+import {
+  markHighlightedFields,
+} from '@folio/stripes-authority-components/lib/utils';
 
 import { KeyShortCutsWrapper } from '../../components';
 
