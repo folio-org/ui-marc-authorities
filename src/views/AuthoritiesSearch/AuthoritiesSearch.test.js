@@ -443,9 +443,7 @@ describe('Given AuthoritiesSearch', () => {
         headingRef: 'Springfield',
       }));
 
-      expect(mockHistoryPush).toHaveBeenCalledWith(
-        '/authorities/cbc03a36-2870-4184-9777-0c44d07edfe4?authRefType=Reference&headingRef=SpringfieldEDITED'
-      );
+      expect(mockHistoryPush).toHaveBeenCalledWith('/authorities/cbc03a36-2870-4184-9777-0c44d07edfe4?authRefType=Reference&headingRef=SpringfieldEDITED');
     });
   });
 });
