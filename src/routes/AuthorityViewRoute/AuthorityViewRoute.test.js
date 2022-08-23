@@ -56,7 +56,7 @@ describe('Given AuthorityViewRoute', () => {
 
       expect(mockSendCallout).toHaveBeenCalledWith({
         type: 'error',
-        message: 'ui-marc-authorities.authority.view.error.notFound',
+        message: 'stripes-authority-components.authority.view.error.notFound',
       });
     });
   });
