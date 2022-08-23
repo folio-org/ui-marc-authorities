@@ -344,7 +344,8 @@ const AuthoritiesSearch = ({
     if (isDetailViewNeedsToBeOpened) {
       redirectToAuthorityRecord(authorities[0]);
     }
-  }, [totalRecords, authorities, navigationSegmentValue])
+    // eslint-disable-next-line
+  }, [totalRecords, authorities, navigationSegmentValue]);
 
   useEffect(() => {
     if (!recordToHighlight) {
