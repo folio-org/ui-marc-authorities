@@ -14,6 +14,8 @@ import {
 } from 'react-intl';
 import queryString from 'query-string';
 import omit from 'lodash/omit';
+import cloneDeep from 'lodash/cloneDeep';
+import set from 'lodash/set';
 
 import {
   LoadingPane,
@@ -31,8 +33,6 @@ import {
 import MarcView from '@folio/quick-marc/src/QuickMarcView/QuickMarcView';
 import { SelectedAuthorityRecordContext } from '@folio/stripes-authority-components';
 
-import cloneDeep from 'lodash/cloneDeep';
-import set from 'lodash/set';
 import { KeyShortCutsWrapper } from '../../components';
 
 import useAuthorityDelete from '../../queries/useAuthoritiesDelete/useAuthorityDelete';
@@ -141,11 +141,6 @@ const AuthorityView = ({
     return stripes.hasPerm('ui-marc-authorities.authority-record.delete');
   };
 
-  const onConfirmDelete = () => {
-    deleteItem(authority.data.id);
-    setDeleteModalOpen(false);
-  };
-
   const markHighlightedFields = () => {
     const highlightAuthRefFields = {
       'Authorized': /1\d\d/,
@@ -183,6 +178,11 @@ const AuthorityView = ({
     set(marcSourceClone, 'data.parsedRecord.content.fields', marcFields);
 
     return marcSourceClone;
+  };
+
+  const onConfirmDelete = () => {
+    deleteItem(authority.data.id);
+    setDeleteModalOpen(false);
   };
 
   return (
