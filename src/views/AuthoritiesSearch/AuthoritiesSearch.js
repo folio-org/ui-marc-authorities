@@ -47,7 +47,8 @@ import {
   navigationSegments,
   searchableIndexesValues,
   searchResultListColumns,
-  useAutoOpenDetailView, SelectedAuthorityRecordContext,
+  useAutoOpenDetailView,
+  SelectedAuthorityRecordContext,
 } from '@folio/stripes-authority-components';
 
 import { useHighlightEditedRecord } from '@folio/stripes-authority-components/lib/SearchResultsList/useHighlightEditedRecord';
@@ -346,6 +347,7 @@ const AuthoritiesSearch = ({
 
     setSelectedAuthorityRecord(recordToHighlight);
     redirectToAuthorityRecord(recordToHighlight);
+    // eslint-disable-next-line
   }, [recordToHighlight]);
 
   const renderActionMenu = ({ onToggle }) => {

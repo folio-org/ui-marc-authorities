@@ -6,6 +6,7 @@ import {
 import mockMapValues from 'lodash/mapValues';
 
 import { runAxeTest } from '@folio/stripes-testing';
+import { useAutoOpenDetailView } from '@folio/stripes-authority-components';
 
 import AuthoritiesSearch from './AuthoritiesSearch';
 import authorities from '../../../mocks/authorities';
@@ -19,21 +20,25 @@ import {
 import { useSortColumnManager } from '../../hooks';
 
 const mockHistoryPush = jest.fn();
+const mockSetSelectedAuthorityRecordContext = jest.fn();
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
   useHistory: () => ({
     push: mockHistoryPush,
+    replace: jest.fn(),
   }),
   useLocation: jest.fn().mockImplementation(() => ({
     pathname: '',
+    state: { editSuccessful: true },
   })),
+  useRouteMatch: jest.fn().mockReturnValue({ path: '' }),
 }));
 
 jest.mock('@folio/stripes-authority-components', () => ({
   ...jest.requireActual('@folio/stripes-authority-components'),
   useAuthorities: () => ({ authorities: [] }),
-  useAutoOpenDetailView: () => {},
+  useAutoOpenDetailView: jest.fn(),
   SearchResultsList: props => {
     const mapedProps = mockMapValues(props, prop => ((typeof prop === 'object') ? JSON.stringify(prop) : prop));
 
@@ -71,8 +76,8 @@ const mockOnChangeSortOption = jest.fn();
 const mockOnHeaderClick = jest.fn();
 const mockOnSubmitSearch = jest.fn();
 
-const renderAuthoritiesSearch = (props = {}) => render(
-  <Harness>
+const getAuthoritiesSearch = (props = {}, selectedRecord = null) => (
+  <Harness selectedRecordCtxValue={selectedRecord && [selectedRecord, mockSetSelectedAuthorityRecordContext]}>
     <AuthoritiesSearch
       handleLoadMore={mockHandleLoadMore}
       onChangeSortOption={mockOnChangeSortOption}
@@ -87,8 +92,10 @@ const renderAuthoritiesSearch = (props = {}) => render(
       totalRecords={100}
       {...props}
     />
-  </Harness>,
+  </Harness>
 );
+
+const renderAuthoritiesSearch = (...params) => render(getAuthoritiesSearch(...params));
 
 describe('Given AuthoritiesSearch', () => {
   beforeEach(() => {
@@ -380,6 +387,66 @@ describe('Given AuthoritiesSearch', () => {
       fireEvent.click(resetAllButton);
 
       expect(queryByText('ui-inventory.instances.rows.recordsSelected')).toBeNull();
+    });
+  });
+
+  describe('when there is only one record', () => {
+    it('should open the detail view', () => {
+      renderAuthoritiesSearch({
+        authorities,
+        totalResults: 1,
+      });
+      expect(useAutoOpenDetailView).toHaveBeenCalledWith({
+        authorities,
+        redirectToAuthorityRecord: expect.any(Function),
+        totalRecords: 100,
+      });
+    });
+  });
+
+  describe('when there is an updated record to highlight', () => {
+    it('should redirect to that updated record', () => {
+      const { rerender } = renderAuthoritiesSearch({
+        authorities: [{
+          id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
+          headingType: 'Geographic Name',
+          authRefType: 'Authorized',
+          headingRef: 'Springfield (Colo.)',
+        }, {
+          id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
+          headingType: 'Geographic Name',
+          authRefType: 'Reference',
+          headingRef: 'Springfield (Colo.) Reference',
+        }],
+        totalResults: 2,
+      }, {
+        id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
+        headingType: 'Geographic Name',
+        authRefType: 'Reference',
+        headingRef: 'Springfield',
+      });
+
+      rerender(getAuthoritiesSearch({
+        authorities: [{
+          id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
+          headingType: 'Geographic Name',
+          authRefType: 'Authorized',
+          headingRef: 'Springfield (Colo.)',
+        }, {
+          id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
+          headingType: 'Geographic Name',
+          authRefType: 'Reference',
+          headingRef: 'SpringfieldEDITED',
+        }],
+        totalResults: 2,
+      }, {
+        id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
+        headingType: 'Geographic Name',
+        authRefType: 'Reference',
+        headingRef: 'Springfield',
+      }));
+
+      expect(mockHistoryPush).toHaveBeenCalledWith('/authorities/cbc03a36-2870-4184-9777-0c44d07edfe4?authRefType=Reference&headingRef=SpringfieldEDITED');
     });
   });
 });
