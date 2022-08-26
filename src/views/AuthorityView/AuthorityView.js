@@ -13,8 +13,6 @@ import {
   FormattedMessage,
 } from 'react-intl';
 import queryString from 'query-string';
-import cloneDeep from 'lodash/cloneDeep';
-import set from 'lodash/set';
 import omit from 'lodash/omit';
 
 import {
@@ -31,7 +29,10 @@ import {
   CalloutContext,
 } from '@folio/stripes/core';
 import MarcView from '@folio/quick-marc/src/QuickMarcView/QuickMarcView';
-import { SelectedAuthorityRecordContext } from '@folio/stripes-authority-components';
+import {
+  markHighlightedFields,
+  SelectedAuthorityRecordContext,
+} from '@folio/stripes-authority-components';
 
 import { KeyShortCutsWrapper } from '../../components';
 
@@ -141,45 +142,6 @@ const AuthorityView = ({
     return stripes.hasPerm('ui-marc-authorities.authority-record.delete');
   };
 
-  const markHighlightedFields = () => {
-    const highlightAuthRefFields = {
-      'Authorized': /1\d\d/,
-      'Reference': /4\d\d/,
-      'Auth/Ref': /5\d\d/,
-    };
-
-    const marcFields = marcSource.data.parsedRecord.content.fields.map(field => {
-      const tag = Object.keys(field)[0];
-
-      const isHighlightedTag = highlightAuthRefFields[authority.data.authRefType].test(tag);
-
-      if (!isHighlightedTag) {
-        return field;
-      }
-
-      const fieldContent = field[tag].subfields.reduce((contentArr, subfield) => {
-        const subfieldValue = Object.values(subfield)[0];
-
-        return [...contentArr, subfieldValue];
-      }, []).join(' ');
-
-      const isHeadingRefMatching = fieldContent === authority.data.headingRef;
-
-      return {
-        ...field,
-        [tag]: {
-          ...field[tag],
-          isHighlighted: isHeadingRefMatching && isHighlightedTag,
-        },
-      };
-    });
-    const marcSourceClone = cloneDeep(marcSource);
-
-    set(marcSourceClone, 'data.parsedRecord.content.fields', marcFields);
-
-    return marcSourceClone;
-  };
-
   const onConfirmDelete = () => {
     deleteItem(authority.data.id);
     setDeleteModalOpen(false);
@@ -195,7 +157,7 @@ const AuthorityView = ({
         paneTitle={authority.data.headingRef}
         paneSub={intl.formatMessage(
           {
-            id: 'ui-marc-authorities.authorityRecordSubtitle',
+            id: 'stripes-authority-components.authorityRecordSubtitle',
           },
           {
             heading: authority.data.headingType,
@@ -206,9 +168,9 @@ const AuthorityView = ({
         )}
         isPaneset={false}
         marcTitle={intl.formatMessage({
-          id: 'ui-marc-authorities.marcHeading',
+          id: 'stripes-authority-components.marcHeading',
         })}
-        marc={markHighlightedFields().data}
+        marc={markHighlightedFields(marcSource, authority).data}
         onClose={onClose}
         lastMenu={
           <>
