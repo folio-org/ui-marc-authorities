@@ -27,6 +27,7 @@
     "@babel/preset-react": "^7.13.13",
     "@folio/eslint-config-stripes": "^6.1.0",
     "@folio/stripes": "^7.0.0",
+    "@folio/stripes-authority-components": "^1.0.0",
     "@folio/stripes-cli": "^2.4.0",
     "@folio/stripes-connect": "^7.0.0",
     "@folio/stripes-components": "^10.0.0",
