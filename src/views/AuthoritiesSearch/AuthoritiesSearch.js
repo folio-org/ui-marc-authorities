@@ -48,6 +48,7 @@ import {
   searchableIndexesValues,
   searchResultListColumns,
   SelectedAuthorityRecordContext,
+  getIsDetailViewNeedsToBeOpened,
 } from '@folio/stripes-authority-components';
 
 import { useHighlightEditedRecord } from '@folio/stripes-authority-components/lib/SearchResultsList/useHighlightEditedRecord';
@@ -338,14 +339,7 @@ const AuthoritiesSearch = ({
   };
 
   useEffect(() => {
-    if (totalRecords !== 1) {
-      return;
-    }
-
-    const firstAuthority = authorities[0];
-    const isDetailViewNeedsToBeOpened = navigationSegmentValue === navigationSegments.browse
-      ? firstAuthority?.isAnchor && firstAuthority?.isExactMatch
-      : true;
+    const isDetailViewNeedsToBeOpened = getIsDetailViewNeedsToBeOpened(totalRecords, authorities[0], navigationSegmentValue);
 
     if (isDetailViewNeedsToBeOpened) {
       redirectToAuthorityRecord(authorities[0]);
@@ -490,7 +484,7 @@ const AuthoritiesSearch = ({
           hasFilters={!!filters.length}
           query={searchQuery}
           hidePageIndices={hidePageIndices}
-          onRenderHeadingRef={renderHeadingRef}
+          renderHeadingRef={renderHeadingRef}
         />
       </Pane>
       {children}
