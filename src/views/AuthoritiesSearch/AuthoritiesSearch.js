@@ -48,7 +48,6 @@ import {
   searchableIndexesValues,
   searchResultListColumns,
   SelectedAuthorityRecordContext,
-  getIsDetailViewNeedsToBeOpened,
 } from '@folio/stripes-authority-components';
 
 import { useHighlightEditedRecord } from '@folio/stripes-authority-components/lib/SearchResultsList/useHighlightEditedRecord';
@@ -339,15 +338,6 @@ const AuthoritiesSearch = ({
   };
 
   useEffect(() => {
-    const isDetailViewNeedsToBeOpened = getIsDetailViewNeedsToBeOpened(totalRecords, authorities[0], navigationSegmentValue);
-
-    if (isDetailViewNeedsToBeOpened) {
-      redirectToAuthorityRecord(authorities[0]);
-    }
-    // eslint-disable-next-line
-  }, [totalRecords, authorities, navigationSegmentValue]);
-
-  useEffect(() => {
     if (!recordToHighlight) {
       return;
     }
@@ -485,6 +475,7 @@ const AuthoritiesSearch = ({
           query={searchQuery}
           hidePageIndices={hidePageIndices}
           renderHeadingRef={renderHeadingRef}
+          onOpenRecord={redirectToAuthorityRecord}
         />
       </Pane>
       {children}

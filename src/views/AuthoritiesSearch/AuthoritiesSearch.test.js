@@ -41,6 +41,10 @@ jest.mock('@folio/stripes-authority-components', () => ({
   SearchResultsList: props => {
     const mapedProps = mockMapValues(props, prop => ((typeof prop === 'object') ? JSON.stringify(prop) : prop));
 
+    if (props.authorities.length === 1) {
+      props.onOpenRecord(props.authorities[0]);
+    }
+
     return (
       <div data-testid="SearchResultsList" {...mapedProps}>
         <button type="button" data-testid="select-all-rows-toggle-button" onClick={() => props.toggleSelectAll()}>select-all-rows-toggle-button</button>
