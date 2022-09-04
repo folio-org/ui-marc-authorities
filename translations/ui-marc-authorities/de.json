@@ -27,8 +27,6 @@
     "export.success": "{exportJobName} ist abgeschlossen. Die heruntergeladene .csv-Datei enthält die UIIDs der ausgewählten Datensätze. Um die .mrc-Datei abzurufen,  bitte zur App Datenexport wechseln.",
     "export.failure": "Die Anfrage kann nicht abgeschlossen werden, bitte erneut versuchen.",
     "actions": "Aktionen",
-    "authority.view.error.notFound": "Normdatensatz nicht gefunden",
-    "authority.view.error.unknown": "Ein unbekannter Fehler ist aufgetreten",
     "authorities.rows.recordsSelected": "{count, number} {count, plural, one {record} other {records}} selected",
     "delete.buttonLabel": "Delete",
     "delete.label": "Confirm deletion of authority record",
