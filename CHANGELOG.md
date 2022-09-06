@@ -3,6 +3,7 @@
 ## [1.2.0] (IN PROGRESS)
 
 - [UIMARCAUTH-160](https://issues.folio.org/browse/UIMARCAUTH-160) components are incorrectly imported directly from stripes-* packages
+- [UIMARCAUTH-172](https://issues.folio.org/browse/UIMARCAUTH-172) Delete confirmation modal: Delete button does not display label
 
 ## [1.1.1](https://github.com/folio-org/ui-marc-authorities/tree/v1.1.1) (2022-08-04)
 
