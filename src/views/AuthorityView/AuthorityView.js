@@ -232,7 +232,7 @@ const AuthorityView = ({
         buttonStyle="danger"
         onCancel={() => setDeleteModalOpen(false)}
         confirmLabel={
-          <FormattedMessage id="stripes-smart-components.delete.buttonLabel" />
+          <FormattedMessage id="ui-marc-authorities.delete.buttonLabel" />
         }
       />
     </KeyShortCutsWrapper>
