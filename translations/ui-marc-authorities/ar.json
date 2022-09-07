@@ -27,10 +27,8 @@
     "export.success": "اكتمل {exportJobName} . يحتوي ملف .csv الذي تم تنزيله على المعرفات العمومية الفريدة للتسجيلات المحددة. لاسترداد ملف .mrc، يرجى الانتقال إلى تطبيق تصدير البيانات.",
     "export.failure": "تعذر إتمام الطلب، يرجى إعادة المحاولة مرة أخرى.",
     "actions": "الإجراءات",
-    "authority.view.error.notFound": "لم يتم العثور على تسجيلة الاستناد",
-    "authority.view.error.unknown": "حدث خطأ غير معروف",
     "authorities.rows.recordsSelected": "{count, number} {count, plural, one {record} other {records}} selected",
-    "delete.buttonLabel": "Delete",
-    "delete.label": "Confirm deletion of authority record",
+    "delete.buttonLabel": "حذف",
+    "delete.label": "تأكيد حذف التسجيلة الاستنادية",
     "delete.description": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>?"
 }

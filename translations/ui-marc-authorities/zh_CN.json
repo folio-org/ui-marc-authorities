@@ -27,10 +27,8 @@
     "export.success": "{exportJobName}已完成。下载的 .csv 包含所选记录的 UIID。要检索 .mrc 文件，请转到数据导出应用程序。",
     "export.failure": "无法完成请求，请重试。",
     "actions": "操作",
-    "authority.view.error.notFound": "未找到规范记录",
-    "authority.view.error.unknown": "发生未知错误",
-    "authorities.rows.recordsSelected": "{count, number} {count, plural, one {record} other {records}} selected",
-    "delete.buttonLabel": "Delete",
-    "delete.label": "Confirm deletion of authority record",
-    "delete.description": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>?"
+    "authorities.rows.recordsSelected": "{count, number} {count, plural, one {记录} other {记录}}已选",
+    "delete.buttonLabel": "删除",
+    "delete.label": "确认删除规范记录",
+    "delete.description": "确定要永久删除规范记录： <strong> {headingRef} </strong>吗？"
 }
