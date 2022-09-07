@@ -1,6 +1,6 @@
 {
     "meta.title": "Autorita MARC",
-    "permission.app.enabled": "UI: MARC Authorities module is enabled",
+    "permission.app.enabled": "UI: Modul MARC Authorities je povolen",
     "permission.authority-record.view": "Autorita MARC: Zobrazení záznamu autority MARC",
     "permission.authority-record.edit": "Autorita MARC: Upravit záznam autority MARC",
     "actions.menuSection.sortBy": "Seřadit podle",
@@ -27,8 +27,6 @@
     "export.success": "{exportJobName} je dokončen. Stažená .csv obsahuje identifikátory UIID vybraných záznamů. Chcete-li načíst soubor .mrc, přejděte do aplikace Pro export dat.",
     "export.failure": "Export nešlo dokončit, zkuste to prosím znovu.",
     "actions": "Akce",
-    "authority.view.error.notFound": "Záznam autority nebyl nalezen",
-    "authority.view.error.unknown": "Nastala neznámá chyba",
     "authorities.rows.recordsSelected": "{count, number} {count, plural, one {záznam} other {záznamů}} vybráno",
     "delete.buttonLabel": "Vymazat",
     "delete.label": "Potvrďte smazání autoritního záznamu",
