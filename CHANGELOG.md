@@ -5,6 +5,7 @@
 - [UIMARCAUTH-160](https://issues.folio.org/browse/UIMARCAUTH-160) components are incorrectly imported directly from stripes-* packages
 - [UIMARCAUTH-167](https://issues.folio.org/browse/UIMARCAUTH-167) Scroll bars display at the second pane when they don't need
 - [UIMARCAUTH-170](https://issues.folio.org/browse/UIMARCAUTH-170) Tweak the search and view authority components
+- [UIMARCAUTH-169](https://issues.folio.org/browse/UIMARCAUTH-169) The counters at Browse authority pane and "Type of heading" facet options don't match
 
 ## [1.1.1](https://github.com/folio-org/ui-marc-authorities/tree/v1.1.1) (2022-08-04)
 
