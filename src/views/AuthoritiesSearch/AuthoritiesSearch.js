@@ -48,6 +48,7 @@ import {
   searchableIndexesValues,
   searchResultListColumns,
   SelectedAuthorityRecordContext,
+  useAutoOpenDetailView,
 } from '@folio/stripes-authority-components';
 
 import { useHighlightEditedRecord } from '@folio/stripes-authority-components/lib/SearchResultsList/useHighlightEditedRecord';
@@ -336,6 +337,8 @@ const AuthoritiesSearch = ({
   const redirectToAuthorityRecord = authority => {
     history.push(formatAuthorityRecordLink(authority));
   };
+
+  useAutoOpenDetailView(authorities, redirectToAuthorityRecord);
 
   useEffect(() => {
     if (!recordToHighlight) {
