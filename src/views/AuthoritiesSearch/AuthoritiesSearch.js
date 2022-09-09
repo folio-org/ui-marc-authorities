@@ -482,7 +482,6 @@ const AuthoritiesSearch = ({
           query={searchQuery}
           hidePageIndices={hidePageIndices}
           renderHeadingRef={renderHeadingRef}
-          onOpenRecord={redirectToAuthorityRecord}
         />
       </Pane>
       {children}
