@@ -7,6 +7,7 @@
 - [UIMARCAUTH-170](https://issues.folio.org/browse/UIMARCAUTH-170) Tweak the search and view authority components
 - [UIMARCAUTH-169](https://issues.folio.org/browse/UIMARCAUTH-169) The counters at Browse authority pane and "Type of heading" facet options don't match
 - [UIMARCAUTH-182](https://issues.folio.org/browse/UIMARCAUTH-182) Add the Expand the Search & filter pane option
+- [UIMARCAUTH-183](https://issues.folio.org/browse/UIMARCAUTH-183) Results List : Click Link icon/button to select a MARC authority record
 
 ## [1.1.1](https://github.com/folio-org/ui-marc-authorities/tree/v1.1.1) (2022-08-04)
 
