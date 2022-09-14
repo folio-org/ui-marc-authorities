@@ -1,6 +1,6 @@
 # Change history for ui-marc-authorities
 
-## [1.1.2] (IN PROGRESS)
+## [1.1.2](https://github.com/folio-org/ui-marc-authorities/tree/v1.1.2) (2022-09-14)
 
 - [UIMARCAUTH-169](https://issues.folio.org/browse/UIMARCAUTH-169) The counters at Browse authority pane and "Type of heading" facet options don't match
 
