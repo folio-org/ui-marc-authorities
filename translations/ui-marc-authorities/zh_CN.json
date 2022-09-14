@@ -30,5 +30,6 @@
     "authorities.rows.recordsSelected": "{count, number} {count, plural, one {记录} other {记录}}已选",
     "delete.buttonLabel": "删除",
     "delete.label": "确认删除规范记录",
-    "delete.description": "确定要永久删除规范记录： <strong> {headingRef} </strong>吗？"
+    "delete.description": "确定要永久删除规范记录： <strong> {headingRef} </strong>吗？",
+    "authorities.rows.select": "Select Authority record"
 }
