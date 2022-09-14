@@ -178,6 +178,7 @@ const AuthoritiesSearch = ({
       <Checkbox
         onChange={() => toggleSelectAll()}
         name="select all authorities"
+        data-testid="select-all-rows-toggle-button"
         checked={selectAll}
         title={selectAll
           ? intl.formatMessage({ id: 'stripes-authority-components.search-results-list.selectAll' })
@@ -329,6 +330,7 @@ const AuthoritiesSearch = ({
       >
         <Checkbox
           checked={Boolean(selectedRows[id])}
+          data-testid="row-toggle-button"
           aria-label={intl.formatMessage({ id: 'ui-marc-authorities.authorities.rows.select' })}
           onChange={() => toggleRowSelection({
             id,
@@ -500,15 +502,11 @@ const AuthoritiesSearch = ({
           loading={isLoading}
           loaded={isLoaded}
           visibleColumns={visibleColumns}
-          selectedRows={selectedRows}
           sortedColumn={sortedColumn}
           sortOrder={sortOrder}
           onHeaderClick={onHeaderClick}
           isFilterPaneVisible={isFilterPaneVisible}
           toggleFilterPane={toggleFilterPane}
-          toggleRowSelection={toggleRowSelection}
-          toggleSelectAll={toggleSelectAll}
-          selectAll={selectAll}
           hasFilters={!!filters.length}
           query={searchQuery}
           hidePageIndices={hidePageIndices}
