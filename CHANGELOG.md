@@ -11,6 +11,7 @@
 ## [1.1.2](https://github.com/folio-org/ui-marc-authorities/tree/v1.1.2) (2022-09-14)
 
 - [UIMARCAUTH-169](https://issues.folio.org/browse/UIMARCAUTH-169) The counters at Browse authority pane and "Type of heading" facet options don't match
+- [UIMARCAUTH-172](https://issues.folio.org/browse/UIMARCAUTH-172) Delete confirmation modal: Delete button does not display label
 
 ## [1.1.1](https://github.com/folio-org/ui-marc-authorities/tree/v1.1.1) (2022-08-04)
 
