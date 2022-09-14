@@ -27,6 +27,7 @@ import {
   MenuSection,
   Select,
   TextLink,
+  Checkbox,
 } from '@folio/stripes/components';
 import {
   PersistedPaneset,
@@ -119,22 +120,81 @@ const AuthoritiesSearch = ({
   } = useContext(AuthoritiesSearchContext);
   const callout = useContext(CalloutContext);
   const [, setSelectedAuthorityRecord] = useContext(SelectedAuthorityRecordContext);
+  const [selectedRows, setSelectedRows] = useState({});
+  const [selectAll, setSelectAll] = useState(false);
+  const uniqueAuthorities = useMemo(() => authorities.filter(item => !!item.id), [authorities]);
+  const reportGenerator = useReportGenerator('QuickAuthorityExport');
+  const filterPaneVisibilityKey = getNamespace({ key: 'marcAuthoritiesFilterPaneVisibility' });
+  const [storedFilterPaneVisibility] = useLocalStorage(filterPaneVisibilityKey, true);
+  const [isFilterPaneVisible, setIsFilterPaneVisible] = useState(storedFilterPaneVisibility);
+
+  const uniqueAuthoritiesCount = useMemo(() => {
+    // determine count of unique ids in authorities array.
+    // this is needed to check or uncheck "Select all" checkbox in header when all rows are explicitly
+    // checked or unchecked.
+    const filteredAuthorities = authorities.map(authority => authority.id).filter(id => !!id);
+
+    return new Set(filteredAuthorities).size;
+  }, [authorities]);
+
+  const selectedRowsIds = useMemo(() => (Object.keys(selectedRows)), [selectedRows]);
+  const selectedRowsCount = useMemo(() => (Object.keys(selectedRows).length), [selectedRows]);
+
+  const rowExistsInSelectedRows = row => {
+    return selectedRowsIds.includes(row.id);
+  };
 
   const recordToHighlight = useHighlightEditedRecord(authorities);
 
+  const getSelectAllRowsState = () => {
+    const newSelectedRows = { ...selectedRows };
+
+    if (!selectAll) {
+      // check each of the authorities, if it is not present in selectedRows, add to it
+      uniqueAuthorities.forEach(item => {
+        if (!selectedRowsIds.includes(item.id)) {
+          newSelectedRows[item.id] = item;
+        }
+      });
+    } else {
+      // check each of the authorities, if it is present in selectedRows, remove it
+      uniqueAuthorities.forEach(item => {
+        if (selectedRowsIds.includes(item.id)) {
+          delete newSelectedRows[item.id];
+        }
+      });
+    }
+
+    return newSelectedRows;
+  };
+
+  const toggleSelectAll = () => {
+    setSelectedRows(getSelectAllRowsState());
+    setSelectAll(prev => !prev);
+  };
+
   const columnMapping = {
-    [searchResultListColumns.SELECT]: null,
+    [searchResultListColumns.SELECT]: (
+      <Checkbox
+        onChange={() => toggleSelectAll()}
+        name="select all authorities"
+        data-testid="select-all-rows-toggle-button"
+        checked={selectAll}
+        title={selectAll
+          ? intl.formatMessage({ id: 'stripes-authority-components.search-results-list.selectAll' })
+          : intl.formatMessage({ id: 'stripes-authority-components.search-results-list.unselectAll' })
+        }
+      />
+    ),
     [searchResultListColumns.AUTH_REF_TYPE]: <FormattedMessage id="stripes-authority-components.search-results-list.authRefType" />,
     [searchResultListColumns.HEADING_REF]: <FormattedMessage id="stripes-authority-components.search-results-list.headingRef" />,
     [searchResultListColumns.HEADING_TYPE]: <FormattedMessage id="stripes-authority-components.search-results-list.headingType" />,
   };
+
   const {
     visibleColumns,
     toggleColumn,
   } = useColumnManager(prefix, columnMapping);
-
-  const reportGenerator = useReportGenerator('QuickAuthorityExport');
-  const filterPaneVisibilityKey = getNamespace({ key: 'marcAuthoritiesFilterPaneVisibility' });
 
   useEffect(() => {
     const selectedIndex = searchIndex !== searchableIndexesValues.KEYWORD ? searchIndex : '';
@@ -187,29 +247,6 @@ const AuthoritiesSearch = ({
     sortOrder,
     sortedColumn,
   ]);
-
-  const [storedFilterPaneVisibility] = useLocalStorage(filterPaneVisibilityKey, true);
-  const [isFilterPaneVisible, setIsFilterPaneVisible] = useState(storedFilterPaneVisibility);
-  const [selectedRows, setSelectedRows] = useState({});
-  const [selectAll, setSelectAll] = useState(false);
-
-  const selectedRowsIds = useMemo(() => (Object.keys(selectedRows)), [selectedRows]);
-  const selectedRowsCount = useMemo(() => (Object.keys(selectedRows).length), [selectedRows]);
-
-  const uniqueAuthorities = useMemo(() => authorities.filter(item => !!item.id), [authorities]);
-
-  const uniqueAuthoritiesCount = useMemo(() => {
-    // determine count of unique ids in authorities array.
-    // this is needed to check or uncheck "Select all" checkbox in header when all rows are explicitly
-    // checked or unchecked.
-    const filteredAuthorities = authorities.map(authority => authority.id).filter(id => !!id);
-
-    return new Set(filteredAuthorities).size;
-  }, [authorities]);
-
-  const rowExistsInSelectedRows = row => {
-    return selectedRowsIds.includes(row.id);
-  };
 
   useEffect(() => {
     // on pagination, when authorities search list change, update "selectAll" checkbox based on the selected rows in the searchList.
@@ -278,36 +315,30 @@ const AuthoritiesSearch = ({
     }
   };
 
-  const getSelectAllRowsState = () => {
-    const newSelectedRows = { ...selectedRows };
-
-    if (!selectAll) {
-      // check each of the authorities, if it is not present in selectedRows, add to it
-      uniqueAuthorities.forEach(item => {
-        if (!selectedRowsIds.includes(item.id)) {
-          newSelectedRows[item.id] = item;
-        }
-      });
-    } else {
-      // check each of the authorities, if it is present in selectedRows, remove it
-      uniqueAuthorities.forEach(item => {
-        if (selectedRowsIds.includes(item.id)) {
-          delete newSelectedRows[item.id];
-        }
-      });
-    }
-
-    return newSelectedRows;
-  };
-
-  const toggleSelectAll = () => {
-    setSelectedRows(getSelectAllRowsState());
-    setSelectAll(prev => !prev);
-  };
-
   const toggleFilterPane = () => {
     setIsFilterPaneVisible(!isFilterPaneVisible);
     writeStorage(filterPaneVisibilityKey, !isFilterPaneVisible);
+  };
+
+  const formatter = {
+    // eslint-disable-next-line react/prop-types
+    select: ({ id, ...rowData }) => id && (
+      <div // eslint-disable-line jsx-a11y/click-events-have-key-events
+        tabIndex="0"
+        role="button"
+        onClick={e => e.stopPropagation()}
+      >
+        <Checkbox
+          checked={Boolean(selectedRows[id])}
+          data-testid="row-toggle-button"
+          aria-label={intl.formatMessage({ id: 'ui-marc-authorities.authorities.rows.select' })}
+          onChange={() => toggleRowSelection({
+            id,
+            ...rowData,
+          })}
+        />
+      </div>
+    ),
   };
 
   const options = Object.values(sortableSearchResultListColumns).map(option => ({
@@ -461,6 +492,8 @@ const AuthoritiesSearch = ({
       >
         <SearchResultsList
           authorities={authorities}
+          columnMapping={columnMapping}
+          formatter={formatter}
           hasNextPage={hasNextPage}
           hasPrevPage={hasPrevPage}
           totalResults={totalRecords}
@@ -469,15 +502,11 @@ const AuthoritiesSearch = ({
           loading={isLoading}
           loaded={isLoaded}
           visibleColumns={visibleColumns}
-          selectedRows={selectedRows}
           sortedColumn={sortedColumn}
           sortOrder={sortOrder}
           onHeaderClick={onHeaderClick}
           isFilterPaneVisible={isFilterPaneVisible}
           toggleFilterPane={toggleFilterPane}
-          toggleRowSelection={toggleRowSelection}
-          toggleSelectAll={toggleSelectAll}
-          selectAll={selectAll}
           hasFilters={!!filters.length}
           query={searchQuery}
           hidePageIndices={hidePageIndices}
