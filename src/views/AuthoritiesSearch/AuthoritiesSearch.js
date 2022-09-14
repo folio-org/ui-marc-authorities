@@ -380,6 +380,10 @@ const AuthoritiesSearch = ({
   };
 
   const renderPaneSub = () => {
+    if (navigationSegmentValue === navigationSegments.browse) {
+      return null;
+    }
+
     return (
       <span className={css.delimiter}>
         <span>

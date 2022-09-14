@@ -1,5 +1,9 @@
 # Change history for ui-marc-authorities
 
+## [1.1.2] (IN PROGRESS)
+
+- [UIMARCAUTH-169](https://issues.folio.org/browse/UIMARCAUTH-169) The counters at Browse authority pane and "Type of heading" facet options don't match
+
 ## [1.1.1](https://github.com/folio-org/ui-marc-authorities/tree/v1.1.1) (2022-08-04)
 
 - [UIMARCAUTH-163](https://issues.folio.org/browse/UIMARCAUTH-163) Fix the row with "Heading/reference" value doesn't highlight at result list after editing matched tags value more than 1 time
