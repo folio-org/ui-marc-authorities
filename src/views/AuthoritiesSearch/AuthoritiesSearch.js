@@ -28,11 +28,13 @@ import {
   Select,
   TextLink,
   Checkbox,
+  PaneMenu,
 } from '@folio/stripes/components';
 import {
   PersistedPaneset,
   useColumnManager,
   ColumnManagerMenu,
+  ExpandFilterPaneButton,
 } from '@folio/stripes/smart-components';
 import {
   AppIcon,
@@ -53,8 +55,6 @@ import {
 } from '@folio/stripes-authority-components';
 
 import { useHighlightEditedRecord } from '@folio/stripes-authority-components/lib/SearchResultsList/useHighlightEditedRecord';
-import { PaneMenu } from '@folio/stripes-components';
-import { ExpandFilterPaneButton } from '@folio/stripes-smart-components';
 import { useAuthorityExport } from '../../queries';
 import { useReportGenerator } from '../../hooks';
 import {
