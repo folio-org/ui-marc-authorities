@@ -28,11 +28,13 @@ import {
   Select,
   TextLink,
   Checkbox,
+  PaneMenu,
 } from '@folio/stripes/components';
 import {
   PersistedPaneset,
   useColumnManager,
   ColumnManagerMenu,
+  ExpandFilterPaneButton,
 } from '@folio/stripes/smart-components';
 import {
   AppIcon,
@@ -455,6 +457,20 @@ const AuthoritiesSearch = ({
     );
   };
 
+  const renderResultsFirstMenu = () => {
+    if (isFilterPaneVisible) {
+      return null;
+    }
+
+    return (
+      <PaneMenu>
+        <ExpandFilterPaneButton
+          onClick={toggleFilterPane}
+        />
+      </PaneMenu>
+    );
+  };
+
   const renderHeadingRef = (authority, className) => (
     <TextLink
       className={className}
@@ -486,6 +502,7 @@ const AuthoritiesSearch = ({
         defaultWidth="fill"
         paneTitle={intl.formatMessage({ id: 'stripes-authority-components.meta.title' })}
         paneSub={renderPaneSub()}
+        firstMenu={renderResultsFirstMenu()}
         actionMenu={renderActionMenu}
         padContent={false}
         noOverflow
