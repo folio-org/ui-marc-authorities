@@ -3,7 +3,6 @@ import {
   render,
   fireEvent,
 } from '@testing-library/react';
-import mockMapValues from 'lodash/mapValues';
 
 import { runAxeTest } from '@folio/stripes-testing';
 
@@ -37,24 +36,6 @@ jest.mock('react-router', () => ({
 jest.mock('@folio/stripes-authority-components', () => ({
   ...jest.requireActual('@folio/stripes-authority-components'),
   useAuthorities: () => ({ authorities: [] }),
-  SearchResultsList: props => {
-    const mapedProps = mockMapValues(props, prop => ((typeof prop === 'object') ? JSON.stringify(prop) : prop));
-
-    return (
-      <div data-testid="SearchResultsList" {...mapedProps}>
-        <button type="button" data-testid="select-all-rows-toggle-button" onClick={() => props.toggleSelectAll()}>select-all-rows-toggle-button</button>
-        {props.authorities.map(authority => (
-          <button
-            type="button"
-            data-testid="row-toggle-button"
-            onClick={() => props.toggleRowSelection({ ...authority })}
-          >
-            row-toggle-button
-          </button>
-        ))}
-      </div>
-    );
-  },
   AuthoritiesSearchPane: props => (
     <div>
       AuthoritiesSearchPane
@@ -130,22 +111,10 @@ describe('Given AuthoritiesSearch', () => {
     expect(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' })).toBeDefined();
   });
 
-  it('should be default sort order', () => {
-    const { getByTestId } = renderAuthoritiesSearch();
-
-    expect(getByTestId('SearchResultsList')).toHaveAttribute('sortOrder', 'ascending');
-  });
-
-  it('should not be sorted by any column', () => {
-    const { getByTestId } = renderAuthoritiesSearch();
-
-    expect(getByTestId('SearchResultsList')).toHaveAttribute('sortedColumn', 'headingRef');
-  });
-
   it('should not display count of selected rows on panesub untill no rows are selected', () => {
     const { queryByText } = renderAuthoritiesSearch();
 
-    expect(queryByText('ui-inventory.instances.rows.recordsSelected')).toBeNull();
+    expect(queryByText('ui-marc-authorities.authorities.rows.recordsSelected')).toBeNull();
   });
 
   describe('when click on row checkbox', () => {
@@ -156,7 +125,7 @@ describe('Given AuthoritiesSearch', () => {
 
       fireEvent.click(rowToggleButtons[0]);
 
-      expect(queryByText('ui-inventory.instances.rows.recordsSelected')).toBeDefined();
+      expect(queryByText('ui-marc-authorities.authorities.rows.recordsSelected')).toBeDefined();
     });
   });
 
@@ -169,7 +138,7 @@ describe('Given AuthoritiesSearch', () => {
       fireEvent.click(rowToggleButtons[0]);
       fireEvent.click(rowToggleButtons[0]);
 
-      expect(queryByText('ui-inventory.instances.rows.recordsSelected')).toBeNull();
+      expect(queryByText('ui-marc-authorities.authorities.rows.recordsSelected')).toBeNull();
     });
   });
 
@@ -279,7 +248,7 @@ describe('Given AuthoritiesSearch', () => {
           fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.export-selected-records' }));
 
           expect(queryByText('ui-marc-authorities.export.success')).toBeDefined();
-          await waitFor(() => expect(queryByText('ui-inventory.instances.rows.recordsSelected')).toBeNull);
+          await waitFor(() => expect(queryByText('ui-marc-authorities.authorities.rows.recordsSelected')).toBeNull);
         });
 
         it('should be able to show error toast message', () => {
@@ -336,17 +305,13 @@ describe('Given AuthoritiesSearch', () => {
       it('should hide "Type of Heading" column', () => {
         const {
           getByRole,
-          getByTestId,
-        } = renderAuthoritiesSearch();
+          queryByRole,
+        } = renderAuthoritiesSearch({ authorities });
 
         fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
         fireEvent.click(getByRole('checkbox', { name: 'stripes-authority-components.search-results-list.headingType' }));
 
-        expect(getByTestId('SearchResultsList')).toHaveAttribute('visibleColumns', JSON.stringify([
-          searchResultListColumns.SELECT,
-          searchResultListColumns.AUTH_REF_TYPE,
-          searchResultListColumns.HEADING_REF,
-        ]));
+        expect(queryByRole('button', { name: 'stripes-authority-components.search-results-list.headingType' })).toBeNull();
       });
     });
   });
@@ -359,7 +324,7 @@ describe('Given AuthoritiesSearch', () => {
 
       fireEvent.click(selectAllRowsToggleButton);
 
-      expect(queryByText('ui-inventory.instances.rows.recordsSelected')).toBeDefined();
+      expect(queryByText('ui-marc-authorities.authorities.rows.recordsSelected')).toBeDefined();
     });
   });
 
@@ -372,7 +337,7 @@ describe('Given AuthoritiesSearch', () => {
       fireEvent.click(selectAllRowsToggleButton);
       fireEvent.click(selectAllRowsToggleButton);
 
-      expect(queryByText('ui-inventory.instances.rows.recordsSelected')).toBeNull();
+      expect(queryByText('ui-marc-authorities.authorities.rows.recordsSelected')).toBeNull();
     });
   });
 
@@ -384,7 +349,7 @@ describe('Given AuthoritiesSearch', () => {
 
       fireEvent.click(resetAllButton);
 
-      expect(queryByText('ui-inventory.instances.rows.recordsSelected')).toBeNull();
+      expect(queryByText('ui-marc-authorities.authorities.rows.recordsSelected')).toBeNull();
     });
   });
 
