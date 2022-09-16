@@ -52,6 +52,8 @@ import {
 } from '@folio/stripes-authority-components';
 
 import { useHighlightEditedRecord } from '@folio/stripes-authority-components/lib/SearchResultsList/useHighlightEditedRecord';
+import { PaneMenu } from '@folio/stripes-components';
+import { ExpandFilterPaneButton } from '@folio/stripes-smart-components';
 import { useAuthorityExport } from '../../queries';
 import { useReportGenerator } from '../../hooks';
 import {
@@ -424,6 +426,20 @@ const AuthoritiesSearch = ({
     );
   };
 
+  const renderResultsFirstMenu = () => {
+    if (isFilterPaneVisible) {
+      return null;
+    }
+
+    return (
+      <PaneMenu>
+        <ExpandFilterPaneButton
+          onClick={toggleFilterPane}
+        />
+      </PaneMenu>
+    );
+  };
+
   const renderHeadingRef = (authority, className) => (
     <TextLink
       className={className}
@@ -455,6 +471,7 @@ const AuthoritiesSearch = ({
         defaultWidth="fill"
         paneTitle={intl.formatMessage({ id: 'stripes-authority-components.meta.title' })}
         paneSub={renderPaneSub()}
+        firstMenu={renderResultsFirstMenu()}
         actionMenu={renderActionMenu}
         padContent={false}
         noOverflow
