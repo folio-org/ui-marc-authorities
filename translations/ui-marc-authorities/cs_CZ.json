@@ -31,5 +31,5 @@
     "delete.buttonLabel": "Smazat",
     "delete.label": "Potvrďte smazání autoritního záznamu",
     "delete.description": "Opravdu chcete trvale smazat záznam autority: <strong> {headingRef} </strong>?",
-    "authorities.rows.select": "Select Authority record"
+    "authorities.rows.select": "Vybrat záznam autority"
 }
