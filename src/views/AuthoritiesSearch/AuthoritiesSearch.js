@@ -430,13 +430,9 @@ const AuthoritiesSearch = ({
     );
   };
 
-  const renderPaneSub = () => {
-    if (navigationSegmentValue === navigationSegments.browse) {
-      return null;
-    }
-
-    return (
-      <span className={css.delimiter}>
+  const renderPaneSub = () => (
+    <span className={css.delimiter}>
+      {navigationSegmentValue !== navigationSegments.browse && (
         <span>
           {intl.formatMessage({
             id: 'stripes-authority-components.search-results-list.paneSub',
@@ -444,18 +440,18 @@ const AuthoritiesSearch = ({
             totalRecords,
           })}
         </span>
-        {
-          !!selectedRowsCount &&
-          <span>
-            <FormattedMessage
-              id="ui-marc-authorities.authorities.rows.recordsSelected"
-              values={{ count: selectedRowsCount }}
-            />
-          </span>
-        }
-      </span>
-    );
-  };
+      )}
+      {
+        !!selectedRowsCount &&
+        <span>
+          <FormattedMessage
+            id="ui-marc-authorities.authorities.rows.recordsSelected"
+            values={{ count: selectedRowsCount }}
+          />
+        </span>
+      }
+    </span>
+  );
 
   const renderResultsFirstMenu = () => {
     if (isFilterPaneVisible) {
