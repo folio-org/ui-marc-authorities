@@ -127,7 +127,9 @@
           "search.facets.collection.get",
           "source-storage.records.get",
           "inventory-storage.authorities.item.get",
-          "data-export.quick.export.post"
+          "data-export.quick.export.post",
+          "inventory-storage.authority-source-files.collection.get",
+          "inventory-storage.authority-source-files.item.get"
         ],
         "visible": true
       },
