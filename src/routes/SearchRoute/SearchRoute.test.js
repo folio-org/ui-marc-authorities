@@ -3,6 +3,8 @@ import {
   render,
 } from '@testing-library/react';
 
+import {runAxeTest} from "@folio/stripes-testing";
+
 import SearchRoute from './SearchRoute';
 import Harness from '../../../test/jest/helpers/harness';
 
@@ -37,6 +39,14 @@ const renderSearchRoute = () => render(
 describe('Given SearchRoute', () => {
   afterEach(() => {
     jest.clearAllMocks();
+  });
+
+  it('should render with no axe errors', async () => {
+    const { container } = renderSearchRoute();
+
+    await runAxeTest({
+      rootNode: container,
+    });
   });
 
   it('should render children', () => {

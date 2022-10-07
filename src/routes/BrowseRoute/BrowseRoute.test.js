@@ -1,5 +1,7 @@
 import { render } from '@testing-library/react';
 
+import {runAxeTest} from "@folio/stripes-testing";
+
 import BrowseRoute from './BrowseRoute';
 import Harness from '../../../test/jest/helpers/harness';
 
@@ -23,6 +25,14 @@ const renderBrowseRoute = () => render(
 describe('Given BrowseRoute', () => {
   afterEach(() => {
     jest.clearAllMocks();
+  });
+
+  it('should render with no axe errors', async () => {
+    const { container } = renderBrowseRoute();
+
+    await runAxeTest({
+      rootNode: container,
+    });
   });
 
   it('should render children', () => {

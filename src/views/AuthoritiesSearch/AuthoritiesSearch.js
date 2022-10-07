@@ -65,6 +65,7 @@ import {
 import css from './AuthoritiesSearch.css';
 
 const prefix = 'authorities';
+const NON_INTERACTIVE_HEADERS = [searchResultListColumns.SELECT];
 
 const propTypes = {
   authorities: PropTypes.arrayOf(AuthorityShape).isRequired,
@@ -175,17 +176,19 @@ const AuthoritiesSearch = ({
     setSelectAll(prev => !prev);
   };
 
+  const selectAllLabel = selectAll
+    ? intl.formatMessage({ id: 'stripes-authority-components.search-results-list.selectAll' })
+    : intl.formatMessage({ id: 'stripes-authority-components.search-results-list.unselectAll' });
+
   const columnMapping = {
     [searchResultListColumns.SELECT]: (
       <Checkbox
         onChange={() => toggleSelectAll()}
         name="select all authorities"
+        aria-label={selectAllLabel}
         data-testid="select-all-rows-toggle-button"
         checked={selectAll}
-        title={selectAll
-          ? intl.formatMessage({ id: 'stripes-authority-components.search-results-list.selectAll' })
-          : intl.formatMessage({ id: 'stripes-authority-components.search-results-list.unselectAll' })
-        }
+        title={selectAllLabel}
       />
     ),
     [searchResultListColumns.AUTH_REF_TYPE]: <FormattedMessage id="stripes-authority-components.search-results-list.authRefType" />,
@@ -326,8 +329,6 @@ const AuthoritiesSearch = ({
     // eslint-disable-next-line react/prop-types
     select: ({ id, ...rowData }) => id && (
       <div // eslint-disable-line jsx-a11y/click-events-have-key-events
-        tabIndex="0"
-        role="button"
         onClick={e => e.stopPropagation()}
       >
         <Checkbox
@@ -524,6 +525,7 @@ const AuthoritiesSearch = ({
           query={searchQuery}
           hidePageIndices={hidePageIndices}
           renderHeadingRef={renderHeadingRef}
+          nonInteractiveHeaders={NON_INTERACTIVE_HEADERS}
         />
       </Pane>
       {children}
