@@ -328,19 +328,16 @@ const AuthoritiesSearch = ({
   const formatter = {
     // eslint-disable-next-line react/prop-types
     select: ({ id, ...rowData }) => id && (
-      <div // eslint-disable-line jsx-a11y/click-events-have-key-events
+      <Checkbox
+        checked={Boolean(selectedRows[id])}
+        data-testid="row-toggle-button"
+        aria-label={intl.formatMessage({ id: 'ui-marc-authorities.authorities.rows.select' })}
+        onChange={() => toggleRowSelection({
+          id,
+          ...rowData,
+        })}
         onClick={e => e.stopPropagation()}
-      >
-        <Checkbox
-          checked={Boolean(selectedRows[id])}
-          data-testid="row-toggle-button"
-          aria-label={intl.formatMessage({ id: 'ui-marc-authorities.authorities.rows.select' })}
-          onChange={() => toggleRowSelection({
-            id,
-            ...rowData,
-          })}
-        />
-      </div>
+      />
     ),
   };
 

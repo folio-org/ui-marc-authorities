@@ -4,7 +4,7 @@ import {
   waitFor,
 } from '@testing-library/react';
 
-import {runAxeTest} from "@folio/stripes-testing";
+import { runAxeTest } from '@folio/stripes-testing';
 
 import AuthorityQuickMarcEditRoute from './AuthorityQuickMarcEditRoute';
 import Harness from '../../../test/jest/helpers/harness';

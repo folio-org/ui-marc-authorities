@@ -3,7 +3,7 @@ import {
   render,
 } from '@testing-library/react';
 
-import {runAxeTest} from "@folio/stripes-testing";
+import { runAxeTest } from '@folio/stripes-testing';
 
 import SearchRoute from './SearchRoute';
 import Harness from '../../../test/jest/helpers/harness';

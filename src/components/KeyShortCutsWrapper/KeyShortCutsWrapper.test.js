@@ -8,7 +8,7 @@ import {
   CommandList,
   defaultKeyboardShortcuts,
 } from '@folio/stripes-components';
-import {runAxeTest} from "@folio/stripes-testing";
+import { runAxeTest } from '@folio/stripes-testing';
 
 import KeyShortCutsWrapper from './KeyShortCutsWrapper';
 

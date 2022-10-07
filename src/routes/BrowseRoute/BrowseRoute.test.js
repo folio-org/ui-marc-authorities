@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import {runAxeTest} from "@folio/stripes-testing";
+import { runAxeTest } from '@folio/stripes-testing';
 
 import BrowseRoute from './BrowseRoute';
 import Harness from '../../../test/jest/helpers/harness';

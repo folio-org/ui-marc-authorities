@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 
 import { useMarcSource } from '@folio/stripes-authority-components';
-import {runAxeTest} from "@folio/stripes-testing";
+import { runAxeTest } from '@folio/stripes-testing';
 
 import AuthorityViewRoute from './AuthorityViewRoute';
 import Harness from '../../../test/jest/helpers/harness';
