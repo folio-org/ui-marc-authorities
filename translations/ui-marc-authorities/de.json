@@ -28,7 +28,7 @@
     "export.failure": "Die Anfrage kann nicht abgeschlossen werden, bitte erneut versuchen.",
     "actions": "Aktionen",
     "authorities.rows.recordsSelected": "{count, number} {count, plural, one {record} other {records}} selected",
-    "delete.buttonLabel": "Delete",
+    "delete.buttonLabel": "Löschen",
     "delete.label": "Confirm deletion of authority record",
     "delete.description": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>?",
     "authorities.rows.select": "Select Authority record"
