@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 
 import { useMarcSource } from '@folio/stripes-authority-components';
+import { runAxeTest } from '@folio/stripes-testing';
 
 import AuthorityViewRoute from './AuthorityViewRoute';
 import Harness from '../../../test/jest/helpers/harness';
@@ -32,6 +33,14 @@ const renderAuthorityViewRoute = () => render(
 describe('Given AuthorityViewRoute', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+  });
+
+  it('should render with no axe errors', async () => {
+    const { container } = renderAuthorityViewRoute();
+
+    await runAxeTest({
+      rootNode: container,
+    });
   });
 
   it('should render view component', () => {

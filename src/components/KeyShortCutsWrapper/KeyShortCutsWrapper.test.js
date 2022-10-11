@@ -8,6 +8,7 @@ import {
   CommandList,
   defaultKeyboardShortcuts,
 } from '@folio/stripes-components';
+import { runAxeTest } from '@folio/stripes-testing';
 
 import KeyShortCutsWrapper from './KeyShortCutsWrapper';
 
@@ -40,6 +41,14 @@ const renderKeyShortCutsWrapper = ({
 
 describe('KeyShortcutsWrapper', () => {
   afterEach(cleanup);
+
+  it('should render with no axe errors', async () => {
+    const { container } = renderKeyShortCutsWrapper({});
+
+    await runAxeTest({
+      rootNode: container,
+    });
+  });
 
   it('should render children', () => {
     const { getByTestId } = renderKeyShortCutsWrapper({});

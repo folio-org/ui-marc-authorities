@@ -4,6 +4,8 @@ import {
   waitFor,
 } from '@testing-library/react';
 
+import { runAxeTest } from '@folio/stripes-testing';
+
 import AuthorityQuickMarcEditRoute from './AuthorityQuickMarcEditRoute';
 import Harness from '../../../test/jest/helpers/harness';
 
@@ -41,12 +43,12 @@ const renderAuthorityQuickMarcEditRoute = () => render(
 );
 
 describe('Given AuthorityQuickMarcEditRoute', () => {
-  beforeEach(() => {
-    jest.useFakeTimers();
-  });
+  it('should render with no axe errors', async () => {
+    const { container } = renderAuthorityQuickMarcEditRoute();
 
-  afterEach(() => {
-    jest.useRealTimers();
+    await runAxeTest({
+      rootNode: container,
+    });
   });
 
   it('should render quick marc plugin', () => {
@@ -57,12 +59,14 @@ describe('Given AuthorityQuickMarcEditRoute', () => {
 
   describe('when click on close button', () => {
     it('should handle history.push', async () => {
+      jest.useFakeTimers();
       const { getByText } = renderAuthorityQuickMarcEditRoute();
 
       fireEvent.click(getByText('close'));
       jest.advanceTimersByTime(1000);
 
       await waitFor(() => expect(mockHistoryPush).toHaveBeenCalled());
+      jest.useRealTimers();
     });
   });
 });

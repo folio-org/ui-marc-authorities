@@ -85,11 +85,13 @@ describe('Given AuthoritiesSearch', () => {
     jest.clearAllMocks();
   });
 
-  it('should render with no axe errors', async () => {
-    const { container } = renderAuthoritiesSearch();
+  describe('when search displays a list of items', () => {
+    it('should render with no axe errors', async () => {
+      const { container } = renderAuthoritiesSearch({ authorities });
 
-    await runAxeTest({
-      rootNode: container,
+      await runAxeTest({
+        rootNode: container,
+      });
     });
   });
 

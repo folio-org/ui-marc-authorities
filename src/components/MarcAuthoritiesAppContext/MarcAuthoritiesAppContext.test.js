@@ -1,5 +1,7 @@
 import { render } from '@testing-library/react';
 
+import { runAxeTest } from '@folio/stripes-testing';
+
 import Harness from '../../../test/jest/helpers/harness';
 import MarcAuthoritiesAppContext from './MarcAuthoritiesAppContext';
 
@@ -10,6 +12,14 @@ const renderMarcAuthoritiesAppContext = () => render(
 );
 
 describe('Given MARC Authorities App Context', () => {
+  it('should render with no axe errors', async () => {
+    const { container } = renderMarcAuthoritiesAppContext();
+
+    await runAxeTest({
+      rootNode: container,
+    });
+  });
+
   describe('when click on page name "MARC Authorities" ', () => {
     it('should render context MARC Authorities app link', () => {
       const { getByText } = renderMarcAuthoritiesAppContext();
