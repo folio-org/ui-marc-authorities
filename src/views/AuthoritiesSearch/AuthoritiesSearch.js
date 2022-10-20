@@ -19,6 +19,7 @@ import {
   writeStorage,
 } from '@rehooks/local-storage';
 import queryString from 'query-string';
+import pick from 'lodash/pick';
 
 import {
   Button,
@@ -205,7 +206,7 @@ const AuthoritiesSearch = ({
     const selectedIndex = searchIndex !== searchableIndexesValues.KEYWORD ? searchIndex : '';
 
     const queryParams = {
-      ...queryString.parse(location.search),
+      ...pick(queryString.parse(location.search), ['authRefType', 'headingRef']),
       query: searchQuery,
       qindex: selectedIndex,
       ...filters,
