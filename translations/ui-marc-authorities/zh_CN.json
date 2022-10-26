@@ -31,5 +31,5 @@
     "delete.buttonLabel": "删除",
     "delete.label": "确认删除规范记录",
     "delete.description": "确定要永久删除规范记录： <strong> {headingRef} </strong>吗？",
-    "authorities.rows.select": "Select Authority record"
+    "authorities.rows.select": "选择规范记录"
 }
