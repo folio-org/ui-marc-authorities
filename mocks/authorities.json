@@ -4,6 +4,18 @@
   "authRefType": "Auth/Ref",
   "headingRef": "Twain, Mark"
 }, {
+  "id": "5a404f5d-2c46-4426-9f28-db8d26881b31",
+  "headingType": "Personal name",
+  "authRefType": "Authorized",
+  "headingRef": "Twain, Mark linked",
+  "numberOfTitles": 1
+}, {
+  "id": "5a404f5d-2c46-4426-9f28-db8d26881b32",
+  "headingType": "Personal name",
+  "authRefType": "Authorized",
+  "headingRef": "Twain, Mark unlinked",
+  "numberOfTitles": 0
+}, {
   "id": "4a76b9e5-ff5f-45c6-b8c8-6b27c57a0812",
   "headingType": "Personal name",
   "authRefType": "Reference",
