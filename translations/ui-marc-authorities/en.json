@@ -12,6 +12,8 @@
   "authorities.rows.recordsSelected": "{count, number} {count, plural, one {record} other {records}} selected",
   "authorities.rows.select": "Select Authority record",
 
+  "search-results-list.numberOfTitles": "Number of titles",
+
   "authority-record.edit": "Edit",
   "authority-record.delete": "Delete",
   "authority-record.delete.success": "MARC authority record <strong> {headingRef} </strong> has been deleted",

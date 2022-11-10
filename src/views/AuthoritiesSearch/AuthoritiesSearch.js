@@ -53,6 +53,7 @@ import {
   searchResultListColumns,
   SelectedAuthorityRecordContext,
   useAutoOpenDetailView,
+  AUTH_REF_TYPES,
 } from '@folio/stripes-authority-components';
 
 import { useHighlightEditedRecord } from '@folio/stripes-authority-components/lib/SearchResultsList/useHighlightEditedRecord';
@@ -195,6 +196,7 @@ const AuthoritiesSearch = ({
     [searchResultListColumns.AUTH_REF_TYPE]: <FormattedMessage id="stripes-authority-components.search-results-list.authRefType" />,
     [searchResultListColumns.HEADING_REF]: <FormattedMessage id="stripes-authority-components.search-results-list.headingRef" />,
     [searchResultListColumns.HEADING_TYPE]: <FormattedMessage id="stripes-authority-components.search-results-list.headingType" />,
+    [searchResultListColumns.NUMBER_OF_TITLES]: <FormattedMessage id="ui-marc-authorities.search-results-list.numberOfTitles" />,
   };
 
   const {
@@ -327,8 +329,8 @@ const AuthoritiesSearch = ({
   };
 
   const formatter = {
-    // eslint-disable-next-line react/prop-types
-    select: ({ id, ...rowData }) => id && (
+    // eslint-disable-next-line react/prop-types, react/no-multi-comp
+    [searchResultListColumns.SELECT]: ({ id, ...rowData }) => id && (
       <Checkbox
         checked={Boolean(selectedRows[id])}
         data-testid="row-toggle-button"
@@ -340,6 +342,13 @@ const AuthoritiesSearch = ({
         onClick={e => e.stopPropagation()}
       />
     ),
+    [searchResultListColumns.NUMBER_OF_TITLES]: ({ authRefType, numberOfTitles }) => {
+      if (authRefType !== AUTH_REF_TYPES.AUTHORIZED || numberOfTitles === 0) {
+        return null;
+      }
+
+      return numberOfTitles;
+    },
   };
 
   const options = Object.values(sortableSearchResultListColumns).map(option => ({
@@ -505,6 +514,13 @@ const AuthoritiesSearch = ({
         <SearchResultsList
           authorities={authorities}
           columnMapping={columnMapping}
+          columnWidths={{
+            [searchResultListColumns.SELECT]: '30px',
+            [searchResultListColumns.NUMBER_OF_TITLES]: '150px',
+            [searchResultListColumns.AUTH_REF_TYPE]: '200px',
+            [searchResultListColumns.HEADING_REF]: '600px',
+            [searchResultListColumns.HEADING_TYPE]: '200px',
+          }}
           formatter={formatter}
           hasNextPage={hasNextPage}
           hasPrevPage={hasPrevPage}

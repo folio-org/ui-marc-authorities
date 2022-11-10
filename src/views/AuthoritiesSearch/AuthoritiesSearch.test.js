@@ -367,6 +367,19 @@ describe('Given AuthoritiesSearch', () => {
     });
   });
 
+  describe('when there is a linked record', () => {
+    it('should show number of titles', () => {
+      const { getAllByRole } = renderAuthoritiesSearch({
+        authorities: authorities.slice(0, 3),
+        totalRecords: 3,
+      });
+
+      expect(getAllByRole('row')[2].textContent).toContain('Authorized');
+      expect(getAllByRole('row')[2].textContent).toContain('Twain, Mark linked');
+      expect(getAllByRole('row')[2].textContent).toContain('1');
+    });
+  });
+
   describe('when there is an updated record to highlight', () => {
     it('should redirect to that updated record', () => {
       const { rerender } = renderAuthoritiesSearch({
