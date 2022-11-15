@@ -67,6 +67,7 @@ const AuthorityView = ({
   const [, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
   const callout = useContext(CalloutContext);
+  const isLinked = !!authority?.data?.numberOfTitles;
 
   const onClose = useCallback(
     () => {
@@ -223,10 +224,22 @@ const AuthorityView = ({
           id: 'ui-marc-authorities.delete.label',
         })}
         message={
-          <FormattedMessage
-            id="ui-marc-authorities.delete.description"
-            values={{ headingRef: authority.data.headingRef }}
-          />
+          isLinked
+            ? (
+              <FormattedMessage
+                id="ui-marc-authorities.delete.linkedRecord.description"
+                values={{
+                  headingRef: authority.data.headingRef,
+                  count: authority.data.numberOfTitles
+                }}
+              />
+            )
+            : (
+              <FormattedMessage
+                id="ui-marc-authorities.delete.description"
+                values={{ headingRef: authority.data.headingRef }}
+              />
+            )
         }
         onConfirm={onConfirmDelete}
         buttonStyle="danger"
