@@ -45,6 +45,7 @@ const propTypes = {
       headingRef: PropTypes.string,
       headingType: PropTypes.string,
       id: PropTypes.string,
+      numberOfTitles: PropTypes.string,
     }),
     isLoading: PropTypes.bool.isRequired,
   }).isRequired,
@@ -230,7 +231,7 @@ const AuthorityView = ({
                 id="ui-marc-authorities.delete.linkedRecord.description"
                 values={{
                   headingRef: authority.data.headingRef,
-                  count: authority.data.numberOfTitles
+                  count: authority.data.numberOfTitles,
                 }}
               />
             )
