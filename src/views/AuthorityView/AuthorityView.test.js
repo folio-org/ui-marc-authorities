@@ -2,6 +2,7 @@ import {
   fireEvent,
   render,
 } from '@testing-library/react';
+import cloneDeep from 'lodash/cloneDeep';
 
 import {
   CommandList,
@@ -26,7 +27,7 @@ jest.mock('react-router', () => ({
 jest.mock('@folio/stripes/components', () => ({
   ...jest.requireActual('@folio/stripes/components'),
   LoadingPane: () => (<div>Loading pane</div>),
-  ConfirmationModal: jest.fn(({ open, onCancel, onConfirm }) => (open
+  ConfirmationModal: jest.fn(({ open, message, onCancel, onConfirm }) => (open
     ? (
       <div>
         <span>Confirmation modal</span>
@@ -36,6 +37,7 @@ jest.mock('@folio/stripes/components', () => ({
         <button type="button" id="confirmButton" onClick={onConfirm}>
           Delete
         </button>
+        <span>{message}</span>
       </div>
     )
     : null)),
@@ -249,6 +251,38 @@ describe('Given AuthorityView', () => {
       fireEvent.click(getByText('ui-marc-authorities.authority-record.delete'));
 
       expect(getByText('Confirmation modal')).toBeDefined();
+    });
+
+    describe('and the record is not linked to a bib record', () => {
+      it('should display the correct message', () => {
+        const newAuthority = cloneDeep(authority);
+
+        newAuthority.data.numberOfTitles = 0;
+
+        const { getByText } = renderAuthorityView({
+          authority: newAuthority,
+        });
+
+        fireEvent.click(getByText('ui-marc-authorities.authority-record.delete'));
+
+        expect(getByText('ui-marc-authorities.delete.description')).toBeVisible();
+      });
+    });
+
+    describe('and the record is linked to a bib record', () => {
+      it('should display the correct message', () => {
+        const newAuthority = cloneDeep(authority);
+
+        newAuthority.data.numberOfTitles = 2;
+
+        const { getByText } = renderAuthorityView({
+          authority: newAuthority,
+        });
+
+        fireEvent.click(getByText('ui-marc-authorities.authority-record.delete'));
+
+        expect(getByText('ui-marc-authorities.delete.linkedRecord.description')).toBeVisible();
+      });
     });
   });
 

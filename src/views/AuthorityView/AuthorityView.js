@@ -45,7 +45,7 @@ const propTypes = {
       headingRef: PropTypes.string,
       headingType: PropTypes.string,
       id: PropTypes.string,
-      numberOfTitles: PropTypes.string,
+      numberOfTitles: PropTypes.number,
     }),
     isLoading: PropTypes.bool.isRequired,
   }).isRequired,
