@@ -31,5 +31,7 @@
     "delete.buttonLabel": "Elimina",
     "delete.label": "Conferma l'eliminazione del record di autorità",
     "delete.description": "Sei sicuro di eliminare definitivamente il record di autorità: <strong> {headingRef} </strong>?",
-    "authorities.rows.select": "Seleziona record di autorità"
+    "authorities.rows.select": "Seleziona record di autorità",
+    "search-results-list.numberOfTitles": "Number of titles",
+    "delete.linkedRecord.description": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>? If you proceed with deletion, then <strong>{count, number}</strong> linked bibliographic {count, plural, one {record} other {records}} will retain authorized value and will become uncontrolled."
 }
