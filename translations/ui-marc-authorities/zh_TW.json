@@ -31,5 +31,7 @@
     "delete.buttonLabel": "Delete",
     "delete.label": "Confirm deletion of authority record",
     "delete.description": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>?",
-    "authorities.rows.select": "Select Authority record"
+    "authorities.rows.select": "Select Authority record",
+    "search-results-list.numberOfTitles": "Number of titles",
+    "delete.linkedRecord.description": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>? If you proceed with deletion, then <strong>{count, number}</strong> linked bibliographic {count, plural, one {record} other {records}} will retain authorized value and will become uncontrolled."
 }

@@ -27,9 +27,11 @@
     "export.success": "{exportJobName} ist abgeschlossen. Die heruntergeladene .csv-Datei enthält die UIIDs der ausgewählten Datensätze. Um die .mrc-Datei abzurufen,  bitte zur App Datenexport wechseln.",
     "export.failure": "Die Anfrage kann nicht abgeschlossen werden, bitte erneut versuchen.",
     "actions": "Aktionen",
-    "authorities.rows.recordsSelected": "{count, number} {count, plural, one {record} other {records}} selected",
+    "authorities.rows.recordsSelected": "{count, number} {count, plural, one { Datensatz } other { Datensätze }} ausgewählt",
     "delete.buttonLabel": "Löschen",
-    "delete.label": "Confirm deletion of authority record",
-    "delete.description": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>?",
-    "authorities.rows.select": "Select Authority record"
+    "delete.label": "Löschen des Normdatensatzes bestätigen",
+    "delete.description": "Normdatensatz wirklich dauerhaft löschen: <strong>{headingRef}</strong>?",
+    "authorities.rows.select": "Normdatensatz auswählen",
+    "search-results-list.numberOfTitles": "Number of titles",
+    "delete.linkedRecord.description": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>? If you proceed with deletion, then <strong>{count, number}</strong> linked bibliographic {count, plural, one {record} other {records}} will retain authorized value and will become uncontrolled."
 }
