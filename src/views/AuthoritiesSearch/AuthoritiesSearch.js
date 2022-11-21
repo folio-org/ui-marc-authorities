@@ -3,6 +3,7 @@ import {
   useEffect,
   useContext,
   useMemo,
+  useCallback,
 } from 'react';
 import {
   useHistory,
@@ -364,7 +365,7 @@ const AuthoritiesSearch = ({
     ...options,
   ];
 
-  const formatAuthorityRecordLink = authority => {
+  const formatAuthorityRecordLink = useCallback(authority => {
     const search = queryString.parse(location.search);
     const newSearch = queryString.stringify({
       ...search,
@@ -373,11 +374,11 @@ const AuthoritiesSearch = ({
     });
 
     return `${match.path}/authorities/${authority.id}?${newSearch}`;
-  };
+  }, [location.search, match.path]);
 
-  const redirectToAuthorityRecord = authority => {
+  const redirectToAuthorityRecord = useCallback(authority => {
     history.push(formatAuthorityRecordLink(authority));
-  };
+  }, [history, formatAuthorityRecordLink]);
 
   useAutoOpenDetailView(authorities, redirectToAuthorityRecord);
 
