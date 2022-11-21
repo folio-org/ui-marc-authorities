@@ -4,6 +4,7 @@
 
 - [UIMARCAUTH-177](https://issues.folio.org/browse/UIMARCAUTH-177) MARC authority: Search Results/Browse List: Add a new column Number of titles
 - [UIMARCAUTH-178](https://issues.folio.org/browse/UIMARCAUTH-178) MARC authority: Delete MARC authority record handling
+- [UIMARCAUTH-199](https://issues.folio.org/browse/UIMARCAUTH-199) Loading Pane snapping out of resize cache.
 
 ## [2.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v2.0.0) (2022-10-26)
 
