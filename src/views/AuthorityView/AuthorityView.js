@@ -111,7 +111,7 @@ const AuthorityView = ({
   });
 
   if (marcSource.isLoading || authority.isLoading) {
-    return <LoadingPane />;
+    return <LoadingPane id="marc-view-pane" />;
   }
 
   if (!authority.data) {
