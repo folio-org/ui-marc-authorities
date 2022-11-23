@@ -388,7 +388,7 @@ const AuthoritiesSearch = ({
       setShowDetailView(prevQuery.current !== query);
       prevQuery.current = query;
     }
-  }, [query, prevQuery.current, isLoading]);
+  }, [query, isLoading]);
 
   useAutoOpenDetailView(isLoading ? [] : authorities, redirectToAuthorityRecord, !showDetailView);
 
