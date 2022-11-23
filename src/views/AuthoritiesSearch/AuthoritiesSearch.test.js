@@ -365,6 +365,27 @@ describe('Given AuthoritiesSearch', () => {
         '/authorities/5a404f5d-2c46-4426-9f28-db8d26881b30?authRefType=Auth%2FRef&headingRef=Twain%2C%20Mark',
       );
     });
+
+    describe('and a user clicks X icon to close the detail view', () => {
+      it('should not open the detail view again', () => {
+        const props = {
+          authorities: [authorities[0]],
+          totalRecords: 1,
+          query: '(keyword=="Chow, Shoo-jin, 1881-1936")',
+        };
+        const pathToShowDetailView = "/authorities/5a404f5d-2c46-4426-9f28-db8d26881b30?authRefType=Auth%2FRef&headingRef=Twain%2C%20Mark";
+
+        const { rerender } = renderAuthoritiesSearch(props);
+
+        rerender(getAuthoritiesSearch(props));
+
+        const numberOfDetailViewOpenings = mockHistoryPush.mock.calls
+          .filter(call => call[0] === pathToShowDetailView)
+          .length;
+
+        expect(numberOfDetailViewOpenings).toBe(1);
+      });
+    });
   });
 
   describe('when there is a linked record', () => {
