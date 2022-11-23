@@ -388,7 +388,7 @@ const AuthoritiesSearch = ({
       setShowDetailView(prevQuery.current !== query);
       prevQuery.current = query;
     }
-  }, [query, isLoading]);
+  }, [query, prevQuery.current, isLoading]); // don't remove prevQuery.current from deps (linter asks)
 
   useAutoOpenDetailView(isLoading ? [] : authorities, redirectToAuthorityRecord, !showDetailView);
 

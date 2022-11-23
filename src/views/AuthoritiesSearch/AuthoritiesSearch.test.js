@@ -360,6 +360,7 @@ describe('Given AuthoritiesSearch', () => {
       renderAuthoritiesSearch({
         authorities: [authorities[0]],
         totalRecords: 1,
+        query: '(keyword=="Chow, Shoo-jin, 1881-1936")',
       });
       expect(mockHistoryPush).toHaveBeenCalledWith(
         '/authorities/5a404f5d-2c46-4426-9f28-db8d26881b30?authRefType=Auth%2FRef&headingRef=Twain%2C%20Mark',
