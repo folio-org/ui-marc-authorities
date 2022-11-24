@@ -3,6 +3,7 @@
 ## [2.0.1](IN PROGRESS)
 
 - [UIMARCAUTH-199](https://issues.folio.org/browse/UIMARCAUTH-199) Loading Pane snapping out of resize cache.
+- [UIMARCAUTH-204](https://issues.folio.org/browse/UIMARCAUTH-203) Error appears when the user executes search in "MARC Authority" app
 
 ## [2.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v2.0.0) (2022-10-26)
 

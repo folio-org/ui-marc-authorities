@@ -3,6 +3,8 @@ import {
   useEffect,
   useContext,
   useMemo,
+  useCallback,
+  useRef,
 } from 'react';
 import {
   useHistory,
@@ -123,6 +125,7 @@ const AuthoritiesSearch = ({
     setIsGoingToBaseURL,
   } = useContext(AuthoritiesSearchContext);
   const callout = useContext(CalloutContext);
+  const prevQuery = useRef('');
   const [, setSelectedAuthorityRecord] = useContext(SelectedAuthorityRecordContext);
   const [selectedRows, setSelectedRows] = useState({});
   const [selectAll, setSelectAll] = useState(false);
@@ -131,6 +134,7 @@ const AuthoritiesSearch = ({
   const filterPaneVisibilityKey = getNamespace({ key: 'marcAuthoritiesFilterPaneVisibility' });
   const [storedFilterPaneVisibility] = useLocalStorage(filterPaneVisibilityKey, true);
   const [isFilterPaneVisible, setIsFilterPaneVisible] = useState(storedFilterPaneVisibility);
+  const [showDetailView, setShowDetailView] = useState(false);
 
   const uniqueAuthoritiesCount = useMemo(() => {
     // determine count of unique ids in authorities array.
@@ -355,7 +359,7 @@ const AuthoritiesSearch = ({
     ...options,
   ];
 
-  const formatAuthorityRecordLink = authority => {
+  const formatAuthorityRecordLink = useCallback(authority => {
     const search = queryString.parse(location.search);
     const newSearch = queryString.stringify({
       ...search,
@@ -364,13 +368,20 @@ const AuthoritiesSearch = ({
     });
 
     return `${match.path}/authorities/${authority.id}?${newSearch}`;
-  };
+  }, [match.path, location.search]);
 
-  const redirectToAuthorityRecord = authority => {
+  const redirectToAuthorityRecord = useCallback(authority => {
     history.push(formatAuthorityRecordLink(authority));
-  };
+  }, [history, formatAuthorityRecordLink]);
 
-  useAutoOpenDetailView(authorities, redirectToAuthorityRecord);
+  useEffect(() => {
+    if (!isLoading) {
+      setShowDetailView(prevQuery.current !== query);
+      prevQuery.current = query;
+    }
+  }, [query, prevQuery.current, isLoading]); // don't remove prevQuery.current from deps (linter asks)
+
+  useAutoOpenDetailView(isLoading ? [] : authorities, redirectToAuthorityRecord, !showDetailView);
 
   useEffect(() => {
     if (!recordToHighlight) {
