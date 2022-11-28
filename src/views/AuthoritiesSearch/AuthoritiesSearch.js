@@ -357,6 +357,7 @@ const AuthoritiesSearch = ({
           to={`/inventory?qindex=authorityId&query=${id}&sort=title`}
           target="_blank"
           onClick={e => e.stopPropagation()}
+          data-testid="link-number-of-titles"
         >
           {numberOfTitles}
         </TextLink>
