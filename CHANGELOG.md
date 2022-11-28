@@ -1,6 +1,6 @@
 # Change history for ui-marc-authorities
 
-## [2.0.1](IN PROGRESS)
+## [2.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v2.0.1) (2022-11-28)
 
 - [UIMARCAUTH-199](https://issues.folio.org/browse/UIMARCAUTH-199) Loading Pane snapping out of resize cache.
 - [UIMARCAUTH-204](https://issues.folio.org/browse/UIMARCAUTH-203) Error appears when the user executes search in "MARC Authority" app
