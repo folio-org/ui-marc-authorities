@@ -400,8 +400,8 @@ describe('Given AuthoritiesSearch', () => {
       expect(getAllByRole('row')[2].textContent).toContain('Twain, Mark linked');
       expect(getAllByRole('row')[2].textContent).toContain('1');
       expect(getAllByRole('row')[2].href).toContain(
-        '/inventory?qindex=authorityId&query=5a404f5d-2c46-4426-9f28-db8d26881b31&sort=title'
-      )
+        '/inventory?qindex=authorityId&query=5a404f5d-2c46-4426-9f28-db8d26881b31&sort=title',
+      );
     });
   });
 

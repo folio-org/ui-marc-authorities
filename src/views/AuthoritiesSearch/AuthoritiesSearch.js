@@ -346,6 +346,7 @@ const AuthoritiesSearch = ({
         onClick={e => e.stopPropagation()}
       />
     ),
+    /* eslint-disable-next-line */
     [searchResultListColumns.NUMBER_OF_TITLES]: ({ id, authRefType, numberOfTitles }) => {
       if (authRefType !== AUTH_REF_TYPES.AUTHORIZED || numberOfTitles === 0) {
         return null;
@@ -359,7 +360,7 @@ const AuthoritiesSearch = ({
         >
           {numberOfTitles}
         </TextLink>
-      )
+      );
     },
   };
 
