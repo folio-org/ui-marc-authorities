@@ -6,6 +6,7 @@
 - [UIMARCAUTH-178](https://issues.folio.org/browse/UIMARCAUTH-178) MARC authority: Delete MARC authority record handling
 - [UIMARCAUTH-199](https://issues.folio.org/browse/UIMARCAUTH-199) Loading Pane snapping out of resize cache.
 - [UIMARCAUTH-204](https://issues.folio.org/browse/UIMARCAUTH-203) Error appears when the user executes search in "MARC Authority" app
+- [UIMARCAUTH-180](https://issues.folio.org/browse/UIMARCAUTH-180) MARC authority app: Results List: Number of titles column > Link each number to return all bib records linked to the authority record
 
 ## [2.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v2.0.0) (2022-10-26)
 

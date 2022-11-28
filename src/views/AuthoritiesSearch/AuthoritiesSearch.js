@@ -346,12 +346,20 @@ const AuthoritiesSearch = ({
         onClick={e => e.stopPropagation()}
       />
     ),
-    [searchResultListColumns.NUMBER_OF_TITLES]: ({ authRefType, numberOfTitles }) => {
+    [searchResultListColumns.NUMBER_OF_TITLES]: ({ id, authRefType, numberOfTitles }) => {
       if (authRefType !== AUTH_REF_TYPES.AUTHORIZED || numberOfTitles === 0) {
         return null;
       }
 
-      return numberOfTitles;
+      return (
+        <TextLink
+          to={`/inventory?qindex=authorityId&query=${id}&sort=title`}
+          target="_blank"
+          onClick={e => e.stopPropagation()}
+        >
+          {numberOfTitles}
+        </TextLink>
+      )
     },
   };
 
