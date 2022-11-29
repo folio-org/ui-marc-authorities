@@ -2,14 +2,13 @@ import {
   renderHook,
   act,
 } from '@testing-library/react-hooks';
+import { searchResultListColumns } from '@folio/stripes-authority-components';
 
 import useSortColumnManager from './useSortColumnManager';
-import {
-  searchResultListColumns,
-  sortOrders,
-} from '../../constants';
+import { sortOrders } from '../../constants';
 
 jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
   useLocation: jest.fn().mockReturnValue({
     pathname: 'pathname',
     search: '',

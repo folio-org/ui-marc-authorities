@@ -5,16 +5,14 @@ import {
 } from '@testing-library/react';
 
 import { runAxeTest } from '@folio/stripes-testing';
+import { searchResultListColumns } from '@folio/stripes-authority-components';
 
 import AuthoritiesSearch from './AuthoritiesSearch';
 import authorities from '../../../mocks/authorities';
 
 import '../../../test/jest/__mock__';
 import Harness from '../../../test/jest/helpers/harness';
-import {
-  searchResultListColumns,
-  sortOrders,
-} from '../../constants';
+import { sortOrders } from '../../constants';
 import { useSortColumnManager } from '../../hooks';
 
 const mockHistoryPush = jest.fn();
