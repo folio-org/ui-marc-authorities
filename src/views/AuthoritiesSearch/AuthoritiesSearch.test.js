@@ -5,16 +5,14 @@ import {
 } from '@testing-library/react';
 
 import { runAxeTest } from '@folio/stripes-testing';
+import { searchResultListColumns } from '@folio/stripes-authority-components';
 
 import AuthoritiesSearch from './AuthoritiesSearch';
 import authorities from '../../../mocks/authorities';
 
 import '../../../test/jest/__mock__';
 import Harness from '../../../test/jest/helpers/harness';
-import {
-  searchResultListColumns,
-  sortOrders,
-} from '../../constants';
+import { sortOrders } from '../../constants';
 import { useSortColumnManager } from '../../hooks';
 
 const mockHistoryPush = jest.fn();
@@ -390,8 +388,8 @@ describe('Given AuthoritiesSearch', () => {
   });
 
   describe('when there is a linked record', () => {
-    it('should show number of titles', () => {
-      const { getAllByRole } = renderAuthoritiesSearch({
+    it('should show number of titles and be a link to the inventory app by authority ID', () => {
+      const { getAllByRole, getByTestId } = renderAuthoritiesSearch({
         authorities: authorities.slice(0, 3),
         totalRecords: 3,
       });
@@ -399,6 +397,9 @@ describe('Given AuthoritiesSearch', () => {
       expect(getAllByRole('row')[2].textContent).toContain('Authorized');
       expect(getAllByRole('row')[2].textContent).toContain('Twain, Mark linked');
       expect(getAllByRole('row')[2].textContent).toContain('1');
+      expect(getByTestId('link-number-of-titles').href).toContain(
+        '/inventory?qindex=authorityId&query=5a404f5d-2c46-4426-9f28-db8d26881b31&sort=title',
+      );
     });
   });
 

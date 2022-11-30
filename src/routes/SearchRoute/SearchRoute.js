@@ -8,14 +8,12 @@ import {
   SelectedAuthorityRecordContext,
   useAuthorities,
   searchableIndexesValues,
+  searchResultListColumns,
 } from '@folio/stripes-authority-components';
 
 import { AuthoritiesSearch } from '../../views';
 import { useSortColumnManager } from '../../hooks';
-import {
-  searchResultListColumns,
-  sortOrders,
-} from '../../constants';
+import { sortOrders } from '../../constants';
 
 const propTypes = {
   children: PropTypes.oneOfType([
