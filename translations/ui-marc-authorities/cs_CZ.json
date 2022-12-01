@@ -33,5 +33,5 @@
     "delete.description": "Opravdu chcete trvale smazat záznam autority: <strong> {headingRef} </strong>?",
     "authorities.rows.select": "Vybrat záznam autority",
     "search-results-list.numberOfTitles": "Počet názvů",
-    "delete.linkedRecord.description": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>? If you proceed with deletion, then <strong>{count, number}</strong> linked bibliographic {count, plural, one {record} other {records}} will retain authorized value and will become uncontrolled."
+    "delete.linkedRecord.description": "Opravdu chcete trvale smazat autoritní záznam: <strong> {headingRef} </strong>? Pokud budete pokračovat v mazání, pak <strong>{count, number}</strong> propojený bibliografický {count, plural, one {záznam} other {záznamy}} si zachová autorizovanou hodnotu a stane se nekontrolovatelným."
 }
