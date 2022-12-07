@@ -4,6 +4,7 @@
 
 - [UIMARCAUTH-177](https://issues.folio.org/browse/UIMARCAUTH-177) MARC authority: Search Results/Browse List: Add a new column Number of titles
 - [UIMARCAUTH-178](https://issues.folio.org/browse/UIMARCAUTH-178) MARC authority: Delete MARC authority record handling
+- [UIMARCAUTH-216](https://issues.folio.org/browse/UIMARCAUTH-216) Default search/browse option and Authority source file selections based on MARC bib field to be linked
 
 ## [2.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v2.0.1) (2022-11-28)
 
