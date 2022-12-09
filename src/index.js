@@ -14,7 +14,6 @@ import {
   AuthoritiesSearchContextProvider,
   SelectedAuthorityRecordContextProvider,
   navigationSegments,
-  searchableIndexesValues,
 } from '@folio/stripes-authority-components';
 
 import {
@@ -34,11 +33,6 @@ const propTypes = {
   match: PropTypes.object.isRequired,
 };
 
-const defaultDropdownValueBySegment = {
-  [navigationSegments.search]: searchableIndexesValues.KEYWORD,
-  [navigationSegments.browse]: '',
-};
-
 const MarcAuthorities = ({
   match: { path },
   focusSearchField,
@@ -52,7 +46,7 @@ const MarcAuthorities = ({
   return (
     <CommandList commands={commands}>
       <SelectedAuthorityRecordContextProvider>
-        <AuthoritiesSearchContextProvider defaultDropdownValueBySegment={defaultDropdownValueBySegment}>
+        <AuthoritiesSearchContextProvider>
           <MarcAuthoritiesAppContext />
           <KeyShortCutsWrapper focusSearchField={focusSearchField}>
             <Switch>
