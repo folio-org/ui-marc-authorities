@@ -33,5 +33,5 @@
     "delete.description": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>?",
     "authorities.rows.select": "Select Authority record",
     "search-results-list.numberOfTitles": "Número de títulos",
-    "delete.linkedRecord.description": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>? If you proceed with deletion, then <strong>{count, number}</strong> linked bibliographic {count, plural, one {record} other {records}} will retain authorized value and will become uncontrolled."
+    "delete.linkedRecord.description": "¿Está seguro de que desea eliminar permanentemente el registro de autoridad: <strong> {headingRef} ? </strong> Si procede con la eliminación, entonces <strong>{count, number}</strong> bibliográfico vinculado {count, plural, one {registro} other {registros}} conservará el valor autorizado y pasará a ser incontrolado."
 }
