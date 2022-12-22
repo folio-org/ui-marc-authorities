@@ -2,7 +2,6 @@ import {
   fireEvent,
   render,
 } from '@testing-library/react';
-import cloneDeep from 'lodash/cloneDeep';
 
 import {
   CommandList,
@@ -260,12 +259,8 @@ describe('Given AuthorityView', () => {
 
     describe('and the record is not linked to a bib record', () => {
       it('should display the correct message', () => {
-        const newAuthority = cloneDeep(authority);
-
-        newAuthority.data.numberOfTitles = 0;
-
         const { getByText } = renderAuthorityView({
-          authority: newAuthority,
+          authority,
         });
 
         fireEvent.click(getByText('ui-marc-authorities.authority-record.delete'));
