@@ -40,6 +40,7 @@ import useAuthorityDelete from '../../queries/useAuthoritiesDelete/useAuthorityD
 
 const propTypes = {
   authority: PropTypes.shape({
+    allData: PropTypes.arrayOf(PropTypes.object).isRequired,
     data: PropTypes.shape({
       authRefType: PropTypes.string,
       headingRef: PropTypes.string,
