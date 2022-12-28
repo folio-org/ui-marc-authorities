@@ -2,7 +2,6 @@ import {
   fireEvent,
   render,
 } from '@testing-library/react';
-import cloneDeep from 'lodash/cloneDeep';
 
 import {
   CommandList,
@@ -98,6 +97,7 @@ const marcSource = {
 };
 
 const authority = {
+  allData: [],
   data: {
     id: 'authority-id',
     headingRef: 'heading-ref',
@@ -131,6 +131,7 @@ describe('Given AuthorityView', () => {
           isLoading: true,
         },
         authority: {
+          allData: [],
           data: {},
           isLoading: true,
         },
@@ -174,6 +175,7 @@ describe('Given AuthorityView', () => {
     it('should highlight all 4xx marc fields', () => {
       const { container } = renderAuthorityView({
         authority: {
+          ...authority,
           data: {
             ...authority.data,
             authRefType: 'Reference',
@@ -192,6 +194,7 @@ describe('Given AuthorityView', () => {
     it('should highlight 5xx marc field', () => {
       const { container } = renderAuthorityView({
         authority: {
+          ...authority,
           data: {
             ...authority.data,
             authRefType: 'Auth/Ref',
@@ -220,6 +223,7 @@ describe('Given AuthorityView', () => {
     it('should highlight tag value', () => {
       const { container } = renderAuthorityView({
         authority: {
+          ...authority,
           data: {
             ...authority.data,
             headingRef: 'value contains heading-ref string',
@@ -255,12 +259,8 @@ describe('Given AuthorityView', () => {
 
     describe('and the record is not linked to a bib record', () => {
       it('should display the correct message', () => {
-        const newAuthority = cloneDeep(authority);
-
-        newAuthority.data.numberOfTitles = 0;
-
         const { getByText } = renderAuthorityView({
-          authority: newAuthority,
+          authority,
         });
 
         fireEvent.click(getByText('ui-marc-authorities.authority-record.delete'));
@@ -271,12 +271,14 @@ describe('Given AuthorityView', () => {
 
     describe('and the record is linked to a bib record', () => {
       it('should display the correct message', () => {
-        const newAuthority = cloneDeep(authority);
-
-        newAuthority.data.numberOfTitles = 2;
-
         const { getByText } = renderAuthorityView({
-          authority: newAuthority,
+          authority: {
+            ...authority,
+            allData: [{
+              ...authority.data,
+              numberOfTitles: 1,
+            }],
+          },
         });
 
         fireEvent.click(getByText('ui-marc-authorities.authority-record.delete'));
@@ -356,6 +358,7 @@ describe('Given AuthorityView', () => {
     it('should not render the page', () => {
       const { queryByTestId } = renderAuthorityView({
         authority: {
+          ...authority,
           data: null,
         },
       });
