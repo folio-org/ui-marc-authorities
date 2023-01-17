@@ -3,6 +3,7 @@ import {
   useIntl,
 } from 'react-intl';
 import PropTypes from 'prop-types';
+import noop from 'lodash/noop';
 
 import { useStripes } from '@folio/stripes/core';
 import {
@@ -22,24 +23,25 @@ const Reports = ({
   const showReports = stripes.hasPerm('ui-marc-authorities.authority-record.view') &&
     stripes.hasPerm('ui-quick-marc.quick-marc-authorities-editor.all') &&
     stripes.hasPerm('ui-inventory.all-permissions.TEMPORARY') &&
-    (stripes.hasPerm('ui-quick-marc.quick-marc-editor.view') || stripes.hasPerm('ui-quick-marc.quick-marc-editor.all')) &&
-    (stripes.hasPerm('ui-export-manager.export-manager.all') || stripes.hasPerm('ui-export-manager.jobs.downloadAndResend'));
+    stripes.hasPerm('ui-quick-marc.quick-marc-editor.view') &&
+    stripes.hasPerm('ui-export-manager.jobs.downloadAndResend');
 
   if (!showReports) return null;
 
-  const renderReport = ({ translationId, onClick }) => (
+  const renderReport = ({ translationId, onClick = noop }) => (
     <Button
       buttonStyle="dropdownItem"
       onClick={() => {
-        onClick?.();
+        onClick();
         onToggle();
       }}
     >
       <Icon
         icon="download"
         size="medium"
-      />
-      <FormattedMessage id={translationId} />
+      >
+        <FormattedMessage id={translationId} />
+      </Icon>
     </Button>
   );
 

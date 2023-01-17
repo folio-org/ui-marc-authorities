@@ -60,7 +60,7 @@ import {
 
 import { useHighlightEditedRecord } from '@folio/stripes-authority-components/lib/SearchResultsList/useHighlightEditedRecord';
 
-import Reports from './Reports';
+import { Reports } from './Reports';
 import { useAuthorityExport } from '../../queries';
 import { useReportGenerator } from '../../hooks';
 import {
