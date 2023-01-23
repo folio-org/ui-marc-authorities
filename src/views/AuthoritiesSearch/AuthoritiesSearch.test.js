@@ -222,11 +222,9 @@ describe('Given AuthoritiesSearch', () => {
       fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
 
       const marcAuthorityHeadingsButton = getByRole('button', { name: 'ui-marc-authorities.reports.marcAuthorityHeadings' });
-      const blindAuthorityHeadingsButton = getByRole('button', { name: 'ui-marc-authorities.reports.blindAuthorityHeadings' });
       const failedUpdatesButton = getByRole('button', { name: 'ui-marc-authorities.reports.failedUpdates' });
 
       expect(marcAuthorityHeadingsButton).toBeVisible();
-      expect(blindAuthorityHeadingsButton).toBeVisible();
       expect(failedUpdatesButton).toBeVisible();
     });
 

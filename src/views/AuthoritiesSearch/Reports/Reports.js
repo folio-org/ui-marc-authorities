@@ -55,9 +55,6 @@ const Reports = ({
         translationId: 'ui-marc-authorities.reports.marcAuthorityHeadings',
       })}
       {renderReport({
-        translationId: 'ui-marc-authorities.reports.blindAuthorityHeadings',
-      })}
-      {renderReport({
         translationId: 'ui-marc-authorities.reports.failedUpdates',
       })}
     </MenuSection>
