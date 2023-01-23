@@ -46,6 +46,5 @@
 
   "reports": "Reports",
   "reports.marcAuthorityHeadings": "MARC authority headings updates (CSV)",
-  "reports.blindAuthorityHeadings": "Blind authority headings (CSV)",
   "reports.failedUpdates": "Failed updates: linked bibliographic fields (CSV)"
 }
