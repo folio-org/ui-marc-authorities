@@ -6,7 +6,7 @@
     "actions.menuSection.sortBy": "Seřadit podle",
     "actions.menuSection.sortBy.relevance": "Relevantnost",
     "authority-record.edit": "Upravit",
-    "navigation.app": "Vyhledávání v aplikaci MARC autority",
+    "navigation.app": "Vyhledat MARC autoritu",
     "navigation.content": "Dokumentace MARC autority",
     "navigation.keyboardShortcuts": "Klávesové zkratky",
     "shortcut.editRecord": "Upravit záznam",
@@ -33,5 +33,8 @@
     "delete.description": "Opravdu chcete trvale smazat záznam autority: <strong> {headingRef} </strong>?",
     "authorities.rows.select": "Vybrat záznam autority",
     "search-results-list.numberOfTitles": "Počet názvů",
-    "delete.linkedRecord.description": "Opravdu chcete trvale smazat autoritní záznam: <strong> {headingRef} </strong>? Pokud budete pokračovat v mazání, pak <strong>{count, number}</strong> propojený bibliografický {count, plural, one {záznam} other {záznamy}} si zachová autorizovanou hodnotu a stane se nekontrolovatelným."
+    "delete.linkedRecord.description": "Opravdu chcete trvale smazat záznam autority: <strong> {headingRef} </strong>? Pokud budete pokračovat v mazání, pak <strong>{count, number}</strong> propojený bibliografický {count, plural, one {záznam} other {záznamy}} si zachová hodnotu autority a stane se neřízeným.",
+    "reports": "Výstupy",
+    "reports.marcAuthorityHeadings": "Aktualizace nadpisů MARC autorit (CSV)",
+    "reports.failedUpdates": "Neúspěšné aktualizace: propojená bibliografická pole (CSV)"
 }

@@ -33,5 +33,8 @@
     "delete.description": "Tem certeza de que deseja excluir permanentemente o registro de autoridade: <strong> {headingRef} </strong> ?",
     "authorities.rows.select": "Selecionar registro de autoridade",
     "search-results-list.numberOfTitles": "Número de títulos",
-    "delete.linkedRecord.description": "Tem certeza de que deseja excluir permanentemente o registro de autoridade: <strong> {headingRef} </strong> ? Se você prosseguir com a exclusão, então <strong> {count, number} </strong> bibliográfico vinculado com {count, plural, one { record } other { records }} manterá o valor autorizado e se tornará descontrolado."
+    "delete.linkedRecord.description": "Tem certeza de que deseja excluir permanentemente o registro de autoridade: <strong> {headingRef} </strong> ? Se você prosseguir com a exclusão, então <strong> {count, number} </strong> bibliográfico vinculado com {count, plural, one { record } other { records }} manterá o valor autorizado e se tornará descontrolado.",
+    "reports": "Relatórios",
+    "reports.marcAuthorityHeadings": "Atualizações de cabeçalhos de autoridade MARC (CSV)",
+    "reports.failedUpdates": "Atualizações com falha: campos bibliográficos vinculados (CSV)"
 }
