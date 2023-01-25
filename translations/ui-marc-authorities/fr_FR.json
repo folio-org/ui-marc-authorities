@@ -33,5 +33,8 @@
     "delete.description": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>?",
     "authorities.rows.select": "Select Authority record",
     "search-results-list.numberOfTitles": "Nombre de titres",
-    "delete.linkedRecord.description": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>? If you proceed with deletion, then <strong>{count, number}</strong> linked bibliographic {count, plural, one {record} other {records}} will retain authorized value and will become uncontrolled."
+    "delete.linkedRecord.description": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>? If you proceed with deletion, then <strong>{count, number}</strong> linked bibliographic {count, plural, one {record} other {records}} will retain authorized value and will become uncontrolled.",
+    "reports": "Reports",
+    "reports.marcAuthorityHeadings": "MARC authority headings updates (CSV)",
+    "reports.failedUpdates": "Failed updates: linked bibliographic fields (CSV)"
 }
