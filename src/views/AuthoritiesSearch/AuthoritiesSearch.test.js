@@ -216,6 +216,18 @@ describe('Given AuthoritiesSearch', () => {
       expect(getByRole('checkbox', { name: 'stripes-authority-components.search-results-list.headingType' })).toBeChecked();
     });
 
+    it('should display reports', () => {
+      const { getByRole } = renderAuthoritiesSearch();
+
+      fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+
+      const marcAuthorityHeadingsButton = getByRole('button', { name: 'ui-marc-authorities.reports.marcAuthorityHeadings' });
+      const failedUpdatesButton = getByRole('button', { name: 'ui-marc-authorities.reports.failedUpdates' });
+
+      expect(marcAuthorityHeadingsButton).toBeVisible();
+      expect(failedUpdatesButton).toBeVisible();
+    });
+
     describe('when there are selected rows', () => {
       it('"Export selected records (CSV/MARC)" button should be enabled', () => {
         const { getAllByTestId, getByRole } = renderAuthoritiesSearch({ authorities });

@@ -59,6 +59,8 @@ import {
 } from '@folio/stripes-authority-components';
 
 import { useHighlightEditedRecord } from '@folio/stripes-authority-components/lib/SearchResultsList/useHighlightEditedRecord';
+
+import { Reports } from './Reports';
 import { useAuthorityExport } from '../../queries';
 import { useReportGenerator } from '../../hooks';
 import {
@@ -454,6 +456,9 @@ const AuthoritiesSearch = ({
           toggleColumn={toggleColumn}
           columnMapping={columnMapping}
           excludeColumns={[searchResultListColumns.SELECT, searchResultListColumns.HEADING_REF]}
+        />
+        <Reports
+          onToggle={onToggle}
         />
       </>
     );

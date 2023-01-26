@@ -33,5 +33,8 @@
     "delete.description": "确定要永久删除规范记录： <strong> {headingRef} </strong>吗？",
     "authorities.rows.select": "选择规范记录",
     "search-results-list.numberOfTitles": "标题数量",
-    "delete.linkedRecord.description": "确定要永久删除规范记录： <strong> {headingRef} </strong>吗？如果继续删除，那么<strong> {count, number} </strong>链接的书目{count, plural, one { record } other { records }}将保留规范值并将变得不受控制。"
+    "delete.linkedRecord.description": "确定要永久删除规范记录： <strong> {headingRef} </strong>吗？如果继续删除，那么<strong> {count, number} </strong>链接的书目{count, plural, one { record } other { records }}将保留规范值并将变得不受控制。",
+    "reports": "Reports",
+    "reports.marcAuthorityHeadings": "MARC authority headings updates (CSV)",
+    "reports.failedUpdates": "Failed updates: linked bibliographic fields (CSV)"
 }
