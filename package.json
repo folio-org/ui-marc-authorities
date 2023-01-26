@@ -101,8 +101,8 @@
       }
     ],
     "okapiInterfaces": {
-      "search": "0.6",
-      "browse": "0.3",
+      "search": "1.0",
+      "browse": "1.0",
       "source-storage-records": "3.0",
       "records-editor.records": "3.1"
     },
