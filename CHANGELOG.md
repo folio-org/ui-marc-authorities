@@ -8,6 +8,8 @@
 - [UIMARCAUTH-223](https://issues.folio.org/browse/UIMARCAUTH-223) bump stripes to 8.0.0 for Orchid/2023-R1
 - [UIMARCAUTH-220](https://issues.folio.org/browse/UIMARCAUTH-220) Any user assign the permission View Authority record permissions can export authority reports
 - [UIMARCAUTH-224](https://issues.folio.org/browse/UIMARCAUTH-224) Remove unneeded `react-redux`
+- [UIMARCAUTH-221](https://issues.folio.org/browse/UIMARCAUTH-221) Align the module with mod-search API breaking change
+- [UIMARCAUTH-226](https://issues.folio.org/browse/UIMARCAUTH-226) Bump quick-marc to 6.0.0
 - [UIMARCAUTH-208](https://issues.folio.org/browse/UIMARCAUTH-208) Global Heading Report | UX | MARC authority headings updates report
 
 ## [2.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v2.0.1) (2022-11-28)
