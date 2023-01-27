@@ -1,6 +1,6 @@
 # Change history for ui-marc-authorities
 
-## [2.1.0](IN PROGRESS)
+## [3.0.0](IN PROGRESS)
 
 - [UIMARCAUTH-177](https://issues.folio.org/browse/UIMARCAUTH-177) MARC authority: Search Results/Browse List: Add a new column Number of titles
 - [UIMARCAUTH-178](https://issues.folio.org/browse/UIMARCAUTH-178) MARC authority: Delete MARC authority record handling
@@ -8,6 +8,7 @@
 - [UIMARCAUTH-223](https://issues.folio.org/browse/UIMARCAUTH-223) bump stripes to 8.0.0 for Orchid/2023-R1
 - [UIMARCAUTH-220](https://issues.folio.org/browse/UIMARCAUTH-220) Any user assign the permission View Authority record permissions can export authority reports
 - [UIMARCAUTH-224](https://issues.folio.org/browse/UIMARCAUTH-224) Remove unneeded `react-redux`
+- [UIMARCAUTH-208](https://issues.folio.org/browse/UIMARCAUTH-208) Global Heading Report | UX | MARC authority headings updates report
 
 ## [2.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v2.0.1) (2022-11-28)
 

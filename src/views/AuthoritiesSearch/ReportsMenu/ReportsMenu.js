@@ -3,7 +3,6 @@ import {
   useIntl,
 } from 'react-intl';
 import PropTypes from 'prop-types';
-import noop from 'lodash/noop';
 
 import { useStripes } from '@folio/stripes/core';
 import {
@@ -12,10 +11,13 @@ import {
   MenuSection,
 } from '@folio/stripes/components';
 
-import css from './Reports.css';
+import { REPORT_TYPES } from '../constants';
 
-const Reports = ({
+import css from './ReportsMenu.css';
+
+const ReportsMenu = ({
   onToggle,
+  onSelectReport,
 }) => {
   const stripes = useStripes();
   const intl = useIntl();
@@ -26,13 +28,11 @@ const Reports = ({
     stripes.hasPerm('ui-quick-marc.quick-marc-editor.view') &&
     stripes.hasPerm('ui-export-manager.jobs.downloadAndResend');
 
-  if (!showReports) return null;
-
-  const renderReport = ({ translationId, onClick = noop }) => (
+  const renderReport = ({ translationId, reportType }) => (
     <Button
       buttonStyle="dropdownItem"
       onClick={() => {
-        onClick();
+        onSelectReport(reportType);
         onToggle();
       }}
     >
@@ -45,6 +45,8 @@ const Reports = ({
     </Button>
   );
 
+  if (!showReports) return null;
+
   return (
     <MenuSection
       className={css.container}
@@ -53,16 +55,19 @@ const Reports = ({
     >
       {renderReport({
         translationId: 'ui-marc-authorities.reports.marcAuthorityHeadings',
+        reportType: REPORT_TYPES.HEADINGS_UPDATES,
       })}
       {renderReport({
         translationId: 'ui-marc-authorities.reports.failedUpdates',
+        reportType: REPORT_TYPES.FAILED_UPDATES,
       })}
     </MenuSection>
   );
 };
 
-Reports.propTypes = {
+ReportsMenu.propTypes = {
+  onSelectReport: PropTypes.func.isRequired,
   onToggle: PropTypes.func.isRequired,
 };
 
-export default Reports;
+export default ReportsMenu;

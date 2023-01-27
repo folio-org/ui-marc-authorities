@@ -1,0 +1,12 @@
+.dateRangeWrapper {
+  display: flex;
+  gap: 1em;
+}
+
+.reportsModal {
+  overflow: visible;
+}
+
+.reportsModalContent {
+  overflow: visible;
+}
