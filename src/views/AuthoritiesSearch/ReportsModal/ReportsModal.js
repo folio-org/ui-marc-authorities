@@ -20,7 +20,6 @@ import styles from './ReportsModal.css';
 
 const propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  initialValues: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   reportType: PropTypes.oneOf(Object.values(REPORT_TYPES)).isRequired,
