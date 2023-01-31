@@ -393,10 +393,10 @@ const AuthoritiesSearch = ({
     },
   };
 
-  const options = Object.values(sortableSearchResultListColumns).map(option => ({
+  const options = useMemo(() => Object.values(sortableSearchResultListColumns).map(option => ({
     value: option,
     label: intl.formatMessage({ id: `stripes-authority-components.search-results-list.${option}` }),
-  }));
+  })), [intl]);
 
   const sortByOptions = useMemo(() => [
     {

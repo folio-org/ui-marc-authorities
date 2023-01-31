@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useMutation } from 'react-query';
 
 import { useOkapiKy } from '@folio/stripes/core';
@@ -28,12 +29,12 @@ const useExportReport = ({
     },
   });
 
-  const doExport = (type, data) => {
+  const doExport = useCallback((type, data) => {
     mutate({
       type: JOB_TYPE_MAP[type],
       exportTypeSpecificParameters: data,
     });
-  };
+  }, [mutate]);
 
   return {
     doExport,
