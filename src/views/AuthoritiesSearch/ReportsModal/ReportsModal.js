@@ -47,7 +47,6 @@ const ReportsModal = ({
       data-testid="authorities-report-modal"
       aria-label={intl.formatMessage({ id: `ui-marc-authorities.reportModal.${reportType}.label` })}
       onClose={onClose}
-      modalClass={styles.reportsModal}
       contentClass={styles.reportsModalContent}
       footer={(
         <ModalFooter>
@@ -79,6 +78,7 @@ const ReportsModal = ({
               required
               component={Datepicker}
               exclude={startDateExclude}
+              usePortal
             />
             <Field
               name="toDate"
@@ -86,6 +86,7 @@ const ReportsModal = ({
               required
               component={Datepicker}
               exclude={endDateExclude}
+              usePortal
             />
           </div>
         )}
