@@ -9,11 +9,11 @@ import {
   Button,
   Modal,
   ModalFooter,
-  DateRangeWrapper,
   Datepicker,
 } from '@folio/stripes/components';
 import stripesFinalForm from '@folio/stripes-final-form';
 
+import { DateRangeFieldset } from '../../../components';
 import { REPORT_TYPES } from '../constants';
 
 import styles from './ReportsModal.css';
@@ -63,7 +63,7 @@ const ReportsModal = ({
         </ModalFooter>
     )}
     >
-      <DateRangeWrapper
+      <DateRangeFieldset
         startValueGetter={() => values.fromDate}
         endValueGetter={() => values.toDate}
       >
@@ -90,7 +90,7 @@ const ReportsModal = ({
             />
           </div>
         )}
-      </DateRangeWrapper>
+      </DateRangeFieldset>
     </Modal>
   );
 };
