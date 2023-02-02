@@ -22,7 +22,7 @@ const propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  reportType: PropTypes.oneOf(Object.values(REPORT_TYPES)).isRequired,
+  reportType: PropTypes.oneOf(Object.values(REPORT_TYPES)),
 };
 
 const ReportsModal = ({
@@ -96,6 +96,10 @@ const ReportsModal = ({
 };
 
 ReportsModal.propTypes = propTypes;
+
+ReportsModal.defaultProps = {
+  reportType: '',
+};
 
 const ReportsModalForm = stripesFinalForm({
   subscription: { values: true },
