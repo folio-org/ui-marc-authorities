@@ -44,9 +44,23 @@ describe('Given ReportsModal', () => {
     expect(getByText(`ui-marc-authorities.reportModal.${REPORT_TYPES.HEADINGS_UPDATES}.label`)).toBeDefined();
   });
 
+  describe('when form is empty', () => {
+    it('should disable export button', () => {
+      const { getByTestId } = renderReportsModal();
+
+      expect(getByTestId('export-button')).toBeDisabled();
+    });
+  });
+
   describe('when clicking on export button', () => {
     it('should call submit', () => {
-      const { getByText } = renderReportsModal();
+      const {
+        getByText,
+        getByRole,
+      } = renderReportsModal();
+
+      fireEvent.change(getByRole('textbox', { name: 'ui-marc-authorities.reportModal.startDate' }), { target: { value: '01/01/2023' } });
+      fireEvent.change(getByRole('textbox', { name: 'ui-marc-authorities.reportModal.endDate' }), { target: { value: '02/01/2023' } });
 
       fireEvent.click(getByText('ui-marc-authorities.reportModal.button.export'));
 
