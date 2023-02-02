@@ -4,6 +4,7 @@ import {
   useFormState,
 } from 'react-final-form';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import {
   Button,
@@ -32,7 +33,7 @@ const ReportsModal = ({
   handleSubmit,
 }) => {
   const intl = useIntl();
-  const { values } = useFormState();
+  const { values, valid } = useFormState();
 
   if (!open) {
     return null;
@@ -53,6 +54,7 @@ const ReportsModal = ({
           <Button
             buttonStyle="primary"
             onClick={handleSubmit}
+            disabled={!valid}
             data-testid="export-button"
           >
             {intl.formatMessage({ id: 'ui-marc-authorities.reportModal.button.export' })}
@@ -103,6 +105,23 @@ ReportsModal.defaultProps = {
 
 const ReportsModalForm = stripesFinalForm({
   subscription: { values: true },
+  validate: values => {
+    const errors = {};
+
+    if (!values.fromDate) {
+      errors.fromDate = true;
+    }
+
+    if (!values.toDate) {
+      errors.toDate = true;
+    }
+
+    if (moment(values.fromDate).isAfter(values.toDate)) {
+      errors.toDate = true;
+    }
+
+    return errors;
+  },
 })(ReportsModal);
 
 export { ReportsModalForm as ReportsModal };
