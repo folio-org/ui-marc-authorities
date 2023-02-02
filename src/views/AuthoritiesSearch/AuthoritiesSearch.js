@@ -57,11 +57,14 @@ import {
   useAutoOpenDetailView,
   AUTH_REF_TYPES,
 } from '@folio/stripes-authority-components';
-
 import { useHighlightEditedRecord } from '@folio/stripes-authority-components/lib/SearchResultsList/useHighlightEditedRecord';
 
-import { Reports } from './Reports';
-import { useAuthorityExport } from '../../queries';
+import { ReportsMenu } from './ReportsMenu';
+import { ReportsModal } from './ReportsModal/ReportsModal';
+import {
+  useAuthorityExport,
+  useExportReport,
+} from '../../queries';
 import { useReportGenerator } from '../../hooks';
 import {
   sortableSearchResultListColumns,
@@ -138,6 +141,8 @@ const AuthoritiesSearch = ({
   const [storedFilterPaneVisibility] = useLocalStorage(filterPaneVisibilityKey, true);
   const [isFilterPaneVisible, setIsFilterPaneVisible] = useState(storedFilterPaneVisibility);
   const [showDetailView, setShowDetailView] = useState(false);
+  const [reportsModalOpen, setReportsModalOpen] = useState(false);
+  const [selectedReport, setSelectedReport] = useState(null);
 
   const uniqueAuthoritiesCount = useMemo(() => {
     // determine count of unique ids in authorities array.
@@ -157,7 +162,7 @@ const AuthoritiesSearch = ({
 
   const recordToHighlight = useHighlightEditedRecord(authorities);
 
-  const getSelectAllRowsState = () => {
+  const getSelectAllRowsState = useCallback(() => {
     const newSelectedRows = { ...selectedRows };
 
     if (!selectAll) {
@@ -177,18 +182,18 @@ const AuthoritiesSearch = ({
     }
 
     return newSelectedRows;
-  };
+  }, [selectAll, selectedRows, selectedRowsIds, uniqueAuthorities]);
 
-  const toggleSelectAll = () => {
+  const toggleSelectAll = useCallback(() => {
     setSelectedRows(getSelectAllRowsState());
     setSelectAll(prev => !prev);
-  };
+  }, [getSelectAllRowsState, setSelectedRows, setSelectAll]);
 
   const selectAllLabel = selectAll
     ? intl.formatMessage({ id: 'stripes-authority-components.search-results-list.selectAll' })
     : intl.formatMessage({ id: 'stripes-authority-components.search-results-list.unselectAll' });
 
-  const columnMapping = {
+  const columnMapping = useMemo(() => ({
     [searchResultListColumns.SELECT]: (
       <Checkbox
         onChange={() => toggleSelectAll()}
@@ -203,7 +208,7 @@ const AuthoritiesSearch = ({
     [searchResultListColumns.HEADING_REF]: <FormattedMessage id="stripes-authority-components.search-results-list.headingRef" />,
     [searchResultListColumns.HEADING_TYPE]: <FormattedMessage id="stripes-authority-components.search-results-list.headingType" />,
     [searchResultListColumns.NUMBER_OF_TITLES]: <FormattedMessage id="ui-marc-authorities.search-results-list.numberOfTitles" />,
-  };
+  }), [selectAll, selectAllLabel, toggleSelectAll]);
 
   const {
     visibleColumns,
@@ -298,6 +303,27 @@ const AuthoritiesSearch = ({
     },
   });
 
+  const { doExport } = useExportReport({
+    onSuccess: res => {
+      setReportsModalOpen(false);
+      callout.sendCallout({
+        type: 'success',
+        message: intl.formatMessage({ id: `ui-marc-authorities.reports.${selectedReport}.fail` }, { id: res.name }),
+      });
+    },
+    onError: () => {
+      setReportsModalOpen(false);
+      callout.sendCallout({
+        type: 'error',
+        message: intl.formatMessage({ id: 'ui-marc-authorities.reports.fail' }),
+      });
+    },
+  });
+
+  const handleReportsSubmit = useCallback(data => {
+    doExport(selectedReport, data);
+  }, [doExport, selectedReport]);
+
   const getNextSelectedRowsState = row => {
     const { id } = row;
     const isRowSelected = !!selectedRows[id];
@@ -367,18 +393,18 @@ const AuthoritiesSearch = ({
     },
   };
 
-  const options = Object.values(sortableSearchResultListColumns).map(option => ({
+  const options = useMemo(() => Object.values(sortableSearchResultListColumns).map(option => ({
     value: option,
     label: intl.formatMessage({ id: `stripes-authority-components.search-results-list.${option}` }),
-  }));
+  })), [intl]);
 
-  const sortByOptions = [
+  const sortByOptions = useMemo(() => [
     {
       value: '',
       label: intl.formatMessage({ id: 'ui-marc-authorities.actions.menuSection.sortBy.relevance' }),
     },
     ...options,
-  ];
+  ], [intl, options]);
 
   const formatAuthorityRecordLink = useCallback(authority => {
     const search = queryString.parse(location.search);
@@ -414,7 +440,12 @@ const AuthoritiesSearch = ({
     // eslint-disable-next-line
   }, [recordToHighlight]);
 
-  const renderActionMenu = ({ onToggle }) => {
+  const onSelectReport = useCallback(reportType => {
+    setReportsModalOpen(true);
+    setSelectedReport(reportType);
+  }, []);
+
+  const renderActionMenu = useCallback(({ onToggle }) => {
     return (
       <>
         <MenuSection
@@ -457,12 +488,26 @@ const AuthoritiesSearch = ({
           columnMapping={columnMapping}
           excludeColumns={[searchResultListColumns.SELECT, searchResultListColumns.HEADING_REF]}
         />
-        <Reports
+        <ReportsMenu
           onToggle={onToggle}
+          onSelectReport={onSelectReport}
         />
       </>
     );
-  };
+  }, [
+    columnMapping,
+    exportRecords,
+    intl,
+    navigationSegmentValue,
+    onChangeSortOption,
+    selectedRowsCount,
+    selectedRowsIds,
+    sortByOptions,
+    sortedColumn,
+    toggleColumn,
+    visibleColumns,
+    onSelectReport,
+  ]);
 
   const renderPaneSub = () => (
     <span className={css.delimiter}>
@@ -569,6 +614,12 @@ const AuthoritiesSearch = ({
         />
       </Pane>
       {children}
+      <ReportsModal
+        open={reportsModalOpen}
+        reportType={selectedReport}
+        onClose={() => setReportsModalOpen(false)}
+        onSubmit={handleReportsSubmit}
+      />
     </PersistedPaneset>
   );
 };
