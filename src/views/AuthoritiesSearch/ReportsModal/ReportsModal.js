@@ -75,6 +75,7 @@ const ReportsModal = ({
         }) => (
           <div className={styles.dateRangeWrapper}>
             <Field
+              dateFormat="MM-DD-YYYY"
               name="fromDate"
               label={intl.formatMessage({ id: 'ui-marc-authorities.reportModal.startDate' })}
               required
@@ -83,6 +84,7 @@ const ReportsModal = ({
               usePortal
             />
             <Field
+              dateFormat="MM-DD-YYYY"
               name="toDate"
               label={intl.formatMessage({ id: 'ui-marc-authorities.reportModal.endDate' })}
               required

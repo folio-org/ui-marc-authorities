@@ -59,8 +59,8 @@ describe('Given ReportsModal', () => {
         getByRole,
       } = renderReportsModal();
 
-      fireEvent.change(getByRole('textbox', { name: 'ui-marc-authorities.reportModal.startDate' }), { target: { value: '01/01/2023' } });
-      fireEvent.change(getByRole('textbox', { name: 'ui-marc-authorities.reportModal.endDate' }), { target: { value: '02/01/2023' } });
+      fireEvent.change(getByRole('textbox', { name: 'ui-marc-authorities.reportModal.startDate' }), { target: { value: '01-01-2023' } });
+      fireEvent.change(getByRole('textbox', { name: 'ui-marc-authorities.reportModal.endDate' }), { target: { value: '02-01-2023' } });
 
       fireEvent.click(getByText('ui-marc-authorities.reportModal.button.export'));
 
