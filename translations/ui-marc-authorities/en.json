@@ -52,7 +52,10 @@
   
   "reportModal.HEADINGS_UPDATES.label": "Set date range for MARC authority headings updates (CSV) report",
   "reportModal.startDate": "Start date",
+  "reportModal.startDate.error": "\"Start date\" is required",
   "reportModal.endDate": "End date",
+  "reportModal.endDate.error": "\"End date\" is required",
+  "reportModal.endDate.error.greaterThan": "\"End date\" must be greater than or equal to \"Start date\"",
   "reportModal.button.cancel": "Cancel",
   "reportModal.button.export": "Export"
 }

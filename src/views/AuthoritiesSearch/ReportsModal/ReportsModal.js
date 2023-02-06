@@ -1,4 +1,7 @@
-import { useIntl } from 'react-intl';
+import {
+  useIntl,
+  FormattedMessage,
+} from 'react-intl';
 import {
   Field,
   useFormState,
@@ -12,12 +15,15 @@ import {
   ModalFooter,
   Datepicker,
 } from '@folio/stripes/components';
+import { useStripes } from '@folio/stripes/core';
 import stripesFinalForm from '@folio/stripes-final-form';
 
 import { DateRangeFieldset } from '../../../components';
 import { REPORT_TYPES } from '../constants';
 
 import styles from './ReportsModal.css';
+
+const DATE_FORMAT = 'MM/DD/YYYY';
 
 const propTypes = {
   handleSubmit: PropTypes.func.isRequired,
@@ -32,8 +38,11 @@ const ReportsModal = ({
   reportType,
   handleSubmit,
 }) => {
+  const stripes = useStripes();
   const intl = useIntl();
   const { values, valid } = useFormState();
+
+  const parseDate = date => (date ? moment.tz(date, stripes.timezone).format(DATE_FORMAT) : date);
 
   if (!open) {
     return null;
@@ -75,20 +84,25 @@ const ReportsModal = ({
         }) => (
           <div className={styles.dateRangeWrapper}>
             <Field
+              dateFormat={DATE_FORMAT}
               name="fromDate"
               label={intl.formatMessage({ id: 'ui-marc-authorities.reportModal.startDate' })}
               required
               component={Datepicker}
               exclude={startDateExclude}
               usePortal
+              autoFocus
+              parse={parseDate}
             />
             <Field
+              dateFormat={DATE_FORMAT}
               name="toDate"
               label={intl.formatMessage({ id: 'ui-marc-authorities.reportModal.endDate' })}
               required
               component={Datepicker}
               exclude={endDateExclude}
               usePortal
+              parse={parseDate}
             />
           </div>
         )}
@@ -108,16 +122,16 @@ const ReportsModalForm = stripesFinalForm({
   validate: values => {
     const errors = {};
 
-    if (!values.fromDate) {
-      errors.fromDate = true;
+    if (!values.fromDate || !moment(values.fromDate).isValid()) {
+      errors.fromDate = <FormattedMessage id="ui-marc-authorities.reportModal.startDate.error" />;
     }
 
-    if (!values.toDate) {
-      errors.toDate = true;
+    if (!values.toDate || !moment(values.toDate).isValid()) {
+      errors.toDate = <FormattedMessage id="ui-marc-authorities.reportModal.endDate.error" />;
     }
 
     if (moment(values.fromDate).isAfter(values.toDate)) {
-      errors.toDate = true;
+      errors.toDate = <FormattedMessage id="ui-marc-authorities.reportModal.endDate.error.greaterThan" />;
     }
 
     return errors;
