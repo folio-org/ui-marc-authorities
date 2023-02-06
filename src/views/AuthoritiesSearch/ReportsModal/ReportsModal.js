@@ -15,7 +15,7 @@ import {
   ModalFooter,
   Datepicker,
 } from '@folio/stripes/components';
-import { useStripes } from '@folio/stripes-core';
+import { useStripes } from '@folio/stripes/core';
 import stripesFinalForm from '@folio/stripes-final-form';
 
 import { DateRangeFieldset } from '../../../components';
