@@ -36,5 +36,15 @@
     "delete.linkedRecord.description": "确定要永久删除规范记录： <strong> {headingRef} </strong>吗？如果继续删除，那么<strong> {count, number} </strong>链接的书目{count, plural, one { record } other { records }}将保留规范值并将变得不受控制。",
     "reports": "报告",
     "reports.marcAuthorityHeadings": "MARC规范标题更新 (CSV)",
-    "reports.failedUpdates": "更新失败：链接的书目字段 (CSV)"
+    "reports.failedUpdates": "更新失败：链接的书目字段 (CSV)",
+    "reports.HEADINGS_UPDATES.success": "<b>Authority headings updates report (Job ID {name})</b> is being generated. Go to the Export manager app to download report. It may take a few minutes for the report to complete.",
+    "reports.fail": "We were unable to create this report. Please try again.",
+    "reportModal.HEADINGS_UPDATES.label": "Set date range for MARC authority headings updates (CSV) report",
+    "reportModal.startDate": "Start date",
+    "reportModal.endDate": "End date",
+    "reportModal.button.cancel": "Cancel",
+    "reportModal.button.export": "Export",
+    "reportModal.startDate.error": "\"Start date\" is required",
+    "reportModal.endDate.error": "\"End date\" is required",
+    "reportModal.endDate.error.greaterThan": "\"End date\" must be greater than or equal to \"Start date\""
 }
