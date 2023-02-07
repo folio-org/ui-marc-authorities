@@ -36,5 +36,15 @@
     "delete.linkedRecord.description": "¿Está seguro de que desea eliminar permanentemente el registro de autoridad: <strong> {headingRef} ? </strong> Si procede con la eliminación, entonces <strong>{count, number}</strong> bibliográfico vinculado {count, plural, one {registro} other {registros}} conservará el valor autorizado y pasará a ser incontrolado.",
     "reports": "Informes",
     "reports.marcAuthorityHeadings": "Actualización de los encabezamientos de autoridad MARC (CSV)",
-    "reports.failedUpdates": "Actualizaciones fallidas: campos bibliográficos vinculados (CSV)"
+    "reports.failedUpdates": "Actualizaciones fallidas: campos bibliográficos vinculados (CSV)",
+    "reports.HEADINGS_UPDATES.success": "<b>Authority headings updates report (Job ID {name})</b> is being generated. Go to the Export manager app to download report. It may take a few minutes for the report to complete.",
+    "reports.fail": "We were unable to create this report. Please try again.",
+    "reportModal.HEADINGS_UPDATES.label": "Set date range for MARC authority headings updates (CSV) report",
+    "reportModal.startDate": "Start date",
+    "reportModal.endDate": "End date",
+    "reportModal.button.cancel": "Cancel",
+    "reportModal.button.export": "Export",
+    "reportModal.startDate.error": "\"Start date\" is required",
+    "reportModal.endDate.error": "\"End date\" is required",
+    "reportModal.endDate.error.greaterThan": "\"End date\" must be greater than or equal to \"Start date\""
 }
