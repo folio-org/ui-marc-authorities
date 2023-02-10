@@ -71,7 +71,7 @@
   },
   "dependencies": {
     "@folio/quick-marc": "^6.0.0",
-    "@folio/stripes-acq-components": "^3.0.2",
+    "@folio/stripes-acq-components": "~4.0.0",
     "@rehooks/local-storage": "2.4.0",
     "query-string": "^7.0.1"
   },
