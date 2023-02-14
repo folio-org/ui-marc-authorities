@@ -15,6 +15,7 @@
   "search-results-list.numberOfTitles": "Number of titles",
 
   "authority-record.edit": "Edit",
+  "authority-record.print": "Print",
   "authority-record.delete": "Delete",
   "authority-record.delete.success": "MARC authority record <strong> {headingRef} </strong> has been deleted",
   "authority-record.delete.error": "Unable to delete MARC authority record <strong> {headingRef} </strong>. Please try again. ",
