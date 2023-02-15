@@ -32,7 +32,9 @@ const useExportReport = ({
   const doExport = useCallback((type, data) => {
     mutate({
       type: JOB_TYPE_MAP[type],
-      exportTypeSpecificParameters: data,
+      exportTypeSpecificParameters: {
+        authorityControlExportConfig: data,
+      },
     });
   }, [mutate]);
 
