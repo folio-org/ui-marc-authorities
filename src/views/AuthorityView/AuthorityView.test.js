@@ -153,6 +153,12 @@ describe('Given AuthorityView', () => {
     expect(getByText('ui-marc-authorities.authority-record.edit')).toBeDefined();
   });
 
+  it('should display "Print" button', () => {
+    const { getByText } = renderAuthorityView();
+
+    expect(getByText('ui-marc-authorities.authority-record.print')).toBeDefined();
+  });
+
   it('should render with no axe errors', async () => {
     const { container } = renderAuthorityView();
 
@@ -245,6 +251,16 @@ describe('Given AuthorityView', () => {
       fireEvent.click(getByText('ui-marc-authorities.authority-record.edit'));
 
       expect(mockHistoryPush).toHaveBeenCalled();
+    });
+  });
+
+  describe('when click on "Print" button', () => {
+    it('should display the print popup', () => {
+      const { getByText, getByTestId } = renderAuthorityView();
+
+      fireEvent.click(getByText('ui-marc-authorities.authority-record.print'));
+
+      expect(getByTestId('print-popup')).toBeInTheDocument();
     });
   });
 
