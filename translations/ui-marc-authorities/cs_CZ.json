@@ -37,14 +37,14 @@
     "reports": "Výstupy",
     "reports.marcAuthorityHeadings": "Aktualizace nadpisů MARC autorit (CSV)",
     "reports.failedUpdates": "Neúspěšné aktualizace: propojená bibliografická pole (CSV)",
-    "reports.HEADINGS_UPDATES.success": "<b>Authority headings updates report (Job ID {name})</b> is being generated. Go to the Export manager app to download report. It may take a few minutes for the report to complete.",
-    "reports.fail": "We were unable to create this report. Please try again.",
-    "reportModal.HEADINGS_UPDATES.label": "Set date range for MARC authority headings updates (CSV) report",
-    "reportModal.startDate": "Start date",
-    "reportModal.endDate": "End date",
-    "reportModal.button.cancel": "Cancel",
+    "reports.HEADINGS_UPDATES.success": "<b>Výstup o aktualizacích nadpisů autorit (ID úlohy {name})</b> se generuje. Přejděte do aplikace Správa exportu a výstup si stáhněte. Dokončení přehledu může trvat několik minut.",
+    "reports.fail": "Tento výstup se nám nepodařilo vytvořit. Zkuste to prosím znovu.",
+    "reportModal.HEADINGS_UPDATES.label": "Nastavení časového období pro výstup aktualizací nadpisu MARC autority (CSV)",
+    "reportModal.startDate": "Datum zahájení",
+    "reportModal.endDate": "Datum ukončení",
+    "reportModal.button.cancel": "Zrušit",
     "reportModal.button.export": "Export",
-    "reportModal.startDate.error": "\"Start date\" is required",
-    "reportModal.endDate.error": "\"End date\" is required",
-    "reportModal.endDate.error.greaterThan": "\"End date\" must be greater than or equal to \"Start date\""
+    "reportModal.startDate.error": "\"Datum zahájení\" je povinné",
+    "reportModal.endDate.error": "\"Datum ukončení\" je povinné",
+    "reportModal.endDate.error.greaterThan": "\"Datum ukončení\" musí být větší nebo rovno \"Datum zahájení\""
 }
