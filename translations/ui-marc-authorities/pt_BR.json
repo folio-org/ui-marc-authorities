@@ -38,13 +38,13 @@
     "reports.marcAuthorityHeadings": "Atualizações de cabeçalhos de autoridade MARC (CSV)",
     "reports.failedUpdates": "Atualizações com falha: campos bibliográficos vinculados (CSV)",
     "reports.HEADINGS_UPDATES.success": "<b>Authority headings updates report (Job ID {name})</b> is being generated. Go to the Export manager app to download report. It may take a few minutes for the report to complete.",
-    "reports.fail": "We were unable to create this report. Please try again.",
-    "reportModal.HEADINGS_UPDATES.label": "Set date range for MARC authority headings updates (CSV) report",
-    "reportModal.startDate": "Start date",
-    "reportModal.endDate": "End date",
-    "reportModal.button.cancel": "Cancel",
-    "reportModal.button.export": "Export",
-    "reportModal.startDate.error": "\"Start date\" is required",
-    "reportModal.endDate.error": "\"End date\" is required",
-    "reportModal.endDate.error.greaterThan": "\"End date\" must be greater than or equal to \"Start date\""
+    "reports.fail": "Não foi possível criar este relatório. Por favor, tente novamente.",
+    "reportModal.HEADINGS_UPDATES.label": "Definir intervalo de datas para o relatório de atualizações de cabeçalhos de autoridade MARC (CSV)",
+    "reportModal.startDate": "Data de início",
+    "reportModal.endDate": "Data final",
+    "reportModal.button.cancel": "Cancelar",
+    "reportModal.button.export": "Exportar",
+    "reportModal.startDate.error": "\"Data de início\" é obrigatória",
+    "reportModal.endDate.error": "\"Data de término\" é obrigatória",
+    "reportModal.endDate.error.greaterThan": "\"Data de término\" deve ser maior ou igual a \"Data de início\""
 }
