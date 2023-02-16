@@ -23,7 +23,7 @@ import { REPORT_TYPES } from '../constants';
 
 import styles from './ReportsModal.css';
 
-const DATE_FORMAT = 'MM/DD/YYYY';
+const DATE_FORMAT = 'YYYY-MM-DD';
 
 const propTypes = {
   handleSubmit: PropTypes.func.isRequired,
