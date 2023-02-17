@@ -34,6 +34,7 @@ import {
   SelectedAuthorityRecordContext,
 } from '@folio/stripes-authority-components';
 
+import PrintPopup from '@folio/quick-marc/src/QuickMarcView/PrintPopup';
 import { KeyShortCutsWrapper } from '../../components';
 
 import useAuthorityDelete from '../../queries/useAuthoritiesDelete/useAuthorityDelete';
@@ -70,6 +71,10 @@ const AuthorityView = ({
 
   const callout = useContext(CalloutContext);
   const linkedRecord = authority?.allData.find(authorityRecord => authorityRecord.numberOfTitles);
+
+  const [isShownPrintPopup, setIsShownPrintPopup] = useState(false);
+  const openPrintPopup = () => setIsShownPrintPopup(true);
+  const closePrintPopup = () => setIsShownPrintPopup(false);
 
   const onClose = useCallback(
     () => {
@@ -150,6 +155,10 @@ const AuthorityView = ({
     setDeleteModalOpen(false);
   };
 
+  const marcTitle = intl.formatMessage({
+    id: 'stripes-authority-components.marcHeading',
+  });
+
   return (
     <KeyShortCutsWrapper
       onEdit={redirectToQuickMarcEditPage}
@@ -170,9 +179,7 @@ const AuthorityView = ({
           },
         )}
         isPaneset={false}
-        marcTitle={intl.formatMessage({
-          id: 'stripes-authority-components.marcHeading',
-        })}
+        marcTitle={marcTitle}
         marc={markHighlightedFields(marcSource, authority).data}
         onClose={onClose}
         lastMenu={
@@ -185,7 +192,7 @@ const AuthorityView = ({
                     marginBottom0
                     {...getTriggerProps()}
                   >
-                    Actions
+                    <FormattedMessage id="ui-marc-authorities.actions" />
                   </DropdownButton>
                 )}
                 renderMenu={() => (
@@ -199,6 +206,14 @@ const AuthorityView = ({
                         onClick={redirectToQuickMarcEditPage}
                       >
                         <FormattedMessage id="ui-marc-authorities.authority-record.edit" />
+                      </Button>
+                    </IfPermission>
+                    <IfPermission perm="ui-marc-authorities.authority-record.view">
+                      <Button
+                        buttonStyle="dropdownItem"
+                        onClick={openPrintPopup}
+                      >
+                        <FormattedMessage id="ui-marc-authorities.authority-record.print" />
                       </Button>
                     </IfPermission>
                     <IfPermission perm="ui-marc-authorities.authority-record.delete">
@@ -250,6 +265,15 @@ const AuthorityView = ({
           <FormattedMessage id="ui-marc-authorities.delete.buttonLabel" />
         }
       />
+      <IfPermission perm="ui-marc-authorities.authority-record.view">
+        {isShownPrintPopup && (
+          <PrintPopup
+            marc={marcSource.data}
+            marcTitle={`${marcTitle} - ${authority.data.headingRef}`}
+            onAfterPrint={closePrintPopup}
+          />
+        )}
+      </IfPermission>
     </KeyShortCutsWrapper>
   );
 };
