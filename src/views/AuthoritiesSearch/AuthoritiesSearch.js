@@ -308,7 +308,7 @@ const AuthoritiesSearch = ({
       setReportsModalOpen(false);
       callout.sendCallout({
         type: 'success',
-        message: intl.formatMessage({ id: `ui-marc-authorities.reports.${selectedReport}.fail` }, { id: res.name }),
+        message: intl.formatMessage({ id: `ui-marc-authorities.reports.${selectedReport}.success` }, { name: res.name }),
       });
     },
     onError: () => {
