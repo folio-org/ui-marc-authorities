@@ -267,11 +267,11 @@ const AuthorityView = ({
       />
       <IfPermission perm="ui-marc-authorities.authority-record.view">
         {isShownPrintPopup && (
-        <PrintPopup
-          marc={marcSource.data}
-          marcTitle={`${marcTitle} - ${authority.data.headingRef}`}
-          onAfterPrint={closePrintPopup}
-        />
+          <PrintPopup
+            marc={marcSource.data}
+            marcTitle={`${marcTitle} - ${authority.data.headingRef}`}
+            onAfterPrint={closePrintPopup}
+          />
         )}
       </IfPermission>
     </KeyShortCutsWrapper>
