@@ -13,6 +13,7 @@
 - [UIMARCAUTH-208](https://issues.folio.org/browse/UIMARCAUTH-208) Global Heading Report | UX | MARC authority headings updates report
 - [UIMARCAUTH-233](https://issues.folio.org/browse/UIMARCAUTH-233) MARC Authority | Print Source record
 - [UIMARCAUTH-234](https://issues.folio.org/browse/UIMARCAUTH-234) Fix incorrect payload structure for Authorities updates export.
+- [UIMARCAUTH-236](https://issues.folio.org/browse/UIMARCAUTH-236) Unpin `@vue/compiler-sfc` which no longer causes node conflict
 
 ## [2.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v2.0.1) (2022-11-28)
 
