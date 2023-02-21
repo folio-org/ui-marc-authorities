@@ -37,7 +37,7 @@
     "reports": "Relatórios",
     "reports.marcAuthorityHeadings": "Atualizações de cabeçalhos de autoridade MARC (CSV)",
     "reports.failedUpdates": "Atualizações com falha: campos bibliográficos vinculados (CSV)",
-    "reports.HEADINGS_UPDATES.success": "<b>Authority headings updates report (Job ID {name})</b> is being generated. Go to the Export manager app to download report. It may take a few minutes for the report to complete.",
+    "reports.HEADINGS_UPDATES.success": "<b> Relatório de atualizações dos cabeçalhos de autoridade (ID do trabalho {name}) </b> está sendo gerado. Acesse o aplicativo de Exportação para baixar o relatório. Pode levar alguns minutos para que o relatório seja concluído.",
     "reports.fail": "Não foi possível criar este relatório. Por favor, tente novamente.",
     "reportModal.HEADINGS_UPDATES.label": "Definir intervalo de datas para o relatório de atualizações de cabeçalhos de autoridade MARC (CSV)",
     "reportModal.startDate": "Data de início",
@@ -46,5 +46,6 @@
     "reportModal.button.export": "Exportar",
     "reportModal.startDate.error": "\"Data de início\" é obrigatória",
     "reportModal.endDate.error": "\"Data de término\" é obrigatória",
-    "reportModal.endDate.error.greaterThan": "\"Data de término\" deve ser maior ou igual a \"Data de início\""
+    "reportModal.endDate.error.greaterThan": "\"Data de término\" deve ser maior ou igual a \"Data de início\"",
+    "authority-record.print": "Imprimir"
 }
