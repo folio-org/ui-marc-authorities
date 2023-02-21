@@ -57,10 +57,10 @@ const ReportsMenu = ({
         translationId: 'ui-marc-authorities.reports.marcAuthorityHeadings',
         reportType: REPORT_TYPES.HEADINGS_UPDATES,
       })}
-      {renderReport({
-        translationId: 'ui-marc-authorities.reports.failedUpdates',
-        reportType: REPORT_TYPES.FAILED_UPDATES,
-      })}
+      {/* {renderReport({ */}
+      {/*  translationId: 'ui-marc-authorities.reports.failedUpdates', */}
+      {/*  reportType: REPORT_TYPES.FAILED_UPDATES, */}
+      {/* })} */}
     </MenuSection>
   );
 };
