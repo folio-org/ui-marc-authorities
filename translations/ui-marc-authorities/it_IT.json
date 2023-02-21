@@ -46,5 +46,6 @@
     "reportModal.button.export": "Export",
     "reportModal.startDate.error": "\"Start date\" is required",
     "reportModal.endDate.error": "\"End date\" is required",
-    "reportModal.endDate.error.greaterThan": "\"End date\" must be greater than or equal to \"Start date\""
+    "reportModal.endDate.error.greaterThan": "\"End date\" must be greater than or equal to \"Start date\"",
+    "authority-record.print": "Stampa"
 }

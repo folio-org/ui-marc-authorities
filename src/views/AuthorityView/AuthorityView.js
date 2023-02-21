@@ -159,6 +159,8 @@ const AuthorityView = ({
     id: 'stripes-authority-components.marcHeading',
   });
 
+  const paneTitle = authority.data.headingRef;
+
   return (
     <KeyShortCutsWrapper
       onEdit={redirectToQuickMarcEditPage}
@@ -166,7 +168,7 @@ const AuthorityView = ({
     >
       <MarcView
         paneWidth="40%"
-        paneTitle={authority.data.headingRef}
+        paneTitle={paneTitle}
         paneSub={intl.formatMessage(
           {
             id: 'stripes-authority-components.authorityRecordSubtitle',
@@ -269,7 +271,8 @@ const AuthorityView = ({
         {isShownPrintPopup && (
           <PrintPopup
             marc={marcSource.data}
-            marcTitle={`${marcTitle} - ${authority.data.headingRef}`}
+            paneTitle={paneTitle}
+            marcTitle={marcTitle}
             onAfterPrint={closePrintPopup}
           />
         )}
