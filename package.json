@@ -86,7 +86,7 @@
     "react-router-dom": "^5.2.0"
   },
   "resolutions": {
-    "@vue/compiler-sfc": "3.2.33"
+    "@vue/compiler-sfc": "3.2.47"
   },
   "stripes": {
     "actsAs": [
