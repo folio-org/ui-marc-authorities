@@ -84,7 +84,7 @@ const ReportsModal = ({
         }) => (
           <div className={styles.dateRangeWrapper}>
             <Field
-              dateFormat={DATE_FORMAT}
+              locale={stripes.locale}
               name="fromDate"
               label={intl.formatMessage({ id: 'ui-marc-authorities.reportModal.startDate' })}
               required
@@ -95,7 +95,7 @@ const ReportsModal = ({
               parse={parseDate}
             />
             <Field
-              dateFormat={DATE_FORMAT}
+              locale={stripes.locale}
               name="toDate"
               label={intl.formatMessage({ id: 'ui-marc-authorities.reportModal.endDate' })}
               required

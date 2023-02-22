@@ -14,6 +14,7 @@
 - [UIMARCAUTH-233](https://issues.folio.org/browse/UIMARCAUTH-233) MARC Authority | Print Source record
 - [UIMARCAUTH-234](https://issues.folio.org/browse/UIMARCAUTH-234) Fix incorrect payload structure for Authorities updates export.
 - [UIMARCAUTH-235](https://issues.folio.org/browse/UIMARCAUTH-235) Changed the print popup title with new requirements 
+- [UIMARCAUTH-238](https://issues.folio.org/browse/UIMARCAUTH-238) Date formats not localized in "Set date range for MARC authority headings updates (CSV) report" modal
 - [UIMARCAUTH-231](https://issues.folio.org/browse/UIMARCAUTH-231) Remove 'Failed updates reports' option from Orchid release.
 - [UIMARCAUTH-237](https://issues.folio.org/browse/UIMARCAUTH-237) Add instance-authority-links.authority-statistics.collection.get.
 - [UIMARCAUTH-236](https://issues.folio.org/browse/UIMARCAUTH-236) Unpin `@vue/compiler-sfc` which no longer causes node conflict
