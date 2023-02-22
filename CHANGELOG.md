@@ -16,6 +16,7 @@
 - [UIMARCAUTH-235](https://issues.folio.org/browse/UIMARCAUTH-235) Changed the print popup title with new requirements 
 - [UIMARCAUTH-231](https://issues.folio.org/browse/UIMARCAUTH-231) Remove 'Failed updates reports' option from Orchid release.
 - [UIMARCAUTH-237](https://issues.folio.org/browse/UIMARCAUTH-237) Add instance-authority-links.authority-statistics.collection.get.
+- [UIMARCAUTH-236](https://issues.folio.org/browse/UIMARCAUTH-236) Unpin `@vue/compiler-sfc` which no longer causes node conflict
 
 ## [2.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v2.0.1) (2022-11-28)
 
