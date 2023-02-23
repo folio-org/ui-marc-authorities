@@ -46,5 +46,6 @@
     "reportModal.button.export": "Export",
     "reportModal.startDate.error": "\"Datum zahájení\" je povinné",
     "reportModal.endDate.error": "\"Datum ukončení\" je povinné",
-    "reportModal.endDate.error.greaterThan": "\"Datum ukončení\" musí být větší nebo rovno \"Datum zahájení\""
+    "reportModal.endDate.error.greaterThan": "\"Datum ukončení\" musí být větší nebo rovno \"Datum zahájení\"",
+    "authority-record.print": "Tisk"
 }

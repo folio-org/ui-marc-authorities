@@ -13,6 +13,23 @@ import { REPORT_TYPES } from '../constants';
 const mockOnClose = jest.fn();
 const mockOnSubmit = jest.fn();
 
+const DEFAULT_LOCALE = 'en-US';
+
+const intl = {
+  formatMessage: ({ id }) => id,
+  locale: DEFAULT_LOCALE,
+};
+
+jest.mock('react-intl', () => {
+  return {
+    ...jest.requireActual('react-intl'),
+    useIntl: () => intl,
+    injectIntl: Component => function (props) {
+      return <Component {...props} intl={intl} />;
+    },
+  };
+});
+
 const renderReportsModal = (props = {}) => render(
   <Harness>
     <ReportsModal
@@ -28,6 +45,7 @@ const renderReportsModal = (props = {}) => render(
 describe('Given ReportsModal', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    intl.locale = DEFAULT_LOCALE;
   });
 
   it('should render with no axe errors', async () => {
@@ -45,10 +63,27 @@ describe('Given ReportsModal', () => {
   });
 
   describe('when form is empty', () => {
+    const placeholderTestCases = [
+      {
+        locale: 'en-US',
+        placeholder: 'MM/DD/YYYY',
+      }, {
+        locale: 'ja-JP',
+        placeholder: 'YYYY/MM/DD',
+      },
+    ];
+
     it('should disable export button', () => {
       const { getByTestId } = renderReportsModal();
 
       expect(getByTestId('export-button')).toBeDisabled();
+    });
+
+    it.each(placeholderTestCases)('should render the localized placeholder date', ({ locale, placeholder }) => {
+      intl.locale = locale;
+      const { getAllByPlaceholderText } = renderReportsModal();
+
+      expect(getAllByPlaceholderText(placeholder)).toHaveLength(2);
     });
   });
 
@@ -59,11 +94,10 @@ describe('Given ReportsModal', () => {
         getByRole,
       } = renderReportsModal();
 
-      fireEvent.change(getByRole('textbox', { name: 'ui-marc-authorities.reportModal.startDate' }), { target: { value: '2023-01-01' } });
-      fireEvent.change(getByRole('textbox', { name: 'ui-marc-authorities.reportModal.endDate' }), { target: { value: '2023-01-02' } });
+      fireEvent.change(getByRole('textbox', { name: 'ui-marc-authorities.reportModal.startDate' }), { target: { value: '01/01/2023' } });
+      fireEvent.change(getByRole('textbox', { name: 'ui-marc-authorities.reportModal.endDate' }), { target: { value: '01/02/2023' } });
 
       fireEvent.click(getByText('ui-marc-authorities.reportModal.button.export'));
-
       expect(mockOnSubmit).toHaveBeenCalled();
     });
   });

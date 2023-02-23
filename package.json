@@ -85,9 +85,6 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0"
   },
-  "resolutions": {
-    "@vue/compiler-sfc": "3.2.33"
-  },
   "stripes": {
     "actsAs": [
       "app"
@@ -128,6 +125,7 @@
           "source-storage.records.get",
           "inventory-storage.authorities.item.get",
           "data-export.quick.export.post",
+          "instance-authority-links.authority-statistics.collection.get",
           "inventory-storage.authority-source-files.collection.get",
           "inventory-storage.authority-source-files.item.get"
         ],
