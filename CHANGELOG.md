@@ -1,6 +1,6 @@
 # Change history for ui-marc-authorities
 
-## [3.0.0](IN PROGRESS)
+## [3.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.0) (2023-02-24)
 
 - [UIMARCAUTH-177](https://issues.folio.org/browse/UIMARCAUTH-177) MARC authority: Search Results/Browse List: Add a new column Number of titles
 - [UIMARCAUTH-178](https://issues.folio.org/browse/UIMARCAUTH-178) MARC authority: Delete MARC authority record handling
