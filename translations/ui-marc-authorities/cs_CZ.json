@@ -39,7 +39,7 @@
     "reports.failedUpdates": "Neúspěšné aktualizace: propojená bibliografická pole (CSV)",
     "reports.HEADINGS_UPDATES.success": "<b>Výstup o aktualizacích nadpisů autorit (ID úlohy {name})</b> se generuje. Přejděte do aplikace Správa exportu a výstup si stáhněte. Dokončení přehledu může trvat několik minut.",
     "reports.fail": "Tento výstup se nám nepodařilo vytvořit. Zkuste to prosím znovu.",
-    "reportModal.HEADINGS_UPDATES.label": "Nastavení časového období pro výstup aktualizací nadpisu MARC autority (CSV)",
+    "reportModal.HEADINGS_UPDATES.label": "Nastavení datumového intervalu pro výstup aktualizací nadpisu MARC autority (CSV)",
     "reportModal.startDate": "Datum zahájení",
     "reportModal.endDate": "Datum ukončení",
     "reportModal.button.cancel": "Zrušit",
@@ -47,5 +47,7 @@
     "reportModal.startDate.error": "\"Datum zahájení\" je povinné",
     "reportModal.endDate.error": "\"Datum ukončení\" je povinné",
     "reportModal.endDate.error.greaterThan": "\"Datum ukončení\" musí být větší nebo rovno \"Datum zahájení\"",
-    "authority-record.print": "Tisk"
+    "authority-record.print": "Tisk",
+    "reports.HEADINGS_UPDATES.description": "Seznam aktualizovaných nadpisů (1XX) MARC autorit",
+    "reports.HEADINGS_UPDATES.outputFormat": "Aktualizace nadpisů MARC autorit (CSV)"
 }

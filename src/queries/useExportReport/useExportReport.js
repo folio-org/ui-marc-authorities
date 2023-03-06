@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { useMutation } from 'react-query';
+import { useIntl } from 'react-intl';
 
 import { useOkapiKy } from '@folio/stripes/core';
 
@@ -15,6 +16,7 @@ const useExportReport = ({
   onSuccess,
 }) => {
   const ky = useOkapiKy();
+  const intl = useIntl();
 
   const { mutate } = useMutation({
     mutationFn: json => {
@@ -32,11 +34,13 @@ const useExportReport = ({
   const doExport = useCallback((type, data) => {
     mutate({
       type: JOB_TYPE_MAP[type],
+      description: intl.formatMessage({ id: `ui-marc-authorities.reports.${type}.description` }),
+      outputFormat: intl.formatMessage({ id: `ui-marc-authorities.reports.${type}.outputFormat` }),
       exportTypeSpecificParameters: {
         authorityControlExportConfig: data,
       },
     });
-  }, [mutate]);
+  }, [mutate, intl]);
 
   return {
     doExport,
