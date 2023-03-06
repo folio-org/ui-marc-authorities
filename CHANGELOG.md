@@ -1,5 +1,9 @@
 # Change history for ui-marc-authorities
 
+## [3.1.0](IN PROGRESS)
+
+- [UIMARCAUTH-225](https://issues.folio.org/browse/UIMARCAUTH-225) Unpin `@rehooks/local-storage` now that it's no longer broken
+
 ## [3.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.0) (2023-02-24)
 
 - [UIMARCAUTH-177](https://issues.folio.org/browse/UIMARCAUTH-177) MARC authority: Search Results/Browse List: Add a new column Number of titles
