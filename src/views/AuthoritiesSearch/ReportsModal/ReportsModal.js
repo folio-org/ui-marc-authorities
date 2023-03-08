@@ -42,8 +42,6 @@ const ReportsModal = ({
   const intl = useIntl();
   const { values, valid } = useFormState();
 
-  const parseDate = date => (date ? moment.tz(date, stripes.timezone).format(DATE_FORMAT) : date);
-
   if (!open) {
     return null;
   }
@@ -92,7 +90,7 @@ const ReportsModal = ({
               exclude={startDateExclude}
               usePortal
               autoFocus
-              parse={parseDate}
+              backendDateStandard={DATE_FORMAT}
             />
             <Field
               locale={stripes.locale}
@@ -102,7 +100,7 @@ const ReportsModal = ({
               component={Datepicker}
               exclude={endDateExclude}
               usePortal
-              parse={parseDate}
+              backendDateStandard={DATE_FORMAT}
             />
           </div>
         )}
