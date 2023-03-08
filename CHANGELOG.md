@@ -3,6 +3,7 @@
 ## [3.1.0](IN PROGRESS)
 
 - [UIMARCAUTH-225](https://issues.folio.org/browse/UIMARCAUTH-225) Unpin `@rehooks/local-storage` now that it's no longer broken
+- [UIMARCAUTH-245](https://issues.folio.org/browse/UIMARCAUTH-245) The date format becomes incorrect after clearing the Datepicker field
 
 ## [3.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.0) (2023-02-24)
 
