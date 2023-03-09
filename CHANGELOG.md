@@ -1,5 +1,10 @@
 # Change history for ui-marc-authorities
 
+## [3.0.1](IN PROGRESS)
+
+- [UIMARCAUTH-240](https://issues.folio.org/browse/UIMARCAUTH-240) Incorrect "Job type",  "Output type", "Description" for headings updates report export job
+- [UIMARCAUTH-245](https://issues.folio.org/browse/UIMARCAUTH-245) The date format becomes incorrect after clearing the Datepicker field
+
 ## [3.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.0) (2023-02-24)
 
 - [UIMARCAUTH-177](https://issues.folio.org/browse/UIMARCAUTH-177) MARC authority: Search Results/Browse List: Add a new column Number of titles
@@ -18,7 +23,6 @@
 - [UIMARCAUTH-231](https://issues.folio.org/browse/UIMARCAUTH-231) Remove 'Failed updates reports' option from Orchid release.
 - [UIMARCAUTH-237](https://issues.folio.org/browse/UIMARCAUTH-237) Add instance-authority-links.authority-statistics.collection.get.
 - [UIMARCAUTH-236](https://issues.folio.org/browse/UIMARCAUTH-236) Unpin `@vue/compiler-sfc` which no longer causes node conflict
-- [UIMARCAUTH-240](https://issues.folio.org/browse/UIMARCAUTH-240) Incorrect "Job type",  "Output type", "Description" for headings updates report export job
 
 ## [2.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v2.0.1) (2022-11-28)
 
