@@ -3,6 +3,10 @@
 ## [3.1.0](IN PROGRESS)
 
 - [UIMARCAUTH-225](https://issues.folio.org/browse/UIMARCAUTH-225) Unpin `@rehooks/local-storage` now that it's no longer broken
+
+## [3.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.1) (2023-03-14)
+
+- [UIMARCAUTH-240](https://issues.folio.org/browse/UIMARCAUTH-240) Incorrect "Job type",  "Output type", "Description" for headings updates report export job
 - [UIMARCAUTH-245](https://issues.folio.org/browse/UIMARCAUTH-245) The date format becomes incorrect after clearing the Datepicker field
 - [UIMARCAUTH-243](https://issues.folio.org/browse/UIMARCAUTH-243) Removed `@folio/stripes-final-form` from peerDeps
 
@@ -24,7 +28,6 @@
 - [UIMARCAUTH-231](https://issues.folio.org/browse/UIMARCAUTH-231) Remove 'Failed updates reports' option from Orchid release.
 - [UIMARCAUTH-237](https://issues.folio.org/browse/UIMARCAUTH-237) Add instance-authority-links.authority-statistics.collection.get.
 - [UIMARCAUTH-236](https://issues.folio.org/browse/UIMARCAUTH-236) Unpin `@vue/compiler-sfc` which no longer causes node conflict
-- [UIMARCAUTH-240](https://issues.folio.org/browse/UIMARCAUTH-240) Incorrect "Job type",  "Output type", "Description" for headings updates report export job
 
 ## [2.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v2.0.1) (2022-11-28)
 
