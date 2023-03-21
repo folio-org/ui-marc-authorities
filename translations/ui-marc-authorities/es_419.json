@@ -37,7 +37,7 @@
     "reports": "Informes",
     "reports.marcAuthorityHeadings": "Actualización de los encabezamientos de autoridad MARC (CSV)",
     "reports.failedUpdates": "Actualizaciones fallidas: campos bibliográficos vinculados (CSV)",
-    "reports.HEADINGS_UPDATES.success": "Se está generando el <b>informe de actualizaciones de encabezamientos de autoridad (ID de trabajo {nombre})</b>. Vaya a la aplicación Export manager para descargar el informe. El informe puede tardar unos minutos en completarse.",
+    "reports.HEADINGS_UPDATES.success": "Se está generando el <b>informe de actualizaciones de encabezamientos de autoridad (ID de trabajo {name})</b>. Vaya a la aplicación Export manager para descargar el informe. El informe puede tardar unos minutos en completarse.",
     "reports.fail": "No hemos podido crear este informe. Por favor, inténtelo de nuevo.",
     "reportModal.HEADINGS_UPDATES.label": "Establecer intervalo de fechas para el informe de actualizaciones de encabezamientos de autoridad MARC (CSV)",
     "reportModal.startDate": "Fecha de inicio",
