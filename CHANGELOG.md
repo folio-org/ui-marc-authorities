@@ -4,6 +4,8 @@
 
 - [UIMARCAUTH-225](https://issues.folio.org/browse/UIMARCAUTH-225) Unpin `@rehooks/local-storage` now that it's no longer broken
 
+* [UIMARCAUTH-253](https://issues.folio.org/browse/UIMARCAUTH-253) Avoid private paths in stripes-core imports. Refs UIMARCAUTH-253.
+
 ## [3.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.1) (2023-03-14)
 
 - [UIMARCAUTH-240](https://issues.folio.org/browse/UIMARCAUTH-240) Incorrect "Job type",  "Output type", "Description" for headings updates report export job
@@ -23,7 +25,7 @@
 - [UIMARCAUTH-208](https://issues.folio.org/browse/UIMARCAUTH-208) Global Heading Report | UX | MARC authority headings updates report
 - [UIMARCAUTH-233](https://issues.folio.org/browse/UIMARCAUTH-233) MARC Authority | Print Source record
 - [UIMARCAUTH-234](https://issues.folio.org/browse/UIMARCAUTH-234) Fix incorrect payload structure for Authorities updates export.
-- [UIMARCAUTH-235](https://issues.folio.org/browse/UIMARCAUTH-235) Changed the print popup title with new requirements 
+- [UIMARCAUTH-235](https://issues.folio.org/browse/UIMARCAUTH-235) Changed the print popup title with new requirements
 - [UIMARCAUTH-238](https://issues.folio.org/browse/UIMARCAUTH-238) Date formats not localized in "Set date range for MARC authority headings updates (CSV) report" modal
 - [UIMARCAUTH-231](https://issues.folio.org/browse/UIMARCAUTH-231) Remove 'Failed updates reports' option from Orchid release.
 - [UIMARCAUTH-237](https://issues.folio.org/browse/UIMARCAUTH-237) Add instance-authority-links.authority-statistics.collection.get.
