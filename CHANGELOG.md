@@ -1,8 +1,10 @@
 # Change history for ui-marc-authorities
 
-## [3.1.0](IN PROGRESS)
+## [3.0.3](IN PROGRESS)
 
-- [UIMARCAUTH-225](https://issues.folio.org/browse/UIMARCAUTH-225) Unpin `@rehooks/local-storage` now that it's no longer broken
+## [3.0.2](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.2) (2023-03-24)
+
+- [UIMARCAUTH-243](https://issues.folio.org/browse/UIMARCAUTH-243) Removed `@folio/stripes-final-form` from peerDeps
 
 ## [3.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.1) (2023-03-14)
 
