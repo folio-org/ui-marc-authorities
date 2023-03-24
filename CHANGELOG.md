@@ -1,10 +1,13 @@
 # Change history for ui-marc-authorities
 
+## [3.0.2](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.2) (2023-03-24)
+
+- [UIMARCAUTH-243](https://issues.folio.org/browse/UIMARCAUTH-243) Removed `@folio/stripes-final-form` from peerDeps
+
 ## [3.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.1) (2023-03-14)
 
 - [UIMARCAUTH-240](https://issues.folio.org/browse/UIMARCAUTH-240) Incorrect "Job type",  "Output type", "Description" for headings updates report export job
 - [UIMARCAUTH-245](https://issues.folio.org/browse/UIMARCAUTH-245) The date format becomes incorrect after clearing the Datepicker field
-- [UIMARCAUTH-243](https://issues.folio.org/browse/UIMARCAUTH-243) Removed `@folio/stripes-final-form` from peerDeps
 
 ## [3.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.0) (2023-02-24)
 
