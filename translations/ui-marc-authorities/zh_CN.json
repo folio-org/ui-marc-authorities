@@ -48,6 +48,6 @@
     "reportModal.endDate.error": "“结束日期”为必填项",
     "reportModal.endDate.error.greaterThan": "“结束日期”必须大于等于“开始日期”",
     "authority-record.print": "印本",
-    "reports.HEADINGS_UPDATES.description": "List of updated MARC authority (1XX) headings",
-    "reports.HEADINGS_UPDATES.outputFormat": "MARC authority headings updates (CSV)"
+    "reports.HEADINGS_UPDATES.description": "更新的 MARC规范 (1XX) 标题列表",
+    "reports.HEADINGS_UPDATES.outputFormat": "MARC规范标题更新 (CSV)"
 }
