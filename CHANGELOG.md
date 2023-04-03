@@ -3,6 +3,9 @@
 ## [3.0.3](IN PROGRESS)
 
 - [UIMARCAUTH-251](https://issues.folio.org/browse/UIMARCAUTH-251) Browse: Fix Space at the begining and end of query string
+- [UIMARCAUTH-261](https://issues.folio.org/browse/UIMARCAUTH-261) Fix tests.
+- [UIMARCAUTH-239](https://issues.folio.org/browse/UIMARCAUTH-239) Detail Record Actions dropdown menu > Add icons to the left of each action
+- [UIMARCAUTH-253](https://issues.folio.org/browse/UIMARCAUTH-253) Avoid private paths in stripes-core imports.
 
 ## [3.0.2](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.2) (2023-03-24)
 
@@ -27,7 +30,7 @@
 - [UIMARCAUTH-208](https://issues.folio.org/browse/UIMARCAUTH-208) Global Heading Report | UX | MARC authority headings updates report
 - [UIMARCAUTH-233](https://issues.folio.org/browse/UIMARCAUTH-233) MARC Authority | Print Source record
 - [UIMARCAUTH-234](https://issues.folio.org/browse/UIMARCAUTH-234) Fix incorrect payload structure for Authorities updates export.
-- [UIMARCAUTH-235](https://issues.folio.org/browse/UIMARCAUTH-235) Changed the print popup title with new requirements 
+- [UIMARCAUTH-235](https://issues.folio.org/browse/UIMARCAUTH-235) Changed the print popup title with new requirements
 - [UIMARCAUTH-238](https://issues.folio.org/browse/UIMARCAUTH-238) Date formats not localized in "Set date range for MARC authority headings updates (CSV) report" modal
 - [UIMARCAUTH-231](https://issues.folio.org/browse/UIMARCAUTH-231) Remove 'Failed updates reports' option from Orchid release.
 - [UIMARCAUTH-237](https://issues.folio.org/browse/UIMARCAUTH-237) Add instance-authority-links.authority-statistics.collection.get.

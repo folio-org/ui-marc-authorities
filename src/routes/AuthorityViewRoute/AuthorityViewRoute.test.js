@@ -13,6 +13,7 @@ jest.mock('@folio/stripes/core', () => ({
   useCallout: () => ({
     sendCallout: mockSendCallout,
   }),
+  useNamespace: () => ['@folio/marc-authorities', jest.fn()],
 }));
 
 jest.mock('@folio/stripes-authority-components', () => ({

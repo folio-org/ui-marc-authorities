@@ -5,7 +5,7 @@ import {
   QueryClientProvider,
 } from 'react-query';
 
-import { StripesContext } from '@folio/stripes-core/src/StripesContext';
+import { StripesContext } from '@folio/stripes/core';
 import {
   AuthoritiesSearchContext,
   AuthoritiesSearchContextProvider,
