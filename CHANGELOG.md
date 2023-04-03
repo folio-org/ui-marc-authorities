@@ -2,6 +2,8 @@
 
 ## [3.0.3](IN PROGRESS)
 
+- [UIMARCAUTH-251](https://issues.folio.org/browse/UIMARCAUTH-251) Browse: Fix Space at the begining and end of query string
+
 ## [3.0.2](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.2) (2023-03-24)
 
 - [UIMARCAUTH-243](https://issues.folio.org/browse/UIMARCAUTH-243) Removed `@folio/stripes-final-form` from peerDeps
