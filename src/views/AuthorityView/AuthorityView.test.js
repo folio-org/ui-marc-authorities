@@ -6,7 +6,7 @@ import {
 import {
   CommandList,
   defaultKeyboardShortcuts,
-} from '@folio/stripes-components';
+} from '@folio/stripes/components';
 import { runAxeTest } from '@folio/stripes-testing';
 
 import Harness from '../../../test/jest/helpers/harness';
