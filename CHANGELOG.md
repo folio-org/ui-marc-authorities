@@ -4,12 +4,11 @@
 
 - [UIMARCAUTH-261](https://issues.folio.org/browse/UIMARCAUTH-261) Fix tests.
 - [UIMARCAUTH-239](https://issues.folio.org/browse/UIMARCAUTH-239) Detail Record Actions dropdown menu > Add icons to the left of each action
+- [UIMARCAUTH-253](https://issues.folio.org/browse/UIMARCAUTH-253) Avoid private paths in stripes-core imports.
 
 ## [3.0.2](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.2) (2023-03-24)
 
 - [UIMARCAUTH-243](https://issues.folio.org/browse/UIMARCAUTH-243) Removed `@folio/stripes-final-form` from peerDeps
-
-* [UIMARCAUTH-253](https://issues.folio.org/browse/UIMARCAUTH-253) Avoid private paths in stripes-core imports. Refs UIMARCAUTH-253.
 
 ## [3.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.1) (2023-03-14)
 
