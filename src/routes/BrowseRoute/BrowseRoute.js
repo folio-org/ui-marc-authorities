@@ -58,7 +58,7 @@ const BrowseRoute = ({ children }) => {
       e.stopPropagation();
     }
 
-    setSearchQuery(searchInputValue);
+    setSearchQuery(searchInputValue.trim());
     setSearchIndex(searchDropdownValue);
     setIsGoingToBaseURL(true);
     setSelectedAuthorityRecordContext(null);
