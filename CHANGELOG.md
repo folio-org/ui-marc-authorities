@@ -2,6 +2,9 @@
 
 ## [3.0.3](IN PROGRESS)
 
+- [UIMARCAUTH-261](https://issues.folio.org/browse/UIMARCAUTH-261) Fix tests.
+- [UIMARCAUTH-239](https://issues.folio.org/browse/UIMARCAUTH-239) Detail Record Actions dropdown menu > Add icons to the left of each action
+
 ## [3.0.2](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.2) (2023-03-24)
 
 - [UIMARCAUTH-243](https://issues.folio.org/browse/UIMARCAUTH-243) Removed `@folio/stripes-final-form` from peerDeps

@@ -22,6 +22,7 @@ import {
   DropdownButton,
   Button,
   ConfirmationModal,
+  Icon,
 } from '@folio/stripes/components';
 import {
   useStripes,
@@ -207,7 +208,9 @@ const AuthorityView = ({
                         buttonStyle="dropdownItem"
                         onClick={redirectToQuickMarcEditPage}
                       >
-                        <FormattedMessage id="ui-marc-authorities.authority-record.edit" />
+                        <Icon icon="edit">
+                          <FormattedMessage id="ui-marc-authorities.authority-record.edit" />
+                        </Icon>
                       </Button>
                     </IfPermission>
                     <IfPermission perm="ui-marc-authorities.authority-record.view">
@@ -215,7 +218,9 @@ const AuthorityView = ({
                         buttonStyle="dropdownItem"
                         onClick={openPrintPopup}
                       >
-                        <FormattedMessage id="ui-marc-authorities.authority-record.print" />
+                        <Icon icon="print">
+                          <FormattedMessage id="ui-marc-authorities.authority-record.print" />
+                        </Icon>
                       </Button>
                     </IfPermission>
                     <IfPermission perm="ui-marc-authorities.authority-record.delete">
@@ -223,7 +228,9 @@ const AuthorityView = ({
                         onClick={() => setDeleteModalOpen(true)}
                         buttonStyle="dropdownItem"
                       >
-                        <FormattedMessage id="ui-marc-authorities.authority-record.delete" />
+                        <Icon icon="trash">
+                          <FormattedMessage id="ui-marc-authorities.authority-record.delete" />
+                        </Icon>
                       </Button>
                     </IfPermission>
                   </DropdownMenu>
