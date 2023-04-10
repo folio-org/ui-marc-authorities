@@ -104,7 +104,8 @@
       "records-editor.records": "3.1"
     },
     "stripesDeps": [
-      "@folio/stripes-acq-components"
+      "@folio/stripes-acq-components",
+      "@folio/stripes-authority-components"
     ],
     "permissionSets": [
       {
