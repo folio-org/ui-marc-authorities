@@ -13,11 +13,9 @@ import { REPORT_TYPES } from '../constants';
 const mockOnClose = jest.fn();
 const mockOnSubmit = jest.fn();
 
-const DEFAULT_LOCALE = 'en-US';
-
 const intl = {
   formatMessage: ({ id }) => id,
-  locale: DEFAULT_LOCALE,
+  locale: 'en-US',
 };
 
 jest.mock('react-intl', () => {
@@ -45,7 +43,7 @@ const renderReportsModal = (props = {}) => render(
 describe('Given ReportsModal', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    intl.locale = DEFAULT_LOCALE;
+    intl.locale = 'en-US';
   });
 
   it('should render with no axe errors', async () => {
