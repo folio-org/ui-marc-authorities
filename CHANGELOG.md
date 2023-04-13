@@ -7,6 +7,7 @@
 - [UIMARCAUTH-239](https://issues.folio.org/browse/UIMARCAUTH-239) Detail Record Actions dropdown menu > Add icons to the left of each action
 - [UIMARCAUTH-253](https://issues.folio.org/browse/UIMARCAUTH-253) Avoid private paths in stripes-core imports.
 - [UIMARCAUTH-260](https://issues.folio.org/browse/UIMARCAUTH-260) Added stripes-authority-components to stripesDeps.
+- [UIMARCAUTH-212](https://issues.folio.org/browse/UIMARCAUTH-212) Global Headings Report | UX | Failed updates: linked bibliographic fields (CSV)
 
 ## [3.0.2](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.2) (2023-03-24)
 
