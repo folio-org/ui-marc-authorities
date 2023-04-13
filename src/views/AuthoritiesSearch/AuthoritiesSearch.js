@@ -72,6 +72,7 @@ import {
 } from '../../constants';
 
 import css from './AuthoritiesSearch.css';
+import { REPORT_TYPES } from './constants';
 
 const prefix = 'authorities';
 const NON_INTERACTIVE_HEADERS = [searchResultListColumns.SELECT];
@@ -441,9 +442,14 @@ const AuthoritiesSearch = ({
   }, [recordToHighlight]);
 
   const onSelectReport = useCallback(reportType => {
-    setReportsModalOpen(true);
     setSelectedReport(reportType);
-  }, []);
+
+    if (reportType === REPORT_TYPES.HEADINGS_UPDATES) {
+      setReportsModalOpen(true);
+    } else {
+      doExport(reportType);
+    }
+  }, [doExport]);
 
   const renderActionMenu = useCallback(({ onToggle }) => {
     return (

@@ -49,10 +49,13 @@
   "reports.marcAuthorityHeadings": "MARC authority headings updates (CSV)",
   "reports.failedUpdates": "Failed updates: linked bibliographic fields (CSV)",
   "reports.HEADINGS_UPDATES.success": "<b>Authority headings updates report (Job ID {name})</b> is being generated. Go to the Export manager app to download report. It may take a few minutes for the report to complete.",
+  "reports.FAILED_UPDATES.success": "<b>Failed linked bibliographic fields updates report (Job ID {name})</b> is being generated. Go to the Export manager app to download report. It may take a few minutes for the report to complete.",
   "reports.fail": "We were unable to create this report. Please try again.",
   "reports.HEADINGS_UPDATES.description": "List of updated MARC authority (1XX) headings",
   "reports.HEADINGS_UPDATES.outputFormat": "MARC authority headings updates (CSV)",
-  
+  "reports.FAILED_UPDATES.description": "List of controlled bibliographic fields failed to update",
+  "reports.FAILED_UPDATES.outputFormat": "Failed updates: Linked bibliographic fields (CSV)",
+
   "reportModal.HEADINGS_UPDATES.label": "Set date range for MARC authority headings updates (CSV) report",
   "reportModal.startDate": "Start date",
   "reportModal.startDate.error": "\"Start date\" is required",
