@@ -40,14 +40,17 @@
     "reports.HEADINGS_UPDATES.success": "<b>Authority headings updates report (Job ID {name})</b> is being generated. Go to the Export manager app to download report. It may take a few minutes for the report to complete.",
     "reports.fail": "We were unable to create this report. Please try again.",
     "reportModal.HEADINGS_UPDATES.label": "Set date range for MARC authority headings updates (CSV) report",
-    "reportModal.startDate": "Start date",
-    "reportModal.endDate": "End date",
-    "reportModal.button.cancel": "Cancel",
-    "reportModal.button.export": "Export",
+    "reportModal.startDate": "開始日",
+    "reportModal.endDate": "終了日",
+    "reportModal.button.cancel": "キャンセル",
+    "reportModal.button.export": "エクスポート",
     "reportModal.startDate.error": "\"Start date\" is required",
     "reportModal.endDate.error": "\"End date\" is required",
     "reportModal.endDate.error.greaterThan": "\"End date\" must be greater than or equal to \"Start date\"",
-    "authority-record.print": "Print",
+    "authority-record.print": "プリント",
     "reports.HEADINGS_UPDATES.description": "List of updated MARC authority (1XX) headings",
-    "reports.HEADINGS_UPDATES.outputFormat": "MARC authority headings updates (CSV)"
+    "reports.HEADINGS_UPDATES.outputFormat": "MARC authority headings updates (CSV)",
+    "reports.FAILED_UPDATES.success": "<b>Failed linked bibliographic fields updates report (Job ID {name})</b> is being generated. Go to the Export manager app to download report. It may take a few minutes for the report to complete.",
+    "reports.FAILED_UPDATES.description": "List of controlled bibliographic fields failed to update",
+    "reports.FAILED_UPDATES.outputFormat": "Failed updates: Linked bibliographic fields (CSV)"
 }
