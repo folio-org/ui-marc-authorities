@@ -143,7 +143,7 @@ const AuthoritiesSearch = ({
   const [isFilterPaneVisible, setIsFilterPaneVisible] = useState(storedFilterPaneVisibility);
   const [showDetailView, setShowDetailView] = useState(false);
   const [reportsModalOpen, setReportsModalOpen] = useState(false);
-  const [selectedReport, setSelectedReport] = useState(null);
+  const selectedReport = useRef(null);
 
   const uniqueAuthoritiesCount = useMemo(() => {
     // determine count of unique ids in authorities array.
@@ -309,7 +309,7 @@ const AuthoritiesSearch = ({
       setReportsModalOpen(false);
       callout.sendCallout({
         type: 'success',
-        message: intl.formatMessage({ id: `ui-marc-authorities.reports.${selectedReport}.success` }, { name: res.name }),
+        message: intl.formatMessage({ id: `ui-marc-authorities.reports.${selectedReport.current}.success` }, { name: res.name }),
       });
     },
     onError: () => {
@@ -322,7 +322,7 @@ const AuthoritiesSearch = ({
   });
 
   const handleReportsSubmit = useCallback(data => {
-    doExport(selectedReport, data);
+    doExport(selectedReport.current, data);
   }, [doExport, selectedReport]);
 
   const getNextSelectedRowsState = row => {
@@ -442,7 +442,7 @@ const AuthoritiesSearch = ({
   }, [recordToHighlight]);
 
   const onSelectReport = useCallback(reportType => {
-    setSelectedReport(reportType);
+    selectedReport.current = reportType;
 
     if (reportType === REPORT_TYPES.HEADINGS_UPDATES) {
       setReportsModalOpen(true);
@@ -622,7 +622,7 @@ const AuthoritiesSearch = ({
       {children}
       <ReportsModal
         open={reportsModalOpen}
-        reportType={selectedReport}
+        reportType={selectedReport.current}
         onClose={() => setReportsModalOpen(false)}
         onSubmit={handleReportsSubmit}
       />
