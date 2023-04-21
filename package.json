@@ -126,6 +126,7 @@
           "inventory-storage.authorities.item.get",
           "data-export.quick.export.post",
           "instance-authority-links.authority-statistics.collection.get",
+          "instance-authority-links.instance-statistics.collection.get",
           "inventory-storage.authority-source-files.collection.get",
           "inventory-storage.authority-source-files.item.get"
         ],
