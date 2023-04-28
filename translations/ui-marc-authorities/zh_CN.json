@@ -50,7 +50,7 @@
     "authority-record.print": "印本",
     "reports.HEADINGS_UPDATES.description": "更新的 MARC规范 (1XX) 标题列表",
     "reports.HEADINGS_UPDATES.outputFormat": "MARC规范标题更新 (CSV)",
-    "reports.FAILED_UPDATES.success": "<b>Failed linked bibliographic fields updates report (Job ID {name})</b> is being generated. Go to the Export manager app to download report. It may take a few minutes for the report to complete.",
-    "reports.FAILED_UPDATES.description": "List of controlled bibliographic fields failed to update",
-    "reports.FAILED_UPDATES.outputFormat": "Failed updates: Linked bibliographic fields (CSV)"
+    "reports.FAILED_UPDATES.success": "<b>正在生成失败的链接书目字段更新报告（任务ID {name} ） </b> 。转到导出管理应用程序以下载报告。报告可能需要几分钟才能完成。",
+    "reports.FAILED_UPDATES.description": "受控书目字段列表更新失败",
+    "reports.FAILED_UPDATES.outputFormat": "更新失败：链接的书目字段 (CSV)"
 }
