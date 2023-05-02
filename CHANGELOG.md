@@ -1,6 +1,6 @@
 # Change history for ui-marc-authorities
 
-## [3.1.0](IN PROGRESS)
+## [4.0.0](IN PROGRESS)
 
 - [UIMARCAUTH-251](https://issues.folio.org/browse/UIMARCAUTH-251) Browse: Fix Space at the begining and end of query string
 - [UIMARCAUTH-261](https://issues.folio.org/browse/UIMARCAUTH-261) Fix tests.
