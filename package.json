@@ -1,6 +1,6 @@
 {
   "name": "@folio/marc-authorities",
-  "version": "4.0.0",
+  "version": "3.0.2",
   "description": "MARC Authorities module",
   "main": "src/index.js",
   "repository": "https://github.com/folio-org/ui-marc-authorities",
@@ -101,7 +101,7 @@
       "search": "1.0",
       "browse": "1.0",
       "source-storage-records": "3.0",
-      "records-editor.records": "4.0"
+      "records-editor.records": "3.1"
     },
     "stripesDeps": [
       "@folio/stripes-acq-components",
