@@ -5,6 +5,11 @@ import { runAxeTest } from '@folio/stripes-testing';
 import BrowseRoute from './BrowseRoute';
 import Harness from '../../../test/jest/helpers/harness';
 
+jest.mock('@folio/stripes-authority-components', () => ({
+  ...jest.requireActual('@folio/stripes-authority-components'),
+  useBrowseResultFocus: jest.fn().mockReturnValue({}),
+}));
+
 jest.mock('../../views', () => ({
   AuthoritiesSearch: ({ children }) => (
     <div>
