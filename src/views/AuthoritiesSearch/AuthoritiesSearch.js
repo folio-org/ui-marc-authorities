@@ -112,6 +112,7 @@ const AuthoritiesSearch = ({
   totalRecords,
   query,
   pageSize,
+  resultsContainerRef,
   onSubmitSearch,
   hidePageIndices,
   hasNextPage,
@@ -603,6 +604,7 @@ const AuthoritiesSearch = ({
           hasPrevPage={hasPrevPage}
           totalResults={totalRecords}
           pageSize={pageSize}
+          resultsContainerRef={resultsContainerRef}
           onNeedMoreData={handleLoadMore}
           loading={isLoading}
           loaded={isLoaded}
