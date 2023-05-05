@@ -94,6 +94,7 @@ const propTypes = {
   onSubmitSearch: PropTypes.func.isRequired,
   pageSize: PropTypes.number.isRequired,
   query: PropTypes.string,
+  resultsContainerRef: PropTypes.node,
   sortedColumn: PropTypes.string.isRequired,
   sortOrder: PropTypes.oneOf([sortOrders.ASC, sortOrders.DES]).isRequired,
   totalRecords: PropTypes.number.isRequired,
@@ -638,6 +639,7 @@ AuthoritiesSearch.defaultProps = {
   query: '',
   hasNextPage: null,
   hasPrevPage: null,
+  resultsContainerRef: null,
 };
 
 export default AuthoritiesSearch;

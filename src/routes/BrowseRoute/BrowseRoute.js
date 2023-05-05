@@ -58,7 +58,7 @@ const BrowseRoute = ({ children }) => {
   const handleNeedMoreData = (...params) => {
     isPaginationClicked.current = true;
     handleLoadMore(...params);
-  }
+  };
 
   const onSubmitSearch = e => {
     if (e && e.preventDefault) {
