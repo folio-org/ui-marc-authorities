@@ -10,6 +10,7 @@
 - [UIMARCAUTH-212](https://issues.folio.org/browse/UIMARCAUTH-212) Global Headings Report | UX | Failed updates: linked bibliographic fields (CSV)
 - [UIMARCAUTH-272](https://issues.folio.org/browse/UIMARCAUTH-272) Upgrade the records-editor.records interface.
 - [UIMARCAUTH-273](https://issues.folio.org/browse/UIMARCAUTH-273) Added missing permission for editing MARC Authority records.
+- [UIMARCAUTH-269](https://issues.folio.org/browse/UIMARCAUTH-269) "Month" dropdown is Not displayed in date picker element opened in modal window
 
 ## [3.0.2](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.2) (2023-03-24)
 

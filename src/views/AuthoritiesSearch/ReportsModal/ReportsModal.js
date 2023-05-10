@@ -55,6 +55,7 @@ const ReportsModal = ({
       data-testid="authorities-report-modal"
       aria-label={intl.formatMessage({ id: `ui-marc-authorities.reportModal.${reportType}.label` })}
       onClose={onClose}
+      enforceFocus={false}
       contentClass={styles.reportsModalContent}
       footer={(
         <ModalFooter>
