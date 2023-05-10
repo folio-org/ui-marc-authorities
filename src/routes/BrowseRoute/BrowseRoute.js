@@ -8,6 +8,7 @@ import {
   AuthoritiesSearchContext,
   SelectedAuthorityRecordContext,
   useAuthoritiesBrowse,
+  useBrowseResultFocus,
 } from '@folio/stripes-authority-components';
 
 import { AuthoritiesSearch } from '../../views';
@@ -52,6 +53,13 @@ const BrowseRoute = ({ children }) => {
     precedingRecordsCount: PRECEDING_RECORDS_COUNT,
   });
 
+  const { resultsContainerRef, isPaginationClicked } = useBrowseResultFocus(isLoading);
+
+  const handleNeedMoreData = (...params) => {
+    isPaginationClicked.current = true;
+    handleLoadMore(...params);
+  };
+
   const onSubmitSearch = e => {
     if (e && e.preventDefault) {
       e.preventDefault();
@@ -88,8 +96,9 @@ const BrowseRoute = ({ children }) => {
       isLoaded={isLoaded}
       query={query}
       pageSize={PAGE_SIZE}
+      resultsContainerRef={resultsContainerRef}
       onSubmitSearch={onSubmitSearch}
-      handleLoadMore={handleLoadMore}
+      handleLoadMore={handleNeedMoreData}
       hidePageIndices
     >
       {children}
