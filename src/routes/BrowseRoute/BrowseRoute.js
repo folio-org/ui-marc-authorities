@@ -33,6 +33,9 @@ const BrowseRoute = ({ children }) => {
     searchInputValue,
     searchDropdownValue,
     setIsGoingToBaseURL,
+    navigationSegmentValue,
+    setBrowsePageQuery,
+    browsePageQuery,
   } = useContext(AuthoritiesSearchContext);
   const [, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
@@ -51,6 +54,9 @@ const BrowseRoute = ({ children }) => {
     searchIndex,
     pageSize: PAGE_SIZE,
     precedingRecordsCount: PRECEDING_RECORDS_COUNT,
+    setBrowsePageQuery,
+    browsePageQuery,
+    navigationSegmentValue,
   });
 
   const { resultsContainerRef, isPaginationClicked } = useBrowseResultFocus(isLoading);
