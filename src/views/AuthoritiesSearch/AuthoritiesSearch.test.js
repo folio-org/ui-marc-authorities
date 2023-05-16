@@ -49,15 +49,22 @@ jest.mock('../../hooks', () => ({
 }));
 
 const mockHandleLoadMore = jest.fn();
-const mockOnChangeSortOption = jest.fn();
+const mockSetSortedColumn = jest.fn();
 const mockOnHeaderClick = jest.fn();
 const mockOnSubmitSearch = jest.fn();
 
-const getAuthoritiesSearch = (props = {}, selectedRecord = null) => (
-  <Harness selectedRecordCtxValue={[selectedRecord, mockSetSelectedAuthorityRecordContext]}>
+const getAuthoritiesSearch = (props = {}, selectedRecord = null, authoritiesCtxValue = {}) => (
+  <Harness
+    selectedRecordCtxValue={[selectedRecord, mockSetSelectedAuthorityRecordContext]}
+    authoritiesCtxValue={{
+      searchQuery: '',
+      filters: [],
+      setSortedColumn: mockSetSortedColumn,
+      ...authoritiesCtxValue,
+    }}
+  >
     <AuthoritiesSearch
       handleLoadMore={mockHandleLoadMore}
-      onChangeSortOption={mockOnChangeSortOption}
       onHeaderClick={mockOnHeaderClick}
       onSubmitSearch={mockOnSubmitSearch}
       authorities={[]}
@@ -68,7 +75,9 @@ const getAuthoritiesSearch = (props = {}, selectedRecord = null) => (
       sortOrder={sortOrders.ASC}
       totalRecords={100}
       {...props}
-    />
+    >
+      <div>children</div>
+    </AuthoritiesSearch>
   </Harness>
 );
 
@@ -293,7 +302,7 @@ describe('Given AuthoritiesSearch', () => {
 
         fireEvent.change(getByTestId('sort-by-selection'), { target: { value: 'headingType' } });
 
-        expect(mockOnChangeSortOption).toHaveBeenCalledWith(searchResultListColumns.HEADING_TYPE);
+        expect(mockSetSortedColumn).toHaveBeenCalledWith(searchResultListColumns.HEADING_TYPE);
       });
 
       describe('when change back to "Relevance" option', () => {
@@ -308,7 +317,7 @@ describe('Given AuthoritiesSearch', () => {
           fireEvent.change(getByTestId('sort-by-selection'), { target: { value: 'headingType' } });
           fireEvent.change(getByTestId('sort-by-selection'), { target: { value: '' } });
 
-          expect(mockOnChangeSortOption).toHaveBeenCalledWith('');
+          expect(mockSetSortedColumn).toHaveBeenCalledWith('');
         });
       });
     });
