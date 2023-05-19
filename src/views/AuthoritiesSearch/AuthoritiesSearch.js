@@ -125,6 +125,7 @@ const AuthoritiesSearch = ({
     filters,
     navigationSegmentValue,
     browsePageQuery,
+    browsePage,
     offset,
     sortOrder,
     sortedColumn,
@@ -237,6 +238,7 @@ const AuthoritiesSearch = ({
       }
     } else {
       queryParams.browsePageQuery = browsePageQuery;
+      queryParams.browsePage = browsePage;
     }
 
     if (navigationSegmentValue) {
@@ -275,6 +277,7 @@ const AuthoritiesSearch = ({
     sortedColumn,
     offset,
     browsePageQuery,
+    browsePage,
   ]);
 
   useEffect(() => {

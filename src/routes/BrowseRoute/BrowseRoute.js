@@ -36,6 +36,8 @@ const BrowseRoute = ({ children }) => {
     navigationSegmentValue,
     setBrowsePageQuery,
     browsePageQuery,
+    browsePage,
+    setBrowsePage,
   } = useContext(AuthoritiesSearchContext);
   const [, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
@@ -56,6 +58,8 @@ const BrowseRoute = ({ children }) => {
     precedingRecordsCount: PRECEDING_RECORDS_COUNT,
     setBrowsePageQuery,
     browsePageQuery,
+    browsePage,
+    setBrowsePage,
     navigationSegmentValue,
   });
 
