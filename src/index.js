@@ -45,8 +45,10 @@ const MarcAuthorities = ({
 
   return (
     <CommandList commands={commands}>
-      <SelectedAuthorityRecordContextProvider>
-        <AuthoritiesSearchContextProvider>
+      <AuthoritiesSearchContextProvider>
+        <SelectedAuthorityRecordContextProvider
+          readParamsFromUrl
+        >
           <MarcAuthoritiesAppContext />
           <KeyShortCutsWrapper focusSearchField={focusSearchField}>
             <Switch>
@@ -59,8 +61,8 @@ const MarcAuthorities = ({
               </Route>
             </Switch>
           </KeyShortCutsWrapper>
-        </AuthoritiesSearchContextProvider>
-      </SelectedAuthorityRecordContextProvider>
+        </SelectedAuthorityRecordContextProvider>
+      </AuthoritiesSearchContextProvider>
     </CommandList>
   );
 };

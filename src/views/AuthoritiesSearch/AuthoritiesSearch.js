@@ -89,22 +89,16 @@ const propTypes = {
   hidePageIndices: PropTypes.bool,
   isLoaded: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  onChangeSortOption: PropTypes.func.isRequired,
   onHeaderClick: PropTypes.func.isRequired,
   onSubmitSearch: PropTypes.func.isRequired,
   pageSize: PropTypes.number.isRequired,
   query: PropTypes.string,
-  resultsContainerRef: PropTypes.node,
-  sortedColumn: PropTypes.string.isRequired,
-  sortOrder: PropTypes.oneOf([sortOrders.ASC, sortOrders.DES]).isRequired,
+  resultsContainerRef: PropTypes.object,
   totalRecords: PropTypes.number.isRequired,
 };
 
 const AuthoritiesSearch = ({
   children,
-  sortOrder,
-  sortedColumn,
-  onChangeSortOption,
   onHeaderClick,
   handleLoadMore,
   authorities,
@@ -130,6 +124,12 @@ const AuthoritiesSearch = ({
     searchIndex,
     filters,
     navigationSegmentValue,
+    browsePageQuery,
+    browsePage,
+    offset,
+    sortOrder,
+    sortedColumn,
+    setSortedColumn,
     isGoingToBaseURL,
     setIsGoingToBaseURL,
   } = useContext(AuthoritiesSearchContext);
@@ -228,14 +228,21 @@ const AuthoritiesSearch = ({
       ...filters,
     };
 
-    if (navigationSegmentValue) {
-      queryParams.segment = navigationSegmentValue;
+    if (navigationSegmentValue === navigationSegments.search) {
+      queryParams.offset = offset;
+
+      if (sortOrder && sortedColumn) {
+        const order = sortOrder === sortOrders.ASC ? '' : '-';
+
+        queryParams.sort = `${order}${sortedColumn}`;
+      }
+    } else {
+      queryParams.browsePageQuery = browsePageQuery;
+      queryParams.browsePage = browsePage;
     }
 
-    if (sortOrder && sortedColumn) {
-      const order = sortOrder === sortOrders.ASC ? '' : '-';
-
-      queryParams.sort = `${order}${sortedColumn}`;
+    if (navigationSegmentValue) {
+      queryParams.segment = navigationSegmentValue;
     }
 
     const searchString = `${buildSearch(queryParams)}`;
@@ -268,6 +275,9 @@ const AuthoritiesSearch = ({
     navigationSegmentValue,
     sortOrder,
     sortedColumn,
+    offset,
+    browsePageQuery,
+    browsePage,
   ]);
 
   useEffect(() => {
@@ -485,7 +495,7 @@ const AuthoritiesSearch = ({
               data-testid="sort-by-selection"
               dataOptions={sortByOptions}
               value={sortedColumn}
-              onChange={e => onChangeSortOption(e.target.value)}
+              onChange={e => setSortedColumn(e.target.value)}
             />
           </MenuSection>
         }
@@ -507,7 +517,7 @@ const AuthoritiesSearch = ({
     exportRecords,
     intl,
     navigationSegmentValue,
-    onChangeSortOption,
+    setSortedColumn,
     selectedRowsCount,
     selectedRowsIds,
     sortByOptions,
@@ -574,7 +584,6 @@ const AuthoritiesSearch = ({
         toggleFilterPane={toggleFilterPane}
         isLoading={isLoading}
         onSubmitSearch={onSubmitSearch}
-        onChangeSortOption={onChangeSortOption}
         resetSelectedRows={resetSelectedRows}
         query={query}
         hasAdvancedSearch

@@ -15,137 +15,67 @@ jest.mock('react-router-dom', () => ({
   }),
 }));
 
+const sortableColumns = [
+  searchResultListColumns.AUTH_REF_TYPE,
+  searchResultListColumns.HEADING_REF,
+  searchResultListColumns.HEADING_TYPE,
+];
+
+const mockSetSortedColumn = jest.fn();
+const mockSetSortOrder = jest.fn();
+
 describe('Given useSortColumnManager', () => {
-  it('should return default values', () => {
-    const { result } = renderHook(() => useSortColumnManager());
-    const {
-      sortOrder,
-      sortedColumn,
-    } = result.current;
-
-    expect(sortOrder).toBe('');
-    expect(sortedColumn).toBe('');
-  });
-
   describe('when handle "onHeaderClick" action', () => {
-    it('should return ascending sortOrder and selected sortedColumn', () => {
-      const { result } = renderHook(() => useSortColumnManager());
+    describe('when clicked column is not the sortable column', () => {
+      it('should not change anything', () => {
+        const { result } = renderHook(() => useSortColumnManager({
+          setSortedColumn: mockSetSortedColumn,
+          setSortOrder: mockSetSortOrder,
+          sortableColumns: [],
+        }));
 
-      act(() => {
-        result.current.onHeaderClick('', { name: searchResultListColumns.AUTH_REF_TYPE });
+        act(() => {
+          result.current.onHeaderClick('', { name: searchResultListColumns.AUTH_REF_TYPE });
+        });
+
+        expect(mockSetSortedColumn).not.toHaveBeenCalled();
+        expect(mockSetSortOrder).not.toHaveBeenCalled();
       });
-
-      expect(result.current.sortOrder).toBe(sortOrders.ASC);
-      expect(result.current.sortedColumn).toBe(searchResultListColumns.AUTH_REF_TYPE);
     });
 
     describe('when given sortableColumns option parameter', () => {
-      it('should return sortOrder and selected sortedColumn for sortableColumns only', () => {
-        const sortableColumns = [
-          searchResultListColumns.AUTH_REF_TYPE,
-          searchResultListColumns.HEADING_REF,
-          searchResultListColumns.HEADING_TYPE,
-        ];
-        const { result } = renderHook(() => useSortColumnManager({ sortableColumns }));
+      it('should change sortedColumn and sortOrder for sortableColumns only', () => {
+        const { result } = renderHook(() => useSortColumnManager({
+          setSortedColumn: mockSetSortedColumn,
+          setSortOrder: mockSetSortOrder,
+          sortableColumns,
+        }));
 
         act(() => {
-          result.current.onHeaderClick('', { name: searchResultListColumns.SELECT });
+          result.current.onHeaderClick('', { name: searchResultListColumns.AUTH_REF_TYPE });
         });
 
-        expect(result.current.sortOrder).toBe('');
-        expect(result.current.sortedColumn).toBe('');
+        expect(mockSetSortedColumn).toHaveBeenCalledWith(searchResultListColumns.AUTH_REF_TYPE);
+        expect(mockSetSortOrder).toHaveBeenCalledWith(sortOrders.ASC);
       });
     });
 
     describe('when handle "onHeaderClick" twice on the same column', () => {
-      it('should return descending sortOrder and selected sortedColumn', () => {
-        const { result } = renderHook(() => useSortColumnManager());
+      it('should change sortOrder to descending', () => {
+        const { result } = renderHook(() => useSortColumnManager({
+          sortOrder: sortOrders.ASC,
+          sortedColumn: searchResultListColumns.AUTH_REF_TYPE,
+          setSortedColumn: mockSetSortedColumn,
+          setSortOrder: mockSetSortOrder,
+          sortableColumns,
+        }));
 
         act(() => {
           result.current.onHeaderClick('', { name: searchResultListColumns.AUTH_REF_TYPE });
         });
 
-        act(() => {
-          result.current.onHeaderClick('', { name: searchResultListColumns.AUTH_REF_TYPE });
-        });
-
-        expect(result.current.sortOrder).toBe(sortOrders.DES);
-        expect(result.current.sortedColumn).toBe(searchResultListColumns.AUTH_REF_TYPE);
+        expect(mockSetSortOrder).toHaveBeenLastCalledWith(sortOrders.DES);
       });
-    });
-
-    describe('when handle "onHeaderClick" three time on the same column', () => {
-      it('should return ascending sortOrder and selected sortedColumn', () => {
-        const { result } = renderHook(() => useSortColumnManager());
-
-        act(() => {
-          result.current.onHeaderClick('', { name: searchResultListColumns.AUTH_REF_TYPE });
-        });
-
-        act(() => {
-          result.current.onHeaderClick('', { name: searchResultListColumns.AUTH_REF_TYPE });
-        });
-
-        act(() => {
-          result.current.onHeaderClick('', { name: searchResultListColumns.AUTH_REF_TYPE });
-        });
-
-        expect(result.current.sortOrder).toBe(sortOrders.ASC);
-        expect(result.current.sortedColumn).toBe(searchResultListColumns.AUTH_REF_TYPE);
-      });
-    });
-  });
-
-  describe('when handle "onChangeSortOption" with empty data', () => {
-    it('should return empty sortOrder and sortedColumn', () => {
-      const { result } = renderHook(() => useSortColumnManager());
-
-      act(() => {
-        result.current.onChangeSortOption('');
-      });
-
-      expect(result.current.sortOrder).toBe('');
-      expect(result.current.sortedColumn).toBe('');
-    });
-  });
-
-  describe('when handle "onChangeSortOption" with sortedColumn option', () => {
-    it('should return ascending sortOrder and selected sortedColumn', () => {
-      const { result } = renderHook(() => useSortColumnManager());
-
-      act(() => {
-        result.current.onChangeSortOption(searchResultListColumns.AUTH_REF_TYPE);
-      });
-
-      expect(result.current.sortOrder).toBe(sortOrders.ASC);
-      expect(result.current.sortedColumn).toBe(searchResultListColumns.AUTH_REF_TYPE);
-    });
-  });
-
-  describe('when handle "onChangeSortOption" with sortedColumn option and sortOrder', () => {
-    it('should return selected sortOrder and selected sortedColumn', () => {
-      const { result } = renderHook(() => useSortColumnManager());
-
-      act(() => {
-        result.current.onChangeSortOption(searchResultListColumns.AUTH_REF_TYPE, sortOrders.ASC);
-      });
-
-      expect(result.current.sortOrder).toBe(sortOrders.ASC);
-      expect(result.current.sortedColumn).toBe(searchResultListColumns.AUTH_REF_TYPE);
-    });
-  });
-
-  describe('when passing initial sort parameters', () => {
-    it('should return correct sortOrder and selected sortedColumn', () => {
-      const { result } = renderHook(() => useSortColumnManager({
-        initialParams: {
-          sort: searchResultListColumns.HEADING_REF,
-          order: sortOrders.DES,
-        },
-      }));
-
-      expect(result.current.sortOrder).toBe(sortOrders.DES);
-      expect(result.current.sortedColumn).toBe(searchResultListColumns.HEADING_REF);
     });
   });
 });

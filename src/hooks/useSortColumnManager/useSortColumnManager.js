@@ -1,17 +1,20 @@
-import { useState } from 'react';
-
 import { sortOrders } from '../../constants';
 
-const useSortColumnManager = options => {
-  const [sortedColumn, setSortedColumn] = useState(options?.initialParams?.sort || '');
-  const [sortOrder, setSortOrder] = useState(options?.initialParams?.order || '');
-
+const useSortColumnManager = ({
+  sortOrder,
+  sortedColumn,
+  setSortOrder,
+  setSortedColumn,
+  sortableColumns,
+}) => {
   const onHeaderClick = (_, metadata) => {
     const { name } = metadata;
 
     let newOrder;
 
-    if (options?.sortableColumns && !options.sortableColumns.includes(name)) return;
+    if (!sortableColumns?.includes(name)) {
+      return;
+    }
 
     if (name !== sortedColumn) {
       setSortedColumn(name);
@@ -25,24 +28,8 @@ const useSortColumnManager = options => {
     setSortOrder(newOrder);
   };
 
-  const onChangeSortOption = (option, order = '') => {
-    let currentOrder;
-
-    if (!order) {
-      currentOrder = option ? sortOrders.ASC : '';
-    } else {
-      currentOrder = order;
-    }
-
-    setSortedColumn(option);
-    setSortOrder(currentOrder);
-  };
-
   return {
-    onChangeSortOption,
     onHeaderClick,
-    sortOrder,
-    sortedColumn,
   };
 };
 

@@ -55,11 +55,11 @@ const Harness = ({
       <StripesContext.Provider value={stripes || STRIPES}>
         <Router history={history}>
           <IntlProvider>
-            <SelectedAuthorityRecordCtxProviderComponent ctxValue={selectedRecordCtxValue}>
-              <AuthoritiesCtxProviderComponent ctxValue={authoritiesCtxValue}>
+            <AuthoritiesCtxProviderComponent ctxValue={authoritiesCtxValue}>
+              <SelectedAuthorityRecordCtxProviderComponent ctxValue={selectedRecordCtxValue}>
                 {children}
-              </AuthoritiesCtxProviderComponent>
-            </SelectedAuthorityRecordCtxProviderComponent>
+              </SelectedAuthorityRecordCtxProviderComponent>
+            </AuthoritiesCtxProviderComponent>
           </IntlProvider>
         </Router>
       </StripesContext.Provider>
