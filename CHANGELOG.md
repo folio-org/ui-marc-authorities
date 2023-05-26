@@ -13,6 +13,7 @@
 - [UIMARCAUTH-269](https://issues.folio.org/browse/UIMARCAUTH-269) "Month" dropdown is Not displayed in date picker element opened in modal window
 - [UIMARCAUTH-264](https://issues.folio.org/browse/UIMARCAUTH-264) Retain `Search` and `Browse` search terms.
 - [UIMARCAUTH-286](https://issues.folio.org/browse/UIMARCAUTH-286) Change records-editor.records interface name and permission names to marc-records-editor
+- [UIMARCAUTH-288](https://issues.folio.org/browse/UIMARCAUTH-288) Add permission to "MARC Authority: View MARC authority record".
 
 ## [3.0.2](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.2) (2023-03-24)
 
