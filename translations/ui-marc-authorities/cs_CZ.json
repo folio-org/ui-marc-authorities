@@ -24,7 +24,7 @@
     "authority-record.delete.success": "Záznam MARC autority <strong> {headingRef} </strong> byl smazán",
     "authority-record.delete.error": "Nelze smazat záznam MARC autority <strong> {headingRef} </strong>. Zkuste to prosím znovu.",
     "export-selected-records": "Export vybraných záznamů (CSV/MARC)",
-    "export.success": "{exportJobName} je dokončen. Stažená .csv obsahuje identifikátory UIID vybraných záznamů. Chcete-li načíst soubor .mrc, přejděte do aplikace Pro export dat.",
+    "export.success": "{exportJobName} je dokončen. Stažený .csv obsahuje identifikátory UIID vybraných záznamů. Chcete-li načíst soubor .mrc, přejděte do aplikace pro export dat.",
     "export.failure": "Export nešlo dokončit, zkuste to prosím znovu.",
     "actions": "Akce",
     "authorities.rows.recordsSelected": "{count, number} {count, plural, one {záznam} other {záznamů}} vybráno",
