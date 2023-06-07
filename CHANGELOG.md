@@ -14,6 +14,7 @@
 - [UIMARCAUTH-264](https://issues.folio.org/browse/UIMARCAUTH-264) Retain `Search` and `Browse` search terms.
 - [UIMARCAUTH-286](https://issues.folio.org/browse/UIMARCAUTH-286) Change records-editor.records interface name and permission names to marc-records-editor
 - [UIMARCAUTH-288](https://issues.folio.org/browse/UIMARCAUTH-288) Add permission to "MARC Authority: View MARC authority record".
+- [UIMARCAUTH-289](https://issues.folio.org/browse/UIMARCAUTH-289) New permission: MARC authority: Create MARC authority record.
 
 ## [3.0.2](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.2) (2023-03-24)
 
