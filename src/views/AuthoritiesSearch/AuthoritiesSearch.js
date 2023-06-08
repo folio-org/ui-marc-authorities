@@ -43,6 +43,7 @@ import {
   AppIcon,
   useNamespace,
   CalloutContext,
+  IfPermission,
 } from '@folio/stripes/core';
 import { buildSearch } from '@folio/stripes-acq-components';
 import {
@@ -485,6 +486,17 @@ const AuthoritiesSearch = ({
             />
             <FormattedMessage id="ui-marc-authorities.export-selected-records" />
           </Button>
+          <IfPermission perm="ui-marc-authorities.authority-record.create">
+            <Button
+              buttonStyle="dropdownItem"
+              id="dropdown-clickable-create-authority"
+              to="/marc-authorities/quick-marc/create-authority"
+            >
+              <Icon icon="plus-sign">
+                <FormattedMessage id="ui-marc-authorities.actions.create" />
+              </Icon>
+            </Button>
+          </IfPermission>
         </MenuSection>
         {navigationSegmentValue !== navigationSegments.browse &&
           <MenuSection
