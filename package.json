@@ -135,6 +135,18 @@
         "visible": true
       },
       {
+        "permissionName": "ui-marc-authorities.authority-record.create",
+        "displayName": "MARC Authority: Create MARC authority record",
+        "subPermissions": [
+          "ui-marc-authorities.authority-record.view",
+          "marc-records-editor.item.post",
+          "instance-authority-links.instances.collection.post",
+          "instance-authority-links.authorities.bulk.post",
+          "marc-records-editor.status.item.get"
+        ],
+        "visible": true
+      },
+      {
         "permissionName": "ui-marc-authorities.authority-record.edit",
         "displayName": "MARC Authority: Edit MARC authority record",
         "subPermissions": [
