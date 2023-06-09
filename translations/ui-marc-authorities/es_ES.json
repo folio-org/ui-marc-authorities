@@ -52,5 +52,6 @@
     "reports.HEADINGS_UPDATES.outputFormat": "MARC authority headings updates (CSV)",
     "reports.FAILED_UPDATES.success": "<b>Failed linked bibliographic fields updates report (Job ID {name})</b> is being generated. Go to the Export manager app to download report. It may take a few minutes for the report to complete.",
     "reports.FAILED_UPDATES.description": "List of controlled bibliographic fields failed to update",
-    "reports.FAILED_UPDATES.outputFormat": "Failed updates: Linked bibliographic fields (CSV)"
+    "reports.FAILED_UPDATES.outputFormat": "Failed updates: Linked bibliographic fields (CSV)",
+    "permission.authority-record.create": "MARC Authority: Create MARC authority record"
 }
