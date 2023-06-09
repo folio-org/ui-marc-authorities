@@ -52,5 +52,6 @@
     "reports.HEADINGS_UPDATES.outputFormat": "Aktualizace nadpisů MARC autorit (CSV)",
     "reports.FAILED_UPDATES.success": "Generuje se <b>Výstup o neúspěšných aktualizacích propojených bibliografických polí (ID úlohy {name})</b>. Přejděte do aplikace Správa exportu a stáhněte si výstup. Dokončení výstupu může trvat několik minut.",
     "reports.FAILED_UPDATES.description": "Seznam řízených bibliografických polí se nepodařilo aktualizovat",
-    "reports.FAILED_UPDATES.outputFormat": "Neúspěšné aktualizace: Propojená bibliografická pole (CSV)"
+    "reports.FAILED_UPDATES.outputFormat": "Neúspěšné aktualizace: Propojená bibliografická pole (CSV)",
+    "permission.authority-record.create": "MARC Authority: Create MARC authority record"
 }

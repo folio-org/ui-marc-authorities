@@ -1,8 +1,8 @@
 {
     "meta.title": "MARC authority",
     "permission.app.enabled": "UI: MARC Authorities module is enabled",
-    "permission.authority-record.view": "View MARC authority record",
-    "permission.authority-record.edit": "Edit MARC authority record",
+    "permission.authority-record.view": "MARC Authority: View MARC authority record",
+    "permission.authority-record.edit": "MARC Authority: Edit MARC authority record",
     "actions.menuSection.sortBy": "Sort by",
     "actions.menuSection.sortBy.relevance": "Relevance",
     "authority-record.edit": "Edit",
@@ -19,7 +19,7 @@
     "shortcut.cut": "Cut",
     "shortcut.paste": "Paste",
     "shortcut.find": "Find",
-    "permission.authority-record.delete": "Delete MARC authority record",
+    "permission.authority-record.delete": "MARC Authority: Delete MARC authority record",
     "authority-record.delete": "Delete",
     "authority-record.delete.success": "MARC authority record <strong> {headingRef} </strong> has been deleted",
     "authority-record.delete.error": "Unable to delete MARC authority record <strong> {headingRef} </strong>. Please try again. ",
@@ -52,5 +52,6 @@
     "reports.HEADINGS_UPDATES.outputFormat": "MARC authority headings updates (CSV)",
     "reports.FAILED_UPDATES.success": "<b>Failed linked bibliographic fields updates report (Job ID {name})</b> is being generated. Go to the Export manager app to download report. It may take a few minutes for the report to complete.",
     "reports.FAILED_UPDATES.description": "List of controlled bibliographic fields failed to update",
-    "reports.FAILED_UPDATES.outputFormat": "Failed updates: Linked bibliographic fields (CSV)"
+    "reports.FAILED_UPDATES.outputFormat": "Failed updates: Linked bibliographic fields (CSV)",
+    "permission.authority-record.create": "MARC Authority: Create MARC authority record"
 }

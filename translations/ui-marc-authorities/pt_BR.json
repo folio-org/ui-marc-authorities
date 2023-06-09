@@ -52,5 +52,6 @@
     "reports.HEADINGS_UPDATES.outputFormat": "Atualizações de cabeçalhos de autoridade MARC (CSV)",
     "reports.FAILED_UPDATES.success": "<b>O relatório de atualizações de campos bibliográficos vinculados com falha (ID do trabalho {name})</b> está sendo gerado. Vá para o aplicativo Gerenciador de exportações para baixar o relatório. Pode levar alguns minutos para que o relatório seja concluído.",
     "reports.FAILED_UPDATES.description": "Lista de campos bibliográficos controlados que não foram atualizados",
-    "reports.FAILED_UPDATES.outputFormat": "Atualizações com falha: Campos bibliográficos vinculados (CSV)"
+    "reports.FAILED_UPDATES.outputFormat": "Atualizações com falha: Campos bibliográficos vinculados (CSV)",
+    "permission.authority-record.create": "Autoridade MARC: Criar registro de autoridade MARC"
 }
