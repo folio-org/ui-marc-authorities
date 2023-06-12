@@ -52,5 +52,6 @@
     "reports.HEADINGS_UPDATES.outputFormat": "Actualización de los encabezamientos de autoridad MARC (CSV)",
     "reports.FAILED_UPDATES.success": "Se está generando <b>un informe de actualizaciones de campos bibliográficos vinculados fallido (ID de trabajo {name})</b>. Vaya a la aplicación Export manager para descargar el informe. El informe puede tardar unos minutos en completarse.",
     "reports.FAILED_UPDATES.description": "No se ha podido actualizar la lista de campos bibliográficos controlados",
-    "reports.FAILED_UPDATES.outputFormat": "Actualizaciones fallidas: Campos bibliográficos vinculados (CSV)"
+    "reports.FAILED_UPDATES.outputFormat": "Actualizaciones fallidas: Campos bibliográficos vinculados (CSV)",
+    "permission.authority-record.create": "MARC Authority: Create MARC authority record"
 }
