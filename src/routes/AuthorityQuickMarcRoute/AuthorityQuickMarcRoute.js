@@ -18,7 +18,7 @@ import { AuthoritiesSearchContext } from '@folio/stripes-authority-components';
 
 import { QUERY_KEY_AUTHORITIES } from '../../constants';
 
-const AuthorityQuickMarcEditRoute = () => {
+const AuthorityQuickMarcRoute = () => {
   const history = useHistory();
   const match = useRouteMatch();
   const location = useLocation();
@@ -27,16 +27,20 @@ const AuthorityQuickMarcEditRoute = () => {
   const { setIsGoingToBaseURL } = useContext(AuthoritiesSearchContext);
 
   const onClose = useCallback(async recordId => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    if (recordId) {
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
-    queryClient.invalidateQueries(namespace);
+      await queryClient.invalidateQueries(namespace);
+    }
+
     setIsGoingToBaseURL(false);
+
     history.push({
-      pathname: `/marc-authorities/authorities/${recordId}`,
+      pathname: `/marc-authorities/authorities/${recordId ?? ''}`,
       search: location.search,
       state: { editSuccessful: true },
     });
-  }, [setIsGoingToBaseURL, location.search, history]);
+  }, [namespace, queryClient, setIsGoingToBaseURL, location.search, history]);
 
   return (
     <Pluggable
@@ -50,4 +54,4 @@ const AuthorityQuickMarcEditRoute = () => {
   );
 };
 
-export default AuthorityQuickMarcEditRoute;
+export default AuthorityQuickMarcRoute;

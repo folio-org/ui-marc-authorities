@@ -485,6 +485,18 @@ const AuthoritiesSearch = ({
             />
             <FormattedMessage id="ui-marc-authorities.export-selected-records" />
           </Button>
+          {/* Uncomment when Create Authority feature should be included in release */}
+          {/* <IfPermission perm="ui-marc-authorities.authority-record.create">
+            <Button
+              buttonStyle="dropdownItem"
+              id="dropdown-clickable-create-authority"
+              to="/marc-authorities/quick-marc/create-authority"
+            >
+              <Icon icon="plus-sign">
+                <FormattedMessage id="ui-marc-authorities.actions.create" />
+              </Icon>
+            </Button>
+          </IfPermission> */}
         </MenuSection>
         {navigationSegmentValue !== navigationSegments.browse &&
           <MenuSection

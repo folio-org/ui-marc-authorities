@@ -136,7 +136,7 @@
       },
       {
         "permissionName": "ui-marc-authorities.authority-record.create",
-        "displayName": "MARC Authority: Create MARC authority record",
+        "displayName": "MARC Authority: Create new MARC authority record",
         "subPermissions": [
           "ui-marc-authorities.authority-record.view",
           "marc-records-editor.item.post",
