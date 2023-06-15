@@ -30,6 +30,9 @@ import {
   CalloutContext,
 } from '@folio/stripes/core';
 import MarcView from '@folio/quick-marc/src/QuickMarcView/QuickMarcView';
+
+import { useAuthorityMappingRules } from '@folio/stripes-authority-components/lib/queries';
+
 import {
   markHighlightedFields,
   SelectedAuthorityRecordContext,
@@ -67,6 +70,8 @@ const AuthorityView = ({
   const history = useHistory();
   const location = useLocation();
   const stripes = useStripes();
+
+  const { authorityMappingRules } = useAuthorityMappingRules();
 
   const [, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
@@ -183,7 +188,7 @@ const AuthorityView = ({
         )}
         isPaneset={false}
         marcTitle={marcTitle}
-        marc={markHighlightedFields(marcSource, authority).data}
+        marc={markHighlightedFields(marcSource, authority, authorityMappingRules).data}
         onClose={onClose}
         lastMenu={
           <>
