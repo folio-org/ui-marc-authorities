@@ -31,11 +31,10 @@ import {
 } from '@folio/stripes/core';
 import MarcView from '@folio/quick-marc/src/QuickMarcView/QuickMarcView';
 
-import { useAuthorityMappingRules } from '@folio/stripes-authority-components/lib/queries';
-
 import {
   markHighlightedFields,
   SelectedAuthorityRecordContext,
+  useAuthorityMappingRules,
 } from '@folio/stripes-authority-components';
 
 import PrintPopup from '@folio/quick-marc/src/QuickMarcView/PrintPopup';
