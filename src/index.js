@@ -20,7 +20,7 @@ import {
   SearchRoute,
   BrowseRoute,
   AuthorityViewRoute,
-  AuthorityQuickMarcEditRoute,
+  AuthorityQuickMarcRoute,
 } from './routes';
 import {
   KeyShortCutsWrapper,
@@ -52,7 +52,7 @@ const MarcAuthorities = ({
           <MarcAuthoritiesAppContext />
           <KeyShortCutsWrapper focusSearchField={focusSearchField}>
             <Switch>
-              <Route path={`${path}/quick-marc`} component={AuthorityQuickMarcEditRoute} />
+              <Route path={`${path}/quick-marc`} component={AuthorityQuickMarcRoute} />
               <Route
                 path={path}
                 component={RouteComponent}

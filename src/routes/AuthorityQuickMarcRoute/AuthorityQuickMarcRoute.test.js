@@ -6,7 +6,7 @@ import {
 
 import { runAxeTest } from '@folio/stripes-testing';
 
-import AuthorityQuickMarcEditRoute from './AuthorityQuickMarcEditRoute';
+import AuthorityQuickMarcRoute from './AuthorityQuickMarcRoute';
 import Harness from '../../../test/jest/helpers/harness';
 
 const mockHistoryPush = jest.fn();
@@ -36,15 +36,15 @@ jest.mock('@folio/stripes-core', () => ({
   ),
 }));
 
-const renderAuthorityQuickMarcEditRoute = () => render(
+const renderAuthorityQuickMarcRoute = () => render(
   <Harness>
-    <AuthorityQuickMarcEditRoute />
+    <AuthorityQuickMarcRoute />
   </Harness>,
 );
 
-describe('Given AuthorityQuickMarcEditRoute', () => {
+describe('Given AuthorityQuickMarcRoute', () => {
   it('should render with no axe errors', async () => {
-    const { container } = renderAuthorityQuickMarcEditRoute();
+    const { container } = renderAuthorityQuickMarcRoute();
 
     await runAxeTest({
       rootNode: container,
@@ -52,7 +52,7 @@ describe('Given AuthorityQuickMarcEditRoute', () => {
   });
 
   it('should render quick marc plugin', () => {
-    const { getByText } = renderAuthorityQuickMarcEditRoute();
+    const { getByText } = renderAuthorityQuickMarcRoute();
 
     expect(getByText('QuickMarcPlugin')).toBeDefined();
   });
@@ -60,7 +60,7 @@ describe('Given AuthorityQuickMarcEditRoute', () => {
   describe('when click on close button', () => {
     it('should handle history.push', async () => {
       jest.useFakeTimers();
-      const { getByText } = renderAuthorityQuickMarcEditRoute();
+      const { getByText } = renderAuthorityQuickMarcRoute();
 
       fireEvent.click(getByText('close'));
       jest.advanceTimersByTime(1000);

@@ -15,6 +15,7 @@
 - [UIMARCAUTH-286](https://issues.folio.org/browse/UIMARCAUTH-286) Change records-editor.records interface name and permission names to marc-records-editor
 - [UIMARCAUTH-288](https://issues.folio.org/browse/UIMARCAUTH-288) Add permission to "MARC Authority: View MARC authority record".
 - [UIMARCAUTH-289](https://issues.folio.org/browse/UIMARCAUTH-289) New permission: MARC authority: Create MARC authority record.
+- [UIMARCAUTH-290](https://issues.folio.org/browse/UIMARCAUTH-290) Create Orig Authority Record: Add MARC authority action.
 - [UIMARCAUTH-291](https://issues.folio.org/browse/UIMARCAUTH-291) Update markHighlightedFields function with authority Mapping Rules
 
 ## [3.0.2](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.2) (2023-03-24)
