@@ -54,5 +54,5 @@
     "reports.FAILED_UPDATES.description": "No se ha podido actualizar la lista de campos bibliográficos controlados",
     "reports.FAILED_UPDATES.outputFormat": "Actualizaciones fallidas: Campos bibliográficos vinculados (CSV)",
     "permission.authority-record.create": "Autoridad MARC: Crear registro de autoridad MARC",
-    "actions.create": "New MARC Authority Record"
+    "actions.create": "Nuevo registro de autoridad MARC"
 }
