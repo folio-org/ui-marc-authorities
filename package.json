@@ -130,7 +130,8 @@
           "instance-authority-links.instance-statistics.collection.get",
           "inventory-storage.authorities.collection.get",
           "inventory-storage.authority-source-files.collection.get",
-          "inventory-storage.authority-source-files.item.get"
+          "inventory-storage.authority-source-files.item.get",
+          "mapping-rules.get"
         ],
         "visible": true
       },
