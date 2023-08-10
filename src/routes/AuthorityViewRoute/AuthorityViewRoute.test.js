@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render } from '@folio/jest-config-stripes/testing-library/react';
 
 import { useMarcSource } from '@folio/stripes-authority-components';
 import { runAxeTest } from '@folio/stripes-testing';

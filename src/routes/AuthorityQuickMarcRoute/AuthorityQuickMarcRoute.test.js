@@ -2,7 +2,7 @@ import {
   fireEvent,
   render,
   waitFor,
-} from '@testing-library/react';
+} from '@folio/jest-config-stripes/testing-library/react';
 
 import { runAxeTest } from '@folio/stripes-testing';
 
@@ -20,8 +20,8 @@ jest.mock('react-router', () => ({
   useRouteMatch: jest.fn().mockReturnValue({ path: '' }),
 }));
 
-jest.mock('@folio/stripes-core', () => ({
-  ...jest.requireActual('@folio/stripes-core'),
+jest.mock('@folio/stripes/core', () => ({
+  ...jest.requireActual('@folio/stripes/core'),
   useNamespace: () => 'namespace',
   Pluggable: ({ onClose }) => (
     <div>

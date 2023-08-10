@@ -1,7 +1,7 @@
 import {
   renderHook,
   act,
-} from '@testing-library/react-hooks';
+} from '@folio/jest-config-stripes/testing-library/react';
 import { searchResultListColumns } from '@folio/stripes-authority-components';
 
 import useSortColumnManager from './useSortColumnManager';
