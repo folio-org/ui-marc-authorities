@@ -1,5 +1,10 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { renderHook, act } from '@testing-library/react-hooks';
+
+import {
+  renderHook,
+  act,
+  waitFor,
+} from '@folio/jest-config-stripes/testing-library/react';
 import { useOkapiKy } from '@folio/stripes/core';
 
 import useAuthorityDelete from './useAuthorityDelete';
@@ -27,16 +32,15 @@ describe('useAuthorityDeleteMutation', () => {
       delete: deleteMock,
     });
 
-    const { result, waitForNextUpdate } = renderHook(
+    const { result } = renderHook(
       () => useAuthorityDelete({ onError: () => {}, onSuccess: successMock }),
       { wrapper },
     );
 
     result.current.deleteItem({ id: 234 });
 
-    await waitForNextUpdate();
+    await act(() => waitFor(() => expect(deleteMock).toHaveBeenCalled()));
 
-    expect(deleteMock).toHaveBeenCalled();
     act(() => jest.advanceTimersByTime(1600));
     expect(await successMock).toHaveBeenCalled();
   });
@@ -49,16 +53,16 @@ describe('useAuthorityDeleteMutation', () => {
       delete: deleteMock,
     });
 
-    const { result, waitForNextUpdate } = renderHook(
+    const { result } = renderHook(
       () => useAuthorityDelete({ onError: errorMock, onSuccess: () => {} }),
       { wrapper },
     );
 
     result.current.deleteItem({ id: 234 });
 
-    await waitForNextUpdate();
-
-    expect(deleteMock).toHaveBeenCalled();
-    expect(errorMock).toHaveBeenCalled();
+    await act(() => waitFor(() => {
+      expect(deleteMock).toHaveBeenCalled();
+      expect(errorMock).toHaveBeenCalled();
+    }));
   });
 });

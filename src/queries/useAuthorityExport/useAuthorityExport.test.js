@@ -2,8 +2,12 @@ import {
   QueryClient,
   QueryClientProvider,
 } from 'react-query';
-import { renderHook } from '@testing-library/react-hooks';
 
+import {
+  act,
+  renderHook,
+  waitFor,
+} from '@folio/jest-config-stripes/testing-library/react';
 import { useOkapiKy } from '@folio/stripes/core';
 
 import useAuthorityExport from './useAuthorityExport';
@@ -22,16 +26,14 @@ describe('useAuthorityExport', () => {
       post: postMock,
     });
 
-    const { result, waitForNextUpdate } = renderHook(
+    const { result } = renderHook(
       () => useAuthorityExport({}),
       { wrapper },
     );
 
     result.current.exportRecords();
 
-    await waitForNextUpdate();
-
-    expect(postMock).toHaveBeenCalled();
+    await act(() => waitFor(() => expect(postMock).toHaveBeenCalled()));
   });
 
   it('should make post request and call onError', async () => {
@@ -42,16 +44,16 @@ describe('useAuthorityExport', () => {
       post: postMock,
     });
 
-    const { result, waitForNextUpdate } = renderHook(
+    const { result } = renderHook(
       () => useAuthorityExport({ onError: errorMock }),
       { wrapper },
     );
 
     result.current.exportRecords([]);
 
-    await waitForNextUpdate();
-
-    expect(postMock).toHaveBeenCalled();
-    expect(errorMock).toHaveBeenCalled();
+    await act(() => waitFor(() => {
+      expect(postMock).toHaveBeenCalled();
+      expect(errorMock).toHaveBeenCalled();
+    }));
   });
 });
