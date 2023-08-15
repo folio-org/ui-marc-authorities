@@ -7,3 +7,5 @@ export const buildDateRangeQuery = name => values => {
 
   return `(metadata.${name}>="${startDateString}" and metadata.${name}<="${endDateString}")`;
 };
+
+export const isConsortiaEnv = stripes => stripes.hasInterface('consortia');
