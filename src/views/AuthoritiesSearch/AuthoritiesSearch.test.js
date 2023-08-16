@@ -469,4 +469,12 @@ describe('Given AuthoritiesSearch', () => {
       expect(mockHistoryPush).toHaveBeenCalledWith('/authorities/cbc03a36-2870-4184-9777-0c44d07edfe4?authRefType=Reference&headingRef=SpringfieldEDITED');
     });
   });
+
+  describe('when Authority record is shared', () => {
+    it('should render shared icon', () => {
+      const { getByText } = renderAuthoritiesSearch({ authorities });
+
+      expect(getByText('stripes-authority-components.search.shared')).toBeInTheDocument();
+    });
+  });
 });

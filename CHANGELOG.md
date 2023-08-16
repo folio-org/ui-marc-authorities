@@ -19,6 +19,7 @@
 - [UIMARCAUTH-291](https://issues.folio.org/browse/UIMARCAUTH-291) Update markHighlightedFields function with authority Mapping Rules. Added new permission to get mapping-rules.
 - [UIMARCAUTH-300](https://issues.folio.org/browse/UIMARCAUTH-300) *BREAKING* Bump `react` to `v18`.
 - [UIMARCAUTH-268](https://issues.folio.org/browse/UIMARCAUTH-268) Add "Local" or "Shared" to flag MARC authorities.
+- [UIMARCAUTH-298](https://issues.folio.org/browse/UIMARCAUTH-298) Add Shared icon to MARC authority search results.
 
 ## [3.0.2](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.2) (2023-03-24)
 

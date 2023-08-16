@@ -56,6 +56,7 @@ import {
   SelectedAuthorityRecordContext,
   useAutoOpenDetailView,
   AUTH_REF_TYPES,
+  SharedIcon,
 } from '@folio/stripes-authority-components';
 import { useHighlightEditedRecord } from '@folio/stripes-authority-components/lib/SearchResultsList/useHighlightEditedRecord';
 
@@ -576,14 +577,17 @@ const AuthoritiesSearch = ({
     );
   };
 
-  const renderHeadingRef = (authority, className) => (
-    <TextLink
-      className={className}
-      to={formatAuthorityRecordLink(authority)}
-    >
-      {authority.headingRef}
-    </TextLink>
-  );
+  const renderHeadingRef = (authority, className) => {
+    return (
+      <TextLink
+        className={className}
+        to={formatAuthorityRecordLink(authority)}
+      >
+        {authority.shared && <SharedIcon authority={authority} />}
+        {authority.headingRef}
+      </TextLink>
+    );
+  };
 
   return (
     <PersistedPaneset
