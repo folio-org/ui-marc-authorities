@@ -41,6 +41,7 @@ import PrintPopup from '@folio/quick-marc/src/QuickMarcView/PrintPopup';
 import { KeyShortCutsWrapper } from '../../components';
 
 import useAuthorityDelete from '../../queries/useAuthoritiesDelete/useAuthorityDelete';
+import { isConsortiaEnv } from '../../utils';
 
 const propTypes = {
   authority: PropTypes.shape({
@@ -51,6 +52,7 @@ const propTypes = {
       headingType: PropTypes.string,
       id: PropTypes.string,
       numberOfTitles: PropTypes.number,
+      shared: PropTypes.bool,
     }),
     isLoading: PropTypes.bool.isRequired,
   }).isRequired,
@@ -162,9 +164,16 @@ const AuthorityView = ({
 
   const marcTitle = intl.formatMessage({
     id: 'stripes-authority-components.marcHeading',
+  }, {
+    shared: isConsortiaEnv(stripes) ? authority.data.shared : null,
   });
 
-  const paneTitle = authority.data.headingRef;
+  const paneTitle = intl.formatMessage({
+    id: 'stripes-authority-components.authorityRecordTitle',
+  }, {
+    shared: isConsortiaEnv(stripes) ? authority.data.shared : null,
+    title: authority.data.headingRef,
+  });
 
   return (
     <KeyShortCutsWrapper
