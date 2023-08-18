@@ -1,6 +1,9 @@
 import { render } from '@folio/jest-config-stripes/testing-library/react';
 
-import { useMarcSource } from '@folio/stripes-authority-components';
+import {
+  useMarcSource,
+  useAuthority,
+} from '@folio/stripes-authority-components';
 import { runAxeTest } from '@folio/stripes-testing';
 
 import AuthorityViewRoute from './AuthorityViewRoute';
@@ -19,14 +22,15 @@ jest.mock('@folio/stripes/core', () => ({
 jest.mock('@folio/stripes-authority-components', () => ({
   ...jest.requireActual('@folio/stripes-authority-components'),
   useMarcSource: jest.fn(),
+  useAuthority: jest.fn(),
 }));
 
 jest.mock('../../views/AuthorityView/AuthorityView', () => function () {
   return <div>AuthorityView</div>;
 });
 
-const renderAuthorityViewRoute = () => render(
-  <Harness>
+const renderAuthorityViewRoute = (selectedRecordCtxValue) => render(
+  <Harness selectedRecordCtxValue={selectedRecordCtxValue}>
     <AuthorityViewRoute />
   </Harness>,
 );
@@ -67,6 +71,43 @@ describe('Given AuthorityViewRoute', () => {
       expect(mockSendCallout).toHaveBeenCalledWith({
         type: 'error',
         message: 'stripes-authority-components.authority.view.error.notFound',
+      });
+    });
+  });
+
+  describe('when authority is shared', () => {
+    it('should fetch data from central tenant', () => {
+      const authority = {
+        shared: true,
+      };
+      const selectedAuthorityCtxValue = [authority];
+
+      renderAuthorityViewRoute(selectedAuthorityCtxValue);
+
+      expect(useMarcSource.mock.calls[0][0]).toEqual({
+        tenantId: 'consortia',
+      });
+      expect(useAuthority.mock.calls[0][0]).toEqual({
+        tenantId: 'consortia',
+      });
+    });
+  });
+
+  describe('when authority is local', () => {
+    it('should fetch data with authority.tenantId', () => {
+      const authority = {
+        shared: false,
+        tenantId: 'university',
+      };
+      const selectedAuthorityCtxValue = [authority];
+
+      renderAuthorityViewRoute(selectedAuthorityCtxValue);
+
+      expect(useMarcSource.mock.calls[0][0]).toEqual({
+        tenantId: authority.tenantId,
+      });
+      expect(useAuthority.mock.calls[0][0]).toEqual({
+        tenantId: authority.tenantId,
       });
     });
   });

@@ -33,6 +33,9 @@ const buildStripes = (otherProperties = {}) => ({
     user: {
       id: 'b1add99d-530b-5912-94f3-4091b4d87e2c',
       username: 'diku_admin',
+      consortium: {
+        centralTenantId: 'consortia',
+      },
     },
   },
   withOkapi: true,
