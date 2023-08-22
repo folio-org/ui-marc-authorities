@@ -53,6 +53,7 @@ const propTypes = {
       id: PropTypes.string,
       numberOfTitles: PropTypes.number,
       shared: PropTypes.bool,
+      tenantId: PropTypes.string,
     }),
     isLoading: PropTypes.bool.isRequired,
   }).isRequired,
@@ -71,8 +72,9 @@ const AuthorityView = ({
   const history = useHistory();
   const location = useLocation();
   const stripes = useStripes();
+  const tenantId = authority.data?.shared ? stripes.user.user.consortium?.centralTenantId : authority.data?.tenantId;
 
-  const { authorityMappingRules } = useAuthorityMappingRules();
+  const { authorityMappingRules } = useAuthorityMappingRules({ tenantId, enabled: Boolean(authority.data) });
 
   const [, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
@@ -198,6 +200,7 @@ const AuthorityView = ({
         marcTitle={marcTitle}
         marc={markHighlightedFields(marcSource, authority, authorityMappingRules).data}
         onClose={onClose}
+        tenantId={authority.data.tenantId}
         lastMenu={
           <>
             {(hasEditPermission || hasDeletePermission) && (

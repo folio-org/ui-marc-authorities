@@ -15,6 +15,7 @@ import omit from 'lodash/omit';
 import {
   useNamespace,
   useCallout,
+  useStripes,
 } from '@folio/stripes/core';
 import {
   SelectedAuthorityRecordContext,
@@ -26,6 +27,7 @@ import { AuthorityView } from '../../views';
 import { QUERY_KEY_AUTHORITY_SOURCE } from '../../constants';
 
 const AuthorityViewRoute = () => {
+  const stripes = useStripes();
   const { params: { id } } = useRouteMatch();
   const location = useLocation();
   const history = useHistory();
@@ -39,6 +41,7 @@ const AuthorityViewRoute = () => {
 
   const headingRef = selectedAuthority?.headingRef || searchParams.headingRef;
   const authRefType = selectedAuthority?.authRefType || searchParams.authRefType;
+  const tenantId = selectedAuthority?.shared ? stripes.user.user.consortium?.centralTenantId : selectedAuthority?.tenantId;
 
   const handleAuthorityLoadError = async err => {
     const errorResponse = await err.response;
@@ -57,10 +60,10 @@ const AuthorityViewRoute = () => {
     });
   };
 
-  const marcSource = useMarcSource(id, {
+  const marcSource = useMarcSource({ recordId: id, tenantId }, {
     onError: handleAuthorityLoadError,
   });
-  const authority = useAuthority(id, authRefType, headingRef, {
+  const authority = useAuthority({ recordId: id, authRefType, headingRef, tenantId }, {
     onError: handleAuthorityLoadError,
   });
 
@@ -68,7 +71,7 @@ const AuthorityViewRoute = () => {
     if (authority && !selectedAuthority) {
       setSelectedAuthority(authority.data);
     }
-  }, [authority.data?.id]);
+  }, [authority?.data?.id]);
 
   return (
     <AuthorityView
