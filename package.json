@@ -109,6 +109,7 @@
           "module.marc-authorities.enabled",
           "browse.authorities.collection.get",
           "marc-records-editor.item.get",
+          "marc-records-editor.links.suggestion.post",
           "search.authorities.collection.get",
           "search.facets.collection.get",
           "source-storage.records.get",
