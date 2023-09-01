@@ -21,6 +21,7 @@
 - [UIMARCAUTH-268](https://issues.folio.org/browse/UIMARCAUTH-268) Add "Local" or "Shared" to flag MARC authorities.
 - [UIMARCAUTH-298](https://issues.folio.org/browse/UIMARCAUTH-298) Add Shared icon to MARC authority search results.
 - [UIMARCAUTH-305](https://issues.folio.org/browse/UIMARCAUTH-305) Change tenant id to central when opening details of Shared Authority.
+- [UIMARCAUTH-305](https://issues.folio.org/browse/UIMARCAUTH-302) Update Node.js to v18 in GitHub Actions.
 - [UIMARCAUTH-317](https://issues.folio.org/browse/UIMARCAUTH-317) Add persmission 'link suggestions' to authority view.
 
 ## [3.0.2](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.2) (2023-03-24)
