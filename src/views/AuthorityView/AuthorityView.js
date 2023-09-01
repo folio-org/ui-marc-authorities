@@ -28,6 +28,7 @@ import {
   useStripes,
   IfPermission,
   CalloutContext,
+  checkIfUserInMemberTenant,
 } from '@folio/stripes/core';
 import MarcView from '@folio/quick-marc/src/QuickMarcView/QuickMarcView';
 
@@ -35,6 +36,7 @@ import {
   markHighlightedFields,
   SelectedAuthorityRecordContext,
   useAuthorityMappingRules,
+  useUserTenantPermissions,
 } from '@folio/stripes-authority-components';
 
 import PrintPopup from '@folio/quick-marc/src/QuickMarcView/PrintPopup';
@@ -72,7 +74,22 @@ const AuthorityView = ({
   const history = useHistory();
   const location = useLocation();
   const stripes = useStripes();
-  const tenantId = authority.data?.shared ? stripes.user.user.consortium?.centralTenantId : authority.data?.tenantId;
+
+  const isShared = authority.data?.shared;
+  const centralTenantId = stripes.user.user?.consortium?.centralTenantId;
+  const tenantId = isShared ? centralTenantId : authority.data?.tenantId;
+  const userId = stripes?.user?.user?.id;
+  const deleteRecordPerm = 'ui-marc-authorities.authority-record.delete';
+
+  const {
+    userPermissions: centralTenantPermissions,
+    isFetching: isCentralTenantPermissionsLoading,
+  } = useUserTenantPermissions({
+    userId,
+    tenantId: centralTenantId,
+  }, {
+    enabled: Boolean(isShared && checkIfUserInMemberTenant(stripes)),
+  });
 
   const { authorityMappingRules } = useAuthorityMappingRules({ tenantId, enabled: Boolean(authority.data) });
 
@@ -84,6 +101,14 @@ const AuthorityView = ({
   const [isShownPrintPopup, setIsShownPrintPopup] = useState(false);
   const openPrintPopup = () => setIsShownPrintPopup(true);
   const closePrintPopup = () => setIsShownPrintPopup(false);
+
+  const hasCentralTenantPerm = perm => {
+    return centralTenantPermissions.some(({ permissionName }) => permissionName === perm);
+  };
+
+  const canDeleteRecord = checkIfUserInMemberTenant(stripes) && isShared
+    ? hasCentralTenantPerm(deleteRecordPerm)
+    : stripes.hasPerm(deleteRecordPerm);
 
   const onClose = useCallback(
     () => {
@@ -103,6 +128,7 @@ const AuthorityView = ({
   );
 
   const { deleteItem } = useAuthorityDelete({
+    tenantId,
     onSettled: () => setDeleteModalOpen(false),
     onError: () => {
       const message = (
@@ -127,7 +153,7 @@ const AuthorityView = ({
     },
   });
 
-  if (marcSource.isLoading || authority.isLoading) {
+  if (marcSource.isLoading || authority.isLoading || isCentralTenantPermissionsLoading) {
     return <LoadingPane id="marc-view-pane" />;
   }
 
@@ -239,7 +265,7 @@ const AuthorityView = ({
                         </Icon>
                       </Button>
                     </IfPermission>
-                    <IfPermission perm="ui-marc-authorities.authority-record.delete">
+                    {canDeleteRecord && (
                       <Button
                         onClick={() => setDeleteModalOpen(true)}
                         buttonStyle="dropdownItem"
@@ -248,7 +274,7 @@ const AuthorityView = ({
                           <FormattedMessage id="ui-marc-authorities.authority-record.delete" />
                         </Icon>
                       </Button>
-                    </IfPermission>
+                    )}
                   </DropdownMenu>
                 )}
               />

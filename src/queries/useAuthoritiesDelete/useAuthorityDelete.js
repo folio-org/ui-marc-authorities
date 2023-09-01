@@ -3,15 +3,14 @@ import {
   useQueryClient,
 } from 'react-query';
 
-import {
-  useOkapiKy,
-  useNamespace,
-} from '@folio/stripes/core';
+import { useNamespace } from '@folio/stripes/core';
+
+import { useTenantKy } from '@folio/stripes-authority-components/lib/temp/hooks/useTenantKy';
 
 import { QUERY_KEY_AUTHORITIES } from '../../constants';
 
-const useAuthorityDelete = ({ onError, onSuccess, ...restOptions }) => {
-  const ky = useOkapiKy();
+const useAuthorityDelete = ({ onError, onSuccess, tenantId, ...restOptions }) => {
+  const ky = useTenantKy({ tenantId });
   const queryClient = useQueryClient();
   const [namespace] = useNamespace({ key: QUERY_KEY_AUTHORITIES });
 
