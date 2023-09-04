@@ -9,6 +9,8 @@ import {
 } from '@folio/stripes/components';
 import { runAxeTest } from '@folio/stripes-testing';
 
+import { useUserTenantPermissions } from '@folio/stripes-authority-components';
+
 import Harness from '../../../test/jest/helpers/harness';
 import AuthorityView from './AuthorityView';
 import { openEditShortcut } from '../../../test/utilities';
@@ -40,6 +42,12 @@ jest.mock('@folio/stripes/components', () => ({
       </div>
     )
     : null)),
+}));
+
+jest.mock('@folio/stripes-authority-components', () => ({
+  ...jest.requireActual('@folio/stripes-authority-components'),
+  useUserTenantPermissions: jest.fn(),
+  useTenantKy: jest.fn(),
 }));
 
 const marcSource = {
@@ -119,6 +127,13 @@ const renderAuthorityView = (props = {}) => render(
 );
 
 describe('Given AuthorityView', () => {
+  beforeEach(() => {
+    useUserTenantPermissions.mockReturnValue({
+      userPermissions: [],
+      isFetching: false,
+    });
+  });
+
   afterEach(() => {
     jest.clearAllMocks();
   });
