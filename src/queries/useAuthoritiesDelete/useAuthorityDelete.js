@@ -5,7 +5,7 @@ import {
 
 import { useNamespace } from '@folio/stripes/core';
 
-import { useTenantKy } from '@folio/stripes-authority-components/lib/temp/hooks/useTenantKy';
+import { useTenantKy } from '@folio/stripes-authority-components';
 
 import { QUERY_KEY_AUTHORITIES } from '../../constants';
 
