@@ -161,7 +161,7 @@ const AuthorityView = ({
     return null;
   }
 
-  if (!authority.data) {
+  if (!marcSource.data) {
     return null;
   }
 
