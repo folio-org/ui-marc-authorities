@@ -85,6 +85,7 @@ describe('Given AuthorityViewRoute', () => {
       renderAuthorityViewRoute(selectedAuthorityCtxValue);
 
       expect(useMarcSource.mock.calls[0][0]).toEqual({
+        enabled: true,
         tenantId: 'consortia',
       });
       expect(useAuthority.mock.calls[0][0]).toEqual({
@@ -104,6 +105,7 @@ describe('Given AuthorityViewRoute', () => {
       renderAuthorityViewRoute(selectedAuthorityCtxValue);
 
       expect(useMarcSource.mock.calls[0][0]).toEqual({
+        enabled: true,
         tenantId: authority.tenantId,
       });
       expect(useAuthority.mock.calls[0][0]).toEqual({

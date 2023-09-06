@@ -60,10 +60,10 @@ const AuthorityViewRoute = () => {
     });
   };
 
-  const marcSource = useMarcSource({ recordId: id, tenantId }, {
+  const authority = useAuthority({ recordId: id, authRefType, headingRef, tenantId }, {
     onError: handleAuthorityLoadError,
   });
-  const authority = useAuthority({ recordId: id, authRefType, headingRef, tenantId }, {
+  const marcSource = useMarcSource({ recordId: id, tenantId, enabled: Boolean(selectedAuthority) }, {
     onError: handleAuthorityLoadError,
   });
 

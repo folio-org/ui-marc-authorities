@@ -24,6 +24,7 @@
 - [UIMARCAUTH-305](https://issues.folio.org/browse/UIMARCAUTH-302) Update Node.js to v18 in GitHub Actions.
 - [UIMARCAUTH-317](https://issues.folio.org/browse/UIMARCAUTH-317) Add persmission 'link suggestions' to authority view.
 - [UIMARCAUTH-284](https://issues.folio.org/browse/UIMARCAUTH-284) Delete Shared MARC authority record.
+- [UIMARCAUTH-313](https://issues.folio.org/browse/UIMARCAUTH-313) Load MARC Authority source file with authority record's `tenantId`.
 
 ## [3.0.2](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.2) (2023-03-24)
 
