@@ -118,6 +118,7 @@
           "inventory-storage.authorities.collection.get",
           "inventory-storage.authority-source-files.collection.get",
           "inventory-storage.authority-source-files.item.get",
+          "perms.users.get",
           "mapping-rules.get"
         ],
         "visible": true
