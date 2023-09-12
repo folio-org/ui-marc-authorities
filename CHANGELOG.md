@@ -25,6 +25,7 @@
 - [UIMARCAUTH-317](https://issues.folio.org/browse/UIMARCAUTH-317) Add persmission 'link suggestions' to authority view.
 - [UIMARCAUTH-284](https://issues.folio.org/browse/UIMARCAUTH-284) Delete Shared MARC authority record.
 - [UIMARCAUTH-313](https://issues.folio.org/browse/UIMARCAUTH-313) Load MARC Authority source file with authority record's `tenantId`.
+- [UIMARCAUTH-285](https://issues.folio.org/browse/UIMARCAUTH-285) Edit Shared MARC authority record, update Shared & Local Instances.
 - [UIMARCAUTH-321](https://issues.folio.org/browse/UIMARCAUTH-321) *BREAKING* bump `react-intl` to `v6.4.4`.
 
 ## [3.0.2](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.2) (2023-03-24)

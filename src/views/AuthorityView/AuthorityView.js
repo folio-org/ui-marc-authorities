@@ -80,6 +80,7 @@ const AuthorityView = ({
   const tenantId = isShared ? centralTenantId : authority.data?.tenantId;
   const userId = stripes?.user?.user?.id;
   const deleteRecordPerm = 'ui-marc-authorities.authority-record.delete';
+  const editRecordPerm = 'ui-marc-authorities.authority-record.edit';
 
   const {
     userPermissions: centralTenantPermissions,
@@ -109,6 +110,9 @@ const AuthorityView = ({
   const canDeleteRecord = checkIfUserInMemberTenant(stripes) && isShared
     ? hasCentralTenantPerm(deleteRecordPerm)
     : stripes.hasPerm(deleteRecordPerm);
+  const canEditRecord = checkIfUserInMemberTenant(stripes) && isShared
+    ? hasCentralTenantPerm(editRecordPerm)
+    : stripes.hasPerm(editRecordPerm);
 
   const onClose = useCallback(
     () => {
@@ -170,6 +174,7 @@ const AuthorityView = ({
 
     searchParams.delete('relatedRecordVersion');
     searchParams.append('relatedRecordVersion', marcSource.data.generation);
+    searchParams.append('shared', isShared);
 
     history.push({
       pathname: `/marc-authorities/quick-marc/edit-authority/${authority.data.id}`,
@@ -245,7 +250,7 @@ const AuthorityView = ({
                     data-role="menu"
                     aria-label="available options"
                   >
-                    <IfPermission perm="ui-marc-authorities.authority-record.edit">
+                    {canEditRecord && (
                       <Button
                         buttonStyle="dropdownItem"
                         onClick={redirectToQuickMarcEditPage}
@@ -254,7 +259,7 @@ const AuthorityView = ({
                           <FormattedMessage id="ui-marc-authorities.authority-record.edit" />
                         </Icon>
                       </Button>
-                    </IfPermission>
+                    )}
                     <IfPermission perm="ui-marc-authorities.authority-record.view">
                       <Button
                         buttonStyle="dropdownItem"
