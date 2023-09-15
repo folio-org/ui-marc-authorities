@@ -94,7 +94,6 @@ const propTypes = {
   onSubmitSearch: PropTypes.func.isRequired,
   pageSize: PropTypes.number.isRequired,
   query: PropTypes.string,
-  resultsContainerRef: PropTypes.object,
   totalRecords: PropTypes.number.isRequired,
 };
 
@@ -108,7 +107,7 @@ const AuthoritiesSearch = ({
   totalRecords,
   query,
   pageSize,
-  resultsContainerRef,
+  pagingOffset,
   onSubmitSearch,
   hidePageIndices,
   hasNextPage,
@@ -630,7 +629,7 @@ const AuthoritiesSearch = ({
           hasPrevPage={hasPrevPage}
           totalResults={totalRecords}
           pageSize={pageSize}
-          resultsContainerRef={resultsContainerRef}
+          pagingOffset={pagingOffset}
           onNeedMoreData={handleLoadMore}
           loading={isLoading}
           loaded={isLoaded}
@@ -664,7 +663,6 @@ AuthoritiesSearch.defaultProps = {
   query: '',
   hasNextPage: null,
   hasPrevPage: null,
-  resultsContainerRef: null,
 };
 
 export default AuthoritiesSearch;

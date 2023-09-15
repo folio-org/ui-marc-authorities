@@ -8,7 +8,6 @@ import {
   AuthoritiesSearchContext,
   SelectedAuthorityRecordContext,
   useAuthoritiesBrowse,
-  useBrowseResultFocus,
 } from '@folio/stripes-authority-components';
 
 import { AuthoritiesSearch } from '../../views';
@@ -63,13 +62,6 @@ const BrowseRoute = ({ children }) => {
     navigationSegmentValue,
   });
 
-  const { resultsContainerRef, isPaginationClicked } = useBrowseResultFocus(isLoading);
-
-  const handleNeedMoreData = (...params) => {
-    isPaginationClicked.current = true;
-    handleLoadMore(...params);
-  };
-
   const onSubmitSearch = e => {
     if (e && e.preventDefault) {
       e.preventDefault();
@@ -106,9 +98,9 @@ const BrowseRoute = ({ children }) => {
       isLoaded={isLoaded}
       query={query}
       pageSize={PAGE_SIZE}
-      resultsContainerRef={resultsContainerRef}
+      pagingOffset={0} // any number allows to always focus on the first row after the pagination change.
       onSubmitSearch={onSubmitSearch}
-      handleLoadMore={handleNeedMoreData}
+      handleLoadMore={handleLoadMore}
       hidePageIndices
     >
       {children}
