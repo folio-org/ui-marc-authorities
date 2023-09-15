@@ -664,7 +664,7 @@ AuthoritiesSearch.defaultProps = {
   query: '',
   hasNextPage: null,
   hasPrevPage: null,
-  pagingOffset: null,
+  pagingOffset: undefined, // undefined is required
 };
 
 export default AuthoritiesSearch;
