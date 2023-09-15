@@ -2,9 +2,7 @@ import { render } from '@folio/jest-config-stripes/testing-library/react';
 
 import { runAxeTest } from '@folio/stripes-testing';
 
-import {
-  useAuthoritiesBrowse,
-} from '@folio/stripes-authority-components';
+import { useAuthoritiesBrowse } from '@folio/stripes-authority-components';
 import BrowseRoute from './BrowseRoute';
 import Harness from '../../../test/jest/helpers/harness';
 import { AuthoritiesSearch } from '../../views';

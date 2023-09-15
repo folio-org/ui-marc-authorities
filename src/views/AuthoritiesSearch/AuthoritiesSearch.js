@@ -93,6 +93,7 @@ const propTypes = {
   onHeaderClick: PropTypes.func.isRequired,
   onSubmitSearch: PropTypes.func.isRequired,
   pageSize: PropTypes.number.isRequired,
+  pagingOffset: PropTypes.number,
   query: PropTypes.string,
   totalRecords: PropTypes.number.isRequired,
 };
@@ -663,6 +664,7 @@ AuthoritiesSearch.defaultProps = {
   query: '',
   hasNextPage: null,
   hasPrevPage: null,
+  pagingOffset: null,
 };
 
 export default AuthoritiesSearch;
