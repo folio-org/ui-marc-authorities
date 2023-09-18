@@ -37,7 +37,7 @@
     "reports": "Berichte",
     "reports.marcAuthorityHeadings": "Aktualisierungen von MARC Normdatenansetzungen (CSV)",
     "reports.failedUpdates": "Fehlgeschlagene Aktualisierungen: Verknüpfte bibliografische Felder (CSV)",
-    "reports.HEADINGS_UPDATES.success": "Der <b>Bericht zur Aktualisierungen der MARC Normdatenansetzungen (Job-ID {Name})</b> wird erstellt. Die App Exportmanager aufrufen, um den Bericht herunterzuladen. Es kann ein paar Minuten dauern, bis der Bericht fertiggestellt ist.",
+    "reports.HEADINGS_UPDATES.success": "Der <b>Bericht zur Aktualisierungen der MARC Normdatenansetzungen (Job-ID {name})</b> wird erstellt. Die App Exportmanager aufrufen, um den Bericht herunterzuladen. Es kann ein paar Minuten dauern, bis der Bericht fertiggestellt ist.",
     "reports.fail": "Der Bericht konnte nicht erstellt werden. Bitte erneut versuchen.",
     "reportModal.HEADINGS_UPDATES.label": "Datumsbereich für die Aktualisierungen von MARC Normdatenansetzungen festlegen",
     "reportModal.startDate": "Startdatum",
