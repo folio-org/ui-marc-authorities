@@ -27,6 +27,7 @@
 - [UIMARCAUTH-313](https://issues.folio.org/browse/UIMARCAUTH-313) Load MARC Authority source file with authority record's `tenantId`.
 - [UIMARCAUTH-285](https://issues.folio.org/browse/UIMARCAUTH-285) Edit Shared MARC authority record, update Shared & Local Instances.
 - [UIMARCAUTH-321](https://issues.folio.org/browse/UIMARCAUTH-321) *BREAKING* bump `react-intl` to `v6.4.4`.
+- [UIMARCAUTH-297](https://issues.folio.org/browse/UIMARCAUTH-297) Don't clear previous Search/Browse results to highlight the edited record.
 
 ## [3.0.2](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.2) (2023-03-24)
 
