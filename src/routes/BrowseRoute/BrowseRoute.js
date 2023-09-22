@@ -98,7 +98,6 @@ const BrowseRoute = ({ children }) => {
       isLoaded={isLoaded}
       query={query}
       pageSize={PAGE_SIZE}
-      pagingOffset={0} // any number allows to always focus on the first row after the pagination change.
       onSubmitSearch={onSubmitSearch}
       handleLoadMore={handleLoadMore}
       hidePageIndices
