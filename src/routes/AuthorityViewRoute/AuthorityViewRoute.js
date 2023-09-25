@@ -68,10 +68,10 @@ const AuthorityViewRoute = () => {
   });
 
   useEffect(() => {
-    if (authority && !selectedAuthority) {
+    if (authority?.data) {
       setSelectedAuthority(authority.data);
     }
-  }, [authority?.data?.id]);
+  }, [authority?.data, setSelectedAuthority]);
 
   return (
     <AuthorityView

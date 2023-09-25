@@ -58,7 +58,6 @@ import {
   AUTH_REF_TYPES,
   SharedIcon,
 } from '@folio/stripes-authority-components';
-import { useHighlightEditedRecord } from '@folio/stripes-authority-components/lib/SearchResultsList/useHighlightEditedRecord';
 
 import { ReportsMenu } from './ReportsMenu';
 import { ReportsModal } from './ReportsModal/ReportsModal';
@@ -134,7 +133,7 @@ const AuthoritiesSearch = ({
   } = useContext(AuthoritiesSearchContext);
   const callout = useContext(CalloutContext);
   const prevQuery = useRef('');
-  const [, setSelectedAuthorityRecord] = useContext(SelectedAuthorityRecordContext);
+  const [selectedAuthority] = useContext(SelectedAuthorityRecordContext);
   const [selectedRows, setSelectedRows] = useState({});
   const [selectAll, setSelectAll] = useState(false);
   const uniqueAuthorities = useMemo(() => authorities.filter(item => !!item.id), [authorities]);
@@ -161,8 +160,6 @@ const AuthoritiesSearch = ({
   const rowExistsInSelectedRows = row => {
     return selectedRowsIds.includes(row.id);
   };
-
-  const recordToHighlight = useHighlightEditedRecord(authorities);
 
   const getSelectAllRowsState = useCallback(() => {
     const newSelectedRows = { ...selectedRows };
@@ -443,14 +440,13 @@ const AuthoritiesSearch = ({
   useAutoOpenDetailView(isLoading ? [] : authorities, redirectToAuthorityRecord, !showDetailView);
 
   useEffect(() => {
-    if (!recordToHighlight) {
+    if (!selectedAuthority) {
       return;
     }
 
-    setSelectedAuthorityRecord(recordToHighlight);
-    redirectToAuthorityRecord(recordToHighlight);
+    redirectToAuthorityRecord(selectedAuthority);
     // eslint-disable-next-line
-  }, [recordToHighlight]);
+  }, [selectedAuthority]);
 
   const onSelectReport = useCallback(reportType => {
     selectedReport.current = reportType;

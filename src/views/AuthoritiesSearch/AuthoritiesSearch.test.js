@@ -426,44 +426,42 @@ describe('Given AuthoritiesSearch', () => {
 
   describe('when there is an updated record to highlight', () => {
     it('should redirect to that updated record', () => {
-      const { rerender } = renderAuthoritiesSearch({
-        authorities: [{
-          id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
-          headingType: 'Geographic Name',
-          authRefType: 'Authorized',
-          headingRef: 'Springfield (Colo.)',
-        }, {
-          id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
-          headingType: 'Geographic Name',
-          authRefType: 'Reference',
-          headingRef: 'Springfield (Colo.) Reference',
-        }],
-        totalResults: 2,
-      }, {
+      const selectedAuthority = {
         id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
         headingType: 'Geographic Name',
         authRefType: 'Reference',
         headingRef: 'Springfield',
-      });
+      };
+
+      const authoritiesData = [{
+        id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
+        headingType: 'Geographic Name',
+        authRefType: 'Authorized',
+        headingRef: 'Springfield (Colo.)',
+      },
+      selectedAuthority,
+      ];
+
+      const headingRefEdited = 'SpringfieldEDITED';
+
+      const { rerender } = renderAuthoritiesSearch({
+        authoritiesData,
+        totalResults: 2,
+      },
+      selectedAuthority);
 
       rerender(getAuthoritiesSearch({
-        authorities: [{
-          id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
-          headingType: 'Geographic Name',
-          authRefType: 'Authorized',
-          headingRef: 'Springfield (Colo.)',
-        }, {
-          id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
-          headingType: 'Geographic Name',
-          authRefType: 'Reference',
-          headingRef: 'SpringfieldEDITED',
-        }],
+        authorities: [
+          authoritiesData[0],
+          {
+            ...authoritiesData[1],
+            headingRef: headingRefEdited,
+          },
+        ],
         totalResults: 2,
       }, {
-        id: 'cbc03a36-2870-4184-9777-0c44d07edfe4',
-        headingType: 'Geographic Name',
-        authRefType: 'Reference',
-        headingRef: 'Springfield',
+        ...selectedAuthority,
+        headingRef: headingRefEdited,
       }));
 
       expect(mockHistoryPush).toHaveBeenCalledWith('/authorities/cbc03a36-2870-4184-9777-0c44d07edfe4?authRefType=Reference&headingRef=SpringfieldEDITED');
