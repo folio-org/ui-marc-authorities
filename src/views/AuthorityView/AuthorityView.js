@@ -2,11 +2,13 @@ import {
   useContext,
   useCallback,
   useState,
+  useEffect,
 } from 'react';
 import PropTypes from 'prop-types';
 import {
   useHistory,
   useLocation,
+  useRouteMatch,
 } from 'react-router';
 import {
   useIntl,
@@ -42,12 +44,14 @@ import {
 import PrintPopup from '@folio/quick-marc/src/QuickMarcView/PrintPopup';
 import { KeyShortCutsWrapper } from '../../components';
 
-import useAuthorityDelete from '../../queries/useAuthoritiesDelete/useAuthorityDelete';
+import {
+  useAuthorityDelete,
+  useAuthorityLinksCount,
+} from '../../queries';
 import { isConsortiaEnv } from '../../utils';
 
 const propTypes = {
   authority: PropTypes.shape({
-    allData: PropTypes.arrayOf(PropTypes.object).isRequired,
     data: PropTypes.shape({
       authRefType: PropTypes.string,
       headingRef: PropTypes.string,
@@ -71,6 +75,7 @@ const AuthorityView = ({
 }) => {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const intl = useIntl();
+  const { params: { id } } = useRouteMatch();
   const history = useHistory();
   const location = useLocation();
   const stripes = useStripes();
@@ -92,16 +97,20 @@ const AuthorityView = ({
     enabled: Boolean(isShared && checkIfUserInMemberTenant(stripes)),
   });
 
+  const { linksCount, fetchLinksCount, isLoading: isLinksCountLoading } = useAuthorityLinksCount();
   const { authorityMappingRules } = useAuthorityMappingRules({ tenantId, enabled: Boolean(authority.data) });
 
   const [, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
   const callout = useContext(CalloutContext);
-  const linkedRecord = authority?.allData.find(authorityRecord => authorityRecord.numberOfTitles);
 
   const [isShownPrintPopup, setIsShownPrintPopup] = useState(false);
   const openPrintPopup = () => setIsShownPrintPopup(true);
   const closePrintPopup = () => setIsShownPrintPopup(false);
+
+  useEffect(() => {
+    fetchLinksCount([id]);
+  }, [fetchLinksCount, id]);
 
   const hasCentralTenantPerm = perm => {
     return centralTenantPermissions.some(({ permissionName }) => permissionName === perm);
@@ -157,7 +166,7 @@ const AuthorityView = ({
     },
   });
 
-  if (marcSource.isLoading || authority.isLoading || isCentralTenantPermissionsLoading) {
+  if (marcSource.isLoading || authority.isLoading || isCentralTenantPermissionsLoading || isLinksCountLoading) {
     return <LoadingPane id="marc-view-pane" />;
   }
 
@@ -297,13 +306,13 @@ const AuthorityView = ({
           id: 'ui-marc-authorities.delete.label',
         })}
         message={
-          linkedRecord
+          linksCount
             ? (
               <FormattedMessage
                 id="ui-marc-authorities.delete.linkedRecord.description"
                 values={{
                   headingRef: authority.data.headingRef,
-                  count: linkedRecord.numberOfTitles,
+                  count: linksCount,
                 }}
               />
             )
