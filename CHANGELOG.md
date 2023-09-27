@@ -29,6 +29,7 @@
 - [UIMARCAUTH-321](https://issues.folio.org/browse/UIMARCAUTH-321) *BREAKING* bump `react-intl` to `v6.4.4`.
 - [UIMARCAUTH-297](https://issues.folio.org/browse/UIMARCAUTH-297) Don't clear previous Search/Browse results to highlight the edited record.
 - [UIMARCAUTH-327](https://issues.folio.org/browse/UIMARCAUTH-327) Remove unnecessary pagingOffset prop.
+- [UIMARCAUTH-314](https://issues.folio.org/browse/UIMARCAUTH-314) Hide permission `MARC Authority: Create new MARC authority record`.
 
 ## [3.0.2](https://github.com/folio-org/ui-marc-authorities/tree/v3.0.2) (2023-03-24)
 
