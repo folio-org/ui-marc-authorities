@@ -14,7 +14,6 @@ import { useUserTenantPermissions } from '@folio/stripes-authority-components';
 import Harness from '../../../test/jest/helpers/harness';
 import AuthorityView from './AuthorityView';
 import { openEditShortcut } from '../../../test/utilities';
-import { useAuthorityLinksCount } from '../../queries';
 
 const mockHistoryPush = jest.fn();
 const mockSetSelectedAuthorityRecordContext = jest.fn();
@@ -49,11 +48,6 @@ jest.mock('@folio/stripes-authority-components', () => ({
   ...jest.requireActual('@folio/stripes-authority-components'),
   useUserTenantPermissions: jest.fn(),
   useTenantKy: jest.fn(),
-}));
-
-jest.mock('../../queries', () => ({
-  ...jest.requireActual('../../queries'),
-  useAuthorityLinksCount: jest.fn(),
 }));
 
 const marcSource = {
@@ -136,11 +130,6 @@ describe('Given AuthorityView', () => {
     useUserTenantPermissions.mockReturnValue({
       userPermissions: [],
       isFetching: false,
-    });
-    useAuthorityLinksCount.mockReturnValue({
-      linksCount: undefined,
-      fetchLinksCount: jest.fn().mockResolvedValue(),
-      isLoading: false,
     });
   });
 
@@ -311,13 +300,14 @@ describe('Given AuthorityView', () => {
 
     describe('and the record is linked to a bib record', () => {
       it('should display the correct message', () => {
-        useAuthorityLinksCount.mockReturnValue({
-          linksCount: 1,
-          fetchLinksCount: jest.fn().mockResolvedValue(),
-          isLoading: false,
+        const { getByText } = renderAuthorityView({
+          authority: {
+            data: {
+              ...authority.data,
+              numberOfTitles: 1,
+            },
+          },
         });
-
-        const { getByText } = renderAuthorityView();
 
         fireEvent.click(getByText('ui-marc-authorities.authority-record.delete'));
 

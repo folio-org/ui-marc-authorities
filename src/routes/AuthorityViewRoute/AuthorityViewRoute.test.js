@@ -75,6 +75,21 @@ describe('Given AuthorityViewRoute', () => {
     });
   });
 
+  describe('when authority is shared/local', () => {
+    it('should fetch the authority from the current tenant', () => {
+      const authority = {
+        shared: true,
+      };
+      const selectedAuthorityCtxValue = [authority];
+
+      renderAuthorityViewRoute(selectedAuthorityCtxValue);
+
+      expect(useAuthority.mock.calls[0][0]).toEqual({
+        tenantId: undefined,
+      });
+    });
+  });
+
   describe('when authority is shared', () => {
     it('should fetch data from central tenant', () => {
       const authority = {
@@ -89,7 +104,7 @@ describe('Given AuthorityViewRoute', () => {
         tenantId: 'consortia',
       });
       expect(useAuthority.mock.calls[0][0]).toEqual({
-        tenantId: 'consortia',
+        tenantId: undefined,
       });
     });
   });
@@ -109,7 +124,7 @@ describe('Given AuthorityViewRoute', () => {
         tenantId: authority.tenantId,
       });
       expect(useAuthority.mock.calls[0][0]).toEqual({
-        tenantId: authority.tenantId,
+        tenantId: undefined,
       });
     });
   });
