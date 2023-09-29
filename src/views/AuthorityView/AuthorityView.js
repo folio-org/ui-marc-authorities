@@ -2,13 +2,11 @@ import {
   useContext,
   useCallback,
   useState,
-  useEffect,
 } from 'react';
 import PropTypes from 'prop-types';
 import {
   useHistory,
   useLocation,
-  useRouteMatch,
 } from 'react-router';
 import {
   useIntl,
@@ -44,10 +42,7 @@ import {
 import PrintPopup from '@folio/quick-marc/src/QuickMarcView/PrintPopup';
 import { KeyShortCutsWrapper } from '../../components';
 
-import {
-  useAuthorityDelete,
-  useAuthorityLinksCount,
-} from '../../queries';
+import { useAuthorityDelete } from '../../queries';
 import { isConsortiaEnv } from '../../utils';
 
 const propTypes = {
@@ -75,7 +70,6 @@ const AuthorityView = ({
 }) => {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const intl = useIntl();
-  const { params: { id } } = useRouteMatch();
   const history = useHistory();
   const location = useLocation();
   const stripes = useStripes();
@@ -86,6 +80,7 @@ const AuthorityView = ({
   const userId = stripes?.user?.user?.id;
   const deleteRecordPerm = 'ui-marc-authorities.authority-record.delete';
   const editRecordPerm = 'ui-marc-authorities.authority-record.edit';
+  const linksCount = authority.data?.numberOfTitles;
 
   const {
     userPermissions: centralTenantPermissions,
@@ -97,7 +92,6 @@ const AuthorityView = ({
     enabled: Boolean(isShared && checkIfUserInMemberTenant(stripes)),
   });
 
-  const { linksCount, fetchLinksCount, isLoading: isLinksCountLoading } = useAuthorityLinksCount();
   const { authorityMappingRules } = useAuthorityMappingRules({ tenantId, enabled: Boolean(authority.data) });
 
   const [, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
@@ -107,10 +101,6 @@ const AuthorityView = ({
   const [isShownPrintPopup, setIsShownPrintPopup] = useState(false);
   const openPrintPopup = () => setIsShownPrintPopup(true);
   const closePrintPopup = () => setIsShownPrintPopup(false);
-
-  useEffect(() => {
-    fetchLinksCount([id]);
-  }, [fetchLinksCount, id]);
 
   const hasCentralTenantPerm = perm => {
     return centralTenantPermissions.some(({ permissionName }) => permissionName === perm);
@@ -166,7 +156,7 @@ const AuthorityView = ({
     },
   });
 
-  if (marcSource.isLoading || authority.isLoading || isCentralTenantPermissionsLoading || isLinksCountLoading) {
+  if (marcSource.isLoading || authority.isLoading || isCentralTenantPermissionsLoading) {
     return <LoadingPane id="marc-view-pane" />;
   }
 

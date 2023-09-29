@@ -60,7 +60,8 @@ const AuthorityViewRoute = () => {
     });
   };
 
-  const authority = useAuthority({ recordId: id, authRefType, headingRef, tenantId }, {
+  // There is no need to change the tenant for this API.
+  const authority = useAuthority({ recordId: id, authRefType, headingRef }, {
     onError: handleAuthorityLoadError,
   });
   const marcSource = useMarcSource({ recordId: id, tenantId, enabled: Boolean(selectedAuthority) }, {
