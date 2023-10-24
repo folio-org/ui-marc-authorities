@@ -30,7 +30,10 @@ import {
   CalloutContext,
   checkIfUserInMemberTenant,
 } from '@folio/stripes/core';
-import MarcView from '@folio/quick-marc/src/QuickMarcView/QuickMarcView';
+import {
+  MarcView,
+  PrintPopup,
+} from '@folio/stripes-marc-components';
 
 import {
   markHighlightedFields,
@@ -39,7 +42,6 @@ import {
   useUserTenantPermissions,
 } from '@folio/stripes-authority-components';
 
-import PrintPopup from '@folio/quick-marc/src/QuickMarcView/PrintPopup';
 import { KeyShortCutsWrapper } from '../../components';
 
 import { useAuthorityDelete } from '../../queries';

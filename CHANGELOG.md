@@ -3,6 +3,7 @@
 ## [4.1.0] IN PROGRESS
 
 - [UIMARCAUTH-304](https://issues.folio.org/browse/UIMARCAUTH-304) Remove eslint deps that are already listed in eslint-config-stripes.
+- [UIMARCAUTH-339](https://issues.folio.org/browse/UIMARCAUTH-339) Replace imports from quick-marc with stripes-marc-components.
 
 ## [4.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v4.0.0) (2023-10-13)
 
