@@ -21,10 +21,10 @@ import {
   SelectedAuthorityRecordContext,
   useMarcSource,
   useAuthority,
+  QUERY_KEY_AUTHORITY_SOURCE,
 } from '@folio/stripes-authority-components';
 
 import { AuthorityView } from '../../views';
-import { QUERY_KEY_AUTHORITY_SOURCE } from '../../constants';
 
 const AuthorityViewRoute = () => {
   const stripes = useStripes();

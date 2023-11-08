@@ -209,6 +209,7 @@ const AuthoritiesSearch = ({
     [searchResultListColumns.AUTH_REF_TYPE]: <FormattedMessage id="stripes-authority-components.search-results-list.authRefType" />,
     [searchResultListColumns.HEADING_REF]: <FormattedMessage id="stripes-authority-components.search-results-list.headingRef" />,
     [searchResultListColumns.HEADING_TYPE]: <FormattedMessage id="stripes-authority-components.search-results-list.headingType" />,
+    [searchResultListColumns.AUTHORITY_SOURCE]: intl.formatMessage({ id: 'stripes-authority-components.search-results-list.authoritySource' }),
     [searchResultListColumns.NUMBER_OF_TITLES]: <FormattedMessage id="ui-marc-authorities.search-results-list.numberOfTitles" />,
   }), [selectAll, selectAllLabel, toggleSelectAll]);
 
@@ -622,6 +623,7 @@ const AuthoritiesSearch = ({
             [searchResultListColumns.AUTH_REF_TYPE]: '200px',
             [searchResultListColumns.HEADING_REF]: '600px',
             [searchResultListColumns.HEADING_TYPE]: '200px',
+            [searchResultListColumns.AUTHORITY_SOURCE]: '250px',
           }}
           formatter={formatter}
           hasNextPage={hasNextPage}
