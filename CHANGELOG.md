@@ -3,6 +3,7 @@
 ## [5.0.0] IN PROGRESS
 
 - [UIMARCAUTH-339](https://issues.folio.org/browse/UIMARCAUTH-339) *BREAKING* Replace imports from quick-marc with stripes-marc-components.
+- [UIMARCAUTH-343](https://issues.folio.org/browse/UIMARCAUTH-343) Add new column called Authority source for the browse and search results.
 
 ## [4.1.0] IN PROGRESS
 

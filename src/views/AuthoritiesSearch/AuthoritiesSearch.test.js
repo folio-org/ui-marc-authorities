@@ -40,6 +40,10 @@ jest.mock('@folio/stripes-authority-components', () => ({
       <button type="button" data-testid="reset-all" onClick={() => props.resetSelectedRows()}>Reset all</button>
     </div>
   ),
+  useAuthoritySourceFiles: jest.fn().mockReturnValue({
+    isLoading: false,
+    sourceFiles: [],
+  }),
 }));
 
 jest.mock('../../hooks', () => ({
@@ -85,6 +89,7 @@ const renderAuthoritiesSearch = (...params) => render(getAuthoritiesSearch(...pa
 
 describe('Given AuthoritiesSearch', () => {
   beforeEach(() => {
+    sessionStorage.clear();
     useSortColumnManager.mockImplementation(jest.requireActual('../../hooks').useSortColumnManager);
   });
 
@@ -476,5 +481,15 @@ describe('Given AuthoritiesSearch', () => {
 
       expect(getByText('stripes-authority-components.search.shared')).toBeInTheDocument();
     });
+  });
+
+  it('should display columns', () => {
+    const { getByRole } = renderAuthoritiesSearch({ authorities });
+
+    expect(getByRole('columnheader', { name: 'stripes-authority-components.search-results-list.authRefType' })).toBeVisible();
+    expect(getByRole('columnheader', { name: 'stripes-authority-components.search-results-list.headingRef' })).toBeVisible();
+    expect(getByRole('columnheader', { name: 'stripes-authority-components.search-results-list.headingType' })).toBeVisible();
+    expect(getByRole('columnheader', { name: 'stripes-authority-components.search-results-list.authoritySource' })).toBeVisible();
+    expect(getByRole('columnheader', { name: 'ui-marc-authorities.search-results-list.numberOfTitles' })).toBeVisible();
   });
 });
