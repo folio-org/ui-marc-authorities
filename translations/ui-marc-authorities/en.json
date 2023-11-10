@@ -6,7 +6,7 @@
   "export.failure": "Unable to complete request, please try again.",
 
   "actions": "Actions",
-  "actions.create": "New MARC Authority Record",
+  "actions.create": "New",
   "actions.menuSection.sortBy": "Sort by",
   "actions.menuSection.sortBy.relevance": "Relevance",
 
