@@ -4,6 +4,7 @@
 
 - [UIMARCAUTH-339](https://issues.folio.org/browse/UIMARCAUTH-339) *BREAKING* Replace imports from quick-marc with stripes-marc-components.
 - [UIMARCAUTH-343](https://issues.folio.org/browse/UIMARCAUTH-343) Add new column called Authority source for the browse and search results.
+- [UIMARCAUTH-352](https://issues.folio.org/browse/UIMARCAUTH-352) Change create MARC authority action label.
 
 ## [4.1.0] IN PROGRESS
 
