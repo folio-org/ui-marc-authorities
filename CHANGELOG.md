@@ -1,5 +1,9 @@
 # Change history for ui-marc-authorities
 
+## [4.0.1] (IN PROGRESS)
+
+- [UIMARCAUTH-351](https://issues.folio.org/browse/UIMARCAUTH-351) Clear selected authority record data before opening another one.
+
 ## [4.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v4.0.0) (2023-10-13)
 
 - [UIMARCAUTH-251](https://issues.folio.org/browse/UIMARCAUTH-251) Browse: Fix Space at the begining and end of query string

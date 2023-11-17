@@ -430,6 +430,7 @@ const AuthoritiesSearch = ({
   }, [match.path, location.search]);
 
   const redirectToAuthorityRecord = useCallback(authority => {
+    setSelectedAuthorityRecord(null);
     history.push(formatAuthorityRecordLink(authority));
   }, [history, formatAuthorityRecordLink]);
 
