@@ -6,6 +6,7 @@
 - [UIMARCAUTH-343](https://issues.folio.org/browse/UIMARCAUTH-343) Add new column called Authority source for the browse and search results.
 - [UIMARCAUTH-352](https://issues.folio.org/browse/UIMARCAUTH-352) Change create MARC authority action label.
 - [UIMARCAUTH-351](https://issues.folio.org/browse/UIMARCAUTH-351) Clear selected authority record data before opening another one.
+- [UIMARCAUTH-336](https://issues.folio.org/browse/UIMARCAUTH-336) Show  permissions for creating new authority record via UI.
 
 ## [4.1.0] IN PROGRESS
 

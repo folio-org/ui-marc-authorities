@@ -43,6 +43,7 @@ import {
   AppIcon,
   useNamespace,
   CalloutContext,
+  IfPermission,
 } from '@folio/stripes/core';
 import { buildSearch } from '@folio/stripes-acq-components';
 import {
@@ -486,8 +487,7 @@ const AuthoritiesSearch = ({
             />
             <FormattedMessage id="ui-marc-authorities.export-selected-records" />
           </Button>
-          {/* Uncomment when Create Authority feature should be included in release */}
-          {/* <IfPermission perm="ui-marc-authorities.authority-record.create">
+          <IfPermission perm="ui-marc-authorities.authority-record.create">
             <Button
               buttonStyle="dropdownItem"
               id="dropdown-clickable-create-authority"
@@ -497,7 +497,7 @@ const AuthoritiesSearch = ({
                 <FormattedMessage id="ui-marc-authorities.actions.create" />
               </Icon>
             </Button>
-          </IfPermission> */}
+          </IfPermission>
         </MenuSection>
         {navigationSegmentValue !== navigationSegments.browse &&
           <MenuSection
