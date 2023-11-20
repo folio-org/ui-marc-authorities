@@ -149,6 +149,37 @@
           "marc-records-editor.item.delete"
         ],
         "visible": true
+      },
+      {
+        "permissionName": "settings.marc-authorities.enabled",
+        "displayName": "Settings (MARC authority): Module is enabled.",
+        "subPermissions": [
+          "settings.enabled"
+        ],
+        "visible": false
+      },
+      {
+        "permissionName": "ui-marc-authorities.settings.authority-files.view",
+        "displayName": "Settings (MARC authority): View authority files",
+        "subPermissions": [
+          "settings.marc-authorities.enabled",
+          "inventory-storage.authority-source-files.collection.get",
+          "inventory-storage.authority-source-files.item.get"
+        ],
+        "visible": true
+      },
+      {
+        "permissionName": "ui-marc-authorities.settings.authority-files.all",
+        "displayName": "Settings (MARC authority): Create, edit, delete authority files",
+        "subPermissions": [
+          "settings.marc-authorities.enabled",
+          "ui-marc-authorities.settings.authority-files.view",
+          "inventory-storage.authority-source-files.item.post",
+          "inventory-storage.authority-source-files.item.put",
+          "inventory-storage.authority-source-files.item.patch",
+          "inventory-storage.authority-source-files.item.delete"
+        ],
+        "visible": true
       }
     ]
   }
