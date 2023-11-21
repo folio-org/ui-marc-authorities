@@ -54,5 +54,7 @@
     "reports.FAILED_UPDATES.description": "Seznam řízených bibliografických polí se nepodařilo aktualizovat",
     "reports.FAILED_UPDATES.outputFormat": "Neúspěšné aktualizace: Propojená bibliografická pole (CSV)",
     "permission.authority-record.create": "MARC autorita: Vytvořit nový záznam MARC autority",
-    "actions.create": "Nový"
+    "actions.create": "Nový",
+    "permission.settings.authority-files.view": "Nastavení (MARC autorita): Zobrazení souborů autorit",
+    "permission.settings.authority-files.all": "Nastavení (MARC autorita): Vytváření, úpravy, mazání souborů autorit"
 }

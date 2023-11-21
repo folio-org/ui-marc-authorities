@@ -54,5 +54,7 @@
     "reports.FAILED_UPDATES.description": "List of controlled bibliographic fields failed to update",
     "reports.FAILED_UPDATES.outputFormat": "Failed updates: Linked bibliographic fields (CSV)",
     "permission.authority-record.create": "MARC Authority: Create new MARC authority record",
-    "actions.create": "New"
+    "actions.create": "New",
+    "permission.settings.authority-files.view": "Settings (MARC authority): View authority files",
+    "permission.settings.authority-files.all": "Settings (MARC authority): Create, edit, delete authority files"
 }
