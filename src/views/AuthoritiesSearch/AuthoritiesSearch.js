@@ -43,6 +43,7 @@ import {
   AppIcon,
   useNamespace,
   CalloutContext,
+  IfPermission,
 } from '@folio/stripes/core';
 import { buildSearch } from '@folio/stripes-acq-components';
 import {
@@ -488,8 +489,7 @@ const AuthoritiesSearch = ({
             />
             <FormattedMessage id="ui-marc-authorities.export-selected-records" />
           </Button>
-          {/* Uncomment when Create Authority feature should be included in release */}
-          {/* <IfPermission perm="ui-marc-authorities.authority-record.create">
+          <IfPermission perm="ui-marc-authorities.authority-record.create">
             <Button
               buttonStyle="dropdownItem"
               id="dropdown-clickable-create-authority"
@@ -499,7 +499,7 @@ const AuthoritiesSearch = ({
                 <FormattedMessage id="ui-marc-authorities.actions.create" />
               </Icon>
             </Button>
-          </IfPermission> */}
+          </IfPermission>
         </MenuSection>
         {navigationSegmentValue !== navigationSegments.browse &&
           <MenuSection
@@ -622,10 +622,10 @@ const AuthoritiesSearch = ({
           columnMapping={columnMapping}
           columnWidths={{
             [searchResultListColumns.SELECT]: '30px',
-            [searchResultListColumns.NUMBER_OF_TITLES]: '150px',
-            [searchResultListColumns.AUTH_REF_TYPE]: '200px',
-            [searchResultListColumns.HEADING_REF]: '600px',
-            [searchResultListColumns.HEADING_TYPE]: '200px',
+            [searchResultListColumns.NUMBER_OF_TITLES]: '140px',
+            [searchResultListColumns.AUTH_REF_TYPE]: '190px',
+            [searchResultListColumns.HEADING_REF]: '350px',
+            [searchResultListColumns.HEADING_TYPE]: '170px',
             [searchResultListColumns.AUTHORITY_SOURCE]: '250px',
           }}
           formatter={formatter}
