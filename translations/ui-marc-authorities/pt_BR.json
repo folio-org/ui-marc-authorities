@@ -54,5 +54,7 @@
     "reports.FAILED_UPDATES.description": "Lista de campos bibliográficos controlados que não foram atualizados",
     "reports.FAILED_UPDATES.outputFormat": "Atualizações com falha: Campos bibliográficos vinculados (CSV)",
     "permission.authority-record.create": "Autoridade MARC: Criar registro de autoridade MARC",
-    "actions.create": "Novo"
+    "actions.create": "Novo",
+    "permission.settings.authority-files.view": "Configurações (autoridade MARC): visualizar arquivos de autoridade",
+    "permission.settings.authority-files.all": "Configurações (autoridade MARC): Criar, editar, excluir arquivos de autoridade"
 }
