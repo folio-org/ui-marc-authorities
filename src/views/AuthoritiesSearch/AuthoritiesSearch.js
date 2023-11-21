@@ -620,10 +620,10 @@ const AuthoritiesSearch = ({
           columnMapping={columnMapping}
           columnWidths={{
             [searchResultListColumns.SELECT]: '30px',
-            [searchResultListColumns.NUMBER_OF_TITLES]: '150px',
-            [searchResultListColumns.AUTH_REF_TYPE]: '200px',
-            [searchResultListColumns.HEADING_REF]: '600px',
-            [searchResultListColumns.HEADING_TYPE]: '200px',
+            [searchResultListColumns.NUMBER_OF_TITLES]: '140px',
+            [searchResultListColumns.AUTH_REF_TYPE]: '190px',
+            [searchResultListColumns.HEADING_REF]: '350px',
+            [searchResultListColumns.HEADING_TYPE]: '170px',
             [searchResultListColumns.AUTHORITY_SOURCE]: '250px',
           }}
           formatter={formatter}
