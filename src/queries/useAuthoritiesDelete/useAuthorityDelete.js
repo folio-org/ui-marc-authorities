@@ -26,7 +26,7 @@ const useAuthorityDelete = ({ onError, onSuccess, tenantId, ...restOptions }) =>
 
   const { mutate } = useMutation({
     mutationFn: id => {
-      return ky.delete(`records-editor/records/${id}`);
+      return ky.delete(`authority-storage/authorities/${id}`);
     },
     ...customOptions,
     ...restOptions,
