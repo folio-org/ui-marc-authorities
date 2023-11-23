@@ -9,6 +9,7 @@
 - [UIMARCAUTH-340](https://issues.folio.org/browse/UIMARCAUTH-340) *BREAKING* Change API URL to delete MARC authority record.
 - [UIMARCAUTH-344](https://issues.folio.org/browse/UIMARCAUTH-344) Added permissions for viewing and editing/creating/deleting Authority Source files in Settings
 - [UIMARCAUTH-336](https://issues.folio.org/browse/UIMARCAUTH-336) Show  permissions for creating new authority record via UI.
+- [UIMARCAUTH-353](https://issues.folio.org/browse/UIMARCAUTH-353) Use first page Browse query for facet requests
 
 ## [4.1.0] IN PROGRESS
 

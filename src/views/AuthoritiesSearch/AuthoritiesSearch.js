@@ -85,6 +85,7 @@ const propTypes = {
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]).isRequired,
+  firstPageQuery: PropTypes.string.isRequired,
   handleLoadMore: PropTypes.func.isRequired,
   hasNextPage: PropTypes.bool,
   hasPrevPage: PropTypes.bool,
@@ -107,6 +108,7 @@ const AuthoritiesSearch = ({
   isLoaded,
   totalRecords,
   query,
+  firstPageQuery,
   pageSize,
   onSubmitSearch,
   hidePageIndices,
@@ -601,7 +603,7 @@ const AuthoritiesSearch = ({
         isLoading={isLoading}
         onSubmitSearch={onSubmitSearch}
         resetSelectedRows={resetSelectedRows}
-        query={query}
+        query={firstPageQuery}
         hasAdvancedSearch
       />
       <Pane

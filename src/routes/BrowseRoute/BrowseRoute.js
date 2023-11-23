@@ -48,6 +48,7 @@ const BrowseRoute = ({ children }) => {
     isLoaded,
     handleLoadMore,
     query,
+    firstPageQuery,
     totalRecords,
   } = useAuthoritiesBrowse({
     filters,
@@ -97,6 +98,7 @@ const BrowseRoute = ({ children }) => {
       isLoading={isLoading}
       isLoaded={isLoaded}
       query={query}
+      firstPageQuery={firstPageQuery}
       pageSize={PAGE_SIZE}
       onSubmitSearch={onSubmitSearch}
       handleLoadMore={handleLoadMore}
