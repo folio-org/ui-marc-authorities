@@ -54,5 +54,7 @@
     "reports.FAILED_UPDATES.description": "List of controlled bibliographic fields failed to update",
     "reports.FAILED_UPDATES.outputFormat": "Fehlgeschlagene Aktualisierungen: Verknüpfte bibliografische Felder",
     "permission.authority-record.create": "MARC Normdaten: neuer MARC Normdatensatz erstellen",
-    "actions.create": "Neuer MARC Normdatensatz"
+    "actions.create": "Neuer MARC Normdatensatz",
+    "permission.settings.authority-files.view": "Settings (MARC authority): View authority files",
+    "permission.settings.authority-files.all": "Settings (MARC authority): Create, edit, delete authority files"
 }
