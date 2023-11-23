@@ -146,7 +146,7 @@
         "permissionName": "ui-marc-authorities.authority-record.delete",
         "displayName": "MARC Authority: Delete MARC authority record",
         "subPermissions": [
-          "marc-records-editor.item.delete"
+          "inventory-storage.authorities.item.delete"
         ],
         "visible": true
       },
