@@ -105,6 +105,7 @@ const marcSource = {
 };
 
 const authority = {
+  allData: [],
   data: {
     id: 'authority-id',
     headingRef: 'heading-ref',
@@ -141,10 +142,12 @@ describe('Given AuthorityView', () => {
     it('should show loading pane', () => {
       const { getByText } = renderAuthorityView({
         marcSource: {
+          allData: [],
           data: {},
           isLoading: true,
         },
         authority: {
+          allData: [],
           data: {},
           isLoading: true,
         },
@@ -302,10 +305,11 @@ describe('Given AuthorityView', () => {
       it('should display the correct message', () => {
         const { getByText } = renderAuthorityView({
           authority: {
-            data: {
+            ...authority,
+            allData: [{
               ...authority.data,
               numberOfTitles: 1,
-            },
+            }],
           },
         });
 

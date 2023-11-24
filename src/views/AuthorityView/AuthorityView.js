@@ -49,6 +49,7 @@ import { isConsortiaEnv } from '../../utils';
 
 const propTypes = {
   authority: PropTypes.shape({
+    allData: PropTypes.arrayOf(PropTypes.object).isRequired,
     data: PropTypes.shape({
       authRefType: PropTypes.string,
       headingRef: PropTypes.string,
@@ -82,7 +83,7 @@ const AuthorityView = ({
   const userId = stripes?.user?.user?.id;
   const deleteRecordPerm = 'ui-marc-authorities.authority-record.delete';
   const editRecordPerm = 'ui-marc-authorities.authority-record.edit';
-  const linksCount = authority.data?.numberOfTitles;
+  const linkedRecord = authority?.allData.find(authorityRecord => authorityRecord.numberOfTitles);
 
   const {
     userPermissions: centralTenantPermissions,
@@ -298,13 +299,13 @@ const AuthorityView = ({
           id: 'ui-marc-authorities.delete.label',
         })}
         message={
-          linksCount
+          linkedRecord
             ? (
               <FormattedMessage
                 id="ui-marc-authorities.delete.linkedRecord.description"
                 values={{
                   headingRef: authority.data.headingRef,
-                  count: linksCount,
+                  count: linkedRecord.numberOfTitles,
                 }}
               />
             )
