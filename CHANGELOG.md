@@ -15,6 +15,10 @@
 
 - [UIMARCAUTH-304](https://issues.folio.org/browse/UIMARCAUTH-304) Remove eslint deps that are already listed in eslint-config-stripes.
 
+## [4.0.1] IN PROGRESS
+
+- [UIMARCAUTH-358](https://issues.folio.org/browse/UIMARCAUTH-358) Show the number of linked MARC bibs in delete confirmation modal when deleting non-authorized authority.
+
 ## [4.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v4.0.0) (2023-10-13)
 
 - [UIMARCAUTH-251](https://issues.folio.org/browse/UIMARCAUTH-251) Browse: Fix Space at the begining and end of query string
