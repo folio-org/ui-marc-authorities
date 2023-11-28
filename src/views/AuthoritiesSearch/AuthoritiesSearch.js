@@ -605,6 +605,8 @@ const AuthoritiesSearch = ({
         resetSelectedRows={resetSelectedRows}
         query={firstPageQuery}
         hasAdvancedSearch
+        hasQueryOption={false}
+        hasMatchSelection
       />
       <Pane
         id="authority-search-results-pane"
