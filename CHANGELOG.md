@@ -4,6 +4,7 @@
 
 - [UIMARCAUTH-351](https://issues.folio.org/browse/UIMARCAUTH-351) Clear selected authority record data before opening another one.
 - [UIMARCAUTH-353](https://issues.folio.org/browse/UIMARCAUTH-353) Use first page Browse query for facet requests
+- [UIMARCAUTH-358](https://issues.folio.org/browse/UIMARCAUTH-358) Show the number of linked MARC bibs in delete confirmation modal when deleting non-authorized authority.
 
 ## [4.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v4.0.0) (2023-10-13)
 
