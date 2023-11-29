@@ -2,22 +2,19 @@
 
 ## [5.0.0] IN PROGRESS
 
+- [UIMARCAUTH-304](https://issues.folio.org/browse/UIMARCAUTH-304) Remove eslint deps that are already listed in eslint-config-stripes.
 - [UIMARCAUTH-339](https://issues.folio.org/browse/UIMARCAUTH-339) *BREAKING* Replace imports from quick-marc with stripes-marc-components.
 - [UIMARCAUTH-343](https://issues.folio.org/browse/UIMARCAUTH-343) Add new column called Authority source for the browse and search results.
 - [UIMARCAUTH-352](https://issues.folio.org/browse/UIMARCAUTH-352) Change create MARC authority action label.
-- [UIMARCAUTH-351](https://issues.folio.org/browse/UIMARCAUTH-351) Clear selected authority record data before opening another one.
 - [UIMARCAUTH-340](https://issues.folio.org/browse/UIMARCAUTH-340) *BREAKING* Change API URL to delete MARC authority record.
 - [UIMARCAUTH-344](https://issues.folio.org/browse/UIMARCAUTH-344) Added permissions for viewing and editing/creating/deleting Authority Source files in Settings
 - [UIMARCAUTH-336](https://issues.folio.org/browse/UIMARCAUTH-336) Show  permissions for creating new authority record via UI.
-- [UIMARCAUTH-353](https://issues.folio.org/browse/UIMARCAUTH-353) Use first page Browse query for facet requests
 - [UIMARCAUTH-295](https://issues.folio.org/browse/UIMARCAUTH-295) Add Search type dropdown to Advanced search modal.
 
-## [4.1.0] IN PROGRESS
+## [4.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v4.0.1) (2023-11-29)
 
-- [UIMARCAUTH-304](https://issues.folio.org/browse/UIMARCAUTH-304) Remove eslint deps that are already listed in eslint-config-stripes.
-
-## [4.0.1] IN PROGRESS
-
+- [UIMARCAUTH-351](https://issues.folio.org/browse/UIMARCAUTH-351) Clear selected authority record data before opening another one.
+- [UIMARCAUTH-353](https://issues.folio.org/browse/UIMARCAUTH-353) Use first page Browse query for facet requests
 - [UIMARCAUTH-358](https://issues.folio.org/browse/UIMARCAUTH-358) Show the number of linked MARC bibs in delete confirmation modal when deleting non-authorized authority.
 
 ## [4.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v4.0.0) (2023-10-13)
