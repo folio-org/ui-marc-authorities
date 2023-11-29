@@ -1,6 +1,6 @@
 # Change history for ui-marc-authorities
 
-## [4.0.1] (IN PROGRESS)
+## [4.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v4.0.1) (2023-11-29)
 
 - [UIMARCAUTH-351](https://issues.folio.org/browse/UIMARCAUTH-351) Clear selected authority record data before opening another one.
 - [UIMARCAUTH-353](https://issues.folio.org/browse/UIMARCAUTH-353) Use first page Browse query for facet requests
