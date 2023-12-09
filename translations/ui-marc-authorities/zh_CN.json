@@ -54,7 +54,7 @@
     "reports.FAILED_UPDATES.description": "受控书目字段列表更新失败",
     "reports.FAILED_UPDATES.outputFormat": "更新失败：链接的书目字段 (CSV)",
     "permission.authority-record.create": "MARC规范：创建新的MARC规范记录",
-    "actions.create": "新建MARC规范记录",
-    "permission.settings.authority-files.view": "Settings (MARC authority): View authority files",
-    "permission.settings.authority-files.all": "Settings (MARC authority): Create, edit, delete authority files"
+    "actions.create": "新建",
+    "permission.settings.authority-files.view": "设置（MARC规范）：查看规范档",
+    "permission.settings.authority-files.all": "设置（MARC规范）：创建、编辑、删除规范档"
 }

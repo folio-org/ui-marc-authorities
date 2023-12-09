@@ -26,7 +26,7 @@
     "export-selected-records": "Export selected records (CSV/MARC)",
     "export.success": "{exportJobName} is complete. The .csv downloaded contains selected records' UIIDs. To retrieve the .mrc file, please go to the Data export app.",
     "export.failure": "Unable to complete request, please try again.",
-    "actions": "Actions",
+    "actions": "Akcje",
     "authorities.rows.recordsSelected": "{count, number} {count, plural, one {record} other {records}} selected",
     "delete.buttonLabel": "Delete",
     "delete.label": "Confirm deletion of authority record",
