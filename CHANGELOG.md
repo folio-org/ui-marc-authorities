@@ -1,5 +1,9 @@
 # Change history for ui-marc-authorities
 
+## [4.0.2] IN PROGRESS
+
+- [UIMARCAUTH-363](https://issues.folio.org/browse/UIMARCAUTH-363) Counter values and options for "Authority source", "Thesaurus" facet options do not change when changing search parameters.
+
 ## [4.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v4.0.1) (2023-11-29)
 
 - [UIMARCAUTH-351](https://issues.folio.org/browse/UIMARCAUTH-351) Clear selected authority record data before opening another one.

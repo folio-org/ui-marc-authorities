@@ -602,7 +602,8 @@ const AuthoritiesSearch = ({
         isLoading={isLoading}
         onSubmitSearch={onSubmitSearch}
         resetSelectedRows={resetSelectedRows}
-        query={firstPageQuery}
+        query={query}
+        firstPageQuery={firstPageQuery}
         hasAdvancedSearch
       />
       <Pane
