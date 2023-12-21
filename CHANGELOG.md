@@ -10,6 +10,7 @@
 - [UIMARCAUTH-344](https://issues.folio.org/browse/UIMARCAUTH-344) Added permissions for viewing and editing/creating/deleting Authority Source files in Settings
 - [UIMARCAUTH-336](https://issues.folio.org/browse/UIMARCAUTH-336) Show  permissions for creating new authority record via UI.
 - [UIMARCAUTH-295](https://issues.folio.org/browse/UIMARCAUTH-295) Add Search type dropdown to Advanced search modal.
+- [UIMARCAUTH-337](https://issues.folio.org/browse/UIMARCAUTH-337) Add `Manage authority files` settings.
 
 ## [4.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v4.0.1) (2023-11-29)
 

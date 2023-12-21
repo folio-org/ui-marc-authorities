@@ -67,5 +67,21 @@
   "reportModal.endDate.error": "\"End date\" is required",
   "reportModal.endDate.error.greaterThan": "\"End date\" must be greater than or equal to \"Start date\"",
   "reportModal.button.cancel": "Cancel",
-  "reportModal.button.export": "Export"
+  "reportModal.button.export": "Export",
+
+  "settings.heading": "MARC authority",
+  "settings.section.general": "General",
+  "settings.html.page.title": "MARC authority settings",
+
+  "settings.manageAuthorityFiles.label": "Manage authority files",
+  "settings.manageAuthorityFiles.table.label": "Authority files",
+  "settings.manageAuthorityFiles.column.name": "Name",
+  "settings.manageAuthorityFiles.column.codes": "Prefix",
+  "settings.manageAuthorityFiles.column.startNumber": "HRID starts with",
+  "settings.manageAuthorityFiles.column.baseUrl": "Base URL",
+  "settings.manageAuthorityFiles.column.selectable": "Active",
+  "settings.manageAuthorityFiles.column.selectable.info": "Select a file as \"Active\" if users should be able to create a new authority record for the file",
+  "settings.manageAuthorityFiles.column.source": "Source",
+  "settings.manageAuthorityFiles.column.lastUpdated": "Last updated by",
+  "settings.manageAuthorityFiles.column.source.local": "Local"
 }
