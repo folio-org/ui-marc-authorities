@@ -21,7 +21,7 @@ const MarcAuthoritySettings = () => {
   const pages = [
     {
       component: ManageAuthorityFiles,
-      label: formatMessage({ id: 'ui-marc-authorities.settings.manageAuthorityFiles.label' }),
+      label: formatMessage({ id: 'ui-marc-authorities.settings.manageAuthorityFiles.pane.title' }),
       route: 'manage-authority-files',
       perm: 'ui-marc-authorities.settings.authority-files.view',
     },

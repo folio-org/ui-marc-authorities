@@ -74,7 +74,7 @@ const ManageAuthorityFiles = () => {
     [authorityFilesColumns.NAME]: getRequiredLabel(formatMessage({ id: 'ui-marc-authorities.settings.manageAuthorityFiles.column.name' })),
     [authorityFilesColumns.CODES]: getRequiredLabel(formatMessage({ id: 'ui-marc-authorities.settings.manageAuthorityFiles.column.codes' })),
     [authorityFilesColumns.START_NUMBER]: getRequiredLabel(formatMessage({ id: 'ui-marc-authorities.settings.manageAuthorityFiles.column.startNumber' })),
-    [authorityFilesColumns.BASE_URL]: getRequiredLabel(formatMessage({ id: 'ui-marc-authorities.settings.manageAuthorityFiles.column.baseUrl' })),
+    [authorityFilesColumns.BASE_URL]: formatMessage({ id: 'ui-marc-authorities.settings.manageAuthorityFiles.column.baseUrl' }),
     [authorityFilesColumns.SELECTABLE]: (
       <>
         {selectableFieldLabel}
