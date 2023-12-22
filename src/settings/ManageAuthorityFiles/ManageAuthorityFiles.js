@@ -5,13 +5,11 @@ import {
   TitleManager,
   checkIfUserInMemberTenant,
 } from '@folio/stripes/core';
-import {
-  ControlledVocab,
-  Loading,
-} from '@folio/stripes/smart-components';
+import { ControlledVocab } from '@folio/stripes/smart-components';
 import {
   InfoPopover,
   Label,
+  Loading,
 } from '@folio/stripes/components';
 import { useUserTenantPermissions } from '@folio/stripes-authority-components';
 
@@ -40,8 +38,8 @@ const ManageAuthorityFiles = () => {
     enabled: checkIfUserInMemberTenant(stripes),
   });
 
-  const paneTitle = formatMessage({ id: 'ui-marc-authorities.settings.manageAuthorityFiles.label' });
-  const tableTitle = formatMessage({ id: 'ui-marc-authorities.settings.manageAuthorityFiles.table.label' });
+  const paneTitle = formatMessage({ id: 'ui-marc-authorities.settings.manageAuthorityFiles.pane.title' });
+  const listFormLabel = formatMessage({ id: 'ui-marc-authorities.settings.manageAuthorityFiles.list.label' });
   const selectableFieldLabel = formatMessage({ id: 'ui-marc-authorities.settings.manageAuthorityFiles.column.selectable' });
 
   const authorityFilesAllPerm = 'ui-marc-authorities.settings.authority-files.all';
@@ -100,18 +98,18 @@ const ManageAuthorityFiles = () => {
         stripes={stripes}
         baseUrl="authority-source-files"
         records="authoritySourceFiles"
-        label={tableTitle}
+        label={paneTitle}
+        listFormLabel={listFormLabel}
         visibleFields={visibleFields}
         hiddenFields={[authorityFilesColumns.NUMBER_OF_OBJECTS]}
         columnMapping={columnMapping}
-        formatter={getAuthorityFormatter()}
+        formatter={getAuthorityFormatter({ selectableFieldLabel })}
         actionSuppressor={{
           edit: suppressEdit,
           delete: suppressDelete,
         }}
         canCreate={canEdit}
         readOnlyFields={[authorityFilesColumns.SOURCE]}
-        readOnlyFieldsOnAdding={[authorityFilesColumns.CODES, authorityFilesColumns.SOURCE]}
         id="authority-files"
         itemTemplate={{ [authorityFilesColumns.SOURCE]: SOURCES.LOCAL }}
         fieldComponents={getFieldComponents(selectableFieldLabel)}

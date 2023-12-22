@@ -1,6 +1,5 @@
 import { render } from '@folio/jest-config-stripes/testing-library/react';
-// import { runAxeTest } from '@folio/stripes-testing';
-// import { Settings } from '@folio/stripes/smart-components';
+import { Settings } from '@folio/stripes/smart-components';
 
 import Harness from '../../../test/jest/helpers/harness';
 
@@ -12,15 +11,14 @@ const renderMarcAuthoritySettings = () => render(
   </Harness>,
 );
 
-describe('Given BrowseRoute', () => {
+describe('Given Settings', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    Settings.mockClear();
   });
 
-  it('should pass correct props', () => {
-    renderMarcAuthoritySettings();
-    // expect(Settings).toHaveBeenCalledWith({
-    //
-    // }, {});
+  it('should be rendered', () => {
+    const { getByText } = renderMarcAuthoritySettings();
+
+    expect(getByText('Settings')).toBeVisible();
   });
 });

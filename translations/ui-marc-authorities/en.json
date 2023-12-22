@@ -73,8 +73,8 @@
   "settings.section.general": "General",
   "settings.html.page.title": "MARC authority settings",
 
-  "settings.manageAuthorityFiles.label": "Manage authority files",
-  "settings.manageAuthorityFiles.table.label": "Authority files",
+  "settings.manageAuthorityFiles.pane.title": "Manage authority files",
+  "settings.manageAuthorityFiles.list.label": "Authority files",
   "settings.manageAuthorityFiles.column.name": "Name",
   "settings.manageAuthorityFiles.column.codes": "Prefix",
   "settings.manageAuthorityFiles.column.startNumber": "HRID starts with",
