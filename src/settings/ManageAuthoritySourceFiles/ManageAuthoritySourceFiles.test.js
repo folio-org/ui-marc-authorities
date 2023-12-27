@@ -2,9 +2,10 @@ import { render } from '@folio/jest-config-stripes/testing-library/react';
 
 import stripesSmartComponents from '@folio/stripes/smart-components';
 import { useUserTenantPermissions } from '@folio/stripes-authority-components';
+
 import Harness from '../../../test/jest/helpers/harness';
 
-import { ManageAuthorityFiles } from './ManageAuthorityFiles';
+import { ManageAuthoritySourceFiles } from './ManageAuthoritySourceFiles';
 
 const { ControlledVocab } = stripesSmartComponents;
 
@@ -93,11 +94,7 @@ jest.spyOn(stripesSmartComponents, 'ControlledVocab').mockImplementation(props =
   );
 });
 
-const renderManageAuthorityFiles = () => render(
-  <Harness>
-    <ManageAuthorityFiles />
-  </Harness>,
-);
+const renderManageAuthoritySourceFiles = () => render(<ManageAuthoritySourceFiles />, { wrapper: Harness });
 
 describe('Given Settings', () => {
   beforeEach(() => {
@@ -111,37 +108,37 @@ describe('Given Settings', () => {
   });
 
   it('should display pane title', () => {
-    const { getByText } = renderManageAuthorityFiles();
+    const { getByText } = renderManageAuthoritySourceFiles();
 
-    expect(getByText('ui-marc-authorities.settings.manageAuthorityFiles.pane.title')).toBeVisible();
+    expect(getByText('ui-marc-authorities.settings.manageAuthoritySourceFiles.pane.title')).toBeVisible();
   });
 
   it('should display list label', () => {
-    const { getByText } = renderManageAuthorityFiles();
+    const { getByText } = renderManageAuthoritySourceFiles();
 
-    expect(getByText('ui-marc-authorities.settings.manageAuthorityFiles.list.label')).toBeVisible();
+    expect(getByText('ui-marc-authorities.settings.manageAuthoritySourceFiles.list.label')).toBeVisible();
   });
 
   it('should display correct column labels', () => {
-    const { getByRole } = renderManageAuthorityFiles();
+    const { getByRole } = renderManageAuthoritySourceFiles();
 
-    expect(getByRole('columnheader', { name: 'ui-marc-authorities.settings.manageAuthorityFiles.column.name' })).toBeVisible();
-    expect(getByRole('columnheader', { name: 'ui-marc-authorities.settings.manageAuthorityFiles.column.codes' })).toBeVisible();
-    expect(getByRole('columnheader', { name: 'ui-marc-authorities.settings.manageAuthorityFiles.column.startNumber' })).toBeVisible();
-    expect(getByRole('columnheader', { name: 'ui-marc-authorities.settings.manageAuthorityFiles.column.baseUrl' })).toBeVisible();
-    expect(getByRole('columnheader', { name: 'ui-marc-authorities.settings.manageAuthorityFiles.column.selectable' })).toBeVisible();
-    expect(getByRole('columnheader', { name: 'ui-marc-authorities.settings.manageAuthorityFiles.column.source' })).toBeVisible();
-    expect(getByRole('columnheader', { name: 'ui-marc-authorities.settings.manageAuthorityFiles.column.lastUpdated' })).toBeVisible();
+    expect(getByRole('columnheader', { name: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.name' })).toBeVisible();
+    expect(getByRole('columnheader', { name: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.codes' })).toBeVisible();
+    expect(getByRole('columnheader', { name: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.startNumber' })).toBeVisible();
+    expect(getByRole('columnheader', { name: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.baseUrl' })).toBeVisible();
+    expect(getByRole('columnheader', { name: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.selectable' })).toBeVisible();
+    expect(getByRole('columnheader', { name: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.source' })).toBeVisible();
+    expect(getByRole('columnheader', { name: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.lastUpdated' })).toBeVisible();
     expect(getByRole('columnheader', { name: 'stripes-smart-components.editableList.actionsColumnHeader' })).toBeVisible();
   });
 
   it('should display correct values in rows', () => {
-    const { getByRole, getAllByRole, getAllByText } = renderManageAuthorityFiles();
+    const { getByRole, getAllByRole, getAllByText } = renderManageAuthoritySourceFiles();
 
     expect(getByRole('gridcell', { name: 'Art & architecture thesaurus (AAT)' })).toBeVisible();
     expect(getByRole('gridcell', { name: 'aat,aatg' })).toBeVisible();
     expect(getByRole('gridcell', { name: 'vocab.getty.edu/aat/' })).toBeVisible();
-    expect(getAllByRole('checkbox', { name: 'ui-marc-authorities.settings.manageAuthorityFiles.column.selectable' })[0]).toBeVisible();
+    expect(getAllByRole('checkbox', { name: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.selectable' })[0]).toBeVisible();
     expect(getByRole('gridcell', { name: 'FOLIO' })).toBeVisible();
     expect(getAllByText('stripes-smart-components.cv.updatedAtAndBy')[0]).toBeVisible();
 
@@ -149,8 +146,8 @@ describe('Given Settings', () => {
     expect(getByRole('gridcell', { name: 'unqe' })).toBeVisible();
     expect(getByRole('gridcell', { name: '100' })).toBeVisible();
     expect(getByRole('gridcell', { name: 'id.loc.gov/authorities/unique/' })).toBeVisible();
-    expect(getAllByRole('checkbox', { name: 'ui-marc-authorities.settings.manageAuthorityFiles.column.selectable' })[1]).toBeVisible();
-    expect(getByRole('gridcell', { name: 'ui-marc-authorities.settings.manageAuthorityFiles.column.source.local' })).toBeVisible();
+    expect(getAllByRole('checkbox', { name: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.selectable' })[1]).toBeVisible();
+    expect(getByRole('gridcell', { name: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.source.local' })).toBeVisible();
     expect(getAllByText('stripes-smart-components.cv.updatedAtAndBy')[1]).toBeVisible();
   });
 });

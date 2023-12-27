@@ -9,3 +9,7 @@ export const buildDateRangeQuery = name => values => {
 };
 
 export const isConsortiaEnv = stripes => stripes.hasInterface('consortia');
+
+export const hasCentralTenantPerm = (centralTenantPermissions, perm) => {
+  return centralTenantPermissions.some(({ permissionName }) => permissionName === perm);
+};

@@ -11,7 +11,7 @@ import {
 } from '@folio/stripes/components';
 import { Settings } from '@folio/stripes/smart-components';
 
-import { ManageAuthorityFiles } from '../ManageAuthorityFiles';
+import { ManageAuthoritySourceFiles } from '../ManageAuthoritySourceFiles';
 
 const MarcAuthoritySettings = () => {
   const match = useRouteMatch();
@@ -20,8 +20,8 @@ const MarcAuthoritySettings = () => {
 
   const pages = [
     {
-      component: ManageAuthorityFiles,
-      label: formatMessage({ id: 'ui-marc-authorities.settings.manageAuthorityFiles.pane.title' }),
+      component: ManageAuthoritySourceFiles,
+      label: formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.pane.title' }),
       route: 'manage-authority-files',
       perm: 'ui-marc-authorities.settings.authority-files.view',
     },

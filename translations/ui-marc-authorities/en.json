@@ -73,15 +73,16 @@
   "settings.section.general": "General",
   "settings.html.page.title": "MARC authority settings",
 
-  "settings.manageAuthorityFiles.pane.title": "Manage authority files",
-  "settings.manageAuthorityFiles.list.label": "Authority files",
-  "settings.manageAuthorityFiles.column.name": "Name",
-  "settings.manageAuthorityFiles.column.codes": "Prefix",
-  "settings.manageAuthorityFiles.column.startNumber": "HRID starts with",
-  "settings.manageAuthorityFiles.column.baseUrl": "Base URL",
-  "settings.manageAuthorityFiles.column.selectable": "Active",
-  "settings.manageAuthorityFiles.column.selectable.info": "Select a file as \"Active\" if users should be able to create a new authority record for the file",
-  "settings.manageAuthorityFiles.column.source": "Source",
-  "settings.manageAuthorityFiles.column.lastUpdated": "Last updated by",
-  "settings.manageAuthorityFiles.column.source.local": "Local"
+  "settings.manageAuthoritySourceFiles.pane.title": "Manage authority files",
+  "settings.manageAuthoritySourceFiles.list.label": "Authority files",
+  "settings.manageAuthoritySourceFiles.column.name": "Name",
+  "settings.manageAuthoritySourceFiles.column.codes": "Prefix",
+  "settings.manageAuthoritySourceFiles.column.startNumber": "HRID starts with",
+  "settings.manageAuthoritySourceFiles.column.startNumber.empty": "TBD",
+  "settings.manageAuthoritySourceFiles.column.baseUrl": "Base URL",
+  "settings.manageAuthoritySourceFiles.column.selectable": "Active",
+  "settings.manageAuthoritySourceFiles.column.selectable.info": "Select a file as \"Active\" if users should be able to create a new authority record for the file",
+  "settings.manageAuthoritySourceFiles.column.source": "Source",
+  "settings.manageAuthoritySourceFiles.column.lastUpdated": "Last updated by",
+  "settings.manageAuthoritySourceFiles.column.source.local": "Local"
 }
