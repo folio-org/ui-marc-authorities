@@ -69,7 +69,8 @@
   },
   "stripes": {
     "actsAs": [
-      "app"
+      "app",
+      "settings"
     ],
     "displayName": "ui-marc-authorities.meta.title",
     "route": "/marc-authorities",

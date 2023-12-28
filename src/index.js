@@ -22,6 +22,7 @@ import {
   AuthorityViewRoute,
   AuthorityQuickMarcRoute,
 } from './routes';
+import { MarcAuthoritySettings } from './settings';
 import {
   KeyShortCutsWrapper,
   MarcAuthoritiesAppContext,
@@ -31,17 +32,25 @@ import commands from './commands';
 const propTypes = {
   focusSearchField: PropTypes.func,
   match: PropTypes.object.isRequired,
+  showSettings: PropTypes.bool.isRequired,
 };
 
 const MarcAuthorities = ({
   match: { path },
   focusSearchField,
+  showSettings,
 }) => {
   const location = useLocation();
 
   const RouteComponent = queryString.parse(location.search).segment === navigationSegments.browse
     ? BrowseRoute
     : SearchRoute;
+
+  if (showSettings) {
+    return (
+      <MarcAuthoritySettings />
+    );
+  }
 
   return (
     <CommandList commands={commands}>

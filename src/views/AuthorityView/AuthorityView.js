@@ -34,7 +34,6 @@ import {
   MarcView,
   PrintPopup,
 } from '@folio/stripes-marc-components';
-
 import {
   markHighlightedFields,
   SelectedAuthorityRecordContext,
@@ -43,9 +42,11 @@ import {
 } from '@folio/stripes-authority-components';
 
 import { KeyShortCutsWrapper } from '../../components';
-
 import { useAuthorityDelete } from '../../queries';
-import { isConsortiaEnv } from '../../utils';
+import {
+  hasCentralTenantPerm,
+  isConsortiaEnv,
+} from '../../utils';
 
 const propTypes = {
   authority: PropTypes.shape({
@@ -105,15 +106,11 @@ const AuthorityView = ({
   const openPrintPopup = () => setIsShownPrintPopup(true);
   const closePrintPopup = () => setIsShownPrintPopup(false);
 
-  const hasCentralTenantPerm = perm => {
-    return centralTenantPermissions.some(({ permissionName }) => permissionName === perm);
-  };
-
   const canDeleteRecord = checkIfUserInMemberTenant(stripes) && isShared
-    ? hasCentralTenantPerm(deleteRecordPerm)
+    ? hasCentralTenantPerm(centralTenantPermissions, deleteRecordPerm)
     : stripes.hasPerm(deleteRecordPerm);
   const canEditRecord = checkIfUserInMemberTenant(stripes) && isShared
-    ? hasCentralTenantPerm(editRecordPerm)
+    ? hasCentralTenantPerm(centralTenantPermissions, editRecordPerm)
     : stripes.hasPerm(editRecordPerm);
 
   const onClose = useCallback(
