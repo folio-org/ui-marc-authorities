@@ -14,8 +14,7 @@ export const getFormatter = ({ selectableFieldLabel }) => ({
       aria-label={selectableFieldLabel}
     />
   ),
-  [authorityFilesColumns.START_NUMBER]: ({ hridManagement }) => hridManagement?.startNumber
-    || <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.column.startNumber.empty" />,
+  [authorityFilesColumns.START_NUMBER]: ({ hridManagement }) => hridManagement?.startNumber,
   [authorityFilesColumns.SOURCE]: ({ source }) => {
     if (source === SOURCES.FOLIO) {
       return SOURCES.FOLIO.toUpperCase();

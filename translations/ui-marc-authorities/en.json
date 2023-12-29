@@ -78,7 +78,6 @@
   "settings.manageAuthoritySourceFiles.column.name": "Name",
   "settings.manageAuthoritySourceFiles.column.codes": "Prefix",
   "settings.manageAuthoritySourceFiles.column.startNumber": "HRID starts with",
-  "settings.manageAuthoritySourceFiles.column.startNumber.empty": "TBD",
   "settings.manageAuthoritySourceFiles.column.baseUrl": "Base URL",
   "settings.manageAuthoritySourceFiles.column.selectable": "Active",
   "settings.manageAuthoritySourceFiles.column.selectable.info": "Select a file as \"Active\" if users should be able to create a new authority record for the file",
