@@ -172,7 +172,7 @@
       },
       {
         "permissionName": "ui-marc-authorities.settings.authority-files.all",
-        "displayName": "Settings (MARC authority): Create, edit, delete authority files",
+        "displayName": "Settings (MARC authority): View, create, edit, delete authority files",
         "subPermissions": [
           "settings.marc-authorities.enabled",
           "ui-marc-authorities.settings.authority-files.view",
