@@ -56,5 +56,20 @@
     "permission.authority-record.create": "MARC Normdaten: neuer MARC Normdatensatz erstellen",
     "actions.create": "Neuer MARC Normdatensatz",
     "permission.settings.authority-files.view": "Settings (MARC authority): View authority files",
-    "permission.settings.authority-files.all": "Settings (MARC authority): Create, edit, delete authority files"
+    "permission.settings.authority-files.all": "Settings (MARC authority): Create, edit, delete authority files",
+    "settings.heading": "MARC authority",
+    "settings.section.general": "General",
+    "settings.html.page.title": "MARC authority settings",
+    "settings.manageAuthoritySourceFiles.pane.title": "Manage authority files",
+    "settings.manageAuthoritySourceFiles.list.label": "Authority files",
+    "settings.manageAuthoritySourceFiles.column.name": "Name",
+    "settings.manageAuthoritySourceFiles.column.codes": "Prefix",
+    "settings.manageAuthoritySourceFiles.column.startNumber": "HRID starts with",
+    "settings.manageAuthoritySourceFiles.column.startNumber.empty": "TBD",
+    "settings.manageAuthoritySourceFiles.column.baseUrl": "Base URL",
+    "settings.manageAuthoritySourceFiles.column.selectable": "Active",
+    "settings.manageAuthoritySourceFiles.column.selectable.info": "Select a file as \"Active\" if users should be able to create a new authority record for the file",
+    "settings.manageAuthoritySourceFiles.column.source": "Source",
+    "settings.manageAuthoritySourceFiles.column.lastUpdated": "Last updated by",
+    "settings.manageAuthoritySourceFiles.column.source.local": "Local"
 }
