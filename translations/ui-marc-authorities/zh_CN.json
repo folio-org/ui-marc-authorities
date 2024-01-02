@@ -56,5 +56,20 @@
     "permission.authority-record.create": "MARC规范：创建新的MARC规范记录",
     "actions.create": "新建",
     "permission.settings.authority-files.view": "设置（MARC规范）：查看规范档",
-    "permission.settings.authority-files.all": "设置（MARC规范）：创建、编辑、删除规范档"
+    "permission.settings.authority-files.all": "设置（MARC规范）：创建、编辑、删除规范档",
+    "settings.heading": "MARC authority",
+    "settings.section.general": "General",
+    "settings.html.page.title": "MARC authority settings",
+    "settings.manageAuthoritySourceFiles.pane.title": "Manage authority files",
+    "settings.manageAuthoritySourceFiles.list.label": "Authority files",
+    "settings.manageAuthoritySourceFiles.column.name": "Name",
+    "settings.manageAuthoritySourceFiles.column.codes": "Prefix",
+    "settings.manageAuthoritySourceFiles.column.startNumber": "HRID starts with",
+    "settings.manageAuthoritySourceFiles.column.startNumber.empty": "TBD",
+    "settings.manageAuthoritySourceFiles.column.baseUrl": "Base URL",
+    "settings.manageAuthoritySourceFiles.column.selectable": "Active",
+    "settings.manageAuthoritySourceFiles.column.selectable.info": "Select a file as \"Active\" if users should be able to create a new authority record for the file",
+    "settings.manageAuthoritySourceFiles.column.source": "Source",
+    "settings.manageAuthoritySourceFiles.column.lastUpdated": "Last updated by",
+    "settings.manageAuthoritySourceFiles.column.source.local": "Local"
 }

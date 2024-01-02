@@ -56,5 +56,20 @@
     "permission.authority-record.create": "Autoridade MARC: Criar registro de autoridade MARC",
     "actions.create": "Novo",
     "permission.settings.authority-files.view": "Configurações (autoridade MARC): visualizar arquivos de autoridade",
-    "permission.settings.authority-files.all": "Configurações (autoridade MARC): Criar, editar, excluir arquivos de autoridade"
+    "permission.settings.authority-files.all": "Configurações (autoridade MARC): Criar, editar, excluir arquivos de autoridade",
+    "settings.heading": "Autoridades MARC",
+    "settings.section.general": "Geral",
+    "settings.html.page.title": "Configurações de autoridade MARC",
+    "settings.manageAuthoritySourceFiles.pane.title": "Gerenciar arquivos de autoridade",
+    "settings.manageAuthoritySourceFiles.list.label": "Arquivos de autoridade",
+    "settings.manageAuthoritySourceFiles.column.name": "Nome",
+    "settings.manageAuthoritySourceFiles.column.codes": "Prefixo",
+    "settings.manageAuthoritySourceFiles.column.startNumber": "HRID começa com",
+    "settings.manageAuthoritySourceFiles.column.startNumber.empty": "A definir",
+    "settings.manageAuthoritySourceFiles.column.baseUrl": "URL base",
+    "settings.manageAuthoritySourceFiles.column.selectable": "Ativo",
+    "settings.manageAuthoritySourceFiles.column.selectable.info": "Selecione um arquivo como \"Ativo\" se os usuários puderem criar um novo registro de autoridade para o arquivo",
+    "settings.manageAuthoritySourceFiles.column.source": "Fonte",
+    "settings.manageAuthoritySourceFiles.column.lastUpdated": "Última atualização por",
+    "settings.manageAuthoritySourceFiles.column.source.local": "Local"
 }
