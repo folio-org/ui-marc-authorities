@@ -37,7 +37,7 @@ const validators = {
       return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.startNumber.empty" />;
     }
 
-    if (startNumber.toString().charAt(0) === '0') {
+    if (startNumber.toString()[0] === '0') {
       return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.startNumber.zeroes" />;
     }
 
