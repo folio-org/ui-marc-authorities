@@ -1,4 +1,7 @@
-import { useMemo } from 'react';
+import {
+  useCallback,
+  useMemo,
+} from 'react';
 import { useIntl } from 'react-intl';
 
 import {
@@ -21,6 +24,7 @@ import {
   authorityFilesColumns,
   SOURCES,
 } from './constants';
+import { getValidators } from './getValidators';
 
 const authorityFilesAllPerm = 'ui-marc-authorities.settings.authority-files.all';
 
@@ -52,11 +56,34 @@ const ManageAuthoritySourceFiles = () => {
   const suppressEdit = () => !isUserHasEditPermission;
   const suppressDelete = ({ source }) => source === SOURCES.FOLIO || !isUserHasEditPermission;
 
-  const getRequiredLabel = columnLabel => (
+  const getRequiredLabel = useCallback(columnLabel => (
     <Label required>
       {columnLabel}
     </Label>
-  );
+  ), []);
+
+  const formatFileForCreate = useCallback(file => {
+    const fileCopy = { ...file };
+
+    fileCopy.code = file.codes;
+    delete fileCopy.codes;
+
+    return fileCopy;
+  }, []);
+
+  const validate = useCallback((item, _index, items) => {
+    const errors = Object.values(authorityFilesColumns).reduce((acc, field) => {
+      const error = getValidators(field)?.(item, items);
+
+      if (error) {
+        acc[field] = error;
+      }
+
+      return acc;
+    }, {});
+
+    return errors;
+  }, []);
 
   const visibleFields = useMemo(() => ([
     authorityFilesColumns.NAME,
@@ -82,7 +109,7 @@ const ManageAuthoritySourceFiles = () => {
     ),
     [authorityFilesColumns.SOURCE]: formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.source' }),
     [authorityFilesColumns.LAST_UPDATED]: formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.lastUpdated' }),
-  }), [formatMessage, selectableFieldLabel]);
+  }), [formatMessage, selectableFieldLabel, getRequiredLabel]);
 
   const columnWidths = useMemo(() => ({
     [authorityFilesColumns.NAME]: '300px',
@@ -127,7 +154,10 @@ const ManageAuthoritySourceFiles = () => {
         }}
         createButtonLabel={formatMessage({ id: 'stripes-core.button.new' })}
         canCreate={isUserHasEditPermission}
+        preCreateHook={formatFileForCreate}
         tenant={centralTenantId || stripes.okapi.tenant}
+        labelSingular={formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.labelSingular' })}
+        validate={validate}
       />
     </TitleManager>
   );
