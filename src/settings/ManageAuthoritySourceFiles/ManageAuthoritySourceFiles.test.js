@@ -1,4 +1,4 @@
-import { render } from '@folio/jest-config-stripes/testing-library/react';
+import { fireEvent, render } from '@folio/jest-config-stripes/testing-library/react';
 
 import stripesSmartComponents from '@folio/stripes/smart-components';
 import { useUserTenantPermissions } from '@folio/stripes-authority-components';
@@ -78,7 +78,11 @@ const updaters = [
 jest.spyOn(stripesSmartComponents, 'ControlledVocab').mockImplementation(props => {
   return (
     <ControlledVocab
-      mutator={{}}
+      mutator={{
+        values: {
+          POST: jest.fn().mockResolvedValue(),
+        },
+      }}
       resources={{
         values: {
           isPending: false,
@@ -149,5 +153,21 @@ describe('Given Settings', () => {
     expect(getAllByRole('checkbox', { name: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.selectable' })[1]).toBeVisible();
     expect(getByRole('gridcell', { name: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.source.local' })).toBeVisible();
     expect(getAllByText('stripes-smart-components.cv.updatedAtAndBy')[1]).toBeVisible();
+  });
+
+  describe('when creating a new Source File', () => {
+    describe('and filling in invalid data', () => {
+      it('should show error messages', async () => {
+        const {
+          getByText,
+          getByRole,
+        } = renderManageAuthoritySourceFiles();
+
+        await fireEvent.click(getByRole('button', { name: 'stripes-core.button.new' }));
+        await fireEvent.click(getByRole('button', { name: 'stripes-core.button.save' }));
+
+        expect(getByText('ui-marc-authorities.settings.manageAuthoritySourceFiles.error.codes.empty')).toBeDefined();
+      });
+    });
   });
 });
