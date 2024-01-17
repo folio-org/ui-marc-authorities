@@ -70,5 +70,13 @@
     "settings.manageAuthoritySourceFiles.column.selectable.info": "Selecione um arquivo como \"Ativo\" se os usuários puderem criar um novo registro de autoridade para o arquivo",
     "settings.manageAuthoritySourceFiles.column.source": "Fonte",
     "settings.manageAuthoritySourceFiles.column.lastUpdated": "Última atualização por",
-    "settings.manageAuthoritySourceFiles.column.source.local": "Local"
+    "settings.manageAuthoritySourceFiles.column.source.local": "Local",
+    "settings.manageAuthoritySourceFiles.labelSingular": "arquivo de autoridade",
+    "settings.manageAuthoritySourceFiles.error.name.empty": "Erro ao salvar dados. O nome é obrigatório.",
+    "settings.manageAuthoritySourceFiles.error.startNumber.zeroes": "Erro ao salvar dados. HRID não pode começar com zero.",
+    "settings.manageAuthoritySourceFiles.error.startNumber.empty": "Erro ao salvar dados. HRID começa com é obrigatório.",
+    "settings.manageAuthoritySourceFiles.error.codes.onlyOnePrefix": "Erro ao salvar dados. Apenas um prefixo é permitido para arquivos de autoridade local.",
+    "settings.manageAuthoritySourceFiles.error.codes.unique": "Erro ao salvar dados. O prefixo deve ser único.",
+    "settings.manageAuthoritySourceFiles.error.codes.empty": "Erro ao salvar dados. O prefixo é obrigatório.",
+    "settings.manageAuthoritySourceFiles.create.success": "O arquivo de autoridade (nome) foi criado com sucesso."
 }
