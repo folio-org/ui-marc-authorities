@@ -2,10 +2,21 @@ import { FormattedMessage } from 'react-intl';
 
 import { authorityFilesColumns } from './constants';
 
+const CODES_MAX_LENGTH = 25;
+
 const validators = {
   [authorityFilesColumns.CODES]: function validateCodes({ codes, id }, items) {
     if (!codes) {
       return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.codes.empty" />;
+    }
+
+    if (codes.length > CODES_MAX_LENGTH) {
+      return (
+        <FormattedMessage
+          id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.codes.length"
+          values={{ maxlength: CODES_MAX_LENGTH }}
+        />
+      );
     }
 
     const codesArray = Array.isArray(codes) ? codes : [codes];

@@ -91,5 +91,6 @@
   "settings.manageAuthoritySourceFiles.error.codes.onlyOnePrefix": "Error saving data. Only one prefix is allowed for local authority files.",
   "settings.manageAuthoritySourceFiles.error.codes.unique": "Error saving data. Prefix must be unique.",
   "settings.manageAuthoritySourceFiles.error.codes.empty": "Error saving data. Prefix is required.",
+  "settings.manageAuthoritySourceFiles.error.codes.length": "Error saving data. Prefix cannot be more than {maxlength} characters.",
   "settings.manageAuthoritySourceFiles.create.success": "The authority file (name) has been successfully created."
 }

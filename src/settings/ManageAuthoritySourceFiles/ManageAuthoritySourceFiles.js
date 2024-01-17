@@ -28,6 +28,11 @@ import { getValidators } from './getValidators';
 
 const authorityFilesAllPerm = 'ui-marc-authorities.settings.authority-files.all';
 
+const ITEM_TEMPLATE = {
+  [authorityFilesColumns.SOURCE]: SOURCES.LOCAL,
+  [authorityFilesColumns.SELECTABLE]: false,
+};
+
 const ManageAuthoritySourceFiles = () => {
   const stripes = useStripes();
   const { formatMessage } = useIntl();
@@ -66,7 +71,12 @@ const ManageAuthoritySourceFiles = () => {
     const fileCopy = { ...file };
 
     fileCopy.code = file.codes;
+    fileCopy.hridManagement = {
+      startNumber: file.startNumber,
+    };
+
     delete fileCopy.codes;
+    delete fileCopy.startNumber;
 
     return fileCopy;
   }, []);
@@ -145,7 +155,7 @@ const ManageAuthoritySourceFiles = () => {
         }}
         readOnlyFields={[authorityFilesColumns.SOURCE]}
         id="authority-source-files"
-        itemTemplate={{ [authorityFilesColumns.SOURCE]: SOURCES.LOCAL }}
+        itemTemplate={ITEM_TEMPLATE}
         fieldComponents={getFieldComponents(selectableFieldLabel)}
         columnWidths={columnWidths}
         actionSuppression={{
