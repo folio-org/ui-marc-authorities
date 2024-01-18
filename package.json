@@ -166,7 +166,8 @@
           "settings.marc-authorities.enabled",
           "inventory-storage.authority-source-files.collection.get",
           "inventory-storage.authority-source-files.item.get",
-          "perms.users.get"
+          "perms.users.get",
+          "users.collection.get"
         ],
         "visible": true
       },
