@@ -27,12 +27,6 @@ const AuthorityQuickMarcRoute = () => {
   const { setIsGoingToBaseURL } = useContext(AuthoritiesSearchContext);
 
   const onClose = useCallback(async recordId => {
-    if (recordId) {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      await queryClient.invalidateQueries(namespace);
-    }
-
     setIsGoingToBaseURL(false);
 
     history.push({
@@ -40,13 +34,24 @@ const AuthorityQuickMarcRoute = () => {
       search: location.search,
       state: { editSuccessful: true },
     });
-  }, [namespace, queryClient, setIsGoingToBaseURL, location.search, history]);
+  }, [setIsGoingToBaseURL, location.search, history]);
+
+  const onSave = useCallback(async recordId => {
+    if (recordId) {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      await queryClient.invalidateQueries(namespace);
+    }
+
+    onClose(recordId);
+  }, [onClose, namespace, queryClient]);
 
   return (
     <Pluggable
       type="quick-marc"
       basePath={match.path}
       onClose={onClose}
+      onSave={onSave}
       externalRecordPath="/marc-authorities/authorities"
     >
       <FormattedMessage id="ui-inventory.quickMarcNotAvailable" />

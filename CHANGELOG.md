@@ -13,6 +13,7 @@
 - [UIMARCAUTH-363](https://issues.folio.org/browse/UIMARCAUTH-363) Counter values and options for "Authority source", "Thesaurus" facet options do not change when changing search parameters.
 - [UIMARCAUTH-337](https://issues.folio.org/browse/UIMARCAUTH-337) Add `Manage authority files` settings.
 - [UIMARCAUTH-360](https://issues.folio.org/browse/UIMARCAUTH-360) Implement creation of Authority Source Files.
+- [UIMARCAUTH-374](https://issues.folio.org/browse/UIMARCAUTH-374) Use `onSave` prop for quickMARC to handle saving records separately.
 
 ## [4.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v4.0.1) (2023-11-29)
 
