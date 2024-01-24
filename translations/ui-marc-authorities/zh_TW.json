@@ -70,5 +70,14 @@
     "settings.manageAuthoritySourceFiles.column.selectable.info": "Select a file as \"Active\" if users should be able to create a new authority record for the file",
     "settings.manageAuthoritySourceFiles.column.source": "Source",
     "settings.manageAuthoritySourceFiles.column.lastUpdated": "Last updated by",
-    "settings.manageAuthoritySourceFiles.column.source.local": "Local"
+    "settings.manageAuthoritySourceFiles.column.source.local": "Local",
+    "settings.manageAuthoritySourceFiles.labelSingular": "authority file",
+    "settings.manageAuthoritySourceFiles.error.name.empty": "Error saving data. Name is required.",
+    "settings.manageAuthoritySourceFiles.error.startNumber.zeroes": "Error saving data. HRID cannot start with zero.",
+    "settings.manageAuthoritySourceFiles.error.startNumber.empty": "Error saving data. HRID starts with is required.",
+    "settings.manageAuthoritySourceFiles.error.codes.onlyOnePrefix": "Error saving data. Only one prefix is allowed for local authority files.",
+    "settings.manageAuthoritySourceFiles.error.codes.unique": "Error saving data. Prefix must be unique.",
+    "settings.manageAuthoritySourceFiles.error.codes.empty": "Error saving data. Prefix is required.",
+    "settings.manageAuthoritySourceFiles.create.success": "The authority file (name) has been successfully created.",
+    "settings.manageAuthoritySourceFiles.error.codes.length": "Error saving data. Prefix cannot be more than {maxlength} characters."
 }
