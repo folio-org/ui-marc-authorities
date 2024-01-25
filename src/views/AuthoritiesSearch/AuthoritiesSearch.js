@@ -32,6 +32,8 @@ import {
   TextLink,
   Checkbox,
   PaneMenu,
+  HasCommand,
+  checkScope,
 } from '@folio/stripes/components';
 import {
   PersistedPaneset,
@@ -44,6 +46,7 @@ import {
   useNamespace,
   CalloutContext,
   IfPermission,
+  useStripes,
 } from '@folio/stripes/core';
 import { buildSearch } from '@folio/stripes-acq-components';
 import {
@@ -115,6 +118,7 @@ const AuthoritiesSearch = ({
   hasNextPage,
   hasPrevPage,
 }) => {
+  const stripes = useStripes();
   const intl = useIntl();
   const [, getNamespace] = useNamespace();
   const match = useRouteMatch();
@@ -160,6 +164,21 @@ const AuthoritiesSearch = ({
 
   const selectedRowsIds = useMemo(() => (Object.keys(selectedRows)), [selectedRows]);
   const selectedRowsCount = useMemo(() => (Object.keys(selectedRows).length), [selectedRows]);
+
+  const openCreateAuthorityScreen = useCallback(() => {
+    history.push('/marc-authorities/quick-marc/create-authority');
+  }, []);
+
+  const shortcuts = [
+    {
+      name: 'new',
+      handler: () => {
+        if (stripes.hasPerm('ui-marc-authorities.authority-record.create')) {
+          openCreateAuthorityScreen();
+        }
+      },
+    },
+  ];
 
   const rowExistsInSelectedRows = row => {
     return selectedRowsIds.includes(row.id);
@@ -493,7 +512,7 @@ const AuthoritiesSearch = ({
             <Button
               buttonStyle="dropdownItem"
               id="dropdown-clickable-create-authority"
-              to="/marc-authorities/quick-marc/create-authority"
+              onClick={openCreateAuthorityScreen}
             >
               <Icon icon="plus-sign">
                 <FormattedMessage id="ui-marc-authorities.actions.create" />
@@ -540,6 +559,7 @@ const AuthoritiesSearch = ({
     toggleColumn,
     visibleColumns,
     onSelectReport,
+    openCreateAuthorityScreen,
   ]);
 
   const renderPaneSub = () => (
@@ -592,74 +612,80 @@ const AuthoritiesSearch = ({
   };
 
   return (
-    <PersistedPaneset
-      appId="@folio/marc-authorities"
-      id="marc-authorities-paneset"
-      data-testid="marc-authorities-paneset"
+    <HasCommand
+      commands={shortcuts}
+      isWithinScope={checkScope}
+      scope={document.body}
     >
-      <AuthoritiesSearchPane
-        isFilterPaneVisible={isFilterPaneVisible}
-        toggleFilterPane={toggleFilterPane}
-        isLoading={isLoading}
-        onSubmitSearch={onSubmitSearch}
-        resetSelectedRows={resetSelectedRows}
-        query={query}
-        firstPageQuery={firstPageQuery}
-        hasAdvancedSearch
-        hasQueryOption={false}
-        hasMatchSelection
-      />
-      <Pane
-        id="authority-search-results-pane"
-        appIcon={<AppIcon app="marc-authorities" />}
-        defaultWidth="fill"
-        paneTitle={intl.formatMessage({ id: 'stripes-authority-components.meta.title' })}
-        paneSub={renderPaneSub()}
-        firstMenu={renderResultsFirstMenu()}
-        actionMenu={renderActionMenu}
-        padContent={false}
-        noOverflow
+      <PersistedPaneset
+        appId="@folio/marc-authorities"
+        id="marc-authorities-paneset"
+        data-testid="marc-authorities-paneset"
       >
-        <SearchResultsList
-          authorities={authorities}
-          columnMapping={columnMapping}
-          columnWidths={{
-            [searchResultListColumns.SELECT]: '30px',
-            [searchResultListColumns.NUMBER_OF_TITLES]: '140px',
-            [searchResultListColumns.AUTH_REF_TYPE]: '190px',
-            [searchResultListColumns.HEADING_REF]: '350px',
-            [searchResultListColumns.HEADING_TYPE]: '170px',
-            [searchResultListColumns.AUTHORITY_SOURCE]: '250px',
-          }}
-          formatter={formatter}
-          hasNextPage={hasNextPage}
-          hasPrevPage={hasPrevPage}
-          totalResults={totalRecords}
-          pageSize={pageSize}
-          onNeedMoreData={handleLoadMore}
-          loading={isLoading}
-          loaded={isLoaded}
-          visibleColumns={visibleColumns}
-          sortedColumn={sortedColumn}
-          sortOrder={sortOrder}
-          onHeaderClick={onHeaderClick}
+        <AuthoritiesSearchPane
           isFilterPaneVisible={isFilterPaneVisible}
           toggleFilterPane={toggleFilterPane}
-          hasFilters={!!filters.length}
-          query={searchQuery}
-          hidePageIndices={hidePageIndices}
-          renderHeadingRef={renderHeadingRef}
-          nonInteractiveHeaders={NON_INTERACTIVE_HEADERS}
+          isLoading={isLoading}
+          onSubmitSearch={onSubmitSearch}
+          resetSelectedRows={resetSelectedRows}
+          query={query}
+          firstPageQuery={firstPageQuery}
+          hasAdvancedSearch
+          hasQueryOption={false}
+          hasMatchSelection
         />
-      </Pane>
-      {children}
-      <ReportsModal
-        open={reportsModalOpen}
-        reportType={selectedReport.current}
-        onClose={() => setReportsModalOpen(false)}
-        onSubmit={handleReportsSubmit}
-      />
-    </PersistedPaneset>
+        <Pane
+          id="authority-search-results-pane"
+          appIcon={<AppIcon app="marc-authorities" />}
+          defaultWidth="fill"
+          paneTitle={intl.formatMessage({ id: 'stripes-authority-components.meta.title' })}
+          paneSub={renderPaneSub()}
+          firstMenu={renderResultsFirstMenu()}
+          actionMenu={renderActionMenu}
+          padContent={false}
+          noOverflow
+        >
+          <SearchResultsList
+            authorities={authorities}
+            columnMapping={columnMapping}
+            columnWidths={{
+              [searchResultListColumns.SELECT]: '30px',
+              [searchResultListColumns.NUMBER_OF_TITLES]: '140px',
+              [searchResultListColumns.AUTH_REF_TYPE]: '190px',
+              [searchResultListColumns.HEADING_REF]: '350px',
+              [searchResultListColumns.HEADING_TYPE]: '170px',
+              [searchResultListColumns.AUTHORITY_SOURCE]: '250px',
+            }}
+            formatter={formatter}
+            hasNextPage={hasNextPage}
+            hasPrevPage={hasPrevPage}
+            totalResults={totalRecords}
+            pageSize={pageSize}
+            onNeedMoreData={handleLoadMore}
+            loading={isLoading}
+            loaded={isLoaded}
+            visibleColumns={visibleColumns}
+            sortedColumn={sortedColumn}
+            sortOrder={sortOrder}
+            onHeaderClick={onHeaderClick}
+            isFilterPaneVisible={isFilterPaneVisible}
+            toggleFilterPane={toggleFilterPane}
+            hasFilters={!!filters.length}
+            query={searchQuery}
+            hidePageIndices={hidePageIndices}
+            renderHeadingRef={renderHeadingRef}
+            nonInteractiveHeaders={NON_INTERACTIVE_HEADERS}
+          />
+        </Pane>
+        {children}
+        <ReportsModal
+          open={reportsModalOpen}
+          reportType={selectedReport.current}
+          onClose={() => setReportsModalOpen(false)}
+          onSubmit={handleReportsSubmit}
+        />
+      </PersistedPaneset>
+    </HasCommand>
   );
 };
 

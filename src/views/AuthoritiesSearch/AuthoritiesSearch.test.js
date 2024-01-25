@@ -2,7 +2,9 @@ import {
   waitFor,
   render,
   fireEvent,
+  act,
 } from '@folio/jest-config-stripes/testing-library/react';
+import userEvent from '@folio/jest-config-stripes/testing-library/user-event';
 
 import { runAxeTest } from '@folio/stripes-testing';
 import { searchResultListColumns } from '@folio/stripes-authority-components';
@@ -491,5 +493,15 @@ describe('Given AuthoritiesSearch', () => {
     expect(getByRole('columnheader', { name: 'stripes-authority-components.search-results-list.headingType' })).toBeVisible();
     expect(getByRole('columnheader', { name: 'stripes-authority-components.search-results-list.authoritySource' })).toBeVisible();
     expect(getByRole('columnheader', { name: 'ui-marc-authorities.search-results-list.numberOfTitles' })).toBeVisible();
+  });
+
+  describe('when the "+ New" action is pressed', () => {
+    it('should open create authority record screen', async () => {
+      const { getByText } = renderAuthoritiesSearch();
+
+      await act(() => userEvent.click(getByText('ui-marc-authorities.actions.create')));
+
+      expect(mockHistoryPush).toHaveBeenCalledWith('/marc-authorities/quick-marc/create-authority');
+    });
   });
 });
