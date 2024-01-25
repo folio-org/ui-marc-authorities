@@ -106,20 +106,4 @@ describe('Given Settings', () => {
     expect(getByRole('gridcell', { name: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.source.local' })).toBeVisible();
     expect(getAllByText('stripes-smart-components.cv.updatedAtAndBy')[1]).toBeVisible();
   });
-
-  // describe('when creating a new Source File', () => {
-  //   describe('and filling in invalid data', () => {
-  //     it('should show error messages', async () => {
-  //       const {
-  //         getByText,
-  //         getByRole,
-  //       } = renderManageAuthoritySourceFiles();
-
-  //       await fireEvent.click(getByRole('button', { name: 'stripes-core.button.new' }));
-  //       await fireEvent.click(getByRole('button', { name: 'stripes-core.button.save' }));
-
-  //       expect(getByText('ui-marc-authorities.settings.manageAuthoritySourceFiles.error.codes.empty')).toBeDefined();
-  //     });
-  //   });
-  // });
 });

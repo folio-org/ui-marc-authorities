@@ -14,7 +14,7 @@
 - [UIMARCAUTH-337](https://issues.folio.org/browse/UIMARCAUTH-337) Add `Manage authority files` settings.
 - [UIMARCAUTH-360](https://issues.folio.org/browse/UIMARCAUTH-360) Implement creation of Authority Source Files.
 - [UIMARCAUTH-374](https://issues.folio.org/browse/UIMARCAUTH-374) Use `onSave` prop for quickMARC to handle saving records separately.
-- [UIMARCAUTH-350](https://issues.folio.org/browse/UIMARCAUTH-359) EDIT | Create new settings options for configuring authority files
+- [UIMARCAUTH-359](https://issues.folio.org/browse/UIMARCAUTH-359) EDIT | Create new settings options for configuring authority files
 
 ## [4.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v4.0.1) (2023-11-29)
 

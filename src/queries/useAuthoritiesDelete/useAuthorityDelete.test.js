@@ -6,13 +6,8 @@ import {
   waitFor,
 } from '@folio/jest-config-stripes/testing-library/react';
 
-import { useTenantKy } from '@folio/stripes-authority-components';
+import { useOkapiKy } from '@folio/stripes/core';
 import useAuthorityDelete from './useAuthorityDelete';
-
-jest.mock('@folio/stripes-authority-components', () => ({
-  ...jest.requireActual('@folio/stripes-authority-components'),
-  useTenantKy: jest.fn(),
-}));
 
 const queryClient = new QueryClient();
 
@@ -33,7 +28,7 @@ describe('useAuthorityDeleteMutation', () => {
     const deleteMock = jest.fn().mockResolvedValue({});
     const successMock = jest.fn();
 
-    useTenantKy.mockClear().mockReturnValue({
+    useOkapiKy.mockClear().mockReturnValue({
       delete: deleteMock,
     });
 
@@ -54,7 +49,7 @@ describe('useAuthorityDeleteMutation', () => {
     const deleteMock = jest.fn().mockRejectedValue(new Error('Async error'));
     const errorMock = jest.fn();
 
-    useTenantKy.mockClear().mockReturnValue({
+    useOkapiKy.mockClear().mockReturnValue({
       delete: deleteMock,
     });
 

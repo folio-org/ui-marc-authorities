@@ -56,7 +56,7 @@ describe('getValidators', () => {
   });
 
   describe('validating start number', () => {
-    const validator = getValidators('startNumber');
+    const validator = getValidators('hridManagement.startNumber');
 
     describe('when start number is valid', () => {
       it('should return undefined', () => {

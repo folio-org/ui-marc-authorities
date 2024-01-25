@@ -5,7 +5,6 @@ import {
   useStripes,
   checkIfUserInMemberTenant,
 } from '@folio/stripes/core';
-
 import {
   useUserTenantPermissions,
   useAuthoritySourceFiles,
