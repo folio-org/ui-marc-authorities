@@ -4,4 +4,15 @@ jest.mock('@folio/stripes-authority-components', () => ({
     userPermissions: [],
     isFetching: false,
   }),
+  useUsers: jest.fn().mockReturnValue({
+    users: [],
+    isLoading: false,
+  }),
+  useAuthoritySourceFiles: jest.fn().mockReturnValue({
+    sourceFiles: [],
+    isLoading: false,
+    createFile: jest.fn(),
+    updateFile: jest.fn(),
+    deleteFile: jest.fn(),
+  }),
 }));

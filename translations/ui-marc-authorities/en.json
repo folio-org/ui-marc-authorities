@@ -92,5 +92,10 @@
   "settings.manageAuthoritySourceFiles.error.codes.unique": "Error saving data. Prefix must be unique.",
   "settings.manageAuthoritySourceFiles.error.codes.empty": "Error saving data. Prefix is required.",
   "settings.manageAuthoritySourceFiles.error.codes.length": "Error saving data. Prefix cannot be more than {maxlength} characters.",
-  "settings.manageAuthoritySourceFiles.create.success": "The authority file (name) has been successfully created."
+  "settings.manageAuthoritySourceFiles.create.success": "The authority file <b>{name}</b> has been successfully <b>created</b>.",
+  "settings.manageAuthoritySourceFiles.update.success": "The authority file <b>{name}</b> has been successfully <b>updated</b>.",
+  "settings.manageAuthoritySourceFiles.update.fail.fileAssigned": "Changes to <b>{name}</b> cannot be saved. Existing authority records are already assigned to this authority file.",
+  "settings.manageAuthoritySourceFiles.delete.success": "The authority file <b>{name}</b> has been successfully <b>deleted</b>.",
+
+  "error.defaultSaveError": "Error on saving data"
 }
