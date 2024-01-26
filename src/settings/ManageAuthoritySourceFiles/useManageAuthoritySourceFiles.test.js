@@ -201,7 +201,9 @@ describe('Given useManageAuthoritySourceFiles', () => {
         codes: 'validcode',
         name: 'New name',
         baseUrl: 'http://new-url/',
-        startNumber: 1,
+        hridManagement: {
+          startNumber: 1,
+        },
       };
       const { result } = renderUseManageAuthoritySourceFiles();
 
