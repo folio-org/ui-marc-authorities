@@ -126,10 +126,12 @@
         "displayName": "MARC Authority: Create new MARC authority record",
         "subPermissions": [
           "ui-marc-authorities.authority-record.view",
+          "inventory-storage.authority-source-files.hrid.post",
           "marc-records-editor.item.post",
           "instance-authority-links.instances.collection.post",
           "instance-authority-links.authorities.bulk.post",
-          "marc-records-editor.status.item.get"
+          "marc-records-editor.status.item.get",
+          "marc-specifications.item.get"
         ],
         "visible": true
       },
