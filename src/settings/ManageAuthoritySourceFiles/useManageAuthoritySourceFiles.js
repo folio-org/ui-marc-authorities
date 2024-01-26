@@ -87,12 +87,8 @@ export const useManageAuthoritySourceFiles = ({
     const fileCopy = { ...file };
 
     fileCopy.code = file.codes;
-    fileCopy.hridManagement = {
-      startNumber: file.startNumber,
-    };
 
     delete fileCopy.codes;
-    delete fileCopy.startNumber;
 
     return fileCopy;
   }, []);
@@ -110,7 +106,7 @@ export const useManageAuthoritySourceFiles = ({
 
     return {
       id: file.id,
-      _version: file._version + 1,
+      _version: file._version,
       ...changedFields,
     };
   }, [sourceFiles]);

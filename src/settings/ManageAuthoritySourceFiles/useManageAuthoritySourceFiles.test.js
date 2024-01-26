@@ -219,7 +219,7 @@ describe('Given useManageAuthoritySourceFiles', () => {
   });
 
   describe('when calling updateFile', () => {
-    it('should call mutator with only changed fields and incremented version', () => {
+    it('should call mutator with only changed fields', () => {
       const item = { ...sourceFiles[0] };
       const { result } = renderUseManageAuthoritySourceFiles();
 
@@ -231,7 +231,7 @@ describe('Given useManageAuthoritySourceFiles', () => {
       expect(mockUpdateFile).toHaveBeenCalledWith({
         id: 1,
         name: 'Edited name',
-        _version: 2,
+        _version: 1,
       });
     });
   });

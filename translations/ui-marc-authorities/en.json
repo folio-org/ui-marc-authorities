@@ -95,6 +95,7 @@
   "settings.manageAuthoritySourceFiles.create.success": "The authority file <b>{name}</b> has been successfully <b>created</b>.",
   "settings.manageAuthoritySourceFiles.update.success": "The authority file <b>{name}</b> has been successfully <b>updated</b>.",
   "settings.manageAuthoritySourceFiles.update.fail.fileAssigned": "Changes to <b>{name}</b> cannot be saved. Existing authority records are already assigned to this authority file.",
+  "settings.manageAuthoritySourceFiles.update.fail.optimisticLocking": "Changes to <b>{name}</b> cannot be saved because it is <b>not</b> the most recent version.",
   "settings.manageAuthoritySourceFiles.delete.success": "The authority file <b>{name}</b> has been successfully <b>deleted</b>.",
 
   "error.defaultSaveError": "Error on saving data"
