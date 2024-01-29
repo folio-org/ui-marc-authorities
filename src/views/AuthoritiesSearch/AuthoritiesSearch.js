@@ -72,6 +72,7 @@ import {
 } from '../../queries';
 import { useReportGenerator } from '../../hooks';
 import {
+  createAuthorityRoute,
   sortableSearchResultListColumns,
   sortOrders,
 } from '../../constants';
@@ -165,16 +166,12 @@ const AuthoritiesSearch = ({
   const selectedRowsIds = useMemo(() => (Object.keys(selectedRows)), [selectedRows]);
   const selectedRowsCount = useMemo(() => (Object.keys(selectedRows).length), [selectedRows]);
 
-  const openCreateAuthorityScreen = useCallback(() => {
-    history.push('/marc-authorities/quick-marc/create-authority');
-  }, []);
-
   const shortcuts = [
     {
       name: 'new',
       handler: () => {
         if (stripes.hasPerm('ui-marc-authorities.authority-record.create')) {
-          openCreateAuthorityScreen();
+          history.push(createAuthorityRoute);
         }
       },
     },
@@ -512,7 +509,7 @@ const AuthoritiesSearch = ({
             <Button
               buttonStyle="dropdownItem"
               id="dropdown-clickable-create-authority"
-              onClick={openCreateAuthorityScreen}
+              to={createAuthorityRoute}
             >
               <Icon icon="plus-sign">
                 <FormattedMessage id="ui-marc-authorities.actions.create" />
@@ -559,7 +556,6 @@ const AuthoritiesSearch = ({
     toggleColumn,
     visibleColumns,
     onSelectReport,
-    openCreateAuthorityScreen,
   ]);
 
   const renderPaneSub = () => (
