@@ -61,7 +61,9 @@ describe('getValidators', () => {
     describe('when start number is valid', () => {
       it('should return undefined', () => {
         const item = {
-          startNumber: '1',
+          hridManagement: {
+            startNumber: '1',
+          },
         };
 
         expect(validator(item)).toBeUndefined();
@@ -71,7 +73,9 @@ describe('getValidators', () => {
     describe('when startNumber is empty', () => {
       it('should return an error', () => {
         const item = {
-          startNumber: '',
+          hridManagement: {
+            startNumber: '',
+          },
         };
 
         expect(validator(item).props.id).toEqual('ui-marc-authorities.settings.manageAuthoritySourceFiles.error.startNumber.empty');
@@ -81,7 +85,9 @@ describe('getValidators', () => {
     describe('when start number has leading zeroes', () => {
       it('should return an error', () => {
         const item = {
-          startNumber: '0001',
+          hridManagement: {
+            startNumber: '0001',
+          },
         };
 
         expect(validator(item).props.id).toEqual('ui-marc-authorities.settings.manageAuthoritySourceFiles.error.startNumber.zeroes');

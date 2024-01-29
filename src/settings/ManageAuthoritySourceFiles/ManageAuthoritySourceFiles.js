@@ -45,7 +45,7 @@ const ACTION_TYPES = {
 };
 
 const ManageAuthoritySourceFiles = () => {
-  const { formatMessage } = useIntl();
+  const intl = useIntl();
   const callout = useCallout();
 
   const showSuccessMessage = (action, name) => callout.sendCallout({
@@ -86,9 +86,9 @@ const ManageAuthoritySourceFiles = () => {
     onUpdateFail,
   });
 
-  const paneTitle = formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.pane.title' });
-  const label = formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.list.label' });
-  const selectableFieldLabel = formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.selectable' });
+  const paneTitle = intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.pane.title' });
+  const label = intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.list.label' });
+  const selectableFieldLabel = intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.selectable' });
 
   const getRequiredLabel = useCallback(columnLabel => (
     <Label required>
@@ -113,21 +113,21 @@ const ManageAuthoritySourceFiles = () => {
   ]), []);
 
   const columnMapping = useMemo(() => ({
-    [authorityFilesColumns.NAME]: getRequiredLabel(formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.name' })),
-    [authorityFilesColumns.CODES]: getRequiredLabel(formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.codes' })),
-    [authorityFilesColumns.START_NUMBER]: getRequiredLabel(formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.startNumber' })),
-    [authorityFilesColumns.BASE_URL]: formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.baseUrl' }),
+    [authorityFilesColumns.NAME]: getRequiredLabel(intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.name' })),
+    [authorityFilesColumns.CODES]: getRequiredLabel(intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.codes' })),
+    [authorityFilesColumns.START_NUMBER]: getRequiredLabel(intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.startNumber' })),
+    [authorityFilesColumns.BASE_URL]: intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.baseUrl' }),
     [authorityFilesColumns.SELECTABLE]: (
       <>
         {selectableFieldLabel}
         <InfoPopover
-          content={formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.selectable.info' })}
+          content={intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.selectable.info' })}
         />
       </>
     ),
-    [authorityFilesColumns.SOURCE]: formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.source' }),
-    [authorityFilesColumns.LAST_UPDATED]: formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.lastUpdated' }),
-  }), [formatMessage, selectableFieldLabel, getRequiredLabel]);
+    [authorityFilesColumns.SOURCE]: intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.source' }),
+    [authorityFilesColumns.LAST_UPDATED]: intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.lastUpdated' }),
+  }), [intl, selectableFieldLabel, getRequiredLabel]);
 
   const columnWidths = useMemo(() => ({
     [authorityFilesColumns.NAME]: '300px',
@@ -209,7 +209,7 @@ const ManageAuthoritySourceFiles = () => {
           formType="final-form"
           contentData={sourceFiles}
           totalCount={sourceFiles.length}
-          createButtonLabel={formatMessage({ id: 'stripes-core.button.new' })}
+          createButtonLabel={intl.formatMessage({ id: 'stripes-core.button.new' })}
           label={label}
           itemTemplate={ITEM_TEMPLATE}
           visibleFields={visibleFields}
@@ -228,7 +228,7 @@ const ManageAuthoritySourceFiles = () => {
           onSubmit={noop}
           isEmptyMessage={isEmptyMessage}
           validate={(item, _index, items) => validate(item, items)}
-          fieldComponents={getFieldComponents(selectableFieldLabel)}
+          fieldComponents={getFieldComponents(selectableFieldLabel, intl)}
           columnWidths={columnWidths}
           canCreate={canCreate}
         />

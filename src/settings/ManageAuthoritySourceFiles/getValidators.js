@@ -43,12 +43,12 @@ const validators = {
 
     return undefined;
   },
-  [authorityFilesColumns.START_NUMBER]: function validateStartNumber({ startNumber }) {
-    if (!startNumber) {
+  [authorityFilesColumns.START_NUMBER]: function validateStartNumber({ hridManagement }) {
+    if (!hridManagement?.startNumber) {
       return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.startNumber.empty" />;
     }
 
-    if (startNumber.toString()[0] === '0') {
+    if (hridManagement?.startNumber.toString()[0] === '0') {
       return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.startNumber.zeroes" />;
     }
 
