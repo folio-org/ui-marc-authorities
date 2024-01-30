@@ -47,6 +47,7 @@ export const getFieldComponents = (selectableFieldLabel, intl) => ({
       {...fieldProps}
       component={Checkbox}
       aria-label={selectableFieldLabel}
+      marginBottom0
     />
   ),
 });

@@ -167,16 +167,7 @@ const ManageAuthoritySourceFiles = () => {
     );
   }, [updaters]);
 
-  const formatter = useMemo(() => ({
-    ...getFormatter({ selectableFieldLabel }),
-    [authorityFilesColumns.LAST_UPDATED]: item => {
-      if (item.metadata) {
-        return renderLastUpdated(item.metadata);
-      }
-
-      return '-';
-    },
-  }), [selectableFieldLabel, renderLastUpdated]);
+  const formatter = useMemo(() => getFormatter({ selectableFieldLabel, renderLastUpdated }), [selectableFieldLabel, renderLastUpdated]);
 
   const isEmptyMessage = useMemo(() => (
     isLoading
