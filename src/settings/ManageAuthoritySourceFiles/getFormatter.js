@@ -1,11 +1,14 @@
 import { FormattedMessage } from 'react-intl';
 
-import { Checkbox } from '@folio/stripes/components';
+import {
+  Checkbox,
+  NoValue,
+} from '@folio/stripes/components';
 
 import { authorityFilesColumns, SOURCES } from './constants';
 
 /* eslint-disable react/prop-types, react/no-multi-comp */
-export const getFormatter = ({ selectableFieldLabel }) => ({
+export const getFormatter = ({ selectableFieldLabel, renderLastUpdated }) => ({
   [authorityFilesColumns.CODES]: ({ codes }) => (Array.isArray(codes) ? codes.join(',') : codes),
   [authorityFilesColumns.SELECTABLE]: ({ selectable }) => (
     <Checkbox
@@ -25,5 +28,12 @@ export const getFormatter = ({ selectableFieldLabel }) => ({
     }
 
     return source;
+  },
+  [authorityFilesColumns.LAST_UPDATED]: ({ metadata }) => {
+    if (metadata) {
+      return renderLastUpdated(metadata);
+    }
+
+    return <NoValue />;
   },
 });

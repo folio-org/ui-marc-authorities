@@ -2,98 +2,99 @@ import {
   useCallback,
   useMemo,
 } from 'react';
-import { useIntl } from 'react-intl';
+import { Link } from 'react-router-dom';
+import {
+  FormattedDate,
+  FormattedMessage,
+  useIntl,
+} from 'react-intl';
+import noop from 'lodash/noop';
 
 import {
-  useStripes,
   TitleManager,
-  checkIfUserInMemberTenant,
+  useCallout,
 } from '@folio/stripes/core';
-import { ControlledVocab } from '@folio/stripes/smart-components';
+import { EditableList } from '@folio/stripes/smart-components';
 import {
+  Pane,
   InfoPopover,
   Label,
   Loading,
 } from '@folio/stripes/components';
-import { useUserTenantPermissions } from '@folio/stripes-authority-components';
 
+import { useManageAuthoritySourceFiles } from './useManageAuthoritySourceFiles';
 import { getFormatter } from './getFormatter';
 import { getFieldComponents } from './getFieldComponents';
-import { hasCentralTenantPerm } from '../../utils';
 import {
   authorityFilesColumns,
   SOURCES,
+  SYSTEM_USER_ID,
 } from './constants';
-import { getValidators } from './getValidators';
 
-const authorityFilesAllPerm = 'ui-marc-authorities.settings.authority-files.all';
+import styles from './ManageAuthoritySourceFiles.css';
 
 const ITEM_TEMPLATE = {
   [authorityFilesColumns.SOURCE]: SOURCES.LOCAL,
   [authorityFilesColumns.SELECTABLE]: false,
 };
 
-const ManageAuthoritySourceFiles = () => {
-  const stripes = useStripes();
-  const { formatMessage } = useIntl();
-  const ConnectedControlledVocab = stripes.connect(ControlledVocab);
+const ACTION_TYPES = {
+  CREATE: 'create',
+  UPDATE: 'update',
+  DELETE: 'delete',
+};
 
-  const userId = stripes.user.user?.id;
-  const centralTenantId = stripes.user.user?.consortium?.centralTenantId;
+const ManageAuthoritySourceFiles = () => {
+  const intl = useIntl();
+  const callout = useCallout();
+
+  const showSuccessMessage = (action, name) => callout.sendCallout({
+    message: <FormattedMessage id={`ui-marc-authorities.settings.manageAuthoritySourceFiles.${action}.success`} values={{ name }} />,
+  });
+  const showErrorMessage = (action, name, reason) => {
+    const translationId = reason
+      ? `ui-marc-authorities.settings.manageAuthoritySourceFiles.${action}.fail.${reason}`
+      : 'ui-marc-authorities.error.defaultSaveError';
+
+    callout.sendCallout({
+      message: <FormattedMessage id={translationId} values={{ name }} />,
+      type: 'error',
+    });
+  };
+
+  const onCreateSuccess = ({ name }) => showSuccessMessage(ACTION_TYPES.CREATE, name);
+  const onUpdateSuccess = ({ name }) => showSuccessMessage(ACTION_TYPES.UPDATE, name);
+  const onDeleteSuccess = ({ name }) => showSuccessMessage(ACTION_TYPES.DELETE, name);
+  const onUpdateFail = ({ name, reason }) => showErrorMessage(ACTION_TYPES.UPDATE, name, reason);
 
   const {
-    userPermissions: centralTenantPermissions,
-    isFetching: isCentralTenantPermissionsLoading,
-  } = useUserTenantPermissions({
-    userId,
-    tenantId: centralTenantId,
-  }, {
-    enabled: checkIfUserInMemberTenant(stripes),
+    sourceFiles,
+    updaters,
+    isLoading,
+    canEdit,
+    canCreate,
+    canDelete,
+    validate,
+    getReadOnlyFieldsForItem,
+    createFile,
+    updateFile,
+    deleteFile,
+  } = useManageAuthoritySourceFiles({
+    onCreateSuccess,
+    onUpdateSuccess,
+    onDeleteSuccess,
+    onUpdateFail,
   });
 
-  const paneTitle = formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.pane.title' });
-  const selectableFieldLabel = formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.selectable' });
-
-  const isUserHasEditPermission = checkIfUserInMemberTenant(stripes)
-    ? hasCentralTenantPerm(centralTenantPermissions, authorityFilesAllPerm)
-    : stripes.hasPerm(authorityFilesAllPerm);
-
-  const suppressEdit = () => !isUserHasEditPermission;
-  const suppressDelete = ({ source }) => source === SOURCES.FOLIO || !isUserHasEditPermission;
+  const paneTitle = intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.pane.title' });
+  const label = intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.list.label' });
+  const selectableFieldLabel = intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.selectable' });
 
   const getRequiredLabel = useCallback(columnLabel => (
     <Label required>
       {columnLabel}
     </Label>
   ), []);
-
-  const formatFileForCreate = useCallback(file => {
-    const fileCopy = { ...file };
-
-    fileCopy.code = file.codes;
-    fileCopy.hridManagement = {
-      startNumber: file.startNumber,
-    };
-
-    delete fileCopy.codes;
-    delete fileCopy.startNumber;
-
-    return fileCopy;
-  }, []);
-
-  const validate = useCallback((item, _index, items) => {
-    const errors = Object.values(authorityFilesColumns).reduce((acc, field) => {
-      const error = getValidators(field)?.(item, items);
-
-      if (error) {
-        acc[field] = error;
-      }
-
-      return acc;
-    }, {});
-
-    return errors;
-  }, []);
 
   const visibleFields = useMemo(() => ([
     authorityFilesColumns.NAME,
@@ -102,24 +103,31 @@ const ManageAuthoritySourceFiles = () => {
     authorityFilesColumns.BASE_URL,
     authorityFilesColumns.SELECTABLE,
     authorityFilesColumns.SOURCE,
+    authorityFilesColumns.LAST_UPDATED,
+  ]), []);
+
+  const readOnlyFields = useMemo(() => ([
+    authorityFilesColumns.SOURCE,
+    authorityFilesColumns.LAST_UPDATED,
+    authorityFilesColumns.NUMBER_OF_OBJECTS,
   ]), []);
 
   const columnMapping = useMemo(() => ({
-    [authorityFilesColumns.NAME]: getRequiredLabel(formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.name' })),
-    [authorityFilesColumns.CODES]: getRequiredLabel(formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.codes' })),
-    [authorityFilesColumns.START_NUMBER]: getRequiredLabel(formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.startNumber' })),
-    [authorityFilesColumns.BASE_URL]: formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.baseUrl' }),
+    [authorityFilesColumns.NAME]: getRequiredLabel(intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.name' })),
+    [authorityFilesColumns.CODES]: getRequiredLabel(intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.codes' })),
+    [authorityFilesColumns.START_NUMBER]: getRequiredLabel(intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.startNumber' })),
+    [authorityFilesColumns.BASE_URL]: intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.baseUrl' }),
     [authorityFilesColumns.SELECTABLE]: (
       <>
         {selectableFieldLabel}
         <InfoPopover
-          content={formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.selectable.info' })}
+          content={intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.selectable.info' })}
         />
       </>
     ),
-    [authorityFilesColumns.SOURCE]: formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.source' }),
-    [authorityFilesColumns.LAST_UPDATED]: formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.lastUpdated' }),
-  }), [formatMessage, selectableFieldLabel, getRequiredLabel]);
+    [authorityFilesColumns.SOURCE]: intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.source' }),
+    [authorityFilesColumns.LAST_UPDATED]: intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.lastUpdated' }),
+  }), [intl, selectableFieldLabel, getRequiredLabel]);
 
   const columnWidths = useMemo(() => ({
     [authorityFilesColumns.NAME]: '300px',
@@ -132,43 +140,90 @@ const ManageAuthoritySourceFiles = () => {
     [authorityFilesColumns.ACTIONS]: '100px',
   }), []);
 
-  if (isCentralTenantPermissionsLoading) {
+  const renderLastUpdated = useCallback(metadata => {
+    const record = updaters.find(r => r.id === metadata.updatedByUserId);
+
+    let user = '';
+
+    if (record?.personal) {
+      const { firstName, lastName = '' } = record.personal;
+      const name = firstName ? `${lastName}, ${firstName}` : lastName;
+
+      user = <Link to={`/users/view/${metadata.updatedByUserId}`}>{name}</Link>;
+    } else if (metadata.updatedByUserId === SYSTEM_USER_ID) {
+      user = <FormattedMessage id="stripes-smart-components.system" />;
+    }
+
+    return (
+      <div className={styles.lastUpdated}>
+        <FormattedMessage
+          id="stripes-smart-components.cv.updatedAtAndBy"
+          values={{
+            date: <FormattedDate value={metadata.updatedDate} />,
+            user,
+          }}
+        />
+      </div>
+    );
+  }, [updaters]);
+
+  const formatter = useMemo(() => getFormatter({ selectableFieldLabel, renderLastUpdated }), [selectableFieldLabel, renderLastUpdated]);
+
+  const isEmptyMessage = useMemo(() => (
+    isLoading
+      ? <Loading />
+      : (
+        <FormattedMessage
+          id="stripes-smart-components.cv.noExistingTerms"
+          values={{ terms: label }}
+        />
+      )
+  ), [isLoading, label]);
+
+  const suppressEdit = () => !canEdit;
+  const suppressDelete = ({ source }) => source === SOURCES.FOLIO || !canDelete;
+
+
+  if (isLoading) {
     return <Loading />;
   }
 
   return (
     <TitleManager record={paneTitle}>
-      <ConnectedControlledVocab
-        formType="final-form"
-        stripes={stripes}
-        baseUrl="authority-source-files"
-        records="authoritySourceFiles"
-        label={paneTitle}
-        listFormLabel={formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.list.label' })}
-        visibleFields={visibleFields}
-        hiddenFields={[authorityFilesColumns.NUMBER_OF_OBJECTS]}
-        columnMapping={columnMapping}
-        formatter={getFormatter({ selectableFieldLabel })}
-        actionSuppressor={{
-          edit: suppressEdit,
-          delete: suppressDelete,
-        }}
-        readOnlyFields={[authorityFilesColumns.SOURCE]}
-        id="authority-source-files"
-        itemTemplate={ITEM_TEMPLATE}
-        fieldComponents={getFieldComponents(selectableFieldLabel)}
-        columnWidths={columnWidths}
-        actionSuppression={{
-          edit: suppressEdit,
-          delete: suppressDelete,
-        }}
-        createButtonLabel={formatMessage({ id: 'stripes-core.button.new' })}
-        canCreate={isUserHasEditPermission}
-        preCreateHook={formatFileForCreate}
-        tenant={centralTenantId || stripes.okapi.tenant}
-        labelSingular={formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.labelSingular' })}
-        validate={validate}
-      />
+      <Pane
+        defaultWidth="fill"
+        fluidContentWidth
+        paneTitle={paneTitle}
+        id="settings-authority-source-files-pane"
+      >
+        <EditableList
+          formType="final-form"
+          contentData={sourceFiles}
+          totalCount={sourceFiles.length}
+          createButtonLabel={intl.formatMessage({ id: 'stripes-core.button.new' })}
+          label={label}
+          itemTemplate={ITEM_TEMPLATE}
+          visibleFields={visibleFields}
+          hiddenFields={[authorityFilesColumns.NUMBER_OF_OBJECTS]}
+          columnMapping={columnMapping}
+          formatter={formatter}
+          readOnlyFields={readOnlyFields}
+          getReadOnlyFieldsForItem={getReadOnlyFieldsForItem}
+          actionSuppression={{
+            edit: suppressEdit,
+            delete: suppressDelete,
+          }}
+          onUpdate={updateFile}
+          onCreate={createFile}
+          onDelete={deleteFile}
+          onSubmit={noop}
+          isEmptyMessage={isEmptyMessage}
+          validate={(item, _index, items) => validate(item, items)}
+          fieldComponents={getFieldComponents(selectableFieldLabel, intl)}
+          columnWidths={columnWidths}
+          canCreate={canCreate}
+        />
+      </Pane>
     </TitleManager>
   );
 };

@@ -2,13 +2,11 @@ import {
   fireEvent,
   render,
 } from '@folio/jest-config-stripes/testing-library/react';
-
 import {
   CommandList,
   defaultKeyboardShortcuts,
 } from '@folio/stripes/components';
 import { runAxeTest } from '@folio/stripes-testing';
-
 import { useUserTenantPermissions } from '@folio/stripes-authority-components';
 
 import Harness from '../../../test/jest/helpers/harness';
@@ -47,7 +45,6 @@ jest.mock('@folio/stripes/components', () => ({
 jest.mock('@folio/stripes-authority-components', () => ({
   ...jest.requireActual('@folio/stripes-authority-components'),
   useUserTenantPermissions: jest.fn(),
-  useTenantKy: jest.fn(),
 }));
 
 const marcSource = {

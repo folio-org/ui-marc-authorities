@@ -115,6 +115,7 @@ jest.mock('@folio/stripes/core', () => {
     AppContextMenu,
     useOkapiKy,
     useNamespace,
+    useStripes: jest.fn().mockReturnValue(STRIPES),
   };
 }, { virtual: true });
 
