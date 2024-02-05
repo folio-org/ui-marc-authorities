@@ -1,6 +1,9 @@
 import { FormattedMessage } from 'react-intl';
 
+import { defaultKeyboardShortcuts } from '@folio/stripes/components';
+
 const commands = [
+  defaultKeyboardShortcuts.find(shortcut => shortcut.name === 'new'),
   {
     name: 'edit',
     label: (<FormattedMessage id="ui-marc-authorities.shortcut.editRecord" />),
