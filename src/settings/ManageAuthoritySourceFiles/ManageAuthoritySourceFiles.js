@@ -88,7 +88,16 @@ const ManageAuthoritySourceFiles = () => {
 
   const paneTitle = intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.pane.title' });
   const label = intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.list.label' });
-  const selectableFieldLabel = intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.selectable' });
+
+  const fieldLabels = useMemo(() => ({
+    [authorityFilesColumns.NAME]: intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.name' }),
+    [authorityFilesColumns.CODES]: intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.codes' }),
+    [authorityFilesColumns.START_NUMBER]: intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.startNumber' }),
+    [authorityFilesColumns.BASE_URL]: intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.baseUrl' }),
+    [authorityFilesColumns.SELECTABLE]: intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.selectable' }),
+    [authorityFilesColumns.SOURCE]: intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.source' }),
+    [authorityFilesColumns.LAST_UPDATED]: intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.lastUpdated' }),
+  }), [intl]);
 
   const getRequiredLabel = useCallback(columnLabel => (
     <Label required>
@@ -113,21 +122,21 @@ const ManageAuthoritySourceFiles = () => {
   ]), []);
 
   const columnMapping = useMemo(() => ({
-    [authorityFilesColumns.NAME]: getRequiredLabel(intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.name' })),
-    [authorityFilesColumns.CODES]: getRequiredLabel(intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.codes' })),
-    [authorityFilesColumns.START_NUMBER]: getRequiredLabel(intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.startNumber' })),
-    [authorityFilesColumns.BASE_URL]: intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.baseUrl' }),
+    [authorityFilesColumns.NAME]: getRequiredLabel(fieldLabels[authorityFilesColumns.NAME]),
+    [authorityFilesColumns.CODES]: getRequiredLabel(fieldLabels[authorityFilesColumns.CODES]),
+    [authorityFilesColumns.START_NUMBER]: getRequiredLabel(fieldLabels[authorityFilesColumns.START_NUMBER]),
+    [authorityFilesColumns.BASE_URL]: fieldLabels[authorityFilesColumns.BASE_URL],
     [authorityFilesColumns.SELECTABLE]: (
       <>
-        {selectableFieldLabel}
+        {fieldLabels[authorityFilesColumns.SELECTABLE]}
         <InfoPopover
           content={intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.selectable.info' })}
         />
       </>
     ),
-    [authorityFilesColumns.SOURCE]: intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.source' }),
-    [authorityFilesColumns.LAST_UPDATED]: intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.lastUpdated' }),
-  }), [intl, selectableFieldLabel, getRequiredLabel]);
+    [authorityFilesColumns.SOURCE]: fieldLabels[authorityFilesColumns.SOURCE],
+    [authorityFilesColumns.LAST_UPDATED]: fieldLabels[authorityFilesColumns.LAST_UPDATED],
+  }), [intl, fieldLabels, getRequiredLabel]);
 
   const columnWidths = useMemo(() => ({
     [authorityFilesColumns.NAME]: '300px',
@@ -167,7 +176,7 @@ const ManageAuthoritySourceFiles = () => {
     );
   }, [updaters]);
 
-  const formatter = useMemo(() => getFormatter({ selectableFieldLabel, renderLastUpdated }), [selectableFieldLabel, renderLastUpdated]);
+  const formatter = useMemo(() => getFormatter({ fieldLabels, renderLastUpdated }), [fieldLabels, renderLastUpdated]);
 
   const isEmptyMessage = useMemo(() => (
     isLoading
@@ -218,8 +227,8 @@ const ManageAuthoritySourceFiles = () => {
           onDelete={deleteFile}
           onSubmit={noop}
           isEmptyMessage={isEmptyMessage}
-          validate={(item, _index, items) => validate(item, items)}
-          fieldComponents={getFieldComponents(selectableFieldLabel, intl)}
+          validate={validate}
+          fieldComponents={getFieldComponents(fieldLabels)}
           columnWidths={columnWidths}
           canCreate={canCreate}
         />

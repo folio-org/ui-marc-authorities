@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import isEqual from 'lodash/isEqual';
+import isEmpty from 'lodash/isEmpty';
 
 import {
   useStripes,
@@ -69,18 +70,34 @@ export const useManageAuthoritySourceFiles = ({
     ? hasCentralTenantPerm(centralTenantPermissions, authorityFilesAllPerm)
     : stripes.hasPerm(authorityFilesAllPerm);
 
-  const validate = useCallback((item, items) => {
-    const errors = Object.values(authorityFilesColumns).reduce((acc, field) => {
-      const error = getValidators(field)?.(item, items);
+  const validate = useCallback(({ items }) => {
+    const validateItem = item => {
+      return Object.values(authorityFilesColumns).reduce((acc, field) => {
+        const error = getValidators(field)?.(item, items);
 
-      if (error) {
-        acc[field] = error;
+        if (error) {
+          acc[field] = error;
+        }
+
+        return acc;
+      }, {});
+    };
+
+    const errors = items.reduce((acc, item, index) => {
+      const itemErrors = validateItem(item);
+
+      if (!isEmpty(itemErrors)) {
+        acc[index] = itemErrors;
       }
 
       return acc;
-    }, {});
+    }, []);
 
-    return errors;
+    if (errors.length) {
+      return { items: errors };
+    }
+
+    return {};
   }, []);
 
   const formatFileForCreate = useCallback(file => {

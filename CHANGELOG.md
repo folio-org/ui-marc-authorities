@@ -17,6 +17,7 @@
 - [UIMARCAUTH-369](https://issues.folio.org/browse/UIMARCAUTH-369) Add Create a new MARC authority record keyboard shortcut.
 - [UIMARCAUTH-374](https://issues.folio.org/browse/UIMARCAUTH-382) Add the same permissions that are listed in `quickMARC: Create a new MARC authority record` to `Create new MARC authority record`.
 - [UIMARCAUTH-359](https://issues.folio.org/browse/UIMARCAUTH-359) EDIT | Create new settings options for configuring authority files
+- [UIMARCAUTH-368](https://issues.folio.org/browse/UIMARCAUTH-368) Add additional HRID validation for authority file settings.
 
 ## [4.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v4.0.1) (2023-11-29)
 
