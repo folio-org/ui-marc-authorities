@@ -57,7 +57,7 @@ const ManageAuthoritySourceFiles = () => {
       : 'ui-marc-authorities.error.defaultSaveError';
 
     callout.sendCallout({
-      message: <FormattedMessage id={translationId} values={{ name }} />,
+      message: intl.formatMessage({ id: translationId }, { name }),
       type: 'error',
     });
   };
@@ -66,6 +66,7 @@ const ManageAuthoritySourceFiles = () => {
   const onUpdateSuccess = ({ name }) => showSuccessMessage(ACTION_TYPES.UPDATE, name);
   const onDeleteSuccess = ({ name }) => showSuccessMessage(ACTION_TYPES.DELETE, name);
   const onUpdateFail = ({ name, reason }) => showErrorMessage(ACTION_TYPES.UPDATE, name, reason);
+  const onDeleteFail = ({ name, reason }) => showErrorMessage(ACTION_TYPES.DELETE, name, reason);
 
   const {
     sourceFiles,
@@ -84,6 +85,7 @@ const ManageAuthoritySourceFiles = () => {
     onUpdateSuccess,
     onDeleteSuccess,
     onUpdateFail,
+    onDeleteFail,
   });
 
   const paneTitle = intl.formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.pane.title' });
@@ -222,6 +224,9 @@ const ManageAuthoritySourceFiles = () => {
           fieldComponents={getFieldComponents(selectableFieldLabel, intl)}
           columnWidths={columnWidths}
           canCreate={canCreate}
+          withDeleteConfirmation
+          confirmationHeading={fileId => sourceFiles.find(file => file.id === fileId)?.name}
+          confirmationMessage={<FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.confirmationModal.message" />}
         />
       </Pane>
     </TitleManager>

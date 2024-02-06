@@ -93,6 +93,10 @@ jest.mock('@folio/stripes/core', () => {
 
   const useNamespace = () => ['@folio/marc-authorities', jest.fn()];
 
+  const useCallout = jest.fn().mockReturnValue({
+    sendCallout: jest.fn(),
+  });
+
   // eslint-disable-next-line react/prop-types
   const withStripes = Component => function ({ stripes, ...rest }) {
     const fakeStripes = stripes || STRIPES;
@@ -115,6 +119,7 @@ jest.mock('@folio/stripes/core', () => {
     AppContextMenu,
     useOkapiKy,
     useNamespace,
+    useCallout,
     useStripes: jest.fn().mockReturnValue(STRIPES),
   };
 }, { virtual: true });
