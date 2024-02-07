@@ -5,6 +5,13 @@ import { authorityFilesColumns } from './constants';
 const CODES_MAX_LENGTH = 25;
 
 const validators = {
+  [authorityFilesColumns.NAME]: function validateName({ name }) {
+    if (!name) {
+      return <FormattedMessage id="stripes-core.label.missingRequiredField" />;
+    }
+
+    return undefined;
+  },
   [authorityFilesColumns.CODES]: function validateCodes({ codes, id }, items) {
     if (!codes) {
       return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.codes.empty" />;
