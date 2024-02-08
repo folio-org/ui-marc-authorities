@@ -7,8 +7,7 @@ import {
 
 import { authorityFilesColumns } from './constants';
 
-/* eslint-disable react/prop-types */
-/* eslint-disable react/no-multi-comp */
+/* eslint-disable react/no-multi-comp, react/prop-types */
 export const getFieldComponents = fieldLabels => ({
   [authorityFilesColumns.NAME]: ({ fieldProps, name, rowIndex, fieldIndex }) => (
     <Field

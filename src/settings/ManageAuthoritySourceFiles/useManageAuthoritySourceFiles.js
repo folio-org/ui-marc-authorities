@@ -76,6 +76,7 @@ export const useManageAuthoritySourceFiles = ({
       if (error) {
         acc[field] = error;
       }
+
       return acc;
     }, {});
 
@@ -109,12 +110,12 @@ export const useManageAuthoritySourceFiles = ({
   const formatFileForUpdate = useCallback(file => {
     // PATCH expects only changed fields, otherwise if a record is assigned and we send a field that wasn't updated the request will fail
     const originalFile = sourceFiles.find(_file => _file.id === file.id);
-    const changedFields = Object.keys(file).reduce((acc, field) => {
+    const changedFields = Object.keys(originalFile).reduce((acc, field) => {
       if (isEqual(originalFile[field], file[field])) {
         return acc;
       }
 
-      return { ...acc, [field]: file[field] };
+      return { ...acc, [field]: file[field] || '' }; // need || '' because for some reason when clearing a field, final-form removes this property from item completely
     }, {});
 
     return {
