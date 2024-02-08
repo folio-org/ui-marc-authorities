@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import isEqual from 'lodash/isEqual';
-import isEmpty from 'lodash/isEmpty';
 
 import {
   useStripes,
@@ -70,35 +69,32 @@ export const useManageAuthoritySourceFiles = ({
     ? hasCentralTenantPerm(centralTenantPermissions, authorityFilesAllPerm)
     : stripes.hasPerm(authorityFilesAllPerm);
 
-  const validate = useCallback(({ items }) => {
-    const validateItem = item => {
-      return Object.values(authorityFilesColumns).reduce((acc, field) => {
-        const error = getValidators(field)?.(item, items);
+  const validateItem = useCallback((item, items) => {
+    const errors = Object.values(authorityFilesColumns).reduce((acc, field) => {
+      const error = getValidators(field)?.(item, items);
 
-        if (error) {
-          acc[field] = error;
-        }
-
-        return acc;
-      }, {});
-    };
-
-    const errors = items.reduce((acc, item, index) => {
-      const itemErrors = validateItem(item);
-
-      if (!isEmpty(itemErrors)) {
-        acc[index] = itemErrors;
+      if (error) {
+        acc[field] = error;
       }
-
       return acc;
-    }, []);
+    }, {});
 
-    if (errors.length) {
-      return { items: errors };
-    }
-
-    return {};
+    return errors;
   }, []);
+
+  const validate = ({ items }) => {
+    const errors = [];
+
+    items.forEach((item, index) => {
+      const itemErrors = validateItem(item, items) || {};
+
+      if (Object.keys(itemErrors).length) {
+        errors[index] = itemErrors;
+      }
+    });
+
+    return { items: errors };
+  };
 
   const formatFileForCreate = useCallback(file => {
     const fileCopy = { ...file };

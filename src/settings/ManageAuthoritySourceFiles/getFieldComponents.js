@@ -10,50 +10,46 @@ import { authorityFilesColumns } from './constants';
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-multi-comp */
 export const getFieldComponents = fieldLabels => ({
-  [authorityFilesColumns.NAME]: ({ fieldProps, name, rowIndex, fieldIndex, error }) => (
+  [authorityFilesColumns.NAME]: ({ fieldProps, name, rowIndex, fieldIndex }) => (
     <Field
-      name={fieldProps.name}
+      {...fieldProps}
       component={TextField}
       aria-label={`${fieldLabels[name]} ${rowIndex}`}
       placeholder={fieldLabels[name]}
       marginBottom0
       autoFocus={fieldIndex === 0}
-      error={error?.fieldErrors?.[name]}
     />
   ),
-  [authorityFilesColumns.CODES]: ({ fieldProps, name, rowIndex, error }) => (
+  [authorityFilesColumns.CODES]: ({ fieldProps, name, rowIndex }) => (
     <Field
-      name={fieldProps.name}
+      {...fieldProps}
       aria-label={`${fieldLabels[name]} ${rowIndex}`}
       component={TextField}
       placeholder={fieldLabels[name]}
       marginBottom0
-      error={error?.fieldErrors?.[name]}
     />
   ),
-  [authorityFilesColumns.START_NUMBER]: ({ fieldProps, name, rowIndex, error }) => (
+  [authorityFilesColumns.START_NUMBER]: ({ fieldProps, name, rowIndex }) => (
     <Field
-      name={fieldProps.name}
+      {...fieldProps}
       aria-label={`${fieldLabels[name]} ${rowIndex}`}
       component={TextField}
       placeholder={fieldLabels[name]}
       marginBottom0
-      error={error?.fieldErrors?.[name]}
     />
   ),
-  [authorityFilesColumns.BASE_URL]: ({ fieldProps, name, rowIndex, error }) => (
+  [authorityFilesColumns.BASE_URL]: ({ fieldProps, name, rowIndex }) => (
     <Field
-      name={fieldProps.name}
+      {...fieldProps}
       aria-label={`${fieldLabels[name]} ${rowIndex}`}
       component={TextField}
       placeholder={fieldLabels[name]}
       marginBottom0
-      error={error?.fieldErrors?.[name]}
     />
   ),
   [authorityFilesColumns.SELECTABLE]: ({ fieldProps, name, rowIndex }) => (
     <Field
-      name={fieldProps.name}
+      {...fieldProps}
       type="checkbox"
       aria-label={`${fieldLabels[name]} ${rowIndex}`}
       component={Checkbox}

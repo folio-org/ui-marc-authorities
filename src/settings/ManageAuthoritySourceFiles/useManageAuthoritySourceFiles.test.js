@@ -168,6 +168,35 @@ describe('Given useManageAuthoritySourceFiles', () => {
     expect(result.current.updaters).toEqual(['user-1', 'user-2']);
   });
 
+  describe('when validating an item', () => {
+    describe('when there is an error', () => {
+      it('should return object with failed fields', () => {
+        const item = {}; // empty item will have validation errors. Doesn't matter which to test that validators return an error correctly
+        const { result } = renderUseManageAuthoritySourceFiles();
+
+        const failedProperties = Object.keys(result.current.validate(item, sourceFiles));
+
+        expect(failedProperties).not.toHaveLength(0);
+      });
+    });
+
+    describe('when there is no error', () => {
+      it('should return object with no fields', () => {
+        const item = {
+          codes: 'validcode',
+          name: 'New name',
+          baseUrl: 'http://new-url/',
+          hridManagement: {
+            startNumber: 1,
+          },
+        };
+        const { result } = renderUseManageAuthoritySourceFiles();
+
+        expect(result.current.validate(item, sourceFiles)).toEqual({});
+      });
+    });
+  });
+
   describe('when calling createFile', () => {
     it('should call mutator with correct data', () => {
       const item = {
