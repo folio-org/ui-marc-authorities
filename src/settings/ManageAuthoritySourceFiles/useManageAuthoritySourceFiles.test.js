@@ -174,9 +174,11 @@ describe('Given useManageAuthoritySourceFiles', () => {
         const item = {}; // empty item will have validation errors. Doesn't matter which to test that validators return an error correctly
         const { result } = renderUseManageAuthoritySourceFiles();
 
-        const failedProperties = Object.keys(result.current.validate(item, sourceFiles));
+        const errors = result.current.validate({ items: [...sourceFiles, item] });
 
-        expect(failedProperties).not.toHaveLength(0);
+        expect(errors).not.toEqual({
+          items: [undefined, undefined, undefined],
+        });
       });
     });
 
@@ -192,7 +194,9 @@ describe('Given useManageAuthoritySourceFiles', () => {
         };
         const { result } = renderUseManageAuthoritySourceFiles();
 
-        expect(result.current.validate(item, sourceFiles)).toEqual({});
+        expect(result.current.validate({ items: [...sourceFiles, item] })).toEqual({
+          items: [undefined, undefined, undefined],
+        });
       });
     });
   });

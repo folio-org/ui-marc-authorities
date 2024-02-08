@@ -69,7 +69,7 @@ export const useManageAuthoritySourceFiles = ({
     ? hasCentralTenantPerm(centralTenantPermissions, authorityFilesAllPerm)
     : stripes.hasPerm(authorityFilesAllPerm);
 
-  const validate = useCallback((item, items) => {
+  const validateItem = useCallback((item, items) => {
     const errors = Object.values(authorityFilesColumns).reduce((acc, field) => {
       const error = getValidators(field)?.(item, items);
 
@@ -82,6 +82,20 @@ export const useManageAuthoritySourceFiles = ({
 
     return errors;
   }, []);
+
+  const validate = ({ items }) => {
+    const errors = [];
+
+    items.forEach((item, index) => {
+      const itemErrors = validateItem(item, items) || {};
+
+      if (Object.keys(itemErrors).length) {
+        errors[index] = itemErrors;
+      }
+    });
+
+    return { items: errors };
+  };
 
   const formatFileForCreate = useCallback(file => {
     const fileCopy = { ...file };
@@ -96,12 +110,12 @@ export const useManageAuthoritySourceFiles = ({
   const formatFileForUpdate = useCallback(file => {
     // PATCH expects only changed fields, otherwise if a record is assigned and we send a field that wasn't updated the request will fail
     const originalFile = sourceFiles.find(_file => _file.id === file.id);
-    const changedFields = Object.keys(file).reduce((acc, field) => {
+    const changedFields = Object.keys(originalFile).reduce((acc, field) => {
       if (isEqual(originalFile[field], file[field])) {
         return acc;
       }
 
-      return { ...acc, [field]: file[field] };
+      return { ...acc, [field]: file[field] || '' }; // need || '' because for some reason when clearing a field, final-form removes this property from item completely
     }, {});
 
     return {

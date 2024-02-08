@@ -220,7 +220,7 @@ const ManageAuthoritySourceFiles = () => {
           onDelete={deleteFile}
           onSubmit={noop}
           isEmptyMessage={isEmptyMessage}
-          validate={(item, _index, items) => validate(item, items)}
+          validate={validate}
           fieldComponents={getFieldComponents(selectableFieldLabel, intl)}
           columnWidths={columnWidths}
           canCreate={canCreate}
