@@ -1,4 +1,8 @@
-import { render } from '@folio/jest-config-stripes/testing-library/react';
+import {
+  fireEvent,
+  render,
+} from '@folio/jest-config-stripes/testing-library/react';
+import { useCallout } from '@folio/stripes/core';
 
 import Harness from '../../../test/jest/helpers/harness';
 
@@ -10,6 +14,7 @@ jest.mock('./useManageAuthoritySourceFiles', () => ({
 }));
 
 const sourceFiles = [{
+  id: 1,
   name: 'Source file 1',
   codes: ['aa', 'ab'],
   baseUrl: 'http://test-url-1',
@@ -21,6 +26,7 @@ const sourceFiles = [{
     updatedByUserId: 'user-1',
   },
 }, {
+  id: 2,
   name: 'Source file 2',
   codes: ['a'],
   baseUrl: 'http://test-url-2',
@@ -43,11 +49,16 @@ const updaters = [{
   },
 }];
 
+const mockSendCallout = jest.fn();
+
 const renderManageAuthoritySourceFiles = () => render(<ManageAuthoritySourceFiles />, { wrapper: Harness });
 
 describe('Given Settings', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    useCallout.mockClear().mockReturnValue({
+      sendCallout: mockSendCallout,
+    });
     useManageAuthoritySourceFiles.mockClear().mockReturnValue({
       sourceFiles,
       updaters,
@@ -105,5 +116,61 @@ describe('Given Settings', () => {
     expect(getAllByRole('checkbox', { name: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.selectable' })[1]).toBeVisible();
     expect(getByRole('gridcell', { name: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.source.local' })).toBeVisible();
     expect(getAllByText('stripes-smart-components.cv.updatedAtAndBy')[1]).toBeVisible();
+  });
+
+  describe('when file update fails', () => {
+    beforeEach(() => {
+      useManageAuthoritySourceFiles.mockClear().mockImplementation(({ onUpdateFail }) => {
+        return {
+          sourceFiles,
+          updaters,
+          canEdit: true,
+          canDelete: true,
+          validate: jest.fn().mockReturnValue({}),
+          updateFile: () => onUpdateFail({ name: 'Source file 2', reason: 'testReason' }),
+        };
+      });
+    });
+
+    it('should show a toast notification', () => {
+      const { getByRole, getAllByRole, getByPlaceholderText } = renderManageAuthoritySourceFiles();
+
+      fireEvent.click(getAllByRole('button', { name: 'stripes-components.editThisItem' })[1]);
+      fireEvent.change(getByPlaceholderText('ui-marc-authorities.settings.manageAuthoritySourceFiles.column.name'), { target: { value: 'Source file 2 EDIT' } });
+
+      fireEvent.click(getByRole('button', { name: 'stripes-core.button.save' }));
+
+      expect(mockSendCallout).toHaveBeenCalledWith({
+        message: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.update.fail.testReason',
+        type: 'error',
+      });
+    });
+  });
+
+  describe('when file delete fails', () => {
+    beforeEach(() => {
+      useManageAuthoritySourceFiles.mockClear().mockImplementation(({ onDeleteFail }) => {
+        return {
+          sourceFiles,
+          updaters,
+          canEdit: true,
+          canDelete: true,
+          validate: jest.fn().mockReturnValue({}),
+          deleteFile: () => onDeleteFail({ name: 'Source file 2', reason: 'testReason' }),
+        };
+      });
+    });
+
+    it('should show a toast notification', () => {
+      const { getAllByRole, getByRole } = renderManageAuthoritySourceFiles();
+
+      fireEvent.click(getAllByRole('button', { name: 'stripes-components.deleteThisItem' })[0]);
+      fireEvent.click(getByRole('button', { name: 'stripes-smart-components.editableList.confirmationModal.confirmLabel' }));
+
+      expect(mockSendCallout).toHaveBeenCalledWith({
+        message: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.delete.fail.testReason',
+        type: 'error',
+      });
+    });
   });
 });
