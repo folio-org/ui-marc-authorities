@@ -78,6 +78,15 @@
     "settings.manageAuthoritySourceFiles.error.codes.onlyOnePrefix": "Erro ao salvar dados. Apenas um prefixo é permitido para arquivos de autoridade local.",
     "settings.manageAuthoritySourceFiles.error.codes.unique": "Erro ao salvar dados. O prefixo deve ser único.",
     "settings.manageAuthoritySourceFiles.error.codes.empty": "Erro ao salvar dados. O prefixo é obrigatório.",
-    "settings.manageAuthoritySourceFiles.create.success": "O arquivo de autoridade (nome) foi criado com sucesso.",
-    "settings.manageAuthoritySourceFiles.error.codes.length": "Erro ao salvar dados. O prefixo não pode ter mais do que {maxlength} caracteres."
+    "settings.manageAuthoritySourceFiles.create.success": "O arquivo de autoridade <b>{name}</b> foi <b>criado</b> com sucesso.",
+    "settings.manageAuthoritySourceFiles.error.codes.length": "Erro ao salvar dados. O prefixo não pode ter mais do que {maxlength} caracteres.",
+    "settings.manageAuthoritySourceFiles.update.success": "O arquivo de autoridade <b>{name}</b> foi <b>atualizado</b> com sucesso.",
+    "settings.manageAuthoritySourceFiles.update.fail.fileAssigned": "As alterações em <b>{name}</b> não podem ser salvas. Os registros de autoridade existentes já estão atribuídos a esse arquivo de autoridade.",
+    "settings.manageAuthoritySourceFiles.update.fail.optimisticLocking": "As alterações em <b>{name}</b> não podem ser salvas porque <b>não</b> é a versão mais recente.",
+    "settings.manageAuthoritySourceFiles.delete.success": "O arquivo de autoridade <b>{name}</b> foi <b>excluído</b> .",
+    "error.defaultSaveError": "Erro ao salvar dados",
+    "settings.manageAuthoritySourceFiles.delete.fail.fileAssigned": "<b> {name} </b> não pode ser excluído. Os registos de autoridade existentes já estão atribuídos a este ficheiro de autoridade.",
+    "settings.manageAuthoritySourceFiles.confirmationModal.message": "Tem certeza de que deseja excluir este arquivo de autoridade? Após a exclusão, novos registros não poderão mais ser atribuídos a este arquivo de autoridade.",
+    "settings.manageAuthoritySourceFiles.confirmationModal.cancel": "Não, não excluir",
+    "settings.manageAuthoritySourceFiles.confirmationModal.confirm": "Sim, excluir"
 }
