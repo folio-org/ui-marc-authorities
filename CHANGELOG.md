@@ -18,6 +18,7 @@
 - [UIMARCAUTH-374](https://issues.folio.org/browse/UIMARCAUTH-382) Add the same permissions that are listed in `quickMARC: Create a new MARC authority record` to `Create new MARC authority record`.
 - [UIMARCAUTH-359](https://issues.folio.org/browse/UIMARCAUTH-359) EDIT | Create new settings options for configuring authority files
 - [UIMARCAUTH-361](https://issues.folio.org/browse/UIMARCAUTH-361) DELETE | Create new settings options for configuring authority files
+- [UIMARCAUTH-376](https://issues.folio.org/browse/UIMARCAUTH-376) Validate if a prefix is an alphabetical value for authority file settings.
 
 ## [4.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v4.0.1) (2023-11-29)
 
