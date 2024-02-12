@@ -225,8 +225,16 @@ const ManageAuthoritySourceFiles = () => {
           columnWidths={columnWidths}
           canCreate={canCreate}
           withDeleteConfirmation
-          confirmationHeading={fileId => sourceFiles.find(file => file.id === fileId)?.name}
-          confirmationMessage={<FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.confirmationModal.message" />}
+          confirmationHeading={<FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.confirmationModal.heading" />}
+          confirmationMessage={fileId => ((
+            <FormattedMessage
+              id="ui-marc-authorities.settings.manageAuthoritySourceFiles.confirmationModal.message"
+              values={{
+                name: sourceFiles.find(file => file.id === fileId)?.name,
+                br: <br />,
+              }}
+            />
+          ))}
         />
       </Pane>
     </TitleManager>
