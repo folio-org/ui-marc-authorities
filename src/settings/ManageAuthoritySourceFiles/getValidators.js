@@ -1,6 +1,9 @@
 import { FormattedMessage } from 'react-intl';
 
-import { authorityFilesColumns } from './constants';
+import {
+  SOURCES,
+  authorityFilesColumns,
+} from './constants';
 
 const CODES_MAX_LENGTH = 25;
 
@@ -54,13 +57,31 @@ const validators = {
 
     return undefined;
   },
-  [authorityFilesColumns.START_NUMBER]: function validateStartNumber({ hridManagement }) {
-    if (!hridManagement?.startNumber) {
+  [authorityFilesColumns.START_NUMBER]: function validateStartNumber({ hridManagement, source }) {
+    if (source === SOURCES.FOLIO) {
+      return undefined;
+    }
+
+    const startNumber = hridManagement?.startNumber?.toString();
+
+    if (!startNumber) {
       return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.startNumber.empty" />;
     }
 
-    if (hridManagement?.startNumber.toString()[0] === '0') {
+    if (startNumber[0] === '0') {
       return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.startNumber.zeroes" />;
+    }
+
+    if (startNumber.includes(' ')) {
+      return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.startNumber.whitespace" />;
+    }
+
+    if (!startNumber.match(/^[0-9]+$/)) {
+      return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.startNumber.notNumeric" />;
+    }
+
+    if (startNumber.length > 10) {
+      return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.startNumber.moreThan10" />;
     }
 
     return undefined;
