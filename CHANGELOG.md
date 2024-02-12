@@ -19,6 +19,7 @@
 - [UIMARCAUTH-359](https://issues.folio.org/browse/UIMARCAUTH-359) EDIT | Create new settings options for configuring authority files
 - [UIMARCAUTH-361](https://issues.folio.org/browse/UIMARCAUTH-361) DELETE | Create new settings options for configuring authority files
 - [UIMARCAUTH-368](https://issues.folio.org/browse/UIMARCAUTH-368) Add additional HRID validation for authority file settings.
+- [UIMARCAUTH-370](https://issues.folio.org/browse/UIMARCAUTH-370) Add base url validation for authority file settings.
 
 ## [4.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v4.0.1) (2023-11-29)
 
