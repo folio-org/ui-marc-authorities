@@ -216,7 +216,7 @@ describe('Given Settings', () => {
     expect(selectableField).toBeInTheDocument();
   });
 
-  describe('when validating an item', () => {
+  describe('when trying to save a file', () => {
     beforeEach(async () => {
       const { getByText } = renderManageAuthoritySourceFiles();
 

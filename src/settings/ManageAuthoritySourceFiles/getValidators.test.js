@@ -53,6 +53,25 @@ describe('getValidators', () => {
         expect(validator(item, items).props.id).toEqual('ui-marc-authorities.settings.manageAuthoritySourceFiles.error.codes.unique');
       });
     });
+
+    describe('when codes are not alphabetic characters', () => {
+      it('should return an error', () => {
+        const item = {
+          id: 1,
+          codes: 'a1',
+        };
+
+        const items = [{
+          id: 2,
+          codes: ['a'],
+        }, {
+          id: 3,
+          codes: ['b', 'c'],
+        }];
+
+        expect(validator(item, items).props.id).toBe('ui-marc-authorities.settings.manageAuthoritySourceFiles.error.codes.alpha');
+      });
+    });
   });
 
   describe('validating start number', () => {
