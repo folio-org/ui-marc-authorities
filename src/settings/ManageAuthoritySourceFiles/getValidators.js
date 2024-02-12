@@ -1,6 +1,9 @@
 import { FormattedMessage } from 'react-intl';
 
-import { authorityFilesColumns } from './constants';
+import {
+  SOURCES,
+  authorityFilesColumns,
+} from './constants';
 
 const CODES_MAX_LENGTH = 25;
 
@@ -50,7 +53,11 @@ const validators = {
 
     return undefined;
   },
-  [authorityFilesColumns.START_NUMBER]: function validateStartNumber({ hridManagement }) {
+  [authorityFilesColumns.START_NUMBER]: function validateStartNumber({ hridManagement, source }) {
+    if (source === SOURCES.FOLIO) {
+      return undefined;
+    }
+
     const startNumber = hridManagement?.startNumber?.toString();
 
     if (!startNumber) {

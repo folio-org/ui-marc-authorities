@@ -79,5 +79,14 @@
     "settings.manageAuthoritySourceFiles.error.codes.unique": "Chyba při ukládání dat. Prefix musí být jedinečný.",
     "settings.manageAuthoritySourceFiles.error.codes.empty": "Chyba při ukládání dat. Je vyžadován prefix.",
     "settings.manageAuthoritySourceFiles.create.success": "Soubor autority (název) byl úspěšně vytvořen.",
-    "settings.manageAuthoritySourceFiles.error.codes.length": "Chyba při ukládání dat. Prefix nemůže být delší než {maxlength} znaků."
+    "settings.manageAuthoritySourceFiles.error.codes.length": "Chyba při ukládání dat. Prefix nemůže být delší než {maxlength} znaků.",
+    "settings.manageAuthoritySourceFiles.update.success": "The authority file <b>{name}</b> has been successfully <b>updated</b>.",
+    "settings.manageAuthoritySourceFiles.update.fail.fileAssigned": "Changes to <b>{name}</b> cannot be saved. Existing authority records are already assigned to this authority file.",
+    "settings.manageAuthoritySourceFiles.update.fail.optimisticLocking": "Changes to <b>{name}</b> cannot be saved because it is <b>not</b> the most recent version.",
+    "settings.manageAuthoritySourceFiles.delete.success": "Authority file <b>{name}</b> has been <b>deleted</b>.",
+    "error.defaultSaveError": "Error on saving data",
+    "settings.manageAuthoritySourceFiles.delete.fail.fileAssigned": "<b>{name}</b> cannot be deleted. Existing authority records are already assigned to this authority file.",
+    "settings.manageAuthoritySourceFiles.confirmationModal.message": "Are you sure you want to delete this authority file? After deletion, new records will no longer be able to be assigned to this authority file.",
+    "settings.manageAuthoritySourceFiles.confirmationModal.cancel": "No, do not delete",
+    "settings.manageAuthoritySourceFiles.confirmationModal.confirm": "Yes, delete"
 }
