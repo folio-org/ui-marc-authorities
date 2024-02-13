@@ -86,6 +86,7 @@
   "settings.manageAuthoritySourceFiles.column.lastUpdated": "Last updated by",
   "settings.manageAuthoritySourceFiles.column.source.local": "Local",
   "settings.manageAuthoritySourceFiles.error.name.empty": "Error saving data. Name is required.",
+  "settings.manageAuthoritySourceFiles.error.name.unique": "Error saving data. Name must be unique.",
   "settings.manageAuthoritySourceFiles.error.startNumber.zeroes": "Error saving data. HRID cannot start with zero.",
   "settings.manageAuthoritySourceFiles.error.startNumber.empty": "Error saving data. HRID starts with is required.",
   "settings.manageAuthoritySourceFiles.error.startNumber.notNumeric": "Error saving data. HRID can only contain numeric values.",

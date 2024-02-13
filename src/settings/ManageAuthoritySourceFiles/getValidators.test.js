@@ -2,6 +2,44 @@ import { getValidators } from './getValidators';
 
 
 describe('getValidators', () => {
+  describe('validating name', () => {
+    const validator = getValidators('name');
+
+    describe('when name is empty', () => {
+      it('should return an error', () => {
+        const item = {
+          name: '',
+        };
+        const items = [
+          item,
+          {
+            id: '2',
+            name: 'test',
+          },
+        ];
+
+        expect(validator(item, items).props.id).toBe('stripes-core.label.missingRequiredField');
+      });
+    });
+
+    describe('when name is not unique', () => {
+      it('should return an error', () => {
+        const item = {
+          name: 'test',
+        };
+        const items = [
+          item,
+          {
+            id: '2',
+            name: 'test',
+          },
+        ];
+
+        expect(validator(item, items).props.id).toBe('ui-marc-authorities.settings.manageAuthoritySourceFiles.error.name.unique');
+      });
+    });
+  });
+
   describe('validating codes', () => {
     const validator = getValidators('codes');
 
