@@ -8,9 +8,15 @@ import {
 const CODES_MAX_LENGTH = 25;
 
 const validators = {
-  [authorityFilesColumns.NAME]: function validateName({ name }) {
+  [authorityFilesColumns.NAME]: function validateName({ id, name }, items) {
     if (!name) {
       return <FormattedMessage id="stripes-core.label.missingRequiredField" />;
+    }
+
+    const allOtherNames = items.filter(item => item.id !== id).map(item => item.name);
+
+    if (allOtherNames.some(itemName => itemName === name)) {
+      return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.name.unique" />;
     }
 
     return undefined;
