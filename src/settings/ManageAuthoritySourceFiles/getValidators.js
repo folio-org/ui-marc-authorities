@@ -58,12 +58,26 @@ const validators = {
       return undefined;
     }
 
-    if (!hridManagement?.startNumber) {
+    const startNumber = hridManagement?.startNumber?.toString();
+
+    if (!startNumber) {
       return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.startNumber.empty" />;
     }
 
-    if (hridManagement?.startNumber.toString()[0] === '0') {
+    if (startNumber[0] === '0') {
       return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.startNumber.zeroes" />;
+    }
+
+    if (startNumber.includes(' ')) {
+      return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.startNumber.whitespace" />;
+    }
+
+    if (!startNumber.match(/^[0-9]+$/)) {
+      return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.startNumber.notNumeric" />;
+    }
+
+    if (startNumber.length > 10) {
+      return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.startNumber.moreThan10" />;
     }
 
     return undefined;
