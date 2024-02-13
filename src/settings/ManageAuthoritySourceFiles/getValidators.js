@@ -51,6 +51,10 @@ const validators = {
       return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.codes.unique" />;
     }
 
+    if (!codesArray.every(code => code.match(/^[a-zA-Z]+$/))) {
+      return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.codes.alpha" />;
+    }
+
     return undefined;
   },
   [authorityFilesColumns.START_NUMBER]: function validateStartNumber({ hridManagement, source }) {
