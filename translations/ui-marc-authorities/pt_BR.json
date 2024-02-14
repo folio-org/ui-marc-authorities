@@ -88,5 +88,10 @@
     "settings.manageAuthoritySourceFiles.delete.fail.fileAssigned": "<b> {name} </b> não pode ser excluído. Os registos de autoridade existentes já estão atribuídos a este ficheiro de autoridade.",
     "settings.manageAuthoritySourceFiles.confirmationModal.message": "Tem certeza de que deseja excluir este arquivo de autoridade? Após a exclusão, novos registros não poderão mais ser atribuídos a este arquivo de autoridade.",
     "settings.manageAuthoritySourceFiles.confirmationModal.cancel": "Não, não excluir",
-    "settings.manageAuthoritySourceFiles.confirmationModal.confirm": "Sim, excluir"
+    "settings.manageAuthoritySourceFiles.confirmationModal.confirm": "Sim, excluir",
+    "settings.manageAuthoritySourceFiles.error.startNumber.notNumeric": "Erro ao salvar dados. O HRID só pode conter valores numéricos.",
+    "settings.manageAuthoritySourceFiles.error.startNumber.whitespace": "Erro ao salvar dados. O HRID não pode conter espaços.",
+    "settings.manageAuthoritySourceFiles.error.startNumber.moreThan10": "Erro ao salvar dados. O HRID não pode conter mais de 10 caracteres.",
+    "settings.manageAuthoritySourceFiles.error.codes.alpha": "Erro ao salvar dados. O prefixo só pode conter valores alfabéticos.",
+    "settings.manageAuthoritySourceFiles.error.name.unique": "Erro ao salvar dados. O nome deve ser exclusivo."
 }

@@ -216,11 +216,22 @@ describe('Given Settings', () => {
     expect(selectableField).toBeInTheDocument();
   });
 
-  describe('when validating an item', () => {
+  describe('when trying to save a file', () => {
     beforeEach(async () => {
       const { getByText } = renderManageAuthoritySourceFiles();
 
       await act(() => userEvent.click(getByText('stripes-core.button.new')));
+    });
+
+    describe('when a "Prefix" field is not alphabetical', () => {
+      it('should display an error', async () => {
+        const codesField = screen.getByRole('textbox', { name: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.column.codes 0' });
+
+        await act(() => userEvent.type(codesField, 'a1'));
+        await act(() => userEvent.click(screen.getByText('stripes-core.button.save')));
+
+        expect(screen.getByText('ui-marc-authorities.settings.manageAuthoritySourceFiles.error.codes.alpha')).toBeVisible();
+      });
     });
 
     describe('when the "HRID starts with" field is empty', () => {

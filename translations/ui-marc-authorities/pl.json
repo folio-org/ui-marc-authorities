@@ -78,7 +78,7 @@
     "settings.manageAuthoritySourceFiles.error.codes.onlyOnePrefix": "Błąd podczas zapisywania danych. Dozwolony jest tylko jeden prefiks dla lokalnej Kartoteki Haseł Wzorcowych.",
     "settings.manageAuthoritySourceFiles.error.codes.unique": "Błąd podczas zapisywania danych. Prefiks musi być unikalny.",
     "settings.manageAuthoritySourceFiles.error.codes.empty": "Błąd podczas zapisywania danych. Prefiks jest wymagany.",
-    "settings.manageAuthoritySourceFiles.create.success": "Hasło (osobowe) zostało pomyślnie utworzone.",
+    "settings.manageAuthoritySourceFiles.create.success": "The authority file <b>{name}</b> has been successfully <b>created</b>.",
     "settings.manageAuthoritySourceFiles.error.codes.length": "Błąd podczas zapisywania danych. Prefiks nie może mieć więcej niż {maxlength} znaków.",
     "settings.manageAuthoritySourceFiles.update.success": "The authority file <b>{name}</b> has been successfully <b>updated</b>.",
     "settings.manageAuthoritySourceFiles.update.fail.fileAssigned": "Changes to <b>{name}</b> cannot be saved. Existing authority records are already assigned to this authority file.",
@@ -88,5 +88,10 @@
     "settings.manageAuthoritySourceFiles.delete.fail.fileAssigned": "<b>{name}</b> cannot be deleted. Existing authority records are already assigned to this authority file.",
     "settings.manageAuthoritySourceFiles.confirmationModal.message": "Are you sure you want to delete this authority file? After deletion, new records will no longer be able to be assigned to this authority file.",
     "settings.manageAuthoritySourceFiles.confirmationModal.cancel": "No, do not delete",
-    "settings.manageAuthoritySourceFiles.confirmationModal.confirm": "Yes, delete"
+    "settings.manageAuthoritySourceFiles.confirmationModal.confirm": "Yes, delete",
+    "settings.manageAuthoritySourceFiles.error.startNumber.notNumeric": "Error saving data. HRID can only contain numeric values.",
+    "settings.manageAuthoritySourceFiles.error.startNumber.whitespace": "Error saving data. HRID cannot contain spaces.",
+    "settings.manageAuthoritySourceFiles.error.startNumber.moreThan10": "Error saving data. HRID cannot contain more than 10 characters.",
+    "settings.manageAuthoritySourceFiles.error.codes.alpha": "Error saving data. Prefix can only contain alphabetical values.",
+    "settings.manageAuthoritySourceFiles.error.name.unique": "Error saving data. Name must be unique."
 }
