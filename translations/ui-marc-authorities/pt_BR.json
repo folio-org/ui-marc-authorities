@@ -93,5 +93,6 @@
     "settings.manageAuthoritySourceFiles.error.startNumber.whitespace": "Erro ao salvar dados. O HRID não pode conter espaços.",
     "settings.manageAuthoritySourceFiles.error.startNumber.moreThan10": "Erro ao salvar dados. O HRID não pode conter mais de 10 caracteres.",
     "settings.manageAuthoritySourceFiles.error.codes.alpha": "Erro ao salvar dados. O prefixo só pode conter valores alfabéticos.",
-    "settings.manageAuthoritySourceFiles.error.name.unique": "Erro ao salvar dados. O nome deve ser exclusivo."
+    "settings.manageAuthoritySourceFiles.error.name.unique": "Erro ao salvar dados. O nome deve ser exclusivo.",
+    "settings.manageAuthoritySourceFiles.confirmationModal.heading": "Delete authority file"
 }
