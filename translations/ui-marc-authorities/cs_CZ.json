@@ -80,18 +80,19 @@
     "settings.manageAuthoritySourceFiles.error.codes.empty": "Chyba při ukládání dat. Je vyžadován prefix.",
     "settings.manageAuthoritySourceFiles.create.success": "Soubor autority <b>{name}</b> byl úspěšně <b>vytvořen</b>.",
     "settings.manageAuthoritySourceFiles.error.codes.length": "Chyba při ukládání dat. Prefix nemůže být delší než {maxlength} znaků.",
-    "settings.manageAuthoritySourceFiles.update.success": "The authority file <b>{name}</b> has been successfully <b>updated</b>.",
+    "settings.manageAuthoritySourceFiles.update.success": "Soubor autority <b>{name}</b> byl úspěšně <b>aktualizován</b>.",
     "settings.manageAuthoritySourceFiles.update.fail.fileAssigned": "Changes to <b>{name}</b> cannot be saved. Existing authority records are already assigned to this authority file.",
     "settings.manageAuthoritySourceFiles.update.fail.optimisticLocking": "Changes to <b>{name}</b> cannot be saved because it is <b>not</b> the most recent version.",
     "settings.manageAuthoritySourceFiles.delete.success": "Authority file <b>{name}</b> has been <b>deleted</b>.",
     "error.defaultSaveError": "Chyba při ukládání dat",
     "settings.manageAuthoritySourceFiles.delete.fail.fileAssigned": "<b>{name}</b> cannot be deleted. Existing authority records are already assigned to this authority file.",
-    "settings.manageAuthoritySourceFiles.confirmationModal.message": "Are you sure you want to delete this authority file? After deletion, new records will no longer be able to be assigned to this authority file.",
+    "settings.manageAuthoritySourceFiles.confirmationModal.message": "<b>{name}</b> will be <b>deleted</b>.{br}Are you sure you want to delete this authority file? After deletion, new records will no longer be able to be assigned to this authority file.",
     "settings.manageAuthoritySourceFiles.confirmationModal.cancel": "Ne, nemazat",
     "settings.manageAuthoritySourceFiles.confirmationModal.confirm": "Ano, smazat",
     "settings.manageAuthoritySourceFiles.error.startNumber.notNumeric": "Error saving data. HRID can only contain numeric values.",
     "settings.manageAuthoritySourceFiles.error.startNumber.whitespace": "Error saving data. HRID cannot contain spaces.",
     "settings.manageAuthoritySourceFiles.error.startNumber.moreThan10": "Error saving data. HRID cannot contain more than 10 characters.",
     "settings.manageAuthoritySourceFiles.error.codes.alpha": "Error saving data. Prefix can only contain alphabetical values.",
-    "settings.manageAuthoritySourceFiles.error.name.unique": "Error saving data. Name must be unique."
+    "settings.manageAuthoritySourceFiles.error.name.unique": "Chyba při ukládání dat. Název musí být jedinečný.",
+    "settings.manageAuthoritySourceFiles.confirmationModal.heading": "Delete authority file"
 }

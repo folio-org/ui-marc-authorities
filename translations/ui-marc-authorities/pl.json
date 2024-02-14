@@ -86,12 +86,13 @@
     "settings.manageAuthoritySourceFiles.delete.success": "Authority file <b>{name}</b> has been <b>deleted</b>.",
     "error.defaultSaveError": "Error on saving data",
     "settings.manageAuthoritySourceFiles.delete.fail.fileAssigned": "<b>{name}</b> cannot be deleted. Existing authority records are already assigned to this authority file.",
-    "settings.manageAuthoritySourceFiles.confirmationModal.message": "Are you sure you want to delete this authority file? After deletion, new records will no longer be able to be assigned to this authority file.",
+    "settings.manageAuthoritySourceFiles.confirmationModal.message": "<b>{name}</b> will be <b>deleted</b>.{br}Are you sure you want to delete this authority file? After deletion, new records will no longer be able to be assigned to this authority file.",
     "settings.manageAuthoritySourceFiles.confirmationModal.cancel": "No, do not delete",
     "settings.manageAuthoritySourceFiles.confirmationModal.confirm": "Yes, delete",
     "settings.manageAuthoritySourceFiles.error.startNumber.notNumeric": "Error saving data. HRID can only contain numeric values.",
     "settings.manageAuthoritySourceFiles.error.startNumber.whitespace": "Error saving data. HRID cannot contain spaces.",
     "settings.manageAuthoritySourceFiles.error.startNumber.moreThan10": "Error saving data. HRID cannot contain more than 10 characters.",
     "settings.manageAuthoritySourceFiles.error.codes.alpha": "Error saving data. Prefix can only contain alphabetical values.",
-    "settings.manageAuthoritySourceFiles.error.name.unique": "Error saving data. Name must be unique."
+    "settings.manageAuthoritySourceFiles.error.name.unique": "Error saving data. Name must be unique.",
+    "settings.manageAuthoritySourceFiles.confirmationModal.heading": "Delete authority file"
 }
