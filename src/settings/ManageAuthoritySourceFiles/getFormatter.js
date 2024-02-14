@@ -8,13 +8,13 @@ import {
 import { authorityFilesColumns, SOURCES } from './constants';
 
 /* eslint-disable react/prop-types, react/no-multi-comp */
-export const getFormatter = ({ selectableFieldLabel, renderLastUpdated }) => ({
+export const getFormatter = ({ fieldLabels, renderLastUpdated }) => ({
   [authorityFilesColumns.CODES]: ({ codes }) => (Array.isArray(codes) ? codes.join(',') : codes),
   [authorityFilesColumns.SELECTABLE]: ({ selectable }) => (
     <Checkbox
       checked={selectable}
       disabled
-      aria-label={selectableFieldLabel}
+      aria-label={fieldLabels[authorityFilesColumns.SELECTABLE]}
     />
   ),
   [authorityFilesColumns.START_NUMBER]: ({ hridManagement }) => hridManagement?.startNumber,
