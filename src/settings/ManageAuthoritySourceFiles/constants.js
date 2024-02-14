@@ -16,5 +16,14 @@ export const SOURCES = {
   LOCAL: 'local',
 };
 
+export const ITEM_TEMPLATE = {
+  [authorityFilesColumns.NAME]: '',
+  [authorityFilesColumns.CODES]: '',
+  [authorityFilesColumns.START_NUMBER]: '',
+  [authorityFilesColumns.BASE_URL]: '',
+  [authorityFilesColumns.SOURCE]: SOURCES.LOCAL,
+  [authorityFilesColumns.SELECTABLE]: false,
+};
+
 export const SYSTEM_USER_ID = '00000000-0000-0000-0000-000000000000';
 

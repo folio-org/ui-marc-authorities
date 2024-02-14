@@ -12,7 +12,11 @@ import {
 } from '@folio/stripes-authority-components';
 
 import { hasCentralTenantPerm } from '../../utils';
-import { SOURCES, authorityFilesColumns } from './constants';
+import {
+  ITEM_TEMPLATE,
+  SOURCES,
+  authorityFilesColumns,
+} from './constants';
 import { getValidators } from './getValidators';
 
 const authorityFilesAllPerm = 'ui-marc-authorities.settings.authority-files.all';
@@ -115,7 +119,7 @@ export const useManageAuthoritySourceFiles = ({
         return acc;
       }
 
-      return { ...acc, [field]: file[field] || '' }; // need || '' because for some reason when clearing a field, final-form removes this property from item completely
+      return { ...acc, [field]: file[field] || ITEM_TEMPLATE[field] }; // need default empty value because for some reason when clearing a field, final-form removes this property from item completely
     }, {});
 
     return {
