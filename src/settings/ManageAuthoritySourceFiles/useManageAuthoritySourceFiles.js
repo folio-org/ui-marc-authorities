@@ -114,7 +114,7 @@ export const useManageAuthoritySourceFiles = ({
   const formatFileForUpdate = useCallback(file => {
     // PATCH expects only changed fields, otherwise if a record is assigned and we send a field that wasn't updated the request will fail
     const originalFile = sourceFiles.find(_file => _file.id === file.id);
-    const changedFields = Object.keys(originalFile).reduce((acc, field) => {
+    const changedFields = Object.keys(ITEM_TEMPLATE).reduce((acc, field) => {
       if (isEqual(originalFile[field], file[field])) {
         return acc;
       }
