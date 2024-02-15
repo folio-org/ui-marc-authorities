@@ -92,6 +92,26 @@ const validators = {
 
     return undefined;
   },
+  [authorityFilesColumns.BASE_URL]: function validateBaseUrl({ baseUrl, id }, items) {
+    if (!baseUrl) {
+      return undefined;
+    }
+
+    const protocolPattern = /^https?:\/\//;
+
+    if (!baseUrl.match(protocolPattern)) {
+      return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.baseUrl.protocol.invalid" />;
+    }
+
+    const getUrl = fullUrl => fullUrl.replace(protocolPattern, '').replace(/\/$/, '');
+    const allOtherUrls = items.filter(item => item.id !== id && item.baseUrl).map(item => item.baseUrl);
+
+    if (allOtherUrls.some(url => getUrl(url) === getUrl(baseUrl))) {
+      return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.baseUrl.unique" />;
+    }
+
+    return undefined;
+  },
 };
 
 export const getValidators = field => validators[field];
