@@ -150,5 +150,129 @@ describe('getValidators', () => {
         expect(validator(item).props.id).toEqual('ui-marc-authorities.settings.manageAuthoritySourceFiles.error.startNumber.zeroes');
       });
     });
+
+    describe('when start number has a whitespace character', () => {
+      it('should return an error', () => {
+        const item = {
+          hridManagement: {
+            startNumber: '1 ',
+          },
+        };
+
+        expect(validator(item).props.id).toBe('ui-marc-authorities.settings.manageAuthoritySourceFiles.error.startNumber.whitespace');
+      });
+    });
+
+    describe('when start number has a non-numeric character', () => {
+      it('should return an error', () => {
+        const item = {
+          hridManagement: {
+            startNumber: '1+',
+          },
+        };
+
+        expect(validator(item).props.id).toBe('ui-marc-authorities.settings.manageAuthoritySourceFiles.error.startNumber.notNumeric');
+      });
+    });
+
+    describe('when start number has more than 10 characters', () => {
+      it('should return an error', () => {
+        const item = {
+          hridManagement: {
+            startNumber: '12345678901',
+          },
+        };
+
+        expect(validator(item).props.id).toBe('ui-marc-authorities.settings.manageAuthoritySourceFiles.error.startNumber.moreThan10');
+      });
+    });
+  });
+
+  describe('validating base url', () => {
+    const validator = getValidators('baseUrl');
+
+    describe('when baseUrl protocol does not match "http://" or "https://"', () => {
+      it('should return an error', () => {
+        const item = {
+          baseUrl: 'httpp://test',
+        };
+
+        expect(validator(item).props.id).toBe('ui-marc-authorities.settings.manageAuthoritySourceFiles.error.baseUrl.protocol.invalid');
+      });
+    });
+
+    describe('when baseUrl protocol is "http://"', () => {
+      it('should not return an error', () => {
+        const item = {
+          baseUrl: 'http://test',
+        };
+
+        expect(validator(item, [])).toBeUndefined();
+      });
+    });
+
+    describe('when baseUrl protocol is "https://"', () => {
+      it('should not return an error', () => {
+        const item = {
+          baseUrl: 'https://test',
+        };
+
+        expect(validator(item, [])).toBeUndefined();
+      });
+    });
+
+    describe('when the only protocols are different', () => {
+      it('should return an error', () => {
+        const item = {
+          baseUrl: 'https://test/',
+        };
+
+        const items = [
+          item,
+          {
+            id: '2',
+            baseUrl: 'http://test/',
+          },
+        ];
+
+        expect(validator(item, items).props.id).toBe('ui-marc-authorities.settings.manageAuthoritySourceFiles.error.baseUrl.unique');
+      });
+    });
+
+    describe('when the only difference is the backslash at the end', () => {
+      it('should return an error', () => {
+        const item = {
+          baseUrl: 'http://test',
+        };
+
+        const items = [
+          item,
+          {
+            id: '2',
+            baseUrl: 'http://test/',
+          },
+        ];
+
+        expect(validator(item, items).props.id).toBe('ui-marc-authorities.settings.manageAuthoritySourceFiles.error.baseUrl.unique');
+      });
+    });
+
+    describe('when baseUrl is undefined', () => {
+      it('should not return an error', () => {
+        const item = {
+          baseUrl: undefined,
+        };
+
+        const items = [
+          item,
+          {
+            id: '2',
+            baseUrl: undefined,
+          },
+        ];
+
+        expect(() => validator(item, items)).not.toThrow();
+      });
+    });
   });
 });
