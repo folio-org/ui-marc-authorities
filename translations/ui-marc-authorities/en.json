@@ -1,6 +1,9 @@
 {
   "meta.title": "MARC authority",
 
+  "documentTitle.search": "MARC authority - {query} - Search",
+  "documentTitle.browse": "MARC authority - {query} - Browse",
+
   "export-selected-records": "Export selected records (CSV/MARC)",
   "export.success": "{exportJobName} is complete. The .csv downloaded contains selected records' UIIDs. To retrieve the .mrc file, please go to the Data export app.",
   "export.failure": "Unable to complete request, please try again.",
