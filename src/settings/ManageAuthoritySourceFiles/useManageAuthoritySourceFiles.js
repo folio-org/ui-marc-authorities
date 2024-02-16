@@ -12,7 +12,11 @@ import {
 } from '@folio/stripes-authority-components';
 
 import { hasCentralTenantPerm } from '../../utils';
-import { SOURCES, authorityFilesColumns } from './constants';
+import {
+  ITEM_TEMPLATE,
+  SOURCES,
+  authorityFilesColumns,
+} from './constants';
 import { getValidators } from './getValidators';
 
 const authorityFilesAllPerm = 'ui-marc-authorities.settings.authority-files.all';
@@ -100,9 +104,9 @@ export const useManageAuthoritySourceFiles = ({
   const formatFileForCreate = useCallback(file => {
     const fileCopy = { ...file };
 
-    fileCopy.code = file.codes;
+    fileCopy.code = file[authorityFilesColumns.CODES];
 
-    delete fileCopy.codes;
+    delete fileCopy[authorityFilesColumns.CODES];
 
     return fileCopy;
   }, []);
@@ -110,12 +114,12 @@ export const useManageAuthoritySourceFiles = ({
   const formatFileForUpdate = useCallback(file => {
     // PATCH expects only changed fields, otherwise if a record is assigned and we send a field that wasn't updated the request will fail
     const originalFile = sourceFiles.find(_file => _file.id === file.id);
-    const changedFields = Object.keys(originalFile).reduce((acc, field) => {
+    const changedFields = Object.keys(ITEM_TEMPLATE).reduce((acc, field) => {
       if (isEqual(originalFile[field], file[field])) {
         return acc;
       }
 
-      return { ...acc, [field]: file[field] || '' }; // need || '' because for some reason when clearing a field, final-form removes this property from item completely
+      return { ...acc, [field]: file[field] || ITEM_TEMPLATE[field] }; // need default empty value because for some reason when clearing a field, final-form removes this property from item completely
     }, {});
 
     return {
