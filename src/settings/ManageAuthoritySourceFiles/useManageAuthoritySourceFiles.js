@@ -104,9 +104,9 @@ export const useManageAuthoritySourceFiles = ({
   const formatFileForCreate = useCallback(file => {
     const fileCopy = { ...file };
 
-    fileCopy.code = file.codes;
+    fileCopy.code = file[authorityFilesColumns.CODES];
 
-    delete fileCopy.codes;
+    delete fileCopy[authorityFilesColumns.CODES];
 
     return fileCopy;
   }, []);

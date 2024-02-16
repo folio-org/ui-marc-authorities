@@ -19,8 +19,10 @@ export const SOURCES = {
 export const ITEM_TEMPLATE = {
   [authorityFilesColumns.NAME]: '',
   [authorityFilesColumns.CODES]: '',
-  [authorityFilesColumns.START_NUMBER]: '',
-  [authorityFilesColumns.BASE_URL]: '',
+  hridManagement: {
+    startNumber: '',
+  },
+  [authorityFilesColumns.BASE_URL]: null,
   [authorityFilesColumns.SOURCE]: SOURCES.LOCAL,
   [authorityFilesColumns.SELECTABLE]: false,
 };
