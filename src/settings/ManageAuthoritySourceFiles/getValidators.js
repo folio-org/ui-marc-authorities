@@ -110,6 +110,10 @@ const validators = {
       return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.baseUrl.unique" />;
     }
 
+    if (baseUrl.includes(' ')) {
+      return <FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.error.baseUrl.whitespace" />;
+    }
+
     return undefined;
   },
 };

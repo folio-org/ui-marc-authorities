@@ -99,6 +99,7 @@
   "settings.manageAuthoritySourceFiles.error.codes.alpha": "Error saving data. Prefix can only contain alphabetical values.",
   "settings.manageAuthoritySourceFiles.error.baseUrl.unique": "Error saving data. Base URL must be unique.",
   "settings.manageAuthoritySourceFiles.error.baseUrl.protocol.invalid": "Error saving data. Base URL must contain a valid protocol.",
+  "settings.manageAuthoritySourceFiles.error.baseUrl.whitespace": "Error saving data. Base URL cannot contain spaces.",
   "settings.manageAuthoritySourceFiles.create.success": "The authority file <b>{name}</b> has been successfully <b>created</b>.",
   "settings.manageAuthoritySourceFiles.update.success": "The authority file <b>{name}</b> has been successfully <b>updated</b>.",
   "settings.manageAuthoritySourceFiles.update.fail.fileAssigned": "Changes to <b>{name}</b> cannot be saved. Existing authority records are already assigned to this authority file.",
