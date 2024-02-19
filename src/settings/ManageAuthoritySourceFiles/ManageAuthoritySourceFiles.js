@@ -29,14 +29,10 @@ import {
   authorityFilesColumns,
   SOURCES,
   SYSTEM_USER_ID,
+  ITEM_TEMPLATE,
 } from './constants';
 
 import styles from './ManageAuthoritySourceFiles.css';
-
-const ITEM_TEMPLATE = {
-  [authorityFilesColumns.SOURCE]: SOURCES.LOCAL,
-  [authorityFilesColumns.SELECTABLE]: false,
-};
 
 const ACTION_TYPES = {
   CREATE: 'create',
