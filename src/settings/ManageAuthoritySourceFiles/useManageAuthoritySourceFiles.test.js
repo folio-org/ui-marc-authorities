@@ -18,7 +18,7 @@ const sourceFiles = [{
   hridManagement: {
     startNumber: 1,
   },
-  baseUrl: 'http://test-url-1',
+  baseUrl: '',
   selectable: true,
   source: 'folio',
   metadata: {
@@ -234,11 +234,13 @@ describe('Given useManageAuthoritySourceFiles', () => {
       result.current.updateFile({
         ...item,
         name: 'Edited name',
+        baseUrl: 'http://test-url-1',
       });
 
       expect(mockUpdateFile).toHaveBeenCalledWith({
         id: 1,
         name: 'Edited name',
+        baseUrl: 'http://test-url-1',
         _version: 1,
       });
     });

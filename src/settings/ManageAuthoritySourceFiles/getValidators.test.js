@@ -274,5 +274,23 @@ describe('getValidators', () => {
         expect(() => validator(item, items)).not.toThrow();
       });
     });
+
+    describe('when baseUrl has a whitespace', () => {
+      it('should return an error', () => {
+        const item = {
+          baseUrl: 'http://te st/',
+        };
+
+        const items = [
+          item,
+          {
+            id: '2',
+            baseUrl: 'http://test2/',
+          },
+        ];
+
+        expect(validator(item, items).props.id).toBe('ui-marc-authorities.settings.manageAuthoritySourceFiles.error.baseUrl.whitespace');
+      });
+    });
   });
 });
