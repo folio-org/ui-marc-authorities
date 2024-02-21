@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import { useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 
 import {
@@ -9,7 +8,6 @@ import {
   searchableIndexesValues,
   searchResultListColumns,
 } from '@folio/stripes-authority-components';
-import { TitleManager } from '@folio/stripes/core';
 
 import { AuthoritiesSearch } from '../../views';
 import { useSortColumnManager } from '../../hooks';
@@ -24,7 +22,6 @@ const propTypes = {
 const PAGE_SIZE = 100;
 
 const SearchRoute = ({ children }) => {
-  const intl = useIntl();
   const {
     searchQuery,
     searchIndex,
@@ -101,21 +98,19 @@ const SearchRoute = ({ children }) => {
   };
 
   return (
-    <TitleManager page={intl.formatMessage({ id: 'ui-marc-authorities.documentTitle.search' }, { query: searchQuery })}>
-      <AuthoritiesSearch
-        authorities={authorities}
-        isLoading={isLoading}
-        isLoaded={isLoaded}
-        totalRecords={totalRecords}
-        query={query}
-        pageSize={PAGE_SIZE}
-        onHeaderClick={onHeaderClick}
-        onSubmitSearch={onSubmitSearch}
-        handleLoadMore={handleLoadMore}
-      >
-        {children}
-      </AuthoritiesSearch>
-    </TitleManager>
+    <AuthoritiesSearch
+      authorities={authorities}
+      isLoading={isLoading}
+      isLoaded={isLoaded}
+      totalRecords={totalRecords}
+      query={query}
+      pageSize={PAGE_SIZE}
+      onHeaderClick={onHeaderClick}
+      onSubmitSearch={onSubmitSearch}
+      handleLoadMore={handleLoadMore}
+    >
+      {children}
+    </AuthoritiesSearch>
   );
 };
 

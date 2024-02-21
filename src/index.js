@@ -24,6 +24,7 @@ import {
 } from './routes';
 import { MarcAuthoritySettings } from './settings';
 import {
+  AuthorityTitleManager,
   KeyShortCutsWrapper,
   MarcAuthoritiesAppContext,
 } from './components';
@@ -60,15 +61,17 @@ const MarcAuthorities = ({
         >
           <MarcAuthoritiesAppContext />
           <KeyShortCutsWrapper focusSearchField={focusSearchField}>
-            <Switch>
-              <Route path={`${path}/quick-marc`} component={AuthorityQuickMarcRoute} />
-              <Route
-                path={path}
-                component={RouteComponent}
-              >
-                <Route path={`${path}/authorities/:id`} component={AuthorityViewRoute} />
-              </Route>
-            </Switch>
+            <AuthorityTitleManager>
+              <Switch>
+                <Route path={`${path}/quick-marc`} component={AuthorityQuickMarcRoute} />
+                <Route
+                  path={path}
+                  component={RouteComponent}
+                >
+                  <Route path={`${path}/authorities/:id`} component={AuthorityViewRoute} />
+                </Route>
+              </Switch>
+            </AuthorityTitleManager>
           </KeyShortCutsWrapper>
         </SelectedAuthorityRecordContextProvider>
       </AuthoritiesSearchContextProvider>
