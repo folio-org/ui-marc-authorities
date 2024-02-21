@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 
@@ -100,8 +100,16 @@ const SearchRoute = ({ children }) => {
     setOffset(_offset);
   };
 
+  const pageTitle = useMemo(() => {
+    if (searchQuery) {
+      return intl.formatMessage({ id: 'ui-marc-authorities.documentTitle.search' }, { query: searchQuery });
+    }
+
+    return intl.formatMessage({ id: 'ui-marc-authorities.meta.title' });
+  }, [searchQuery, intl]);
+
   return (
-    <TitleManager page={intl.formatMessage({ id: 'ui-marc-authorities.documentTitle.search' }, { query: searchQuery })}>
+    <TitleManager page={pageTitle}>
       <AuthoritiesSearch
         authorities={authorities}
         isLoading={isLoading}
