@@ -28,8 +28,8 @@ jest.mock('../../views', () => ({
   ),
 }));
 
-const renderSearchRoute = () => render(
-  <Harness>
+const renderSearchRoute = (authoritiesCtxValue) => render(
+  <Harness authoritiesCtxValue={authoritiesCtxValue}>
     <SearchRoute>
       children content
     </SearchRoute>

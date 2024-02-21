@@ -23,8 +23,8 @@ jest.mock('../../views', () => ({
   )),
 }));
 
-const renderBrowseRoute = () => render(
-  <Harness>
+const renderBrowseRoute = (authoritiesCtxValue) => render(
+  <Harness authoritiesCtxValue={authoritiesCtxValue}>
     <BrowseRoute>
       children content
     </BrowseRoute>
