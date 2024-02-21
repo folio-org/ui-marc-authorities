@@ -28,8 +28,8 @@ jest.mock('../../views', () => ({
   ),
 }));
 
-const renderSearchRoute = () => render(
-  <Harness>
+const renderSearchRoute = (authoritiesCtxValue) => render(
+  <Harness authoritiesCtxValue={authoritiesCtxValue}>
     <SearchRoute>
       children content
     </SearchRoute>
@@ -53,6 +53,22 @@ describe('Given SearchRoute', () => {
     const { getByText } = renderSearchRoute();
 
     expect(getByText('children content')).toBeDefined();
+  });
+
+  describe('when search query is empty', () => {
+    it('should show default document.title', () => {
+      renderSearchRoute();
+
+      expect(document.title).toEqual('ui-marc-authorities.meta.title - FOLIO');
+    });
+  });
+
+  describe('when search query is not empty', () => {
+    it('should show default document.title', () => {
+      renderSearchRoute({ searchQuery: 'test', filters: {} });
+
+      expect(document.title).toEqual('ui-marc-authorities.documentTitle.search - FOLIO');
+    });
   });
 
   describe('when click on search button', () => {
