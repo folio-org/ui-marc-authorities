@@ -92,8 +92,16 @@ const BrowseRoute = ({ children }) => {
     });
   }, [authorities]);
 
+  const pageTitle = useMemo(() => {
+    if (searchQuery) {
+      return intl.formatMessage({ id: 'ui-marc-authorities.documentTitle.browse' }, { query: searchQuery });
+    }
+
+    return intl.formatMessage({ id: 'ui-marc-authorities.meta.title' });
+  }, [searchQuery, intl]);
+
   return (
-    <TitleManager page={intl.formatMessage({ id: 'ui-marc-authorities.documentTitle.browse' }, { query: searchQuery })}>
+    <TitleManager page={pageTitle}>
       <AuthoritiesSearch
         authorities={formattedAuthoritiesForView}
         hasNextPage={hasNextPage}

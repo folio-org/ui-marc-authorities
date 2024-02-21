@@ -23,8 +23,8 @@ jest.mock('../../views', () => ({
   )),
 }));
 
-const renderBrowseRoute = () => render(
-  <Harness>
+const renderBrowseRoute = (authoritiesCtxValue) => render(
+  <Harness authoritiesCtxValue={authoritiesCtxValue}>
     <BrowseRoute>
       children content
     </BrowseRoute>
@@ -61,6 +61,22 @@ describe('Given BrowseRoute', () => {
     const { getByText } = renderBrowseRoute();
 
     expect(getByText('children content')).toBeDefined();
+  });
+
+  describe('when search query is empty', () => {
+    it('should show default document.title', () => {
+      renderBrowseRoute();
+
+      expect(document.title).toEqual('ui-marc-authorities.meta.title - FOLIO');
+    });
+  });
+
+  describe('when search query is not empty', () => {
+    it('should show default document.title', () => {
+      renderBrowseRoute({ searchQuery: 'test' });
+
+      expect(document.title).toEqual('ui-marc-authorities.documentTitle.browse - FOLIO');
+    });
   });
 
   describe('when a user clicks on the pagination button', () => {
