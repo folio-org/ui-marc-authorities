@@ -55,7 +55,7 @@
     "@folio/quick-marc": "^7.0.0",
     "@folio/stripes-acq-components": "^5.0.0",
     "@rehooks/local-storage": "^2.4.4",
-    "query-string": "^7.0.1"
+    "query-string": "^8.0.0"
   },
   "peerDependencies": {
     "@folio/stripes": "^9.0.0",
