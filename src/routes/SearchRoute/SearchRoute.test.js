@@ -55,22 +55,6 @@ describe('Given SearchRoute', () => {
     expect(getByText('children content')).toBeDefined();
   });
 
-  describe('when search query is empty', () => {
-    it('should show default document.title', () => {
-      renderSearchRoute();
-
-      expect(document.title).toEqual('ui-marc-authorities.meta.title - FOLIO');
-    });
-  });
-
-  describe('when search query is not empty', () => {
-    it('should show default document.title', () => {
-      renderSearchRoute({ searchQuery: 'test', filters: {} });
-
-      expect(document.title).toEqual('ui-marc-authorities.documentTitle.search - FOLIO');
-    });
-  });
-
   describe('when click on search button', () => {
     it('should handle onSubmitSearch with advancedSearchRowState', () => {
       const { getByText } = renderSearchRoute();

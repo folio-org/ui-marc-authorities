@@ -63,22 +63,6 @@ describe('Given BrowseRoute', () => {
     expect(getByText('children content')).toBeDefined();
   });
 
-  describe('when search query is empty', () => {
-    it('should show default document.title', () => {
-      renderBrowseRoute();
-
-      expect(document.title).toEqual('ui-marc-authorities.meta.title - FOLIO');
-    });
-  });
-
-  describe('when search query is not empty', () => {
-    it('should show default document.title', () => {
-      renderBrowseRoute({ searchQuery: 'test' });
-
-      expect(document.title).toEqual('ui-marc-authorities.documentTitle.browse - FOLIO');
-    });
-  });
-
   describe('when a user clicks on the pagination button', () => {
     it('should invoke handleLoadMore', () => {
       const args = [100, 95, 0, 'next'];

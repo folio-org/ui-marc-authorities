@@ -2,7 +2,6 @@ import {
   useContext,
   useMemo,
 } from 'react';
-import { useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 
 import {
@@ -10,7 +9,6 @@ import {
   SelectedAuthorityRecordContext,
   useAuthoritiesBrowse,
 } from '@folio/stripes-authority-components';
-import { TitleManager } from '@folio/stripes/core';
 
 import { AuthoritiesSearch } from '../../views';
 
@@ -25,7 +23,6 @@ const PAGE_SIZE = 100;
 const PRECEDING_RECORDS_COUNT = 5;
 
 const BrowseRoute = ({ children }) => {
-  const intl = useIntl();
   const {
     filters,
     searchQuery,
@@ -92,33 +89,23 @@ const BrowseRoute = ({ children }) => {
     });
   }, [authorities]);
 
-  const pageTitle = useMemo(() => {
-    if (searchQuery) {
-      return intl.formatMessage({ id: 'ui-marc-authorities.documentTitle.browse' }, { query: searchQuery });
-    }
-
-    return intl.formatMessage({ id: 'ui-marc-authorities.meta.title' });
-  }, [searchQuery, intl]);
-
   return (
-    <TitleManager page={pageTitle}>
-      <AuthoritiesSearch
-        authorities={formattedAuthoritiesForView}
-        hasNextPage={hasNextPage}
-        hasPrevPage={hasPrevPage}
-        totalRecords={totalRecords}
-        isLoading={isLoading}
-        isLoaded={isLoaded}
-        query={query}
-        firstPageQuery={firstPageQuery}
-        pageSize={PAGE_SIZE}
-        onSubmitSearch={onSubmitSearch}
-        handleLoadMore={handleLoadMore}
-        hidePageIndices
-      >
-        {children}
-      </AuthoritiesSearch>
-    </TitleManager>
+    <AuthoritiesSearch
+      authorities={formattedAuthoritiesForView}
+      hasNextPage={hasNextPage}
+      hasPrevPage={hasPrevPage}
+      totalRecords={totalRecords}
+      isLoading={isLoading}
+      isLoaded={isLoaded}
+      query={query}
+      firstPageQuery={firstPageQuery}
+      pageSize={PAGE_SIZE}
+      onSubmitSearch={onSubmitSearch}
+      handleLoadMore={handleLoadMore}
+      hidePageIndices
+    >
+      {children}
+    </AuthoritiesSearch>
   );
 };
 
