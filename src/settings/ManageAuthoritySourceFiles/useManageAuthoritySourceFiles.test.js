@@ -235,12 +235,14 @@ describe('Given useManageAuthoritySourceFiles', () => {
         ...item,
         name: 'Edited name',
         baseUrl: 'http://test-url-1',
+        codes: 'newcode',
       });
 
       expect(mockUpdateFile).toHaveBeenCalledWith({
         id: 1,
         name: 'Edited name',
         baseUrl: 'http://test-url-1',
+        code: 'newcode',
         _version: 1,
       });
     });

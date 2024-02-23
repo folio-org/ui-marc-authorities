@@ -24,6 +24,7 @@
 - [UIMARCAUTH-370](https://issues.folio.org/browse/UIMARCAUTH-370) Add base url validation for authority file settings.
 - [UIMARCAUTH-371](https://issues.folio.org/browse/UIMARCAUTH-371) MARC Authority app > Search and Browse Results > Update HTML page title with search term entered.
 - [UIMARCAUTH-372](https://issues.folio.org/browse/UIMARCAUTH-372) MARC authority app: HTML Page title should display the Detail record title when third pane displays.
+- [UIMARCAUTH-392](https://issues.folio.org/browse/UIMARCAUTH-392) When updating Authority Source files, send `code` instead of `codes` property.
 
 ## [4.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v4.0.1) (2023-11-29)
 
