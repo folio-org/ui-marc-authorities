@@ -122,6 +122,10 @@ export const useManageAuthoritySourceFiles = ({
       return { ...acc, [field]: file[field] || ITEM_TEMPLATE[field] }; // need default empty value because for some reason when clearing a field, final-form removes this property from item completely
     }, {});
 
+    changedFields.code = changedFields[authorityFilesColumns.CODES];
+
+    delete changedFields[authorityFilesColumns.CODES];
+
     return {
       id: file.id,
       _version: file._version,
