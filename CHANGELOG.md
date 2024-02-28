@@ -10,7 +10,6 @@
 - [UIMARCAUTH-344](https://issues.folio.org/browse/UIMARCAUTH-344) Added permissions for viewing and editing/creating/deleting Authority Source files in Settings
 - [UIMARCAUTH-336](https://issues.folio.org/browse/UIMARCAUTH-336) Show  permissions for creating new authority record via UI.
 - [UIMARCAUTH-295](https://issues.folio.org/browse/UIMARCAUTH-295) Add Search type dropdown to Advanced search modal.
-- [UIMARCAUTH-363](https://issues.folio.org/browse/UIMARCAUTH-363) Counter values and options for "Authority source", "Thesaurus" facet options do not change when changing search parameters.
 - [UIMARCAUTH-337](https://issues.folio.org/browse/UIMARCAUTH-337) Add `Manage authority files` settings.
 - [UIMARCAUTH-360](https://issues.folio.org/browse/UIMARCAUTH-360) Implement creation of Authority Source Files.
 - [UIMARCAUTH-374](https://issues.folio.org/browse/UIMARCAUTH-374) Use `onSave` prop for quickMARC to handle saving records separately.
@@ -25,6 +24,10 @@
 - [UIMARCAUTH-371](https://issues.folio.org/browse/UIMARCAUTH-371) MARC Authority app > Search and Browse Results > Update HTML page title with search term entered.
 - [UIMARCAUTH-372](https://issues.folio.org/browse/UIMARCAUTH-372) MARC authority app: HTML Page title should display the Detail record title when third pane displays.
 - [UIMARCAUTH-392](https://issues.folio.org/browse/UIMARCAUTH-392) When updating Authority Source files, send `code` instead of `codes` property.
+
+## [4.0.2](https://github.com/folio-org/ui-marc-authorities/tree/v4.0.2) (2024-02-28)
+
+- [UIMARCAUTH-363](https://issues.folio.org/browse/UIMARCAUTH-363) Counter values and options for "Authority source", "Thesaurus" facet options do not change when changing search parameters.
 
 ## [4.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v4.0.1) (2023-11-29)
 
