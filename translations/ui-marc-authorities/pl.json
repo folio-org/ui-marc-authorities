@@ -40,7 +40,7 @@
     "reports.HEADINGS_UPDATES.success": "<b>Authority headings updates report (Job ID {name})</b> is being generated. Go to the Export manager app to download report. It may take a few minutes for the report to complete.",
     "reports.fail": "We were unable to create this report. Please try again.",
     "reportModal.HEADINGS_UPDATES.label": "Set date range for MARC authority headings updates (CSV) report",
-    "reportModal.startDate": "Data rozpoczęcia",
+    "reportModal.startDate": "Data początkowa",
     "reportModal.endDate": "Data zakończenia",
     "reportModal.button.cancel": "Anuluj",
     "reportModal.button.export": "Export",
@@ -94,5 +94,11 @@
     "settings.manageAuthoritySourceFiles.error.startNumber.moreThan10": "Error saving data. HRID cannot contain more than 10 characters.",
     "settings.manageAuthoritySourceFiles.error.codes.alpha": "Error saving data. Prefix can only contain alphabetical values.",
     "settings.manageAuthoritySourceFiles.error.name.unique": "Error saving data. Name must be unique.",
-    "settings.manageAuthoritySourceFiles.confirmationModal.heading": "Delete authority file"
+    "settings.manageAuthoritySourceFiles.confirmationModal.heading": "Delete authority file",
+    "settings.manageAuthoritySourceFiles.error.baseUrl.unique": "Error saving data. Base URL must be unique.",
+    "settings.manageAuthoritySourceFiles.error.baseUrl.protocol.invalid": "Error saving data. Base URL must contain a valid protocol.",
+    "settings.manageAuthoritySourceFiles.error.baseUrl.whitespace": "Error saving data. Base URL cannot contain spaces.",
+    "documentTitle.search": "MARC authority - {query} - Search",
+    "documentTitle.browse": "MARC authority - {query} - Browse",
+    "documentTitle.record": "MARC authority - {headingRef}"
 }
