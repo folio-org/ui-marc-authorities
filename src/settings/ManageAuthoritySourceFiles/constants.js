@@ -22,7 +22,7 @@ export const ITEM_TEMPLATE = {
   hridManagement: {
     startNumber: '',
   },
-  [authorityFilesColumns.BASE_URL]: null,
+  [authorityFilesColumns.BASE_URL]: '',
   [authorityFilesColumns.SOURCE]: SOURCES.LOCAL,
   [authorityFilesColumns.SELECTABLE]: false,
 };
