@@ -1,6 +1,6 @@
 # Change history for ui-marc-authorities
 
-## [5.0.0] IN PROGRESS
+## [5.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v5.0.0) (2024-03-21)
 
 - [UIMARCAUTH-304](https://issues.folio.org/browse/UIMARCAUTH-304) Remove eslint deps that are already listed in eslint-config-stripes.
 - [UIMARCAUTH-339](https://issues.folio.org/browse/UIMARCAUTH-339) *BREAKING* Replace imports from quick-marc with stripes-marc-components.
