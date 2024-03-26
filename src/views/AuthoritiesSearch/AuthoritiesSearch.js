@@ -22,6 +22,7 @@ import {
 } from '@rehooks/local-storage';
 import queryString from 'query-string';
 import pick from 'lodash/pick';
+import omit from 'lodash/omit';
 
 import {
   Button,
@@ -58,7 +59,6 @@ import {
   searchableIndexesValues,
   searchResultListColumns,
   SelectedAuthorityRecordContext,
-  useAutoOpenDetailView,
   AUTH_REF_TYPES,
   SharedIcon,
 } from '@folio/stripes-authority-components';
@@ -70,7 +70,10 @@ import {
   useAuthorityExport,
   useExportReport,
 } from '../../queries';
-import { useReportGenerator } from '../../hooks';
+import {
+  useAutoOpenRecord,
+  useReportGenerator,
+} from '../../hooks';
 import {
   createAuthorityRoute,
   sortableSearchResultListColumns,
@@ -141,7 +144,6 @@ const AuthoritiesSearch = ({
     setIsGoingToBaseURL,
   } = useContext(AuthoritiesSearchContext);
   const callout = useContext(CalloutContext);
-  const prevQuery = useRef('');
   const [, setSelectedAuthorityRecord] = useContext(SelectedAuthorityRecordContext);
   const [selectedRows, setSelectedRows] = useState({});
   const [selectAll, setSelectAll] = useState(false);
@@ -150,7 +152,6 @@ const AuthoritiesSearch = ({
   const filterPaneVisibilityKey = getNamespace({ key: 'marcAuthoritiesFilterPaneVisibility' });
   const [storedFilterPaneVisibility] = useLocalStorage(filterPaneVisibilityKey, true);
   const [isFilterPaneVisible, setIsFilterPaneVisible] = useState(storedFilterPaneVisibility);
-  const [showDetailView, setShowDetailView] = useState(false);
   const [reportsModalOpen, setReportsModalOpen] = useState(false);
   const selectedReport = useRef(null);
 
@@ -438,8 +439,17 @@ const AuthoritiesSearch = ({
     ...options,
   ], [intl, options]);
 
+  /**
+   * The `redirectToAuthorityRecord` function is a dependency in `useEffect` and indirectly depends on `location.search`.
+   * When opening a record, the `headingRef` and `authRefType` are pushed to `location.search`. Closing the record
+   * removes them from there. Thus, when we close a record the `redirectToAuthorityRecord` function is modified by
+   * `location.search`, and it causes the record to be reopened. We can have `location.search` as a dependency without
+   * `headingRef` and `authRefType` because there are taken from the record anyway.
+   * */
+  const trimmedSearch = queryString.stringify(omit(queryString.parse(location.search), ['authRefType', 'headingRef']));
+
   const formatAuthorityRecordLink = useCallback(authority => {
-    const search = queryString.parse(location.search);
+    const search = queryString.parse(trimmedSearch);
     const newSearch = queryString.stringify({
       ...search,
       headingRef: authority.headingRef,
@@ -447,21 +457,14 @@ const AuthoritiesSearch = ({
     });
 
     return `${match.path}/authorities/${authority.id}?${newSearch}`;
-  }, [match.path, location.search]);
+  }, [match.path, trimmedSearch]);
 
   const redirectToAuthorityRecord = useCallback(authority => {
     setSelectedAuthorityRecord(null);
     history.push(formatAuthorityRecordLink(authority));
   }, [history, formatAuthorityRecordLink]);
 
-  useEffect(() => {
-    if (!isLoading) {
-      setShowDetailView(prevQuery.current !== query);
-      prevQuery.current = query;
-    }
-  }, [query, prevQuery.current, isLoading]); // don't remove prevQuery.current from deps (linter asks)
-
-  useAutoOpenDetailView(isLoading ? [] : authorities, redirectToAuthorityRecord, !showDetailView);
+  useAutoOpenRecord({ authorities, isLoading, redirectToAuthorityRecord });
 
   useEffect(() => {
     if (!recordToHighlight) {
