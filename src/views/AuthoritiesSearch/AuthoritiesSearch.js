@@ -59,6 +59,7 @@ import {
   searchableIndexesValues,
   searchResultListColumns,
   SelectedAuthorityRecordContext,
+  useAutoOpenDetailView,
   AUTH_REF_TYPES,
   SharedIcon,
 } from '@folio/stripes-authority-components';
@@ -70,10 +71,7 @@ import {
   useAuthorityExport,
   useExportReport,
 } from '../../queries';
-import {
-  useAutoOpenRecord,
-  useReportGenerator,
-} from '../../hooks';
+import { useReportGenerator } from '../../hooks';
 import {
   createAuthorityRoute,
   sortableSearchResultListColumns,
@@ -464,7 +462,9 @@ const AuthoritiesSearch = ({
     history.push(formatAuthorityRecordLink(authority));
   }, [history, formatAuthorityRecordLink]);
 
-  useAutoOpenRecord({ authorities, isLoading, redirectToAuthorityRecord });
+  const urlAuthorityId = location.pathname.split('/')[3];
+
+  useAutoOpenDetailView(authorities, redirectToAuthorityRecord, isLoading, urlAuthorityId);
 
   useEffect(() => {
     if (!recordToHighlight) {
