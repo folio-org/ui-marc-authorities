@@ -1,5 +1,9 @@
 # Change history for ui-marc-authorities
 
+## [5.0.1] IN PROGRESS
+
+- [UIMARCAUTH-387](https://issues.folio.org/browse/UIMARCAUTH-387) Change auto-open a record functionality.
+
 ## [5.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v5.0.0) (2024-03-21)
 
 - [UIMARCAUTH-304](https://issues.folio.org/browse/UIMARCAUTH-304) Remove eslint deps that are already listed in eslint-config-stripes.
