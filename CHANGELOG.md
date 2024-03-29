@@ -3,6 +3,7 @@
 ## [5.0.1] IN PROGRESS
 
 - [UIMARCAUTH-387](https://issues.folio.org/browse/UIMARCAUTH-387) Change auto-open a record functionality.
+- [UIMARCAUTH-405](https://issues.folio.org/browse/UIMARCAUTH-405) Display a generic error message during authority file creation if validation is missing.
 
 ## [5.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v5.0.0) (2024-03-21)
 
