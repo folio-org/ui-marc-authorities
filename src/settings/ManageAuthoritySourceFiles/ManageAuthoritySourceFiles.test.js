@@ -142,6 +142,32 @@ describe('Given Settings', () => {
     expect(getAllByText('stripes-smart-components.cv.updatedAtAndBy')[1]).toBeVisible();
   });
 
+  describe('when file create fails', () => {
+    beforeEach(() => {
+      useManageAuthoritySourceFiles.mockImplementation(({ onCreateFail }) => {
+        return {
+          sourceFiles,
+          updaters,
+          canCreate: true,
+          validate: jest.fn().mockReturnValue({}),
+          createFile: () => onCreateFail({ name: 'http://test.com\\' }),
+        };
+      });
+    });
+
+    it('should show a toast notification', async () => {
+      const { getByRole, getByText } = renderManageAuthoritySourceFiles();
+
+      await act(async () => userEvent.click(getByText('stripes-core.button.new')));
+      await act(async () => userEvent.click(getByRole('button', { name: 'stripes-core.button.save' })));
+
+      expect(mockSendCallout).toHaveBeenCalledWith({
+        message: 'ui-marc-authorities.error.defaultSaveError',
+        type: 'error',
+      });
+    });
+  });
+
   describe('when file update fails', () => {
     beforeEach(() => {
       useManageAuthoritySourceFiles.mockClear().mockImplementation(({ onUpdateFail }) => {

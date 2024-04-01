@@ -61,6 +61,7 @@ const ManageAuthoritySourceFiles = () => {
   const onCreateSuccess = ({ name }) => showSuccessMessage(ACTION_TYPES.CREATE, name);
   const onUpdateSuccess = ({ name }) => showSuccessMessage(ACTION_TYPES.UPDATE, name);
   const onDeleteSuccess = ({ name }) => showSuccessMessage(ACTION_TYPES.DELETE, name);
+  const onCreateFail = ({ name, reason }) => showErrorMessage(ACTION_TYPES.CREATE, name, reason);
   const onUpdateFail = ({ name, reason }) => showErrorMessage(ACTION_TYPES.UPDATE, name, reason);
   const onDeleteFail = ({ name, reason }) => showErrorMessage(ACTION_TYPES.DELETE, name, reason);
 
@@ -80,6 +81,7 @@ const ManageAuthoritySourceFiles = () => {
     onCreateSuccess,
     onUpdateSuccess,
     onDeleteSuccess,
+    onCreateFail,
     onUpdateFail,
     onDeleteFail,
   });
