@@ -1,6 +1,6 @@
 {
   "name": "@folio/marc-authorities",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "MARC Authorities module",
   "main": "src/index.js",
   "repository": "https://github.com/folio-org/ui-marc-authorities",
@@ -53,7 +53,7 @@
   },
   "dependencies": {
     "@folio/quick-marc": "^7.0.0",
-    "@folio/stripes-acq-components": "^5.0.0",
+    "@folio/stripes-acq-components": "~5.1.0",
     "@rehooks/local-storage": "^2.4.4",
     "query-string": "^7.0.1"
   },
