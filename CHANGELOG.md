@@ -1,10 +1,13 @@
 # Change history for ui-marc-authorities
 
+## [5.1.0] (IN PROGRESS)
+
+- [UIMARCAUTH-408](https://issues.folio.org/browse/UIMARCAUTH-408) Import `useUserTenantPermissions` from `@folio/stripes/core`.
+
 ## [5.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v5.0.1) (2024-04-02)
 
 - [UIMARCAUTH-387](https://issues.folio.org/browse/UIMARCAUTH-387) Change auto-open a record functionality.
 - [UIMARCAUTH-405](https://issues.folio.org/browse/UIMARCAUTH-405) Display a generic error message during authority file creation if validation is missing.
-- [UIMARCAUTH-408](https://issues.folio.org/browse/UIMARCAUTH-408) Import `useUserTenantPermissions` from `@folio/stripes/core`.
 
 ## [5.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v5.0.0) (2024-03-21)
 
