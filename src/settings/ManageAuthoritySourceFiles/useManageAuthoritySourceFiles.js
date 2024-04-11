@@ -4,9 +4,9 @@ import isEqual from 'lodash/isEqual';
 import {
   useStripes,
   checkIfUserInMemberTenant,
+  useUserTenantPermissions,
 } from '@folio/stripes/core';
 import {
-  useUserTenantPermissions,
   useAuthoritySourceFiles,
   useUsers,
 } from '@folio/stripes-authority-components';
@@ -63,7 +63,6 @@ export const useManageAuthoritySourceFiles = ({
     userPermissions: centralTenantPermissions,
     isFetching: isCentralTenantPermissionsLoading,
   } = useUserTenantPermissions({
-    userId,
     tenantId: centralTenantId,
   }, {
     enabled: checkIfUserInMemberTenant(stripes),

@@ -6,14 +6,11 @@ import {
 } from '@folio/jest-config-stripes/testing-library/react';
 import userEvent from '@folio/jest-config-stripes/testing-library/user-event';
 
-
-import {
-  useAuthoritySourceFiles,
-  useUserTenantPermissions,
-} from '@folio/stripes-authority-components';
+import { useAuthoritySourceFiles } from '@folio/stripes-authority-components';
 import {
   checkIfUserInMemberTenant,
   useCallout,
+  useUserTenantPermissions,
 } from '@folio/stripes/core';
 import { runAxeTest } from '@folio/stripes-testing';
 import Harness from '../../../test/jest/helpers/harness';
