@@ -31,7 +31,6 @@ export const useManageAuthoritySourceFiles = ({
 }) => {
   const stripes = useStripes();
   const centralTenantId = stripes.user.user?.consortium?.centralTenantId;
-  const userId = stripes.user.user?.id;
 
   const {
     sourceFiles,
