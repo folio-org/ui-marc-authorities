@@ -29,6 +29,7 @@ import {
   IfPermission,
   CalloutContext,
   checkIfUserInMemberTenant,
+  useUserTenantPermissions,
 } from '@folio/stripes/core';
 import {
   MarcView,
@@ -38,7 +39,6 @@ import {
   markHighlightedFields,
   SelectedAuthorityRecordContext,
   useAuthorityMappingRules,
-  useUserTenantPermissions,
 } from '@folio/stripes-authority-components';
 
 import { KeyShortCutsWrapper } from '../../components';

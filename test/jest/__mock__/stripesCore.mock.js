@@ -110,6 +110,10 @@ jest.mock('@folio/stripes/core', () => {
   const AppContextMenu = ({ children }) => <>{children()}</>;
 
   const checkIfUserInMemberTenant = jest.fn(jest.requireActual('@folio/stripes/core').checkIfUserInMemberTenant);
+  const useUserTenantPermissions = jest.fn().mockReturnValue({
+    userPermissions: [],
+    isFetching: false,
+  });
 
   STRIPES.connect = stripesConnect;
 
@@ -124,6 +128,7 @@ jest.mock('@folio/stripes/core', () => {
     useCallout,
     useStripes: jest.fn().mockReturnValue(STRIPES),
     checkIfUserInMemberTenant,
+    useUserTenantPermissions,
   };
 }, { virtual: true });
 
