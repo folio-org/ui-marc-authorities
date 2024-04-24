@@ -24,6 +24,16 @@ const commands = [
     label: (<FormattedMessage id="ui-marc-authorities.shortcut.openShortcutModal" />),
     shortcut: 'mod+alt+k',
   },
+  {
+    label: <FormattedMessage id="ui-marc-authorities.shortcut.nextSubfield" />,
+    name: 'NEXT_SUBFIELD',
+    shortcut: 'Ctrl + ]',
+  },
+  {
+    label: <FormattedMessage id="ui-marc-authorities.shortcut.prevSubfield" />,
+    name: 'PREV_SUBFIELD',
+    shortcut: 'Ctrl + [',
+  },
 ];
 
 export default commands;
