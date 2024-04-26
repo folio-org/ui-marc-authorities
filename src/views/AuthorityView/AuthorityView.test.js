@@ -11,6 +11,7 @@ import { useUserTenantPermissions } from '@folio/stripes/core';
 
 import Harness from '../../../test/jest/helpers/harness';
 import AuthorityView from './AuthorityView';
+import { useAuthorityExport } from '../../hooks';
 import { openEditShortcut } from '../../../test/utilities';
 
 const mockHistoryPush = jest.fn();
@@ -40,6 +41,10 @@ jest.mock('@folio/stripes/components', () => ({
       </div>
     )
     : null)),
+}));
+
+jest.mock('../../hooks', () => ({
+  useAuthorityExport: jest.fn().mockReturnValue({}),
 }));
 
 const marcSource = {
@@ -118,8 +123,13 @@ const renderAuthorityView = (props = {}) => render(
   </Harness>,
 );
 
+const mockExportRecords = jest.fn();
+
 describe('Given AuthorityView', () => {
   beforeEach(() => {
+    useAuthorityExport.mockClear().mockReturnValue({
+      exportRecords: mockExportRecords,
+    });
     useUserTenantPermissions.mockReturnValue({
       userPermissions: [],
       isFetching: false,
@@ -159,6 +169,12 @@ describe('Given AuthorityView', () => {
     const { getByText } = renderAuthorityView();
 
     expect(getByText('ui-marc-authorities.authority-record.edit')).toBeDefined();
+  });
+
+  it('should display "Export" button', () => {
+    const { getByText } = renderAuthorityView();
+
+    expect(getByText('ui-marc-authorities.authority-record.export')).toBeDefined();
   });
 
   it('should display "Print" button', () => {
@@ -259,6 +275,16 @@ describe('Given AuthorityView', () => {
       fireEvent.click(getByText('ui-marc-authorities.authority-record.edit'));
 
       expect(mockHistoryPush).toHaveBeenCalled();
+    });
+  });
+
+  describe('when click on "Export" button', () => {
+    it('should call exportRecords', () => {
+      const { getByText } = renderAuthorityView();
+
+      fireEvent.click(getByText('ui-marc-authorities.authority-record.export'));
+
+      expect(mockExportRecords).toHaveBeenCalledWith([authority.data.id]);
     });
   });
 

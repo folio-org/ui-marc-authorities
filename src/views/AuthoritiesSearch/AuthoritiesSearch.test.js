@@ -260,8 +260,8 @@ describe('Given AuthoritiesSearch', () => {
 
       describe('when click on "Export selected records (CSV/MARC)" button', () => {
         it('should be able to show success toast message and unselect records', async () => {
-          jest.mock('../../queries/useAuthorityExport', () => ({
-            useAuthorityExport: ({ onSuccess }) => ({ exportRecords: data => onSuccess(data) }),
+          jest.mock('../../hooks/useAuthorityExport', () => ({
+            useAuthorityExport: (_, onSuccess) => ({ exportRecords: data => onSuccess(data) }),
           }));
 
           const { getAllByTestId, getByRole, queryByText } = renderAuthoritiesSearch({ authorities });
@@ -278,8 +278,8 @@ describe('Given AuthoritiesSearch', () => {
         });
 
         it('should be able to show error toast message', () => {
-          jest.mock('../../queries/useAuthorityExport', () => ({
-            useAuthorityExport: ({ onError }) => ({ exportRecords: () => onError() }),
+          jest.mock('../../hooks/useAuthorityExport', () => ({
+            useAuthorityExport: () => ({ exportRecords: () => {} }),
           }));
 
           const { getAllByTestId, getByRole, queryByText } = renderAuthoritiesSearch({ authorities });
