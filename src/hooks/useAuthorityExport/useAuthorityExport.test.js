@@ -104,7 +104,8 @@ describe('useAuthorityExport', () => {
       });
     });
 
-    it('should show success callout message', async () => {
+    it('should show error callout message', async () => {
+
       const mockOnSuccess = jest.fn();
 
       const { result } = renderHook(() => useAuthorityExport(selectedRowsIds, mockOnSuccess), { wrapper });
