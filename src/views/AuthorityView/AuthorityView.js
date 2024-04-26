@@ -273,8 +273,9 @@ const AuthorityView = ({
                       <Icon
                         icon="download"
                         size="medium"
-                      />
-                      <FormattedMessage id="ui-marc-authorities.authority-record.export" />
+                      >
+                        <FormattedMessage id="ui-marc-authorities.authority-record.export" />
+                      </Icon>
                     </Button>
                     <IfPermission perm="ui-marc-authorities.authority-record.view">
                       <Button
