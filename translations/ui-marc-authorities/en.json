@@ -48,6 +48,8 @@
   "shortcut.cut": "Cut",
   "shortcut.paste": "Paste",
   "shortcut.find": "Find",
+  "shortcut.nextSubfield": "quickMARC only: Move to the next subfield in a text box",
+  "shortcut.prevSubfield": "quickMARC only: Move to the previous subfield in a text box",
 
   "delete.buttonLabel": "Delete",
   "delete.label": "Confirm deletion of authority record",
