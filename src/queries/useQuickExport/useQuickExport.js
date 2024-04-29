@@ -4,7 +4,7 @@ import { useOkapiKy } from '@folio/stripes/core';
 
 import { EXPORT_AUTHORITY_JOB_PROFILE_ID } from '../../constants';
 
-const useAuthorityExport = ({ onError, onSuccess, ...restOptions }) => {
+const useQuickExport = ({ onError, onSuccess, ...restOptions }) => {
   const ky = useOkapiKy();
 
   const customOptions = {
@@ -39,4 +39,4 @@ const useAuthorityExport = ({ onError, onSuccess, ...restOptions }) => {
   };
 };
 
-export default useAuthorityExport;
+export default useQuickExport;

@@ -10,7 +10,7 @@ import {
 } from '@folio/jest-config-stripes/testing-library/react';
 import { useOkapiKy } from '@folio/stripes/core';
 
-import useAuthorityExport from './useAuthorityExport';
+import useQuickExport from './useQuickExport';
 
 const queryClient = new QueryClient();
 
@@ -18,7 +18,7 @@ const wrapper = ({ children }) => (
   <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 );
 
-describe('useAuthorityExport', () => {
+describe('useQuickExport', () => {
   it('should make post request', async () => {
     const postMock = jest.fn().mockResolvedValue({});
 
@@ -27,7 +27,7 @@ describe('useAuthorityExport', () => {
     });
 
     const { result } = renderHook(
-      () => useAuthorityExport({}),
+      () => useQuickExport({}),
       { wrapper },
     );
 
@@ -45,7 +45,7 @@ describe('useAuthorityExport', () => {
     });
 
     const { result } = renderHook(
-      () => useAuthorityExport({ onError: errorMock }),
+      () => useQuickExport({ onError: errorMock }),
       { wrapper },
     );
 

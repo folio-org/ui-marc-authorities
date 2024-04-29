@@ -67,11 +67,8 @@ import { useHighlightEditedRecord } from '@folio/stripes-authority-components/li
 
 import { ReportsMenu } from './ReportsMenu';
 import { ReportsModal } from './ReportsModal/ReportsModal';
-import {
-  useAuthorityExport,
-  useExportReport,
-} from '../../queries';
-import { useReportGenerator } from '../../hooks';
+import { useExportReport } from '../../queries';
+import { useAuthorityExport } from '../../hooks';
 import {
   createAuthorityRoute,
   sortableSearchResultListColumns,
@@ -146,7 +143,6 @@ const AuthoritiesSearch = ({
   const [selectedRows, setSelectedRows] = useState({});
   const [selectAll, setSelectAll] = useState(false);
   const uniqueAuthorities = useMemo(() => authorities.filter(item => !!item.id), [authorities]);
-  const reportGenerator = useReportGenerator('QuickAuthorityExport');
   const filterPaneVisibilityKey = getNamespace({ key: 'marcAuthoritiesFilterPaneVisibility' });
   const [storedFilterPaneVisibility] = useLocalStorage(filterPaneVisibilityKey, true);
   const [isFilterPaneVisible, setIsFilterPaneVisible] = useState(storedFilterPaneVisibility);
@@ -309,30 +305,7 @@ const AuthoritiesSearch = ({
     setSelectAll(false);
   };
 
-  const { exportRecords } = useAuthorityExport({
-    onError: () => {
-      const message = (
-        <FormattedMessage
-          id="ui-marc-authorities.export.failure"
-        />
-      );
-
-      callout.sendCallout({ type: 'error', message });
-    },
-    onSuccess: () => {
-      const { filename } = reportGenerator.toCSV(selectedRowsIds);
-
-      const message = (
-        <FormattedMessage
-          id="ui-marc-authorities.export.success"
-          values={{ exportJobName: filename }}
-        />
-      );
-
-      callout.sendCallout({ type: 'success', message });
-      resetSelectedRows();
-    },
-  });
+  const { exportRecords } = useAuthorityExport(selectedRowsIds, resetSelectedRows);
 
   const { doExport } = useExportReport({
     onSuccess: res => {

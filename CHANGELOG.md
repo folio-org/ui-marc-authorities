@@ -4,6 +4,7 @@
 
 - [UIMARCAUTH-408](https://issues.folio.org/browse/UIMARCAUTH-408) Import `useUserTenantPermissions` from `@folio/stripes/core`.
 - [UIMARCAUTH-396](https://issues.folio.org/browse/UIMARCAUTH-396) Add quickMARC shortcuts to modal.
+- [UIMARCAUTH-375](https://issues.folio.org/browse/UIMARCAUTH-375) Quick export from authority detail view.
 
 ## [5.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v5.0.1) (2024-04-02)
 

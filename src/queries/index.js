@@ -1,4 +1,4 @@
-export * from './useAuthorityExport';
+export * from './useQuickExport';
 export * from './useExportReport';
 export * from './useAuthoritiesDelete';
 export * from './useAuthorityLinksCount';

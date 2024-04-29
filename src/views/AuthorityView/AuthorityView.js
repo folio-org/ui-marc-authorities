@@ -47,6 +47,7 @@ import {
   hasCentralTenantPerm,
   isConsortiaEnv,
 } from '../../utils';
+import { useAuthorityExport } from '../../hooks';
 
 const propTypes = {
   authority: PropTypes.shape({
@@ -129,6 +130,8 @@ const AuthorityView = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [location.search],
   );
+
+  const { exportRecords } = useAuthorityExport([authority?.data?.id]);
 
   const { deleteItem } = useAuthorityDelete({
     tenantId,
@@ -244,7 +247,7 @@ const AuthorityView = ({
                     <FormattedMessage id="ui-marc-authorities.actions" />
                   </DropdownButton>
                 )}
-                renderMenu={() => (
+                renderMenu={({ onToggle }) => (
                   <DropdownMenu
                     data-role="menu"
                     aria-label="available options"
@@ -259,6 +262,21 @@ const AuthorityView = ({
                         </Icon>
                       </Button>
                     )}
+                    <Button
+                      buttonStyle="dropdownItem"
+                      id="dropdown-clickable-export-marc"
+                      onClick={() => {
+                        exportRecords([authority.data.id]);
+                        onToggle();
+                      }}
+                    >
+                      <Icon
+                        icon="download"
+                        size="medium"
+                      >
+                        <FormattedMessage id="ui-marc-authorities.authority-record.export" />
+                      </Icon>
+                    </Button>
                     <IfPermission perm="ui-marc-authorities.authority-record.view">
                       <Button
                         buttonStyle="dropdownItem"
