@@ -100,5 +100,8 @@
     "settings.manageAuthoritySourceFiles.error.baseUrl.whitespace": "Fehler beim Speichern von Daten. Basis-URL darf keine Leerzeichen enthalten.",
     "documentTitle.search": "MARC-Normdaten - {query} - Suche",
     "documentTitle.browse": "MARC authority - {query} - Browse",
-    "documentTitle.record": "MARC-Normdaten - {headingRef}"
+    "documentTitle.record": "MARC-Normdaten - {headingRef}",
+    "shortcut.nextSubfield": "quickMARC only: Move to the next subfield in a text box",
+    "shortcut.prevSubfield": "quickMARC only: Move to the previous subfield in a text box",
+    "authority-record.export": "Export (MARC)"
 }

@@ -100,5 +100,8 @@
     "settings.manageAuthoritySourceFiles.error.baseUrl.whitespace": "Error saving data. Base URL cannot contain spaces.",
     "documentTitle.search": "MARC authority - {query} - Search",
     "documentTitle.browse": "MARC authority - {query} - Browse",
-    "documentTitle.record": "MARC authority - {headingRef}"
+    "documentTitle.record": "MARC authority - {headingRef}",
+    "shortcut.nextSubfield": "sólo quickMARC: Pasar al siguiente subcampo en un cuadro de texto",
+    "shortcut.prevSubfield": "Solo QuickMARC: ir al subcampo anterior en un cuadro de texto.",
+    "authority-record.export": "Export (MARC)"
 }

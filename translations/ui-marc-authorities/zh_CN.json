@@ -100,5 +100,8 @@
     "settings.manageAuthoritySourceFiles.error.baseUrl.whitespace": "保存数据时出错。基本URL不能包含空格。",
     "documentTitle.search": "MARC规范 - {query} - 搜索",
     "documentTitle.browse": "MARC规范 - {query} - 浏览",
-    "documentTitle.record": "MARC规范 - {headingRef}"
+    "documentTitle.record": "MARC规范 - {headingRef}",
+    "shortcut.nextSubfield": "quickMARC only: Move to the next subfield in a text box",
+    "shortcut.prevSubfield": "quickMARC only: Move to the previous subfield in a text box",
+    "authority-record.export": "Export (MARC)"
 }
