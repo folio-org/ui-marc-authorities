@@ -100,5 +100,8 @@
     "settings.manageAuthoritySourceFiles.error.baseUrl.whitespace": "Chyba při ukládání dat. Adresa URL nesmí obsahovat mezery.",
     "documentTitle.search": "MARC autorita - {query} - Vyhledat",
     "documentTitle.browse": "MARC autorita - {query} - Procházet",
-    "documentTitle.record": "MARC autorita – {headingRef}"
+    "documentTitle.record": "MARC autorita – {headingRef}",
+    "shortcut.nextSubfield": "pouze quickMARC: Přesun na další podpole v textovém poli",
+    "shortcut.prevSubfield": "pouze quickMARC: Přesun na předchozí podpole v textovém poli",
+    "authority-record.export": "Exportovat (MARC)"
 }
