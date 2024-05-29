@@ -20,6 +20,9 @@ import {
   InfoPopover,
   Label,
   Loading,
+  Layer,
+  Paneset,
+  PaneCloseLink,
 } from '@folio/stripes/components';
 
 import { useManageAuthoritySourceFiles } from './useManageAuthoritySourceFiles';
@@ -139,14 +142,14 @@ const ManageAuthoritySourceFiles = () => {
   }), [intl, fieldLabels, getRequiredLabel]);
 
   const columnWidths = useMemo(() => ({
-    [authorityFilesColumns.NAME]: '300px',
-    [authorityFilesColumns.CODES]: '100px',
-    [authorityFilesColumns.START_NUMBER]: '150px',
-    [authorityFilesColumns.BASE_URL]: '100px',
+    [authorityFilesColumns.NAME]: '22%',
+    [authorityFilesColumns.CODES]: '10%',
+    [authorityFilesColumns.START_NUMBER]: '10%',
+    [authorityFilesColumns.BASE_URL]: '20%',
     [authorityFilesColumns.SELECTABLE]: '100px',
-    [authorityFilesColumns.SOURCE]: '100px',
-    [authorityFilesColumns.LAST_UPDATED]: '200px',
-    [authorityFilesColumns.ACTIONS]: '100px',
+    [authorityFilesColumns.SOURCE]: '7%',
+    [authorityFilesColumns.LAST_UPDATED]: '15%',
+    [authorityFilesColumns.ACTIONS]: { min: 200, max: 200 },
   }), []);
 
   const renderLastUpdated = useCallback(metadata => {
@@ -192,59 +195,63 @@ const ManageAuthoritySourceFiles = () => {
   const suppressEdit = () => !canEdit;
   const suppressDelete = ({ source }) => source === SOURCES.FOLIO || !canDelete;
 
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
   return (
-    <TitleManager record={paneTitle}>
-      <Pane
-        defaultWidth="fill"
-        fluidContentWidth
-        paneTitle={paneTitle}
-        id="settings-authority-source-files-pane"
-      >
-        <EditableList
-          formType="final-form"
-          contentData={sourceFiles}
-          totalCount={sourceFiles.length}
-          createButtonLabel={intl.formatMessage({ id: 'stripes-core.button.new' })}
-          label={label}
-          itemTemplate={ITEM_TEMPLATE}
-          visibleFields={visibleFields}
-          hiddenFields={[authorityFilesColumns.NUMBER_OF_OBJECTS]}
-          columnMapping={columnMapping}
-          formatter={formatter}
-          readOnlyFields={readOnlyFields}
-          getReadOnlyFieldsForItem={getReadOnlyFieldsForItem}
-          actionSuppression={{
-            edit: suppressEdit,
-            delete: suppressDelete,
-          }}
-          onUpdate={updateFile}
-          onCreate={createFile}
-          onDelete={deleteFile}
-          onSubmit={noop}
-          isEmptyMessage={isEmptyMessage}
-          validate={validate}
-          fieldComponents={getFieldComponents(fieldLabels)}
-          columnWidths={columnWidths}
-          canCreate={canCreate}
-          withDeleteConfirmation
-          confirmationHeading={<FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.confirmationModal.heading" />}
-          confirmationMessage={fileId => ((
-            <FormattedMessage
-              id="ui-marc-authorities.settings.manageAuthoritySourceFiles.confirmationModal.message"
-              values={{
-                name: sourceFiles.find(file => file.id === fileId)?.name,
-                br: <br />,
+    <Layer isOpen>
+      <Paneset isRoot>
+        <TitleManager record={paneTitle}>
+          <Pane
+            defaultWidth="100%"
+            paneTitle={paneTitle}
+            id="settings-authority-source-files-pane"
+            firstMenu={(
+              <PaneCloseLink
+                aria-label={intl.formatMessage({ id: 'ui-marc-authorities.goBack' })}
+                to="/settings/marc-authorities"
+              />
+            )}
+          >
+            <EditableList
+              formType="final-form"
+              contentData={sourceFiles}
+              totalCount={sourceFiles.length}
+              createButtonLabel={intl.formatMessage({ id: 'stripes-core.button.new' })}
+              label={label}
+              itemTemplate={ITEM_TEMPLATE}
+              visibleFields={visibleFields}
+              hiddenFields={[authorityFilesColumns.NUMBER_OF_OBJECTS]}
+              columnMapping={columnMapping}
+              formatter={formatter}
+              readOnlyFields={readOnlyFields}
+              getReadOnlyFieldsForItem={getReadOnlyFieldsForItem}
+              actionSuppression={{
+                edit: suppressEdit,
+                delete: suppressDelete,
               }}
+              onUpdate={updateFile}
+              onCreate={createFile}
+              onDelete={deleteFile}
+              onSubmit={noop}
+              isEmptyMessage={isEmptyMessage}
+              validate={validate}
+              fieldComponents={getFieldComponents(fieldLabels)}
+              columnWidths={columnWidths}
+              canCreate={canCreate}
+              withDeleteConfirmation
+              confirmationHeading={<FormattedMessage id="ui-marc-authorities.settings.manageAuthoritySourceFiles.confirmationModal.heading" />}
+              confirmationMessage={fileId => ((
+                <FormattedMessage
+                  id="ui-marc-authorities.settings.manageAuthoritySourceFiles.confirmationModal.message"
+                  values={{
+                    name: sourceFiles.find(file => file.id === fileId)?.name,
+                    br: <br />,
+                  }}
+                />
+              ))}
             />
-          ))}
-        />
-      </Pane>
-    </TitleManager>
+          </Pane>
+        </TitleManager>
+      </Paneset>
+    </Layer>
   );
 };
 
