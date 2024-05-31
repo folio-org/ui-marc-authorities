@@ -5,7 +5,7 @@ import {
   fireEvent,
 } from '@folio/jest-config-stripes/testing-library/react';
 import userEvent from '@folio/jest-config-stripes/testing-library/user-event';
-
+import { Paneset } from '@folio/stripes/components';
 import { useAuthoritySourceFiles } from '@folio/stripes-authority-components';
 import {
   checkIfUserInMemberTenant,
@@ -13,6 +13,7 @@ import {
   useUserTenantPermissions,
 } from '@folio/stripes/core';
 import { runAxeTest } from '@folio/stripes-testing';
+
 import Harness from '../../../test/jest/helpers/harness';
 
 import { ManageAuthoritySourceFiles } from './ManageAuthoritySourceFiles';
@@ -60,7 +61,11 @@ const updaters = [{
 
 const mockSendCallout = jest.fn();
 
-const renderManageAuthoritySourceFiles = () => render(<ManageAuthoritySourceFiles />, { wrapper: Harness });
+const renderManageAuthoritySourceFiles = () => render((
+  <Paneset>
+    <ManageAuthoritySourceFiles />
+  </Paneset>
+), { wrapper: Harness });
 
 describe('Given Settings', () => {
   beforeEach(() => {
