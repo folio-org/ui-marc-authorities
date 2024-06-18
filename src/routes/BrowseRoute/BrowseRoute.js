@@ -50,6 +50,7 @@ const BrowseRoute = ({ children }) => {
     query,
     firstPageQuery,
     totalRecords,
+    error,
   } = useAuthoritiesBrowse({
     filters,
     searchQuery,
@@ -92,6 +93,7 @@ const BrowseRoute = ({ children }) => {
   return (
     <AuthoritiesSearch
       authorities={formattedAuthoritiesForView}
+      error={error}
       hasNextPage={hasNextPage}
       hasPrevPage={hasPrevPage}
       totalRecords={totalRecords}

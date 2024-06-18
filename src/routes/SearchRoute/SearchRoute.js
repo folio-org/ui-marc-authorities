@@ -66,6 +66,7 @@ const SearchRoute = ({ children }) => {
     isLoaded,
     totalRecords,
     query,
+    error,
   } = useAuthorities({
     searchQuery,
     searchIndex,
@@ -100,6 +101,7 @@ const SearchRoute = ({ children }) => {
   return (
     <AuthoritiesSearch
       authorities={authorities}
+      error={error}
       isLoading={isLoading}
       isLoaded={isLoaded}
       totalRecords={totalRecords}

@@ -87,6 +87,7 @@ const propTypes = {
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]).isRequired,
+  error: PropTypes.object,
   firstPageQuery: PropTypes.string.isRequired,
   handleLoadMore: PropTypes.func.isRequired,
   hasNextPage: PropTypes.bool,
@@ -103,6 +104,7 @@ const propTypes = {
 
 const AuthoritiesSearch = ({
   children,
+  error,
   onHeaderClick,
   handleLoadMore,
   authorities,
@@ -628,6 +630,7 @@ const AuthoritiesSearch = ({
               [searchResultListColumns.HEADING_TYPE]: '170px',
               [searchResultListColumns.AUTHORITY_SOURCE]: '250px',
             }}
+            error={error}
             formatter={formatter}
             hasNextPage={hasNextPage}
             hasPrevPage={hasPrevPage}
@@ -663,6 +666,7 @@ const AuthoritiesSearch = ({
 
 AuthoritiesSearch.propTypes = propTypes;
 AuthoritiesSearch.defaultProps = {
+  error: null,
   hidePageIndices: false,
   query: '',
   hasNextPage: null,
