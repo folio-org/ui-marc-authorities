@@ -103,5 +103,6 @@
     "documentTitle.record": "Autoridade MARC - {headingRef}",
     "shortcut.nextSubfield": "Somente quickMARC: Mover para o próximo subcampo em uma caixa de texto",
     "shortcut.prevSubfield": "Somente quickMARC: Mover para o subcampo anterior em uma caixa de texto",
-    "authority-record.export": "Exportar (MARC)"
+    "authority-record.export": "Exportar (MARC)",
+    "goBack": "Voltar"
 }

@@ -103,5 +103,6 @@
     "documentTitle.record": "MARC规范 - {headingRef}",
     "shortcut.nextSubfield": "quickMARC only: Move to the next subfield in a text box",
     "shortcut.prevSubfield": "quickMARC only: Move to the previous subfield in a text box",
-    "authority-record.export": "Export (MARC)"
+    "authority-record.export": "Export (MARC)",
+    "goBack": "Go back"
 }
