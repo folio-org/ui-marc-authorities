@@ -39,7 +39,6 @@ export const useManageAuthoritySourceFiles = ({
     updateFile: _updateFile,
     deleteFile: _deleteFile,
   } = useAuthoritySourceFiles({
-    tenantId: centralTenantId || stripes.okapi.tenant,
     onCreateSuccess,
     onUpdateSuccess,
     onDeleteSuccess,
@@ -64,7 +63,7 @@ export const useManageAuthoritySourceFiles = ({
   } = useUserTenantPermissions({
     tenantId: centralTenantId,
   }, {
-    enabled: checkIfUserInMemberTenant(stripes),
+    enabled: checkIfUserInMemberTenant(stripes) && Boolean(centralTenantId),
   });
 
   const isUserHasEditPermission = checkIfUserInMemberTenant(stripes)
