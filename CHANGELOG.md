@@ -6,7 +6,8 @@
 - [UIMARCAUTH-396](https://issues.folio.org/browse/UIMARCAUTH-396) Add quickMARC shortcuts to modal.
 - [UIMARCAUTH-375](https://issues.folio.org/browse/UIMARCAUTH-375) Quick export from authority detail view.
 - [UIMARCAUTH-410](https://issues.folio.org/browse/UIMARCAUTH-410) Open manage authority file settings in full screen view.
-- [UIMARCAUTH-410](https://issues.folio.org/browse/UIMARCAUTH-415) Pass the record search error to the `SearchResultsList` component.
+- [UIMARCAUTH-415](https://issues.folio.org/browse/UIMARCAUTH-415) Pass the record search error to the `SearchResultsList` component.
+- [UIMARCAUTH-411](https://issues.folio.org/browse/UIMARCAUTH-411) Send requests for Source Files Settings with current tenant id.
 
 ## [5.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v5.0.1) (2024-04-02)
 
