@@ -23,6 +23,7 @@ import {
   Button,
   ConfirmationModal,
   Icon,
+  PaneCloseLink,
 } from '@folio/stripes/components';
 import {
   useStripes,
@@ -121,6 +122,8 @@ const AuthorityView = ({
       const parsedSearchParams = queryString.parse(location.search);
       const commonSearchParams = omit(parsedSearchParams, ['authRefType', 'headingRef']);
       const newSearchParamsString = queryString.stringify(commonSearchParams);
+
+      document.querySelector(`[role="gridcell"] a[href="${location.pathname}${location.search}"]`)?.focus();
 
       history.push({
         pathname: '/marc-authorities',
@@ -232,8 +235,14 @@ const AuthorityView = ({
         isPaneset={false}
         marcTitle={marcTitle}
         marc={markHighlightedFields(marcSource, authority, authorityMappingRules).data}
-        onClose={onClose}
         tenantId={authority.data.tenantId}
+        firstMenu={(
+          <PaneCloseLink
+            autoFocus={location.state?.isClosingFocused}
+            onClick={onClose}
+            aria-label={intl.formatMessage({ id: 'ui-marc-authorities.close.record' })}
+          />
+        )}
         lastMenu={
           <>
             {(hasEditPermission || hasDeletePermission) && (

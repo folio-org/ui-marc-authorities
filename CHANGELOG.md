@@ -8,6 +8,7 @@
 - [UIMARCAUTH-410](https://issues.folio.org/browse/UIMARCAUTH-410) Open manage authority file settings in full screen view.
 - [UIMARCAUTH-415](https://issues.folio.org/browse/UIMARCAUTH-415) Pass the record search error to the `SearchResultsList` component.
 - [UIMARCAUTH-411](https://issues.folio.org/browse/UIMARCAUTH-411) Send requests for Source Files Settings with current tenant id.
+- [UIMARCAUTH-404](https://issues.folio.org/browse/UIMARCAUTH-404) Focus on record title after closing record details view.
 
 ## [5.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v5.0.1) (2024-04-02)
 

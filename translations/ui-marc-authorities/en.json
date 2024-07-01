@@ -120,5 +120,6 @@
   "settings.manageAuthoritySourceFiles.confirmationModal.cancel": "No, do not delete",
   "settings.manageAuthoritySourceFiles.confirmationModal.confirm": "Yes, delete",
 
-  "error.defaultSaveError": "Error on saving data"
+  "error.defaultSaveError": "Error on saving data",
+  "close.record": "Close the record"
 }
