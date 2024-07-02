@@ -103,5 +103,6 @@
     "documentTitle.record": "MARC authority - {headingRef}",
     "shortcut.nextSubfield": "sólo quickMARC: Pasar al siguiente subcampo en un cuadro de texto",
     "shortcut.prevSubfield": "Solo QuickMARC: ir al subcampo anterior en un cuadro de texto.",
-    "authority-record.export": "Export (MARC)"
+    "authority-record.export": "Export (MARC)",
+    "goBack": "Go back"
 }
