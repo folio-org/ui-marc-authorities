@@ -80,6 +80,7 @@ const AuthorityView = ({
   const location = useLocation();
   const stripes = useStripes();
 
+  const id = authority.data?.id;
   const isShared = authority.data?.shared;
   const centralTenantId = stripes.user.user?.consortium?.centralTenantId;
   const tenantId = isShared ? centralTenantId : authority.data?.tenantId;
@@ -123,7 +124,8 @@ const AuthorityView = ({
       const commonSearchParams = omit(parsedSearchParams, ['authRefType', 'headingRef']);
       const newSearchParamsString = queryString.stringify(commonSearchParams);
 
-      document.querySelector(`[role="gridcell"] a[href="${location.pathname}${location.search}"]`)?.focus();
+      // focus on the title of the closed record in the results list
+      document.querySelector(`#record-title-${id}[href="${location.pathname}${location.search}"]`)?.focus();
 
       history.push({
         pathname: '/marc-authorities',
@@ -131,7 +133,7 @@ const AuthorityView = ({
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [location.search],
+    [location.search, id],
   );
 
   const { exportRecords } = useAuthorityExport([authority?.data?.id]);
@@ -240,7 +242,7 @@ const AuthorityView = ({
           <PaneCloseLink
             autoFocus={location.state?.isClosingFocused}
             onClick={onClose}
-            aria-label={intl.formatMessage({ id: 'ui-marc-authorities.close.record' })}
+            aria-label={intl.formatMessage({ id: 'stripes-components.closeItem' }, { item: paneTitle })}
           />
         )}
         lastMenu={
