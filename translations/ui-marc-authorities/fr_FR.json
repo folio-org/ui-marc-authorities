@@ -18,7 +18,7 @@
     "shortcut.copy": "Copy",
     "shortcut.cut": "Cut",
     "shortcut.paste": "Coller",
-    "shortcut.find": "Trouver",
+    "shortcut.find": "Rechercher",
     "permission.authority-record.delete": "MARC Authority: Delete MARC authority record",
     "authority-record.delete": "Supprimer",
     "authority-record.delete.success": "MARC authority record <strong> {headingRef} </strong> has been deleted",
@@ -103,5 +103,6 @@
     "documentTitle.record": "MARC authority - {headingRef}",
     "shortcut.nextSubfield": "quickMARC only: Move to the next subfield in a text box",
     "shortcut.prevSubfield": "quickMARC only: Move to the previous subfield in a text box",
-    "authority-record.export": "Export (MARC)"
+    "authority-record.export": "Export (MARC)",
+    "goBack": "Go back"
 }

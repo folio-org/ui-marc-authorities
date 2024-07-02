@@ -5,7 +5,7 @@
     "permission.authority-record.edit": "MARC Authority: Edit MARC authority record",
     "actions.menuSection.sortBy": "Sortuj według",
     "actions.menuSection.sortBy.relevance": "Znaczenia",
-    "authority-record.edit": "Edit",
+    "authority-record.edit": "Edytuj",
     "navigation.app": "MARC authority app Search",
     "navigation.content": "Dokumentacja MARC dla karoteki haseł wzorcowych",
     "navigation.keyboardShortcuts": "Skróty klawiaturowe",
@@ -20,7 +20,7 @@
     "shortcut.paste": "Wklej",
     "shortcut.find": "Znajdź",
     "permission.authority-record.delete": "MARC Authority: Delete MARC authority record",
-    "authority-record.delete": "Delete",
+    "authority-record.delete": "Usuń",
     "authority-record.delete.success": "Rekord kartoteki haseł wzorcowych <strong> {headingRef} </strong> został usunięty",
     "authority-record.delete.error": "Nie można usunąć rekordu kartoteki haseł wzorcowych <strong> {headingRef} </strong>. Spróbuj ponownie. ",
     "export-selected-records": "Eksportuj wybrane rekordy (CSV/MARC)",
@@ -28,7 +28,7 @@
     "export.failure": "Unable to complete request, please try again.",
     "actions": "Akcje",
     "authorities.rows.recordsSelected": "{count, number} {count, plural, one {record} other {records}} selected",
-    "delete.buttonLabel": "Delete",
+    "delete.buttonLabel": "Usuń",
     "delete.label": "Confirm deletion of authority record",
     "delete.description": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>?",
     "authorities.rows.select": "Wybierz rekord kartoteki haseł wzorcowych",
@@ -43,7 +43,7 @@
     "reportModal.startDate": "Data początkowa",
     "reportModal.endDate": "Data zakończenia",
     "reportModal.button.cancel": "Anuluj",
-    "reportModal.button.export": "Export",
+    "reportModal.button.export": "Eksport",
     "reportModal.startDate.error": "\"Start date\" is required",
     "reportModal.endDate.error": "\"End date\" is required",
     "reportModal.endDate.error.greaterThan": "\"End date\" must be greater than or equal to \"Start date\"",
@@ -103,5 +103,6 @@
     "documentTitle.record": "MARC authority - {headingRef}",
     "shortcut.nextSubfield": "quickMARC only: Move to the next subfield in a text box",
     "shortcut.prevSubfield": "quickMARC only: Move to the previous subfield in a text box",
-    "authority-record.export": "Export (MARC)"
+    "authority-record.export": "Export (MARC)",
+    "goBack": "Go back"
 }

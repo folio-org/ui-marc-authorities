@@ -103,5 +103,6 @@
     "documentTitle.record": "MARC 權威 - {headingRef}",
     "shortcut.nextSubfield": "僅限 quickMARC：移至文字方塊中的下一個子欄位",
     "shortcut.prevSubfield": "僅限 quickMARC：移至文字方塊中的上一個子欄位",
-    "authority-record.export": "匯出（MARC）"
+    "authority-record.export": "匯出（MARC）",
+    "goBack": "Go back"
 }

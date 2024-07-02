@@ -101,7 +101,8 @@
     "documentTitle.search": "MARC规范 - {query} - 搜索",
     "documentTitle.browse": "MARC规范 - {query} - 浏览",
     "documentTitle.record": "MARC规范 - {headingRef}",
-    "shortcut.nextSubfield": "quickMARC only: Move to the next subfield in a text box",
-    "shortcut.prevSubfield": "quickMARC only: Move to the previous subfield in a text box",
-    "authority-record.export": "Export (MARC)"
+    "shortcut.nextSubfield": "仅限 quickMARC：移动到文本框中的下一个子字段",
+    "shortcut.prevSubfield": "仅限 quickMARC：移动到文本框中的上一个子字段",
+    "authority-record.export": "导出（MARC）",
+    "goBack": "返回"
 }
