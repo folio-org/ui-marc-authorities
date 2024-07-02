@@ -32,7 +32,10 @@ const AuthorityQuickMarcRoute = () => {
     history.push({
       pathname: `/marc-authorities/authorities/${recordId ?? ''}`,
       search: location.search,
-      state: { editSuccessful: true },
+      state: {
+        editSuccessful: true,
+        isClosingFocused: true,
+      },
     });
   }, [setIsGoingToBaseURL, location.search, history]);
 

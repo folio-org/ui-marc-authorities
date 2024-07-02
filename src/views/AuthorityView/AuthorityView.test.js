@@ -1,3 +1,5 @@
+import { createMemoryHistory } from 'history';
+
 import {
   fireEvent,
   render,
@@ -111,8 +113,11 @@ const authority = {
   isLoading: false,
 };
 
-const renderAuthorityView = (props = {}) => render(
-  <Harness selectedRecordCtxValue={[null, mockSetSelectedAuthorityRecordContext]}>
+const renderAuthorityView = (props = {}, { history } = {}) => render(
+  <Harness
+    history={history}
+    selectedRecordCtxValue={[null, mockSetSelectedAuthorityRecordContext]}
+  >
     <CommandList commands={defaultKeyboardShortcuts}>
       <AuthorityView
         marcSource={marcSource}
@@ -388,19 +393,34 @@ describe('Given AuthorityView', () => {
 
   describe('when click on Close button', () => {
     it('should handle setSelectedAuthorityRecordContext', () => {
-      const { getByLabelText } = renderAuthorityView();
+      const { getAllByRole } = renderAuthorityView();
 
-      fireEvent.click(getByLabelText('stripes-components.closeItem'));
+      fireEvent.click(getAllByRole('button', { name: 'stripes-components.closeItem' })[0]);
 
       expect(mockSetSelectedAuthorityRecordContext).toHaveBeenCalledWith(null);
     });
 
     it('should redirect to /marc-authorities', () => {
-      const { getByLabelText } = renderAuthorityView();
+      const { getAllByRole } = renderAuthorityView();
 
-      fireEvent.click(getByLabelText('stripes-components.closeItem'));
+      fireEvent.click(getAllByRole('button', { name: 'stripes-components.closeItem' })[0]);
 
       expect(mockHistoryPush).toHaveBeenCalled();
+    });
+
+    it('should focus on the title of the closed record in the results list', () => {
+      const history = createMemoryHistory();
+      const href = 'marc-authorities/authorities/authority-id?authRefType=Reference&headingRef=Beethoven%2C%20Ludwig';
+
+      history.push(href);
+
+      const spyQuerySelector = jest.spyOn(document, 'querySelector');
+
+      const { getAllByRole } = renderAuthorityView({}, { history });
+
+      fireEvent.click(getAllByRole('button', { name: 'stripes-components.closeItem' })[0]);
+
+      expect(spyQuerySelector).toHaveBeenCalledWith(`#record-title-authority-id[href="${href}"]`);
     });
   });
 
