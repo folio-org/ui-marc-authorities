@@ -576,6 +576,7 @@ const AuthoritiesSearch = ({
   const renderHeadingRef = (authority, className) => {
     return (
       <TextLink
+        id={`record-title-${authority.id}`}
         className={className}
         to={formatAuthorityRecordLink(authority)}
       >
