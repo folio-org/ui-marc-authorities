@@ -9,6 +9,7 @@
 - [UIMARCAUTH-415](https://issues.folio.org/browse/UIMARCAUTH-415) Pass the record search error to the `SearchResultsList` component.
 - [UIMARCAUTH-411](https://issues.folio.org/browse/UIMARCAUTH-411) Send requests for Source Files Settings with current tenant id.
 - [UIMARCAUTH-404](https://issues.folio.org/browse/UIMARCAUTH-404) Focus on record title after closing record details view, on search field after canceling record creation, on close record details view icon after closing quick-marc.
+- [UIMARCAUTH-421](https://issues.folio.org/browse/UIMARCAUTH-421) Add permissions for LCCN duplicate check settings.
 
 ## [5.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v5.0.1) (2024-04-02)
 

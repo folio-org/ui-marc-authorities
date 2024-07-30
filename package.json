@@ -117,7 +117,9 @@
           "inventory-storage.authority-source-files.collection.get",
           "inventory-storage.authority-source-files.item.get",
           "perms.users.get",
-          "mapping-rules.get"
+          "mapping-rules.get",
+          "mod-settings.entries.collection.get",
+          "mod-settings.global.read.ui-quick-marc.lccn-duplicate-check"
         ],
         "visible": true
       },
