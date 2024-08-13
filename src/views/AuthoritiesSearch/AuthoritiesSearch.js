@@ -71,6 +71,7 @@ import { useExportReport } from '../../queries';
 import { useAuthorityExport } from '../../hooks';
 import {
   createAuthorityRoute,
+  sortableColumns,
   sortableSearchResultListColumns,
   sortOrders,
 } from '../../constants';
@@ -79,7 +80,7 @@ import css from './AuthoritiesSearch.css';
 import { REPORT_TYPES } from './constants';
 
 const prefix = 'authorities';
-const NON_INTERACTIVE_HEADERS = [searchResultListColumns.SELECT];
+const NON_INTERACTIVE_HEADERS = Object.values(searchResultListColumns).filter(column => !sortableColumns.includes(column));
 
 const propTypes = {
   authorities: PropTypes.arrayOf(AuthorityShape).isRequired,
@@ -641,6 +642,7 @@ const AuthoritiesSearch = ({
             loading={isLoading}
             loaded={isLoaded}
             visibleColumns={visibleColumns}
+            showSortIndicator
             sortedColumn={sortedColumn}
             sortOrder={sortOrder}
             onHeaderClick={onHeaderClick}

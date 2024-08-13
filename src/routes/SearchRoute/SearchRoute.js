@@ -6,11 +6,11 @@ import {
   SelectedAuthorityRecordContext,
   useAuthorities,
   searchableIndexesValues,
-  searchResultListColumns,
 } from '@folio/stripes-authority-components';
 
 import { AuthoritiesSearch } from '../../views';
 import { useSortColumnManager } from '../../hooks';
+import { sortableColumns } from '../../constants';
 
 const propTypes = {
   children: PropTypes.oneOfType([
@@ -43,11 +43,6 @@ const SearchRoute = ({ children }) => {
   } = useContext(AuthoritiesSearchContext);
   const [, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
-  const sortableColumns = [
-    searchResultListColumns.AUTH_REF_TYPE,
-    searchResultListColumns.HEADING_REF,
-    searchResultListColumns.HEADING_TYPE,
-  ];
   const {
     onHeaderClick,
   } = useSortColumnManager({

@@ -5,7 +5,10 @@ import {
 import { searchResultListColumns } from '@folio/stripes-authority-components';
 
 import useSortColumnManager from './useSortColumnManager';
-import { sortOrders } from '../../constants';
+import {
+  sortableColumns,
+  sortOrders,
+} from '../../constants';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -14,12 +17,6 @@ jest.mock('react-router-dom', () => ({
     search: '',
   }),
 }));
-
-const sortableColumns = [
-  searchResultListColumns.AUTH_REF_TYPE,
-  searchResultListColumns.HEADING_REF,
-  searchResultListColumns.HEADING_TYPE,
-];
 
 const mockSetSortedColumn = jest.fn();
 const mockSetSortOrder = jest.fn();
