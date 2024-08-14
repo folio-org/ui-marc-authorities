@@ -5,7 +5,10 @@ import {
 } from '@folio/jest-config-stripes/testing-library/react';
 
 import { runAxeTest } from '@folio/stripes-testing';
-import { searchResultListColumns } from '@folio/stripes-authority-components';
+import {
+  searchResultListColumns,
+  SearchResultsList,
+} from '@folio/stripes-authority-components';
 
 import AuthoritiesSearch from './AuthoritiesSearch';
 import authorities from '../../../mocks/authorities';
@@ -43,6 +46,11 @@ jest.mock('@folio/stripes-authority-components', () => ({
   useAuthoritySourceFiles: jest.fn().mockReturnValue({
     isLoading: false,
     sourceFiles: [],
+  }),
+  SearchResultsList: jest.fn(props => {
+    const ReactSearchResultsList = jest.requireActual('@folio/stripes-authority-components').SearchResultsList;
+
+    return <ReactSearchResultsList {...props} />;
   }),
 }));
 
@@ -491,5 +499,15 @@ describe('Given AuthoritiesSearch', () => {
     expect(getByRole('columnheader', { name: 'stripes-authority-components.search-results-list.headingType' })).toBeVisible();
     expect(getByRole('columnheader', { name: 'stripes-authority-components.search-results-list.authoritySource' })).toBeVisible();
     expect(getByRole('columnheader', { name: 'ui-marc-authorities.search-results-list.numberOfTitles' })).toBeVisible();
+  });
+
+  it('should have correct props in SearchResultsList', () => {
+    renderAuthoritiesSearch({ authorities });
+
+    const expectedProps = {
+      nonInteractiveHeaders: ['select', 'link', 'numberOfTitles', 'authoritySource'],
+    };
+
+    expect(SearchResultsList).toHaveBeenCalledWith(expect.objectContaining(expectedProps), {});
   });
 });
