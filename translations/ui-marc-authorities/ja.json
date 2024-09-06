@@ -38,7 +38,7 @@
     "reports.marcAuthorityHeadings": "MARC authority headings updates (CSV)",
     "reports.failedUpdates": "Failed updates: linked bibliographic fields (CSV)",
     "reports.HEADINGS_UPDATES.success": "<b>Authority headings updates report (Job ID {name})</b> is being generated. Go to the Export manager app to download report. It may take a few minutes for the report to complete.",
-    "reports.fail": "We were unable to create this report. Please try again.",
+    "reports.fail": "このレポートを作成できませんでした。もう一度お試しください。",
     "reportModal.HEADINGS_UPDATES.label": "Set date range for MARC authority headings updates (CSV) report",
     "reportModal.startDate": "開始日",
     "reportModal.endDate": "終了日",
