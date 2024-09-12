@@ -80,7 +80,7 @@ import css from './AuthoritiesSearch.css';
 import { REPORT_TYPES } from './constants';
 
 const prefix = 'authorities';
-const NON_INTERACTIVE_HEADERS = Object.values(searchResultListColumns).filter(column => !sortableColumns.includes(column));
+const NON_INTERACTIVE_HEADERS = [searchResultListColumns.SELECT];
 
 const propTypes = {
   authorities: PropTypes.arrayOf(AuthorityShape).isRequired,
@@ -643,6 +643,7 @@ const AuthoritiesSearch = ({
             loaded={isLoaded}
             visibleColumns={visibleColumns}
             showSortIndicator
+            sortableColumns={sortableColumns}
             sortedColumn={sortedColumn}
             sortOrder={sortOrder}
             onHeaderClick={onHeaderClick}
