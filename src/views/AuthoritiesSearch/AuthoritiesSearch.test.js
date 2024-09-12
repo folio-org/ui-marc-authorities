@@ -15,7 +15,10 @@ import authorities from '../../../mocks/authorities';
 
 import '../../../test/jest/__mock__';
 import Harness from '../../../test/jest/helpers/harness';
-import { sortOrders } from '../../constants';
+import {
+  sortableColumns,
+  sortOrders,
+} from '../../constants';
 import { useSortColumnManager } from '../../hooks';
 
 const mockHistoryPush = jest.fn();
@@ -505,7 +508,8 @@ describe('Given AuthoritiesSearch', () => {
     renderAuthoritiesSearch({ authorities });
 
     const expectedProps = {
-      nonInteractiveHeaders: ['select', 'link', 'numberOfTitles', 'authoritySource'],
+      nonInteractiveHeaders: ['select'],
+      sortableColumns,
     };
 
     expect(SearchResultsList).toHaveBeenCalledWith(expect.objectContaining(expectedProps), {});
