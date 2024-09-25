@@ -87,7 +87,7 @@
       "search": "1.0",
       "browse": "1.0",
       "source-storage-records": "3.0",
-      "marc-records-editor": "5.0"
+      "marc-records-editor": "6.0"
     },
     "stripesDeps": [
       "@folio/stripes-acq-components",
