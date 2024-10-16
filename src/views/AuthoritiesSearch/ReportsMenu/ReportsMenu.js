@@ -26,7 +26,7 @@ const ReportsMenu = ({
     stripes.hasPerm('ui-quick-marc.quick-marc-authorities-editor.all') &&
     stripes.hasPerm('ui-inventory.all-permissions.TEMPORARY') &&
     stripes.hasPerm('ui-quick-marc.quick-marc-editor.view') &&
-    stripes.hasPerm('ui-export-manager.jobs.downloadAndResend');
+    stripes.hasPerm('ui-export-manager.jobs.downloadAndResend.execute');
 
   const renderReport = ({ translationId, reportType }) => (
     <Button
