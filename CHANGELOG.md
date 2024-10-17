@@ -1,6 +1,6 @@
 # Change history for ui-marc-authorities
 
-## [5.1.0] (IN PROGRESS)
+## [6.0.0] (IN PROGRESS)
 
 - [UIMARCAUTH-408](https://issues.folio.org/browse/UIMARCAUTH-408) Import `useUserTenantPermissions` from `@folio/stripes/core`.
 - [UIMARCAUTH-396](https://issues.folio.org/browse/UIMARCAUTH-396) Add quickMARC shortcuts to modal.
@@ -12,7 +12,7 @@
 - [UIMARCAUTH-423](https://issues.folio.org/browse/UIMARCAUTH-423) Pass `showSortIndicator` prop to `SearchResultsList` to display sort indicator in the results header.
 - [UIMARCAUTH-413](https://issues.folio.org/browse/UIMARCAUTH-413) Move `quick-marc` to optional dependencies.
 - [UIMARCAUTH-428](https://issues.folio.org/browse/UIMARCAUTH-428) *BREAKING* Upgrade `marc-records-editor` to `6.0`.
-- [UIMARCAUTH-429](https://folio-org.atlassian.net/browse/UIMARCAUTH-429) Upgrade `source-record-storage` to `3.3`
+- [UIMARCAUTH-429](https://folio-org.atlassian.net/browse/UIMARCAUTH-429) *BREAKING* Upgrade `source-record-storage` to `3.3`
 
 ## [5.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v5.0.1) (2024-04-02)
 
