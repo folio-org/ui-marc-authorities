@@ -1,6 +1,6 @@
 {
   "name": "@folio/marc-authorities",
-  "version": "5.1.0",
+  "version": "6.0.0",
   "description": "MARC Authorities module",
   "main": "src/index.js",
   "repository": "https://github.com/folio-org/ui-marc-authorities",
@@ -86,7 +86,7 @@
     "okapiInterfaces": {
       "search": "1.0",
       "browse": "1.0",
-      "source-storage-records": "3.0",
+      "source-storage-records": "3.3",
       "marc-records-editor": "6.0"
     },
     "stripesDeps": [
@@ -109,7 +109,10 @@
           "marc-records-editor.links.suggestion.post",
           "search.authorities.collection.get",
           "search.facets.collection.get",
-          "source-storage.records.get",
+          "source-storage.records.collection.get",
+          "source-storage.records.item.get",
+          "source-storage.records.formatted.item.get",
+          "source-storage.stream.records.collection.get",
           "inventory-storage.authorities.item.get",
           "data-export.quick.export.post",
           "instance-authority.linking-rules.collection.get",
