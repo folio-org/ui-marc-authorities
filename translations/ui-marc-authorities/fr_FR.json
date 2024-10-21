@@ -6,7 +6,7 @@
     "actions.menuSection.sortBy": "Trier par",
     "actions.menuSection.sortBy.relevance": "Pertinence",
     "authority-record.edit": "Modifier",
-    "navigation.app": "MARC authority app Search",
+    "navigation.app": "Recherche dans Autorité MARC",
     "navigation.content": "MARC authority documentation",
     "navigation.keyboardShortcuts": "Keyboard shortcuts",
     "shortcut.editRecord": "Edit a record",
