@@ -139,7 +139,7 @@ jobs:
           data: ${{ steps.moduleDescriptor.outputs.content }}
 
       - name: Publish Jest unit test results
-        uses: docker://ghcr.io/enricomi/publish-unit-test-result-action:v1
+        uses: docker://ghcr.io/enricomi/publish-unit-test-result-action:v2
         if: always()
         with:
           github_token: ${{ github.token }}
