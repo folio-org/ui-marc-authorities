@@ -14,6 +14,7 @@
 - [UIMARCAUTH-428](https://issues.folio.org/browse/UIMARCAUTH-428) *BREAKING* Upgrade `marc-records-editor` to `6.0`.
 - [UIMARCAUTH-429](https://folio-org.atlassian.net/browse/UIMARCAUTH-429) *BREAKING* Upgrade `source-record-storage` to `3.3`
 - [UIMARCAUTH-426](https://folio-org.atlassian.net/browse/UIMARCAUTH-426) migrate to shared CI workflows.
+- [UIMARCAUTH-430](https://folio-org.atlassian.net/browse/UIMARCAUTH-430) Refactor ui-inventory permissions.
 
 ## [5.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v5.0.1) (2024-04-02)
 

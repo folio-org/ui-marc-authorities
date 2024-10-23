@@ -24,7 +24,7 @@ const ReportsMenu = ({
 
   const showReports = stripes.hasPerm('ui-marc-authorities.authority-record.view') &&
     stripes.hasPerm('ui-quick-marc.quick-marc-authorities-editor.all') &&
-    stripes.hasPerm('ui-inventory.all-permissions.TEMPORARY') &&
+    stripes.hasPerm('ui-inventory.all') &&
     stripes.hasPerm('ui-quick-marc.quick-marc-editor.view') &&
     stripes.hasPerm('ui-export-manager.jobs.downloadAndResend.execute');
 
