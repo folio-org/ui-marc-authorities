@@ -116,6 +116,8 @@ const AuthorityView = ({
     ? hasCentralTenantPerm(centralTenantPermissions, editRecordPerm)
     : stripes.hasPerm(editRecordPerm);
 
+  const canRunExport = stripes.hasPerm('ui-data-export.edit');
+
   const onClose = useCallback(
     () => {
       setSelectedAuthorityRecordContext(null);
@@ -273,21 +275,23 @@ const AuthorityView = ({
                         </Icon>
                       </Button>
                     )}
-                    <Button
-                      buttonStyle="dropdownItem"
-                      id="dropdown-clickable-export-marc"
-                      onClick={() => {
-                        exportRecords([authority.data.id]);
-                        onToggle();
-                      }}
-                    >
-                      <Icon
-                        icon="download"
-                        size="medium"
+                    {canRunExport && (
+                      <Button
+                        buttonStyle="dropdownItem"
+                        id="dropdown-clickable-export-marc"
+                        onClick={() => {
+                          exportRecords([authority.data.id]);
+                          onToggle();
+                        }}
                       >
-                        <FormattedMessage id="ui-marc-authorities.authority-record.export" />
-                      </Icon>
-                    </Button>
+                        <Icon
+                          icon="download"
+                          size="medium"
+                        >
+                          <FormattedMessage id="ui-marc-authorities.authority-record.export" />
+                        </Icon>
+                      </Button>
+                    )}
                     <IfPermission perm="ui-marc-authorities.authority-record.view">
                       <Button
                         buttonStyle="dropdownItem"
