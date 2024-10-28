@@ -152,6 +152,8 @@ const AuthoritiesSearch = ({
   const [reportsModalOpen, setReportsModalOpen] = useState(false);
   const selectedReport = useRef(null);
 
+  const canRunExport = stripes.hasPerm('ui-data-export.edit');
+
   const uniqueAuthoritiesCount = useMemo(() => {
     // determine count of unique ids in authorities array.
     // this is needed to check or uncheck "Select all" checkbox in header when all rows are explicitly
@@ -469,21 +471,23 @@ const AuthoritiesSearch = ({
           data-testid="menu-section-actions"
           label={intl.formatMessage({ id: 'ui-marc-authorities.actions' })}
         >
-          <Button
-            buttonStyle="dropdownItem"
-            id="dropdown-clickable-export-marc"
-            disabled={!selectedRowsCount}
-            onClick={() => {
-              exportRecords(selectedRowsIds);
-              onToggle();
-            }}
-          >
-            <Icon
-              icon="download"
-              size="medium"
-            />
-            <FormattedMessage id="ui-marc-authorities.export-selected-records" />
-          </Button>
+          {canRunExport && (
+            <Button
+              buttonStyle="dropdownItem"
+              id="dropdown-clickable-export-marc"
+              disabled={!selectedRowsCount}
+              onClick={() => {
+                exportRecords(selectedRowsIds);
+                onToggle();
+              }}
+            >
+              <Icon
+                icon="download"
+                size="medium"
+              />
+              <FormattedMessage id="ui-marc-authorities.export-selected-records" />
+            </Button>
+          )}
           <IfPermission perm="ui-marc-authorities.authority-record.create">
             <Button
               buttonStyle="dropdownItem"
