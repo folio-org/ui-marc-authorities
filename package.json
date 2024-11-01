@@ -52,7 +52,7 @@
     "rxjs": "^6.6.3"
   },
   "dependencies": {
-    "@folio/stripes-acq-components": "~5.1.0",
+    "@folio/stripes-acq-components": "^6.0.0",
     "@rehooks/local-storage": "^2.4.4",
     "query-string": "^7.0.1"
   },
