@@ -4,6 +4,7 @@ import {
   useMarcSource,
   useAuthority,
 } from '@folio/stripes-authority-components';
+import { useStripes } from '@folio/stripes/core';
 import { runAxeTest } from '@folio/stripes-testing';
 
 import AuthorityViewRoute from './AuthorityViewRoute';
@@ -17,6 +18,19 @@ jest.mock('@folio/stripes/core', () => ({
     sendCallout: mockSendCallout,
   }),
   useNamespace: () => ['@folio/marc-authorities', jest.fn()],
+  useStripes: jest.fn().mockReturnValue({
+    hasInterface: jest.fn().mockReturnValue(true),
+    user: {
+      perms: {},
+      user: {
+        id: 'b1add99d-530b-5912-94f3-4091b4d87e2c',
+        username: 'diku_admin',
+        consortium: {
+          centralTenantId: 'consortia',
+        },
+      },
+    },
+  }),
 }));
 
 jest.mock('@folio/stripes-authority-components', () => ({
@@ -107,6 +121,32 @@ describe('Given AuthorityViewRoute', () => {
         tenantId: undefined,
       });
     });
+
+    describe('when consortium info is not loaded', () => {
+      beforeEach(() => {
+        useStripes.mockReturnValueOnce({
+          hasInterface: jest.fn().mockReturnValue(true),
+          user: {
+            perms: {},
+            user: {
+              id: 'b1add99d-530b-5912-94f3-4091b4d87e2c',
+              username: 'diku_admin',
+            },
+          },
+        });
+      });
+
+      it('should not fetch the marc source', () => {
+        const authority = {
+          shared: true,
+        };
+        const selectedAuthorityCtxValue = [authority];
+
+        renderAuthorityViewRoute(selectedAuthorityCtxValue);
+
+        expect(useMarcSource.mock.calls[0][0]).toEqual(expect.objectContaining({ enabled: false }));
+      });
+    });
   });
 
   describe('when authority is local', () => {
@@ -125,6 +165,36 @@ describe('Given AuthorityViewRoute', () => {
       });
       expect(useAuthority.mock.calls[0][0]).toEqual({
         tenantId: undefined,
+      });
+    });
+
+    describe('when consortium info is not loaded', () => {
+      beforeEach(() => {
+        useStripes.mockReturnValueOnce({
+          hasInterface: jest.fn().mockReturnValue(true),
+          user: {
+            perms: {},
+            user: {
+              id: 'b1add99d-530b-5912-94f3-4091b4d87e2c',
+              username: 'diku_admin',
+            },
+          },
+        });
+      });
+
+      it('should fetch the marc source', () => {
+        const authority = {
+          shared: false,
+          tenantId: 'university',
+        };
+        const selectedAuthorityCtxValue = [authority];
+
+        renderAuthorityViewRoute(selectedAuthorityCtxValue);
+
+        expect(useMarcSource.mock.calls[0][0]).toEqual({
+          enabled: true,
+          tenantId: authority.tenantId,
+        });
       });
     });
   });

@@ -26,6 +26,22 @@ import {
 
 import { AuthorityView } from '../../views';
 
+const checkCanLoadMarcSource = (isConsortiaEnv, isShared, isConsortiumDataLoaded, isAuthorityLoaded) => {
+  if (!isAuthorityLoaded) {
+    return false;
+  }
+
+  if (!isConsortiaEnv) {
+    return true;
+  }
+
+  if (isShared && !isConsortiumDataLoaded) {
+    return false;
+  }
+
+  return true;
+};
+
 const AuthorityViewRoute = () => {
   const stripes = useStripes();
   const { params: { id } } = useRouteMatch();
@@ -64,7 +80,15 @@ const AuthorityViewRoute = () => {
   const authority = useAuthority({ recordId: id, authRefType, headingRef }, {
     onError: handleAuthorityLoadError,
   });
-  const marcSource = useMarcSource({ recordId: id, tenantId, enabled: Boolean(selectedAuthority) }, {
+
+  const isConsortiaEnv = stripes.hasInterface('consortium');
+  const isShared = selectedAuthority?.shared;
+  const isConsortiumDataLoaded = Boolean(stripes.user.user.consortium);
+  const isAuthorityLoaded = Boolean(selectedAuthority);
+
+  const isMarcSourceRequestEnabled = checkCanLoadMarcSource(isConsortiaEnv, isShared, isConsortiumDataLoaded, isAuthorityLoaded);
+
+  const marcSource = useMarcSource({ recordId: id, tenantId, enabled: isMarcSourceRequestEnabled }, {
     onError: handleAuthorityLoadError,
   });
 
