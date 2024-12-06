@@ -1,5 +1,9 @@
 # Change history for ui-marc-authorities
 
+## [6.0.1] (IN PROGRESS)
+
+- [UIMARCAUTH-438](https://issues.folio.org/browse/UIMARCAUTH-438) Do not load MARC source until consortia data is available.
+
 ## [6.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v6.0.0) (2024-11-01)
 
 - [UIMARCAUTH-408](https://issues.folio.org/browse/UIMARCAUTH-408) Import `useUserTenantPermissions` from `@folio/stripes/core`.
