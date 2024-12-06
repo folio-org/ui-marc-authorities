@@ -26,6 +26,28 @@ import {
 
 import { AuthorityView } from '../../views';
 
+const canLoadMarcSource = (isConsortiaEnv, isShared, isConsortiumDataLoaded, isAuthorityLoaded) => {
+  /*
+    There is a delay between loading consortia data and when it becomes available in `stripes.user.user`.
+    If an authority record is loaded before consortia data is available
+    then we fetch MARC source from a member tenant, which is incorrect for shared records
+    Because of this we need to have a more complex condition to enable MARC source requests at an appropriate time
+  */
+  if (!isAuthorityLoaded) {
+    return false;
+  }
+
+  if (!isConsortiaEnv) {
+    return true;
+  }
+
+  if (isShared && !isConsortiumDataLoaded) {
+    return false;
+  }
+
+  return true;
+};
+
 const AuthorityViewRoute = () => {
   const stripes = useStripes();
   const { params: { id } } = useRouteMatch();
@@ -64,7 +86,15 @@ const AuthorityViewRoute = () => {
   const authority = useAuthority({ recordId: id, authRefType, headingRef }, {
     onError: handleAuthorityLoadError,
   });
-  const marcSource = useMarcSource({ recordId: id, tenantId, enabled: Boolean(selectedAuthority) }, {
+
+  const isConsortiaEnv = stripes.hasInterface('consortium');
+  const isShared = Boolean(selectedAuthority?.shared);
+  const isConsortiumDataLoaded = Boolean(stripes.user.user.consortium);
+  const isAuthorityLoaded = Boolean(selectedAuthority);
+
+  const isMarcSourceRequestEnabled = canLoadMarcSource(isConsortiaEnv, isShared, isConsortiumDataLoaded, isAuthorityLoaded);
+
+  const marcSource = useMarcSource({ recordId: id, tenantId, enabled: isMarcSourceRequestEnabled }, {
     onError: handleAuthorityLoadError,
   });
 
