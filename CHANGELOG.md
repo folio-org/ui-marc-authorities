@@ -20,6 +20,7 @@
 - [UIMARCAUTH-426](https://folio-org.atlassian.net/browse/UIMARCAUTH-426) migrate to shared CI workflows.
 - [UIMARCAUTH-430](https://folio-org.atlassian.net/browse/UIMARCAUTH-430) Refactor ui-inventory permissions.
 - [UIMARCAUTH-422](https://folio-org.atlassian.net/browse/UIMARCAUTH-422) Update required permissions for quick export of authority records.
+- [UIMARCAUTH-440](https://folio-org.atlassian.net/browse/UIMARCAUTH-440) Add missed `ui-data-export.edit` permission. 
 
 ## [5.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v5.0.1) (2024-04-02)
 

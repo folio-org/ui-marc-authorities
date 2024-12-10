@@ -146,7 +146,8 @@
         "subPermissions": [
           "ui-marc-authorities.authority-record.view",
           "marc-records-editor.item.put",
-          "instance-authority-links.authorities.bulk.post"
+          "instance-authority-links.authorities.bulk.post",
+          "ui-data-export.edit"
         ],
         "visible": true
       },
