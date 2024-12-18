@@ -1,6 +1,6 @@
 # Change history for ui-marc-authorities
 
-## [6.0.1] (IN PROGRESS)
+## [6.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v6.0.1) (2024-12-13)
 
 - [UIMARCAUTH-438](https://issues.folio.org/browse/UIMARCAUTH-438) Do not load MARC source until consortia data is available.
 
