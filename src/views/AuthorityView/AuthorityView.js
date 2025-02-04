@@ -41,6 +41,11 @@ import {
   SelectedAuthorityRecordContext,
   useAuthorityMappingRules,
 } from '@folio/stripes-authority-components';
+import {
+  VersionHistoryButton,
+  VersionHistoryPane,
+  VersionViewContextProvider,
+} from '@folio/stripes-acq-components';
 
 import { KeyShortCutsWrapper } from '../../components';
 import { useAuthorityDelete } from '../../queries';
@@ -74,11 +79,12 @@ const AuthorityView = ({
   marcSource,
   authority,
 }) => {
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const intl = useIntl();
   const history = useHistory();
   const location = useLocation();
   const stripes = useStripes();
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [isHistoryPaneOpen, setIsHistoryPaneOpen] = useState(false);
 
   const id = authority.data?.id;
   const isShared = authority.data?.shared;
@@ -250,75 +256,97 @@ const AuthorityView = ({
         lastMenu={
           <>
             {(hasEditPermission || hasDeletePermission) && (
-              <Dropdown
-                renderTrigger={({ getTriggerProps }) => (
-                  <DropdownButton
-                    buttonStyle="primary"
-                    marginBottom0
-                    {...getTriggerProps()}
-                  >
-                    <FormattedMessage id="ui-marc-authorities.actions" />
-                  </DropdownButton>
-                )}
-                renderMenu={({ onToggle }) => (
-                  <DropdownMenu
-                    data-role="menu"
-                    aria-label="available options"
-                  >
-                    {canEditRecord && (
-                      <Button
-                        buttonStyle="dropdownItem"
-                        onClick={redirectToQuickMarcEditPage}
-                      >
-                        <Icon icon="edit">
-                          <FormattedMessage id="ui-marc-authorities.authority-record.edit" />
-                        </Icon>
-                      </Button>
-                    )}
-                    {canRunExport && (
-                      <Button
-                        buttonStyle="dropdownItem"
-                        id="dropdown-clickable-export-marc"
-                        onClick={() => {
-                          exportRecords([authority.data.id]);
-                          onToggle();
-                        }}
-                      >
-                        <Icon
-                          icon="download"
-                          size="medium"
+              <>
+                <Dropdown
+                  renderTrigger={({ getTriggerProps }) => (
+                    <DropdownButton
+                      buttonStyle="primary"
+                      marginBottom0
+                      {...getTriggerProps()}
+                    >
+                      <FormattedMessage id="ui-marc-authorities.actions" />
+                    </DropdownButton>
+                  )}
+                  renderMenu={({ onToggle }) => (
+                    <DropdownMenu
+                      data-role="menu"
+                      aria-label="available options"
+                    >
+                      {canEditRecord && (
+                        <Button
+                          buttonStyle="dropdownItem"
+                          onClick={redirectToQuickMarcEditPage}
                         >
-                          <FormattedMessage id="ui-marc-authorities.authority-record.export" />
-                        </Icon>
-                      </Button>
-                    )}
-                    <IfPermission perm="ui-marc-authorities.authority-record.view">
-                      <Button
-                        buttonStyle="dropdownItem"
-                        onClick={openPrintPopup}
-                      >
-                        <Icon icon="print">
-                          <FormattedMessage id="ui-marc-authorities.authority-record.print" />
-                        </Icon>
-                      </Button>
-                    </IfPermission>
-                    {canDeleteRecord && (
-                      <Button
-                        onClick={() => setDeleteModalOpen(true)}
-                        buttonStyle="dropdownItem"
-                      >
-                        <Icon icon="trash">
-                          <FormattedMessage id="ui-marc-authorities.authority-record.delete" />
-                        </Icon>
-                      </Button>
-                    )}
-                  </DropdownMenu>
-                )}
-              />
+                          <Icon icon="edit">
+                            <FormattedMessage id="ui-marc-authorities.authority-record.edit" />
+                          </Icon>
+                        </Button>
+                      )}
+                      {canRunExport && (
+                        <Button
+                          buttonStyle="dropdownItem"
+                          id="dropdown-clickable-export-marc"
+                          onClick={() => {
+                            exportRecords([authority.data.id]);
+                            onToggle();
+                          }}
+                        >
+                          <Icon
+                            icon="download"
+                            size="medium"
+                          >
+                            <FormattedMessage id="ui-marc-authorities.authority-record.export" />
+                          </Icon>
+                        </Button>
+                      )}
+                      <IfPermission perm="ui-marc-authorities.authority-record.view">
+                        <Button
+                          buttonStyle="dropdownItem"
+                          onClick={openPrintPopup}
+                        >
+                          <Icon icon="print">
+                            <FormattedMessage id="ui-marc-authorities.authority-record.print" />
+                          </Icon>
+                        </Button>
+                      </IfPermission>
+                      {canDeleteRecord && (
+                        <Button
+                          onClick={() => setDeleteModalOpen(true)}
+                          buttonStyle="dropdownItem"
+                        >
+                          <Icon icon="trash">
+                            <FormattedMessage id="ui-marc-authorities.authority-record.delete" />
+                          </Icon>
+                        </Button>
+                      )}
+                    </DropdownMenu>
+                  )}
+                />
+                <VersionHistoryButton onClick={() => setIsHistoryPaneOpen(true)} />
+              </>
             )}
           </>
         }
       />
+      {isHistoryPaneOpen && (
+        <VersionViewContextProvider
+          snapshotPath=""
+          versions={[]}
+          versionId={null}
+        >
+          <VersionHistoryPane
+            currentVersion={null}
+            id="authority"
+            isLoading={false}
+            onClose={() => setIsHistoryPaneOpen(false)}
+            onSelectVersion={() => {}}
+            snapshotPath=""
+            labelsMap={{}}
+            versions={[]}
+            hiddenFields={[]}
+          />
+        </VersionViewContextProvider>
+      )}
       <ConfirmationModal
         id="confirm-delete-note"
         open={deleteModalOpen}
