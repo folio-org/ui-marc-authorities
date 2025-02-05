@@ -1,5 +1,9 @@
 # Change history for ui-marc-authorities
 
+## [6.1.0] (IN PROGRESS)
+
+- [UIMARCAUTH-445](https://issues.folio.org/browse/UIMARCAUTH-445) MARC authority > View Source > Display Version History pane with an empty Version History component.
+
 ## [6.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v6.0.1) (2024-12-13)
 
 - [UIMARCAUTH-438](https://issues.folio.org/browse/UIMARCAUTH-438) Do not load MARC source until consortia data is available.
