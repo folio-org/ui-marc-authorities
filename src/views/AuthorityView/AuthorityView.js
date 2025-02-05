@@ -270,7 +270,7 @@ const AuthorityView = ({
                   renderMenu={({ onToggle }) => (
                     <DropdownMenu
                       data-role="menu"
-                      aria-label="available options"
+                      aria-label={intl.formatMessage({ id: 'ui-marc-authorities.authority-record.menuOptions' })}
                     >
                       {canEditRecord && (
                         <Button

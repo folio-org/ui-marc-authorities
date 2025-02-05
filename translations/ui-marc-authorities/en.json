@@ -21,6 +21,7 @@
 
   "search-results-list.numberOfTitles": "Number of titles",
 
+  "authority-record.menuOptions": "Available options",
   "authority-record.edit": "Edit",
   "authority-record.export": "Export (MARC)",
   "authority-record.print": "Print",
