@@ -9,7 +9,7 @@ import {
 } from '@folio/jest-config-stripes/testing-library/react';
 import { useOkapiKy } from '@folio/stripes/core';
 
-import { useVersionHistoryConfig } from './useVersionHistoryConfig';
+import { useAuditSettings } from './useAuditSettings';
 
 const queryClient = new QueryClient();
 
@@ -21,15 +21,17 @@ const mockPut = jest.fn().mockReturnValue({
   json: jest.fn().mockResolvedValue(),
 });
 
+const settings = [
+  {
+    key: 'records.page.size',
+    value: 25,
+    metadata: {},
+  },
+];
+
 const mockGet = jest.fn().mockReturnValue({
   json: jest.fn().mockResolvedValue({
-    settings: [
-      {
-        key: 'records.page.size',
-        value: 25,
-        metadata: {},
-      },
-    ],
+    settings,
   }),
 });
 
@@ -38,31 +40,38 @@ useOkapiKy.mockReturnValue({
   get: mockGet,
 });
 
-describe('useVersionHistoryConfig', () => {
+describe('useAuditSettings', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('should make a get request', async () => {
-    const { result } = renderHook(useVersionHistoryConfig, { wrapper });
+    const { result } = renderHook(useAuditSettings, { wrapper });
 
     await act(() => !result.current.isLoading);
 
     expect(mockGet).toHaveBeenCalledWith('audit/config/groups/audit.authority/settings');
-    expect(result.current.pageSize).toBe(25);
+    expect(result.current.settings).toEqual(settings);
   });
 
   it('should make a put request', async () => {
-    const { result } = renderHook(useVersionHistoryConfig, { wrapper });
+    const { result } = renderHook(useAuditSettings, { wrapper });
+
+    const body = {
+      key: 'foo',
+      value: 50,
+    };
+
+    const settingKey = 'some-key';
 
     await act(() => !result.current.isLoading);
-    await act(() => result.current.updatePageSize(50));
+    await act(() => result.current.updateSetting({
+      body,
+      settingKey,
+    }));
 
-    expect(mockPut).toHaveBeenCalledWith('audit/config/groups/audit.authority/settings/records.page.size', {
-      json: {
-        key: 'records.page.size',
-        value: 50,
-      },
+    expect(mockPut).toHaveBeenCalledWith(`audit/config/groups/audit.authority/settings/${settingKey}`, {
+      json: body,
     });
   });
 });

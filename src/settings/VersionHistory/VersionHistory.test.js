@@ -5,23 +5,30 @@ import {
 import userEvent from '@folio/jest-config-stripes/testing-library/user-event';
 import { useCallout } from '@folio/stripes/core';
 
-import { useVersionHistoryConfig } from '../../queries/useVersionHistoryConfig';
+import { useAuditSettings } from '../../queries';
 import Harness from '../../../test/jest/helpers/harness';
 import { VersionHistory } from './VersionHistory';
 
-jest.mock('../../queries/useVersionHistoryConfig', () => ({
-  useVersionHistoryConfig: jest.fn(),
+jest.mock('../../queries', () => ({
+  ...jest.requireActual('../../queries'),
+  useAuditSettings: jest.fn(),
 }));
 
-const mockRefetch = jest.fn().mockResolvedValue();
 const mockUpdatePageSize = jest.fn().mockResolvedValue();
 const mockSendCallout = jest.fn();
 
-useVersionHistoryConfig.mockReturnValue({
-  pageSize: 10,
-  refetch: mockRefetch,
+const settings = [
+  {
+    key: 'records.page.size',
+    value: 25,
+    metadata: {},
+  },
+];
+
+useAuditSettings.mockReturnValue({
+  settings,
   isLoading: false,
-  updatePageSize: mockUpdatePageSize,
+  updateSetting: mockUpdatePageSize,
 });
 
 useCallout.mockReturnValue({
@@ -51,9 +58,14 @@ describe('VersionHistory', () => {
     await act(() => userEvent.selectOptions(getByLabelText('ui-marc-authorities.settings.versionHistory.field.pageSize'), '50'));
     await act(() => userEvent.click(getByText('stripes-core.button.save')));
 
-    expect(mockUpdatePageSize).toHaveBeenCalledWith(50);
+    expect(mockUpdatePageSize).toHaveBeenCalledWith({
+      body: {
+        ...settings[0],
+        value: 50,
+      },
+      settingKey: 'records.page.size',
+    });
     expect(mockSendCallout).toHaveBeenCalledWith({ message: 'stripes-smart-components.cm.success' });
-    expect(mockRefetch).toHaveBeenCalled();
   });
 
   it('should handle form submission error', async () => {
