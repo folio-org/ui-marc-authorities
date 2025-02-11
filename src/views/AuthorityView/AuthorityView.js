@@ -55,6 +55,8 @@ import {
 } from '../../utils';
 import { useAuthorityExport } from '../../hooks';
 
+import css from './AuthorityView.css';
+
 const propTypes = {
   authority: PropTypes.shape({
     allData: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -258,6 +260,7 @@ const AuthorityView = ({
             {(hasEditPermission || hasDeletePermission) && (
               <>
                 <Dropdown
+                  className={css.actionsDropdown}
                   renderTrigger={({ getTriggerProps }) => (
                     <DropdownButton
                       buttonStyle="primary"
