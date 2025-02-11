@@ -12,6 +12,7 @@ import {
 import { Settings } from '@folio/stripes/smart-components';
 
 import { ManageAuthoritySourceFiles } from '../ManageAuthoritySourceFiles';
+import { VersionHistory } from '../VersionHistory';
 
 const MarcAuthoritySettings = () => {
   const match = useRouteMatch();
@@ -24,6 +25,12 @@ const MarcAuthoritySettings = () => {
       label: formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.pane.title' }),
       route: 'manage-authority-files',
       perm: 'ui-marc-authorities.settings.authority-files.view',
+    },
+    {
+      component: VersionHistory,
+      label: formatMessage({ id: 'ui-marc-authorities.settings.versionHistory.pane.title' }),
+      route: 'version-history',
+      perm: 'ui-marc-authorities.settings.version-history',
     },
   ];
 
