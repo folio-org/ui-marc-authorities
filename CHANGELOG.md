@@ -1,8 +1,9 @@
 # Change history for ui-marc-authorities
 
-## [6.1.0] (IN PROGRESS)
+## [7.0.0] (IN PROGRESS)
 
 - [UIMARCAUTH-445](https://issues.folio.org/browse/UIMARCAUTH-445) MARC authority > View Source > Display Version History pane with an empty Version History component.
+- [UIMARCAUTH-444](https://issues.folio.org/browse/UIMARCAUTH-444) *BREAKING* Create MARC authority settings to configure number of cards in version history.
 
 ## [6.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v6.0.1) (2024-12-13)
 

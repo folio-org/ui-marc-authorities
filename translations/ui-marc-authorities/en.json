@@ -37,6 +37,8 @@
   "permission.authority-record.edit": "MARC Authority: Edit MARC authority record",
   "permission.authority-record.delete": "MARC Authority: Delete MARC authority record",
 
+  "permission.settings.version-history.view": "Settings (MARC authority): Configure version history",
+
   "navigation.app": "MARC authority app Search",
   "navigation.content": "MARC authority documentation",
   "navigation.keyboardShortcuts": "Keyboard shortcuts",
@@ -121,5 +123,9 @@
   "settings.manageAuthoritySourceFiles.confirmationModal.cancel": "No, do not delete",
   "settings.manageAuthoritySourceFiles.confirmationModal.confirm": "Yes, delete",
 
-  "error.defaultSaveError": "Error on saving data"
+  "error.defaultSaveError": "Error on saving data",
+
+  "settings.versionHistory.pane.title": "Version history",
+  "settings.versionHistory.field.pageSize": "Cards to display per page on Version history",
+  "settings.versionHistory.loadError": "Version history Cards per page settings failed to load."
 }
