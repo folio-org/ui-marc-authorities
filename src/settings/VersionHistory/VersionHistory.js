@@ -35,7 +35,7 @@ const VersionHistory = () => {
 
   const pageSizeSettings = settings?.find(setting => setting.key === VERSION_HISTORY_PAGE_SIZE_SETTING);
 
-  const pageSizeOptions = [10, 25, 50, 100].map(value => ({ label: value, value }));
+  const pageSizeOptions = [10, 25, 50, 75, 100].map(value => ({ label: value, value }));
 
   const handleSubmit = async formValues => {
     try {
