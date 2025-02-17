@@ -1,5 +1,9 @@
 # Change history for ui-marc-authorities
 
+## [7.0.0] (IN PROGRESS)
+
+- [UIMARCAUTH-444](https://issues.folio.org/browse/UIMARCAUTH-444) *BREAKING* Create MARC authority settings to configure number of cards in version history.
+
 ## [6.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v6.0.1) (2024-12-13)
 
 - [UIMARCAUTH-438](https://issues.folio.org/browse/UIMARCAUTH-438) Do not load MARC source until consortia data is available.
