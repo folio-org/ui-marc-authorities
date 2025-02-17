@@ -21,16 +21,16 @@ const MarcAuthoritySettings = () => {
 
   const pages = [
     {
-      component: ManageAuthoritySourceFiles,
-      label: formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.pane.title' }),
-      route: 'manage-authority-files',
-      perm: 'ui-marc-authorities.settings.authority-files.view',
-    },
-    {
       component: VersionHistory,
       label: formatMessage({ id: 'ui-marc-authorities.settings.versionHistory.pane.title' }),
       route: 'version-history',
       perm: 'ui-marc-authorities.settings.version-history',
+    },
+    {
+      component: ManageAuthoritySourceFiles,
+      label: formatMessage({ id: 'ui-marc-authorities.settings.manageAuthoritySourceFiles.pane.title' }),
+      route: 'manage-authority-files',
+      perm: 'ui-marc-authorities.settings.authority-files.view',
     },
   ];
 
