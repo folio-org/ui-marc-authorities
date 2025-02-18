@@ -1,7 +1,9 @@
 # Change history for ui-marc-authorities
 
-## [7.0.0] (IN PROGRESS)
+## [7.0.0] IN PROGRESS
 
+- [UIMARCAUTH-446](https://issues.folio.org/browse/UIMARCAUTH-446) *BREAKING* Upgrade @folio/stripes-* dependencies.
+- [UIMARCAUTH-447](https://issues.folio.org/browse/UIMARCAUTH-447) *BREAKING* Upgrade react-intl to v7.
 - [UIMARCAUTH-444](https://issues.folio.org/browse/UIMARCAUTH-444) *BREAKING* Create MARC authority settings to configure number of cards in version history.
 
 ## [6.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v6.0.1) (2024-12-13)
