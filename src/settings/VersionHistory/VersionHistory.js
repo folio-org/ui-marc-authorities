@@ -82,15 +82,11 @@ const VersionHistory = () => {
           onSubmit={handleSubmit}
         >
           <Row>
-            <Col xs={12}>
-              <Label htmlFor={fieldNames.PAGE_SIZE}>
-                {intl.formatMessage({ id: 'ui-marc-authorities.settings.versionHistory.field.pageSize' })}
-              </Label>
-            </Col>
-            <Col xs={4}>
+            <Col xs={6}>
               <Field
                 id={fieldNames.PAGE_SIZE}
                 name={fieldNames.PAGE_SIZE}
+                label={intl.formatMessage({ id: 'ui-marc-authorities.settings.versionHistory.field.pageSize' })}
                 dataOptions={pageSizeOptions}
                 component={Select}
                 parse={v => parseInt(v, 10)}
