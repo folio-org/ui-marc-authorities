@@ -9,7 +9,6 @@ import {
   Row,
   Col,
   Select,
-  Label,
   Layout,
   LoadingPane,
 } from '@folio/stripes/components';
