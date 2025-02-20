@@ -55,8 +55,8 @@
     "reports.FAILED_UPDATES.outputFormat": "Fehlgeschlagene Aktualisierungen: Verknüpfte bibliografische Felder",
     "permission.authority-record.create": "MARC Normdaten: neuer MARC Normdatensatz erstellen",
     "actions.create": "Neuer MARC Normdatensatz",
-    "permission.settings.authority-files.view": "Einstellunge (MARC Normdaten): Normdateien anzeigen",
-    "permission.settings.authority-files.all": "Einstellunge (MARC Normdaten): Normdateien anzeigen, erstellen, bearbeiten, löschen",
+    "permission.settings.authority-files.view": "Einstellungen (MARC Normdaten): Normdateien anzeigen",
+    "permission.settings.authority-files.all": "Einstellungen (MARC Normdaten): Normdateien anzeigen, erstellen, bearbeiten, löschen",
     "settings.heading": "MARC Normdaten",
     "settings.section.general": "Allgemein",
     "settings.html.page.title": "Einstellungen für MARC Normdaten",
@@ -104,5 +104,9 @@
     "shortcut.nextSubfield": "quickMARC only: Move to the next subfield in a text box",
     "shortcut.prevSubfield": "quickMARC only: Move to the previous subfield in a text box",
     "authority-record.export": "Export (MARC)",
-    "goBack": "Go back"
+    "goBack": "Go back",
+    "permission.settings.version-history.view": "Settings (MARC authority): Configure version history",
+    "settings.versionHistory.pane.title": "Version history",
+    "settings.versionHistory.field.pageSize": "Cards to display per page on Version history",
+    "settings.versionHistory.loadError": "Version history Cards per page settings failed to load."
 }
