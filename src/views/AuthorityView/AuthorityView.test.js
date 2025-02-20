@@ -436,4 +436,17 @@ describe('Given AuthorityView', () => {
       expect(queryByTestId('marc-view-pane')).toBeNull();
     });
   });
+
+  describe('when clicking on the version history button', () => {
+    it('should open a version history pane', () => {
+      const {
+        getByLabelText,
+        getByText,
+      } = renderAuthorityView();
+
+      fireEvent.click(getByLabelText('stripes-acq-components.versionHistory.pane.header'));
+
+      expect(getByText('stripes-acq-components.versionHistory.pane.sub')).toBeInTheDocument();
+    });
+  });
 });
