@@ -104,5 +104,9 @@
     "shortcut.nextSubfield": "quickMARC only: Move to the next subfield in a text box",
     "shortcut.prevSubfield": "quickMARC only: Move to the previous subfield in a text box",
     "authority-record.export": "エクスポート (MARC)",
-    "goBack": "戻る"
+    "goBack": "戻る",
+    "permission.settings.version-history.view": "Settings (MARC authority): Configure version history",
+    "settings.versionHistory.pane.title": "Version history",
+    "settings.versionHistory.field.pageSize": "Cards to display per page on Version history",
+    "settings.versionHistory.loadError": "Version history Cards per page settings failed to load."
 }
