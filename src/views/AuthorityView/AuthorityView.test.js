@@ -15,6 +15,8 @@ import Harness from '../../../test/jest/helpers/harness';
 import AuthorityView from './AuthorityView';
 import { useAuthorityExport } from '../../hooks';
 import { openEditShortcut } from '../../../test/utilities';
+import { useAuditSettings } from '../../queries';
+import { VERSION_HISTORY_ENABLED_SETTING } from '../../constants';
 
 const mockHistoryPush = jest.fn();
 const mockSetSelectedAuthorityRecordContext = jest.fn();
@@ -47,6 +49,11 @@ jest.mock('@folio/stripes/components', () => ({
 
 jest.mock('../../hooks', () => ({
   useAuthorityExport: jest.fn().mockReturnValue({}),
+}));
+
+jest.mock('../../queries', () => ({
+  ...jest.requireActual('../../queries'),
+  useAuditSettings: jest.fn(),
 }));
 
 const marcSource = {
@@ -138,6 +145,13 @@ describe('Given AuthorityView', () => {
     useUserTenantPermissions.mockReturnValue({
       userPermissions: [],
       isFetching: false,
+    });
+    useAuditSettings.mockReturnValue({
+      settings: [{
+        key: VERSION_HISTORY_ENABLED_SETTING,
+        value: true,
+      }],
+      isLoading: false,
     });
   });
 
@@ -447,6 +461,22 @@ describe('Given AuthorityView', () => {
       fireEvent.click(getByLabelText('stripes-acq-components.versionHistory.pane.header'));
 
       expect(getByText('stripes-acq-components.versionHistory.pane.sub')).toBeInTheDocument();
+    });
+  });
+
+  describe('when version history feature is not enabled', () => {
+    it('should not display the version history button', () => {
+      useAuditSettings.mockReturnValue({
+        settings: [{
+          key: VERSION_HISTORY_ENABLED_SETTING,
+          value: false,
+        }],
+        isLoading: false,
+      });
+
+      const { queryByLabelText } = renderAuthorityView();
+
+      expect(queryByLabelText('stripes-acq-components.versionHistory.pane.header')).toBeNull();
     });
   });
 });
