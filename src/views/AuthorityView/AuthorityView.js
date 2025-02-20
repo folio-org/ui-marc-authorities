@@ -48,12 +48,16 @@ import {
 } from '@folio/stripes-acq-components';
 
 import { KeyShortCutsWrapper } from '../../components';
-import { useAuthorityDelete } from '../../queries';
+import {
+  useAuditSettings,
+  useAuthorityDelete,
+} from '../../queries';
 import {
   hasCentralTenantPerm,
   isConsortiaEnv,
 } from '../../utils';
 import { useAuthorityExport } from '../../hooks';
+import { VERSION_HISTORY_ENABLED_SETTING } from '../../constants';
 
 import css from './AuthorityView.css';
 
@@ -108,6 +112,7 @@ const AuthorityView = ({
   });
 
   const { authorityMappingRules } = useAuthorityMappingRules({ tenantId, enabled: Boolean(authority.data) });
+  const { settings, isLoading: isLoadingSettings } = useAuditSettings();
 
   const [, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
@@ -125,6 +130,7 @@ const AuthorityView = ({
     : stripes.hasPerm(editRecordPerm);
 
   const canRunExport = stripes.hasPerm('ui-data-export.edit');
+  const isVersionHistoryEnabled = settings?.find(setting => setting.key === VERSION_HISTORY_ENABLED_SETTING)?.value;
 
   const onClose = useCallback(
     () => {
@@ -325,7 +331,11 @@ const AuthorityView = ({
                     </DropdownMenu>
                   )}
                 />
-                <VersionHistoryButton onClick={() => setIsHistoryPaneOpen(true)} />
+                {!isLoadingSettings && isVersionHistoryEnabled && (
+                  <VersionHistoryButton
+                    onClick={() => setIsHistoryPaneOpen(true)}
+                  />
+                )}
               </>
             )}
           </>
