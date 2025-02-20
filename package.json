@@ -162,7 +162,8 @@
         "displayName": "Settings (MARC authority): Module is enabled.",
         "subPermissions": [
           "settings.enabled",
-          "audit.config.groups.settings.collection.get"
+          "audit.config.groups.settings.collection.get",
+          "audit.config.groups.settings.audit.authority.collection.get"
         ],
         "visible": false
       },
