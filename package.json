@@ -52,7 +52,7 @@
   "dependencies": {
     "@folio/stripes-acq-components": "^6.0.0",
     "@rehooks/local-storage": "^2.4.4",
-    "query-string": "^7.0.1"
+    "query-string": "^9.0.0"
   },
   "optionalDependencies": {
     "@folio/quick-marc": "^9.0.0"
