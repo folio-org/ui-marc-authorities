@@ -7,6 +7,7 @@
 - [UIMARCAUTH-444](https://issues.folio.org/browse/UIMARCAUTH-444) *BREAKING* Create MARC authority settings to configure number of cards in version history.
 - [UIMARCAUTH-445](https://issues.folio.org/browse/UIMARCAUTH-445) MARC authority > View Source > Display Version History pane with an empty Version History component.
 - [UIMARCAUTH-452](https://issues.folio.org/browse/UIMARCAUTH-452) Hide version history icon and settings if audit log feature is disabled.
+- [UIMARCAUTH-409](https://issues.folio.org/browse/UIMARCAUTH-409) React v19: refactor away from default props for functional components.
 
 ## [6.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v6.0.1) (2024-12-13)
 

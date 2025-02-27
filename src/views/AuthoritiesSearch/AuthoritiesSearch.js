@@ -105,20 +105,20 @@ const propTypes = {
 
 const AuthoritiesSearch = ({
   children,
-  error,
+  error = null,
   onHeaderClick,
   handleLoadMore,
   authorities,
   isLoading,
   isLoaded,
   totalRecords,
-  query,
+  query = '',
   firstPageQuery,
   pageSize,
   onSubmitSearch,
-  hidePageIndices,
-  hasNextPage,
-  hasPrevPage,
+  hidePageIndices = false,
+  hasNextPage = null,
+  hasPrevPage = null,
 }) => {
   const stripes = useStripes();
   const intl = useIntl();
@@ -673,12 +673,5 @@ const AuthoritiesSearch = ({
 };
 
 AuthoritiesSearch.propTypes = propTypes;
-AuthoritiesSearch.defaultProps = {
-  error: null,
-  hidePageIndices: false,
-  query: '',
-  hasNextPage: null,
-  hasPrevPage: null,
-};
 
 export default AuthoritiesSearch;
