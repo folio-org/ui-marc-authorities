@@ -15,7 +15,7 @@ const propTypes = {
   children: PropTypes.oneOfType(PropTypes.node, PropTypes.arrayOf(PropTypes.node)),
 };
 
-const AuthorityTitleManager = ({ children }) => {
+const AuthorityTitleManager = ({ children = null }) => {
   const intl = useIntl();
 
   const { searchQuery, navigationSegmentValue } = useContext(AuthoritiesSearchContext);
@@ -41,8 +41,5 @@ const AuthorityTitleManager = ({ children }) => {
 };
 
 AuthorityTitleManager.propTypes = propTypes;
-AuthorityTitleManager.defaultProps = {
-  children: null,
-};
 
 export { AuthorityTitleManager };
