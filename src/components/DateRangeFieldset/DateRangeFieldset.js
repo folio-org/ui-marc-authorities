@@ -11,8 +11,8 @@ const propTypes = {
 };
 
 const DateRangeFieldset = ({
-  startExcluder,
-  endExcluder,
+  startExcluder = (day, endDate) => day.isAfter(endDate, ISOFormat),
+  endExcluder = (day, startDate) => day.isBefore(startDate, ISOFormat),
   startValueGetter,
   endValueGetter,
   children,
@@ -38,10 +38,5 @@ const DateRangeFieldset = ({
 };
 
 DateRangeFieldset.propTypes = propTypes;
-
-DateRangeFieldset.defaultProps = {
-  endExcluder: (day, startDate) => day.isBefore(startDate, ISOFormat),
-  startExcluder: (day, endDate) => day.isAfter(endDate, ISOFormat),
-};
 
 export { DateRangeFieldset };

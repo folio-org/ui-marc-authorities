@@ -38,7 +38,13 @@ const propTypes = {
 
 const MarcAuthorities = ({
   match: { path },
-  focusSearchField,
+  focusSearchField = () => {
+    const searchElement = document.getElementById('textarea-authorities-search');
+
+    if (searchElement) {
+      searchElement.focus();
+    }
+  },
   showSettings,
 }) => {
   const location = useLocation();
@@ -80,14 +86,5 @@ const MarcAuthorities = ({
 };
 
 MarcAuthorities.propTypes = propTypes;
-MarcAuthorities.defaultProps = {
-  focusSearchField: () => {
-    const searchElement = document.getElementById('textarea-authorities-search');
-
-    if (searchElement) {
-      searchElement.focus();
-    }
-  },
-};
 
 export default MarcAuthorities;

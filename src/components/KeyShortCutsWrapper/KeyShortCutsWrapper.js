@@ -18,9 +18,9 @@ const propTypes = {
 
 const KeyShortCutsWrapper = ({
   children,
-  canEdit,
-  onEdit,
-  focusSearchField,
+  canEdit = false,
+  onEdit = null,
+  focusSearchField = null,
 }) => {
   const openEditEntity = useCallback(() => {
     if (canEdit) {
@@ -69,11 +69,5 @@ const KeyShortCutsWrapper = ({
 };
 
 KeyShortCutsWrapper.propTypes = propTypes;
-
-KeyShortCutsWrapper.defaultProps = {
-  canEdit: false,
-  focusSearchField: null,
-  onEdit: null,
-};
 
 export default KeyShortCutsWrapper;

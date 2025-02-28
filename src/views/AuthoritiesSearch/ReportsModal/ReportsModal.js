@@ -35,7 +35,7 @@ const propTypes = {
 const ReportsModal = ({
   open,
   onClose,
-  reportType,
+  reportType = '',
   handleSubmit,
 }) => {
   const stripes = useStripes();
@@ -111,10 +111,6 @@ const ReportsModal = ({
 };
 
 ReportsModal.propTypes = propTypes;
-
-ReportsModal.defaultProps = {
-  reportType: '',
-};
 
 const ReportsModalForm = stripesFinalForm({
   subscription: { values: true },

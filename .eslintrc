@@ -62,7 +62,6 @@
     "react/hook-use-state": "error",
     "react/no-array-index-key": "error",
     "react/no-multi-comp": "error",
-    "react/require-default-props": "error",
     "react/jsx-key": "error",
     "react/jsx-max-props-per-line": "error",
     "object-curly-newline": ["error", {
