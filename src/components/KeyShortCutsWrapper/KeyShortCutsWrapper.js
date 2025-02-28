@@ -19,7 +19,7 @@ const propTypes = {
 const KeyShortCutsWrapper = ({
   children,
   canEdit = false,
-  onEdit = false,
+  onEdit = null,
   focusSearchField = null,
 }) => {
   const openEditEntity = useCallback(() => {
