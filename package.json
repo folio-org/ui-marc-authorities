@@ -83,7 +83,7 @@
     ],
     "okapiInterfaces": {
       "search": "1.0",
-      "browse": "1.0",
+      "browse": "1.0 2.0",
       "source-storage-records": "3.3",
       "marc-records-editor": "6.0",
       "audit-config": "1.0"
