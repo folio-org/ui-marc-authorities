@@ -108,5 +108,6 @@
     "permission.settings.version-history.view": "Configurações (autoridade MARC): Configurar o histórico de versões",
     "settings.versionHistory.pane.title": "Histórico da versão",
     "settings.versionHistory.field.pageSize": "Cartões a serem exibidos por página no histórico de versão",
-    "settings.versionHistory.loadError": "Cartões do histórico de versão por página de configurações não foram carregadas."
+    "settings.versionHistory.loadError": "Cartões do histórico de versão por página de configurações não foram carregadas.",
+    "authority-record.menuOptions": "Opções disponíveis"
 }

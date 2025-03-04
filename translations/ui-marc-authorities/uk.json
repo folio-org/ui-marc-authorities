@@ -69,7 +69,7 @@
     "settings.manageAuthoritySourceFiles.column.selectable": "Active",
     "settings.manageAuthoritySourceFiles.column.selectable.info": "Select a file as \"Active\" if users should be able to create a new authority record for the file",
     "settings.manageAuthoritySourceFiles.column.source": "Source",
-    "settings.manageAuthoritySourceFiles.column.lastUpdated": "Last updated by",
+    "settings.manageAuthoritySourceFiles.column.lastUpdated": "Востаннє оновлено за",
     "settings.manageAuthoritySourceFiles.column.source.local": "Local",
     "settings.manageAuthoritySourceFiles.labelSingular": "authority file",
     "settings.manageAuthoritySourceFiles.error.name.empty": "Error saving data. Name is required.",
@@ -108,5 +108,6 @@
     "permission.settings.version-history.view": "Налаштування (MARC для авторитетних даних): Налаштування історії версій",
     "settings.versionHistory.pane.title": "Історія версії",
     "settings.versionHistory.field.pageSize": "Cards to display per page on Version history",
-    "settings.versionHistory.loadError": "Version history Cards per page settings failed to load."
+    "settings.versionHistory.loadError": "Version history Cards per page settings failed to load.",
+    "authority-record.menuOptions": "Available options"
 }
