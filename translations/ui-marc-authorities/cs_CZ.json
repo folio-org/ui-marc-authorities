@@ -105,8 +105,9 @@
     "shortcut.prevSubfield": "pouze quickMARC: Přesun na předchozí podpole v textovém poli",
     "authority-record.export": "Exportovat (MARC)",
     "goBack": "Vrátit se zpět",
-    "permission.settings.version-history.view": "Settings (MARC authority): Configure version history",
-    "settings.versionHistory.pane.title": "Version history",
-    "settings.versionHistory.field.pageSize": "Cards to display per page on Version history",
-    "settings.versionHistory.loadError": "Version history Cards per page settings failed to load."
+    "permission.settings.version-history.view": "Nastavení (autorita MARC): Konfigurace historie verzí",
+    "settings.versionHistory.pane.title": "Historie verzí",
+    "settings.versionHistory.field.pageSize": "Karty k zobrazení na stránce v historii verzí",
+    "settings.versionHistory.loadError": "Nastavení historie verzí Karet se nepodařilo načíst.",
+    "authority-record.menuOptions": "Dostupné možnosti"
 }

@@ -108,5 +108,6 @@
     "permission.settings.version-history.view": "Settings (MARC authority): Configure version history",
     "settings.versionHistory.pane.title": "Version history",
     "settings.versionHistory.field.pageSize": "Cards to display per page on Version history",
-    "settings.versionHistory.loadError": "Version history Cards per page settings failed to load."
+    "settings.versionHistory.loadError": "Version history Cards per page settings failed to load.",
+    "authority-record.menuOptions": "Available options"
 }
