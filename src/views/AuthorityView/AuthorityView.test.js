@@ -452,13 +452,12 @@ describe('Given AuthorityView', () => {
   });
 
   describe('when clicking on the version history button', () => {
-    it('should open a version history pane', () => {
+    it('should open a version history pane', async () => {
       const {
-        getByLabelText,
         getByText,
       } = renderAuthorityView();
 
-      fireEvent.click(getByLabelText('stripes-acq-components.versionHistory.pane.header'));
+      fireEvent.click(document.getElementById('version-history-btn'));
 
       expect(getByText('stripes-components.versionHistory.pane.sub')).toBeInTheDocument();
     });
