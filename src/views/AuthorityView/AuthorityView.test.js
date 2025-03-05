@@ -460,7 +460,7 @@ describe('Given AuthorityView', () => {
 
       fireEvent.click(getByLabelText('stripes-acq-components.versionHistory.pane.header'));
 
-      expect(getByText('stripes-acq-components.versionHistory.pane.sub')).toBeInTheDocument();
+      expect(getByText('stripes-components.versionHistory.pane.sub')).toBeInTheDocument();
     });
   });
 
