@@ -33,6 +33,7 @@ import {
   useUserTenantPermissions,
 } from '@folio/stripes/core';
 import {
+  MarcVersionHistory,
   MarcView,
   PrintPopup,
 } from '@folio/stripes-marc-components';
@@ -342,23 +343,11 @@ const AuthorityView = ({
         }
       />
       {isHistoryPaneOpen && (
-        <VersionViewContextProvider
-          snapshotPath=""
-          versions={[]}
-          versionId={null}
-        >
-          <VersionHistoryPane
-            currentVersion={null}
-            id="authority"
-            isLoading={false}
-            onClose={() => setIsHistoryPaneOpen(false)}
-            onSelectVersion={() => {}}
-            snapshotPath=""
-            labelsMap={{}}
-            versions={[]}
-            hiddenFields={[]}
-          />
-        </VersionViewContextProvider>
+        <MarcVersionHistory
+          id={marcSource.data?.matchedId}
+          onClose={() => setIsHistoryPaneOpen(false)}
+          marcType="authority"
+        />
       )}
       <ConfirmationModal
         id="confirm-delete-note"

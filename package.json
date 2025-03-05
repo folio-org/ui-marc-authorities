@@ -86,7 +86,8 @@
       "browse": "1.0 2.0",
       "source-storage-records": "3.3",
       "marc-records-editor": "6.0",
-      "audit-config": "1.0"
+      "audit-config": "1.0",
+      "audit-marc": "1.0"
     },
     "stripesDeps": [
       "@folio/stripes-acq-components",
@@ -121,7 +122,8 @@
           "inventory-storage.authority-source-files.collection.get",
           "inventory-storage.authority-source-files.item.get",
           "perms.users.get",
-          "mapping-rules.get"
+          "mapping-rules.get",
+          "audit.marc.authority.collection.get"
         ],
         "visible": true
       },
