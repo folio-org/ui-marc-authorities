@@ -9,6 +9,7 @@
 - [UIMARCAUTH-452](https://issues.folio.org/browse/UIMARCAUTH-452) Hide version history icon and settings if audit log feature is disabled.
 - [UIMARCAUTH-409](https://issues.folio.org/browse/UIMARCAUTH-409) React v19: refactor away from default props for functional components.
 - [UIMARCAUTH-461](https://issues.folio.org/browse/UIMARCAUTH-461) Upgrade `browse` to `2.0`.
+- [UIMARCAUTH-465](https://issues.folio.org/browse/UIMARCAUTH-465) Add `MarcVersionHistory` to display all versions in the fourth pane.
 
 ## [6.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v6.0.1) (2024-12-13)
 

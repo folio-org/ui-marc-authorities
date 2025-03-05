@@ -33,6 +33,7 @@ import {
   useUserTenantPermissions,
 } from '@folio/stripes/core';
 import {
+  MarcVersionHistory,
   MarcView,
   PrintPopup,
 } from '@folio/stripes-marc-components';
@@ -41,11 +42,7 @@ import {
   SelectedAuthorityRecordContext,
   useAuthorityMappingRules,
 } from '@folio/stripes-authority-components';
-import {
-  VersionHistoryButton,
-  VersionHistoryPane,
-  VersionViewContextProvider,
-} from '@folio/stripes-acq-components';
+import { VersionHistoryButton } from '@folio/stripes-acq-components';
 
 import { KeyShortCutsWrapper } from '../../components';
 import {
@@ -342,23 +339,11 @@ const AuthorityView = ({
         }
       />
       {isHistoryPaneOpen && (
-        <VersionViewContextProvider
-          snapshotPath=""
-          versions={[]}
-          versionId={null}
-        >
-          <VersionHistoryPane
-            currentVersion={null}
-            id="authority"
-            isLoading={false}
-            onClose={() => setIsHistoryPaneOpen(false)}
-            onSelectVersion={() => {}}
-            snapshotPath=""
-            labelsMap={{}}
-            versions={[]}
-            hiddenFields={[]}
-          />
-        </VersionViewContextProvider>
+        <MarcVersionHistory
+          id={marcSource.data?.matchedId}
+          onClose={() => setIsHistoryPaneOpen(false)}
+          marcType="authority"
+        />
       )}
       <ConfirmationModal
         id="confirm-delete-note"
