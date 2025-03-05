@@ -42,11 +42,7 @@ import {
   SelectedAuthorityRecordContext,
   useAuthorityMappingRules,
 } from '@folio/stripes-authority-components';
-import {
-  VersionHistoryButton,
-  VersionHistoryPane,
-  VersionViewContextProvider,
-} from '@folio/stripes-acq-components';
+import { VersionHistoryButton } from '@folio/stripes-acq-components';
 
 import { KeyShortCutsWrapper } from '../../components';
 import {
