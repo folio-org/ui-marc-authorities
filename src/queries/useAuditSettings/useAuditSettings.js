@@ -11,15 +11,18 @@ import {
 
 import { AUTHORITY_AUDIT_GROUP } from '../../constants';
 
-const useAuditSettings = ({ group = AUTHORITY_AUDIT_GROUP } = {}) => {
+const useAuditSettings = ({ tenantId, enabled = true, group = AUTHORITY_AUDIT_GROUP } = {}) => {
   const SETTINGS_ENDPOINT = `audit/config/groups/${group}/settings`;
 
-  const ky = useOkapiKy();
+  const ky = useOkapiKy({ tenant: tenantId });
   const [namespace] = useNamespace({ key: 'audit-settings' });
 
   const { data, isLoading, refetch, isError } = useQuery(
-    [namespace],
+    [namespace, tenantId],
     () => ky.get(SETTINGS_ENDPOINT).json(),
+    {
+      enabled,
+    },
   );
 
   const {
