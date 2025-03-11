@@ -263,6 +263,7 @@ const AuthorityView = ({
             {(hasEditPermission || hasDeletePermission) && (
               <>
                 <Dropdown
+                  disabled={isHistoryPaneOpen}
                   className={css.actionsDropdown}
                   renderTrigger={({ getTriggerProps }) => (
                     <DropdownButton
@@ -343,6 +344,7 @@ const AuthorityView = ({
           id={marcSource.data?.matchedId}
           onClose={() => setIsHistoryPaneOpen(false)}
           marcType="authority"
+          tenantId={tenantId}
         />
       )}
       <ConfirmationModal
