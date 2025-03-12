@@ -109,7 +109,7 @@ const AuthorityView = ({
   });
 
   const { authorityMappingRules } = useAuthorityMappingRules({ tenantId, enabled: Boolean(authority.data) });
-  const { settings, isLoading: isLoadingSettings } = useAuditSettings();
+  const { settings, isLoading: isLoadingSettings } = useAuditSettings({ tenantId, enabled: Boolean(authority.data) });
 
   const [, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 
@@ -263,6 +263,7 @@ const AuthorityView = ({
             {(hasEditPermission || hasDeletePermission) && (
               <>
                 <Dropdown
+                  disabled={isHistoryPaneOpen}
                   className={css.actionsDropdown}
                   renderTrigger={({ getTriggerProps }) => (
                     <DropdownButton
@@ -343,6 +344,7 @@ const AuthorityView = ({
           id={marcSource.data?.matchedId}
           onClose={() => setIsHistoryPaneOpen(false)}
           marcType="authority"
+          tenantId={tenantId}
         />
       )}
       <ConfirmationModal
