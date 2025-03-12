@@ -109,7 +109,7 @@ const AuthorityView = ({
   });
 
   const { authorityMappingRules } = useAuthorityMappingRules({ tenantId, enabled: Boolean(authority.data) });
-  const { settings, isLoading: isLoadingSettings } = useAuditSettings();
+  const { settings, isLoading: isLoadingSettings } = useAuditSettings({ tenantId, enabled: Boolean(authority.data) });
 
   const [, setSelectedAuthorityRecordContext] = useContext(SelectedAuthorityRecordContext);
 

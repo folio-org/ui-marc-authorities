@@ -116,6 +116,7 @@ const authority = {
     id: 'authority-id',
     headingRef: 'heading-ref',
     authRefType: 'Authorized',
+    tenantId: 'tenant-id',
   },
   isLoading: false,
 };
@@ -459,7 +460,7 @@ describe('Given AuthorityView', () => {
 
       fireEvent.click(document.getElementById('version-history-btn'));
 
-      expect(getByText('stripes-components.versionHistory.pane.sub')).toBeInTheDocument();
+      expect(getByText('stripes-components.auditLog.pane.sub')).toBeInTheDocument();
     });
   });
 
@@ -476,6 +477,17 @@ describe('Given AuthorityView', () => {
       const { queryByLabelText } = renderAuthorityView();
 
       expect(queryByLabelText('stripes-acq-components.versionHistory.pane.header')).toBeNull();
+    });
+  });
+
+  describe('when authority data is available', () => {
+    it('should fetch audit settings with tenantId', () => {
+      renderAuthorityView();
+
+      expect(useAuditSettings).toHaveBeenCalledWith({
+        tenantId: 'tenant-id',
+        enabled: true,
+      });
     });
   });
 });
