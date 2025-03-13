@@ -1,5 +1,9 @@
 # Change history for ui-marc-authorities
 
+## [7.1.0] IN PROGRESS
+
+- [UIMARCAUTH-456](https://issues.folio.org/browse/UIMARCAUTH-456) Add version 1.3 to the `search` interface.
+
 ## [7.0.0] IN PROGRESS
 
 - [UIMARCAUTH-446](https://issues.folio.org/browse/UIMARCAUTH-446) *BREAKING* Upgrade @folio/stripes-* dependencies.
@@ -11,7 +15,6 @@
 - [UIMARCAUTH-461](https://issues.folio.org/browse/UIMARCAUTH-461) Upgrade `browse` to `2.0`.
 - [UIMARCAUTH-465](https://issues.folio.org/browse/UIMARCAUTH-465) Add `MarcVersionHistory` to display all versions in the fourth pane.
 - [UIMARCAUTH-463](https://issues.folio.org/browse/UIMARCAUTH-463) AuthorityView - add tenantId to useAuditSettings.
-- [UIMARCAUTH-456](https://issues.folio.org/browse/UIMARCAUTH-456) Add version 1.3 to the `search` interface.
 
 ## [6.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v6.0.1) (2024-12-13)
 
