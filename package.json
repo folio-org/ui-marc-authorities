@@ -50,12 +50,12 @@
     "rxjs": "^6.6.3"
   },
   "dependencies": {
-    "@folio/stripes-acq-components": "^6.0.0",
+    "@folio/stripes-acq-components": "^7.0.0",
     "@rehooks/local-storage": "^2.4.4",
     "query-string": "^7.0.1"
   },
   "optionalDependencies": {
-    "@folio/quick-marc": "^9.0.0"
+    "@folio/quick-marc": "^10.0.0"
   },
   "peerDependencies": {
     "@folio/stripes": "^10.0.0",
