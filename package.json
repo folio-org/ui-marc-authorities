@@ -124,7 +124,8 @@
           "perms.users.get",
           "mapping-rules.get",
           "audit.marc.authority.collection.get",
-          "audit.config.groups.settings.collection.get"
+          "audit.config.groups.settings.collection.get",
+          "audit.config.groups.settings.audit.authority.collection.get"
         ],
         "visible": true
       },
