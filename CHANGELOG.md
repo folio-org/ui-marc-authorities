@@ -1,6 +1,6 @@
 # Change history for ui-marc-authorities
 
-## [7.0.0] IN PROGRESS
+## [7.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v7.0.0) (2025-03-13)
 
 - [UIMARCAUTH-446](https://issues.folio.org/browse/UIMARCAUTH-446) *BREAKING* Upgrade @folio/stripes-* dependencies.
 - [UIMARCAUTH-447](https://issues.folio.org/browse/UIMARCAUTH-447) *BREAKING* Upgrade react-intl to v7.
