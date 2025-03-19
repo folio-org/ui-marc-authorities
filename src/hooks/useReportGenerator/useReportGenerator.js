@@ -1,6 +1,6 @@
-import moment from 'moment';
 import noop from 'lodash/noop';
 
+import { dayjs } from '@folio/stripes/components';
 import { exportCsv } from '@folio/stripes/util';
 
 const isTestEnv = () => process.env.NODE_ENV === 'test';
@@ -14,7 +14,7 @@ const useReportGenerator = fileNamePrefix => {
     const parsedRecords = parse(records);
     const fileTitle = {
       header: false,
-      filename: `${fileNamePrefix}${moment().format()}`,
+      filename: `${fileNamePrefix}${dayjs().format()}`,
     };
     const generateReport = !isTestEnv() ? exportCsv : noop;
 
