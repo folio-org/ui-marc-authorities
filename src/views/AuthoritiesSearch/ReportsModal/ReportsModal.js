@@ -7,13 +7,13 @@ import {
   useFormState,
 } from 'react-final-form';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 
 import {
   Button,
   Modal,
   ModalFooter,
   Datepicker,
+  dayjs,
 } from '@folio/stripes/components';
 import { useStripes } from '@folio/stripes/core';
 import stripesFinalForm from '@folio/stripes/final-form';
@@ -117,15 +117,15 @@ const ReportsModalForm = stripesFinalForm({
   validate: values => {
     const errors = {};
 
-    if (!values.fromDate || !moment(values.fromDate).isValid()) {
+    if (!values.fromDate || !dayjs(values.fromDate).isValid()) {
       errors.fromDate = <FormattedMessage id="ui-marc-authorities.reportModal.startDate.error" />;
     }
 
-    if (!values.toDate || !moment(values.toDate).isValid()) {
+    if (!values.toDate || !dayjs(values.toDate).isValid()) {
       errors.toDate = <FormattedMessage id="ui-marc-authorities.reportModal.endDate.error" />;
     }
 
-    if (moment(values.fromDate).isAfter(values.toDate)) {
+    if (dayjs(values.fromDate).isAfter(values.toDate)) {
       errors.toDate = <FormattedMessage id="ui-marc-authorities.reportModal.endDate.error.greaterThan" />;
     }
 
