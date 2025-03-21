@@ -105,9 +105,9 @@
     "shortcut.prevSubfield": "Alleen QuickMARC: Naar het vorige subveld in een tekstvak gaan",
     "authority-record.export": "Exporteren (MARC)",
     "goBack": "Ga terug",
-    "permission.settings.version-history.view": "Settings (MARC authority): Configure version history",
-    "settings.versionHistory.pane.title": "Version history",
-    "settings.versionHistory.field.pageSize": "Cards to display per page on Version history",
-    "settings.versionHistory.loadError": "Version history Cards per page settings failed to load.",
-    "authority-record.menuOptions": "Available options"
+    "permission.settings.version-history.view": "Instellingen (Auteur): Versiegeschiedenis configureren",
+    "settings.versionHistory.pane.title": "Versiegeschiedenis",
+    "settings.versionHistory.field.pageSize": "Weer te geven kaarten per pagina op Versiegeschiedenis",
+    "settings.versionHistory.loadError": "Versiegeschiedenis Kaarten per pagina-instellingen zijn niet ingevoerd.",
+    "authority-record.menuOptions": "Beschikbare opties"
 }
