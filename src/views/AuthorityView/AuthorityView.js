@@ -2,6 +2,8 @@ import {
   useContext,
   useCallback,
   useState,
+  useRef,
+  useEffect,
 } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -88,6 +90,7 @@ const AuthorityView = ({
   const stripes = useStripes();
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [isHistoryPaneOpen, setIsHistoryPaneOpen] = useState(false);
+  const paneTitleRef = useRef(null);
 
   const id = authority.data?.id;
   const isShared = authority.data?.shared;
@@ -177,6 +180,12 @@ const AuthorityView = ({
     },
   });
 
+  useEffect(() => {
+    if (!marcSource.isLoading && !authority.isLoading) {
+      paneTitleRef.current?.focus();
+    }
+  }, [marcSource.isLoading, authority.isLoading]);
+
   if (marcSource.isLoading || authority.isLoading || isCentralTenantPermissionsLoading) {
     return <LoadingPane id="marc-view-pane" />;
   }
@@ -236,6 +245,9 @@ const AuthorityView = ({
       <MarcView
         paneWidth="40%"
         paneTitle={paneTitle}
+        paneProps={{
+          paneTitleRef,
+        }}
         paneSub={intl.formatMessage(
           {
             id: 'stripes-authority-components.authorityRecordSubtitle',
