@@ -5,6 +5,7 @@
 - [UIMARCAUTH-456](https://issues.folio.org/browse/UIMARCAUTH-456) Add version 1.3 to the `search` interface.
 - [UIMARCAUTH-462](https://issues.folio.org/browse/UIMARCAUTH-462) replace moment with day.js
 - [UIMARCAUTH-477](https://issues.folio.org/browse/UIMARCAUTH-477) Move focus on the detail view pane when record is opened automatically.
+- [UIMARCAUTH-476](https://issues.folio.org/browse/UIMARCAUTH-476) Add the permission users.collection.get to 'MARC Authority: View MARC authority record'.
 
 ## [7.0.0](https://github.com/folio-org/ui-marc-authorities/tree/v7.0.0) (2025-03-13)
 
