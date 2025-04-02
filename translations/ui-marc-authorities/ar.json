@@ -105,9 +105,9 @@
     "shortcut.prevSubfield": "quickMARC only: Move to the previous subfield in a text box",
     "authority-record.export": "Export (MARC)",
     "goBack": "Go back",
-    "permission.settings.version-history.view": "Settings (MARC authority): Configure version history",
-    "settings.versionHistory.pane.title": "Version history",
-    "settings.versionHistory.field.pageSize": "Cards to display per page on Version history",
-    "settings.versionHistory.loadError": "Version history Cards per page settings failed to load.",
-    "authority-record.menuOptions": "Available options"
+    "permission.settings.version-history.view": "الإعدادات (استناد مارك): تهيئة سجل الإصدار",
+    "settings.versionHistory.pane.title": "سجل الإصدارات",
+    "settings.versionHistory.field.pageSize": "بطاقات للعرض لكل صفحة في سجل الإصدارات",
+    "settings.versionHistory.loadError": "فشل تحميل إعدادات البطاقات لكل صفحة في سجل الإصدارات.",
+    "authority-record.menuOptions": "الخيارات المتاحة"
 }
