@@ -109,5 +109,5 @@
     "settings.versionHistory.pane.title": "Історія версії",
     "settings.versionHistory.field.pageSize": "Cards to display per page on Version history",
     "settings.versionHistory.loadError": "Version history Cards per page settings failed to load.",
-    "authority-record.menuOptions": "Available options"
+    "authority-record.menuOptions": "Доступні опції"
 }
