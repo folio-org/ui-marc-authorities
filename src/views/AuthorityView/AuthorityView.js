@@ -181,11 +181,7 @@ const AuthorityView = ({
   });
 
   useEffect(() => {
-    if (isCentralTenantPermissionsLoading) {
-      return;
-    }
-
-    if (!marcSource.isLoading && !authority.isLoading) {
+    if (!marcSource.isLoading && !authority.isLoading && !isCentralTenantPermissionsLoading) {
       paneTitleRef.current?.focus();
     }
   }, [isCentralTenantPermissionsLoading, marcSource.isLoading, authority.isLoading]);
