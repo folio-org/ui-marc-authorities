@@ -181,10 +181,10 @@ const AuthorityView = ({
   });
 
   useEffect(() => {
-    if (!marcSource.isLoading && !authority.isLoading) {
+    if (!marcSource.isLoading && !authority.isLoading && !isCentralTenantPermissionsLoading) {
       paneTitleRef.current?.focus();
     }
-  }, [marcSource.isLoading, authority.isLoading]);
+  }, [isCentralTenantPermissionsLoading, marcSource.isLoading, authority.isLoading]);
 
   if (marcSource.isLoading || authority.isLoading || isCentralTenantPermissionsLoading) {
     return <LoadingPane id="marc-view-pane" />;
