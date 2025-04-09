@@ -1,6 +1,6 @@
 # Change history for ui-marc-authorities
 
-## [7.1.0] IN PROGRESS
+## [7.0.1](https://github.com/folio-org/ui-marc-authorities/tree/v7.0.1) (2025-04-09)
 
 - [UIMARCAUTH-456](https://issues.folio.org/browse/UIMARCAUTH-456) Add version 1.3 to the `search` interface.
 
