@@ -105,9 +105,9 @@
     "shortcut.prevSubfield": "仅限 quickMARC : 移动到文本框中的上一个子字段",
     "authority-record.export": "导出 : MARC ) ",
     "goBack": "返回",
-    "permission.settings.version-history.view": "Settings (MARC authority): Configure version history",
-    "settings.versionHistory.pane.title": "Version history",
-    "settings.versionHistory.field.pageSize": "Cards to display per page on Version history",
-    "settings.versionHistory.loadError": "Version history Cards per page settings failed to load.",
-    "authority-record.menuOptions": "Available options"
+    "permission.settings.version-history.view": "设置（MARC规范）：配置版本历史",
+    "settings.versionHistory.pane.title": "版本历史",
+    "settings.versionHistory.field.pageSize": "版本历史记录中每页显示的卡片",
+    "settings.versionHistory.loadError": "版本历史记录每页卡片设置加载失败。",
+    "authority-record.menuOptions": "可用选项"
 }
