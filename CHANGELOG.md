@@ -4,6 +4,7 @@
 
 - [UIMARCAUTH-462](https://issues.folio.org/browse/UIMARCAUTH-462) replace moment with day.js
 - [UIMARCAUTH-477](https://issues.folio.org/browse/UIMARCAUTH-477) Move focus on the detail view pane when record is opened automatically.
+- [UIMARCAUTH-482](https://issues.folio.org/browse/UIMARCAUTH-482) Settings > MARC authority - Display who made changes regardless of affiliation.
 
 ## [7.0.2] (https://github.com/folio-org/ui-marc-authorities/tree/v7.0.2) (2025-04-14)
 

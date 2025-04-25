@@ -13,6 +13,7 @@ import noop from 'lodash/noop';
 import {
   TitleManager,
   useCallout,
+  useStripes,
 } from '@folio/stripes/core';
 import { EditableList } from '@folio/stripes/smart-components';
 import {
@@ -44,6 +45,7 @@ const ACTION_TYPES = {
 };
 
 const ManageAuthoritySourceFiles = () => {
+  const stripes = useStripes();
   const intl = useIntl();
   const callout = useCallout();
 
@@ -161,7 +163,11 @@ const ManageAuthoritySourceFiles = () => {
       const { firstName, lastName = '' } = record.personal;
       const name = firstName ? `${lastName}, ${firstName}` : lastName;
 
-      user = <Link to={`/users/view/${metadata.updatedByUserId}`}>{name}</Link>;
+      if (stripes.hasPerm('ui-users.view')) {
+        user = <Link to={`/users/view/${metadata.updatedByUserId}`}>{name}</Link>;
+      } else {
+        user = name;
+      }
     } else if (metadata.updatedByUserId === SYSTEM_USER_ID) {
       user = <FormattedMessage id="stripes-smart-components.system" />;
     }

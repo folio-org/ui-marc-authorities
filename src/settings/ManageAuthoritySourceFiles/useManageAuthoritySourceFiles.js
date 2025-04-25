@@ -20,6 +20,7 @@ import {
 import { getValidators } from './getValidators';
 
 const authorityFilesAllPerm = 'ui-marc-authorities.settings.authority-files.all';
+const authorityFilesViewPerm = 'ui-marc-authorities.settings.authority-files.view';
 
 export const useManageAuthoritySourceFiles = ({
   onCreateSuccess,
@@ -47,16 +48,6 @@ export const useManageAuthoritySourceFiles = ({
     onDeleteFail,
   });
 
-  const updatersIds = [...new Set(sourceFiles
-    .filter(file => file.metadata?.updatedByUserId)
-    .map(file => file.metadata.updatedByUserId)),
-  ];
-
-  const {
-    users: updaters,
-    isLoading: isUpdatersLoading,
-  } = useUsers(updatersIds);
-
   const {
     userPermissions: centralTenantPermissions,
     isFetching: isCentralTenantPermissionsLoading,
@@ -65,6 +56,27 @@ export const useManageAuthoritySourceFiles = ({
   }, {
     enabled: checkIfUserInMemberTenant(stripes) && Boolean(centralTenantId),
   });
+
+  const updatersIds = [...new Set(sourceFiles
+    .filter(file => file.metadata?.updatedByUserId)
+    .map(file => file.metadata.updatedByUserId)),
+  ];
+
+  let usersTenantId = centralTenantId;
+
+  // ui-marc-authorities.settings.authority-files.view has a users.collection.get sub-permission
+  // we can check for this MARC Authorities perm to know if a user has permissions to fetch users
+  // in the central tenant
+  if (checkIfUserInMemberTenant(stripes)) {
+    usersTenantId = hasCentralTenantPerm(centralTenantPermissions, authorityFilesViewPerm)
+      ? centralTenantId
+      : stripes.okapi.tenant;
+  }
+
+  const {
+    users: updaters,
+    isLoading: isUpdatersLoading,
+  } = useUsers(updatersIds, usersTenantId);
 
   const isUserHasEditPermission = checkIfUserInMemberTenant(stripes)
     ? hasCentralTenantPerm(centralTenantPermissions, authorityFilesAllPerm)
