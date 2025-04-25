@@ -183,7 +183,7 @@ const ManageAuthoritySourceFiles = () => {
         />
       </div>
     );
-  }, [updaters]);
+  }, [updaters, stripes]);
 
   const formatter = useMemo(() => getFormatter({ fieldLabels, renderLastUpdated }), [fieldLabels, renderLastUpdated]);
 
