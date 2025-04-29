@@ -51,6 +51,7 @@
   "dependencies": {
     "@folio/stripes-acq-components": "^7.0.0",
     "@rehooks/local-storage": "^2.4.4",
+    "file-saver": "^2.0.0",
     "query-string": "^7.0.1"
   },
   "optionalDependencies": {

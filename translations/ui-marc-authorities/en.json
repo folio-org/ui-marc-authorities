@@ -11,6 +11,8 @@
   "export.success": "{exportJobName} is complete. The .csv downloaded contains selected records' UIIDs. To retrieve the .mrc file, please go to the Data export app.",
   "export.failure": "Unable to complete request, please try again.",
 
+  "export-cql-query": "Save authorities CQL query",
+
   "actions": "Actions",
   "actions.create": "New",
   "actions.menuSection.sortBy": "Sort by",
