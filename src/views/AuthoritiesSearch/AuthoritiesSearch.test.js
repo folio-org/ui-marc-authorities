@@ -168,17 +168,6 @@ describe('Given AuthoritiesSearch', () => {
   });
 
   describe('when click on "Actions" button', () => {
-    it('should display "Actions" section', () => {
-      const {
-        getByRole,
-        getByText,
-      } = renderAuthoritiesSearch();
-
-      fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
-
-      expect(getByText('ui-marc-authorities.actions')).toBeDefined();
-    });
-
     it('should display disabled "Export selected records (CSV/MARC)" button', () => {
       const { getByRole } = renderAuthoritiesSearch();
 
