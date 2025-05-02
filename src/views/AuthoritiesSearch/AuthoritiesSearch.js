@@ -154,8 +154,6 @@ const AuthoritiesSearch = ({
   const [reportsModalOpen, setReportsModalOpen] = useState(false);
   const selectedReport = useRef(null);
 
-  const canRunExport = stripes.hasPerm('ui-data-export.edit');
-
   const uniqueAuthoritiesCount = useMemo(() => {
     // determine count of unique ids in authorities array.
     // this is needed to check or uncheck "Select all" checkbox in header when all rows are explicitly
@@ -475,55 +473,51 @@ const AuthoritiesSearch = ({
   const renderActionMenu = useCallback(({ onToggle }) => {
     return (
       <>
-        <MenuSection
-          data-testid="menu-section-actions"
-          label={intl.formatMessage({ id: 'ui-marc-authorities.actions' })}
-        >
-          {canRunExport && (
-            <Button
-              buttonStyle="dropdownItem"
-              id="dropdown-clickable-export-marc"
-              disabled={!selectedRowsCount}
-              onClick={() => {
-                exportRecords(selectedRowsIds);
-                onToggle();
-              }}
-            >
-              <Icon
-                icon="download"
-                size="medium"
-              />
-              <FormattedMessage id="ui-marc-authorities.export-selected-records" />
-            </Button>
-          )}
+        <IfPermission perm="ui-marc-authorities.authority-record.create">
           <Button
             buttonStyle="dropdownItem"
-            id="dropdown-clickable-export-cql"
-            disabled={!authorities.length}
+            id="dropdown-clickable-create-authority"
+            to={createAuthorityRoute}
+          >
+            <Icon icon="plus-sign">
+              <FormattedMessage id="ui-marc-authorities.actions.create" />
+            </Icon>
+          </Button>
+        </IfPermission>
+        <IfPermission perm="ui-data-export.edit">
+          <Button
+            buttonStyle="dropdownItem"
+            id="dropdown-clickable-export-marc"
+            disabled={!selectedRowsCount}
             onClick={() => {
-              onGenerateCQLQueryReport();
+              exportRecords(selectedRowsIds);
               onToggle();
             }}
           >
             <Icon
-              icon="search"
+              icon="download"
               size="medium"
             >
-              <FormattedMessage id="ui-marc-authorities.export-cql-query" />
+              <FormattedMessage id="ui-marc-authorities.export-selected-records" />
             </Icon>
           </Button>
-          <IfPermission perm="ui-marc-authorities.authority-record.create">
-            <Button
-              buttonStyle="dropdownItem"
-              id="dropdown-clickable-create-authority"
-              to={createAuthorityRoute}
-            >
-              <Icon icon="plus-sign">
-                <FormattedMessage id="ui-marc-authorities.actions.create" />
-              </Icon>
-            </Button>
-          </IfPermission>
-        </MenuSection>
+        </IfPermission>
+        <Button
+          buttonStyle="dropdownItem"
+          id="dropdown-clickable-export-cql"
+          disabled={!authorities.length}
+          onClick={() => {
+            onGenerateCQLQueryReport();
+            onToggle();
+          }}
+        >
+          <Icon
+            icon="search"
+            size="medium"
+          >
+            <FormattedMessage id="ui-marc-authorities.export-cql-query" />
+          </Icon>
+        </Button>
         {navigationSegmentValue !== navigationSegments.browse &&
           <MenuSection
             data-testid="menu-section-sort-by"
