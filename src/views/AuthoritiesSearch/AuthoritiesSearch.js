@@ -21,6 +21,7 @@ import {
   writeStorage,
 } from '@rehooks/local-storage';
 import queryString from 'query-string';
+import saveAs from 'file-saver';
 import pick from 'lodash/pick';
 import omit from 'lodash/omit';
 
@@ -35,6 +36,7 @@ import {
   PaneMenu,
   HasCommand,
   checkScope,
+  dayjs,
 } from '@folio/stripes/components';
 import {
   PersistedPaneset,
@@ -462,6 +464,12 @@ const AuthoritiesSearch = ({
     }
   }, [doExport]);
 
+  const onGenerateCQLQueryReport = useCallback(async () => {
+    const fileName = `SearchAuthorityCQLQuery${dayjs().format()}.cql`;
+
+    saveAs(new Blob([query], { type: 'text/plain;charset=utf-8;' }), fileName);
+  }, [query]);
+
   const renderActionMenu = useCallback(({ onToggle }) => {
     return (
       <>
@@ -494,6 +502,22 @@ const AuthoritiesSearch = ({
             </Icon>
           </Button>
         </IfPermission>
+        <Button
+          buttonStyle="dropdownItem"
+          id="dropdown-clickable-export-cql"
+          disabled={!authorities.length}
+          onClick={() => {
+            onGenerateCQLQueryReport();
+            onToggle();
+          }}
+        >
+          <Icon
+            icon="search"
+            size="medium"
+          >
+            <FormattedMessage id="ui-marc-authorities.export-cql-query" />
+          </Icon>
+        </Button>
         {navigationSegmentValue !== navigationSegments.browse &&
           <MenuSection
             data-testid="menu-section-sort-by"
@@ -533,6 +557,8 @@ const AuthoritiesSearch = ({
     toggleColumn,
     visibleColumns,
     onSelectReport,
+    authorities,
+    onGenerateCQLQueryReport,
   ]);
 
   const renderPaneSub = () => (

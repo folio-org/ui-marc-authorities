@@ -1,9 +1,11 @@
+import saveAs from 'file-saver';
+
 import {
   waitFor,
   render,
   fireEvent,
+  screen,
 } from '@folio/jest-config-stripes/testing-library/react';
-
 import { runAxeTest } from '@folio/stripes-testing';
 import {
   searchResultListColumns,
@@ -36,6 +38,8 @@ jest.mock('react-router', () => ({
   })),
   useRouteMatch: jest.fn().mockReturnValue({ path: '' }),
 }));
+
+jest.mock('file-saver', () => jest.fn());
 
 jest.mock('@folio/stripes-authority-components', () => ({
   ...jest.requireActual('@folio/stripes-authority-components'),
@@ -177,6 +181,43 @@ describe('Given AuthoritiesSearch', () => {
 
       expect(exportRecordsButton).toBeDefined();
       expect(exportRecordsButton).toBeDisabled();
+    });
+
+    it('should display disabled "Save authorities CQL query" button', () => {
+      const { getByRole } = renderAuthoritiesSearch();
+
+      fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+
+      const exportRecordsButton = getByRole('button', { name: 'ui-marc-authorities.export-cql-query' });
+
+      expect(exportRecordsButton).toBeDefined();
+      expect(exportRecordsButton).toBeDisabled();
+    });
+
+    describe('when search results list contains at least 1 authority', () => {
+      beforeEach(() => {
+        renderAuthoritiesSearch({
+          authorities: [{
+            id: 'testid',
+          }],
+        });
+
+        fireEvent.click(screen.getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+      });
+
+      it('should enable the "Save authorities CQL query" button', () => {
+        const exportRecordsButton = screen.getByRole('button', { name: 'ui-marc-authorities.export-cql-query' });
+
+        expect(exportRecordsButton).toBeEnabled();
+      });
+
+      describe('when clicking the "Save authorities CQL query" button', () => {
+        it('should save a cql file', () => {
+          fireEvent.click(screen.getByRole('button', { name: 'ui-marc-authorities.export-cql-query' }));
+
+          expect(saveAs).toHaveBeenCalledWith(expect.any(Object), expect.stringContaining('SearchAuthorityCQLQuery'));
+        });
+      });
     });
 
     it('should display "Sort by" section', () => {
