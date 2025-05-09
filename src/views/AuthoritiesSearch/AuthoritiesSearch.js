@@ -502,22 +502,24 @@ const AuthoritiesSearch = ({
             </Icon>
           </Button>
         </IfPermission>
-        <Button
-          buttonStyle="dropdownItem"
-          id="dropdown-clickable-export-cql"
-          disabled={!authorities.length}
-          onClick={() => {
-            onGenerateCQLQueryReport();
-            onToggle();
-          }}
-        >
-          <Icon
-            icon="search"
-            size="medium"
+        {navigationSegmentValue === navigationSegments.search && (
+          <Button
+            buttonStyle="dropdownItem"
+            id="dropdown-clickable-export-cql"
+            disabled={!authorities.length}
+            onClick={() => {
+              onGenerateCQLQueryReport();
+              onToggle();
+            }}
           >
-            <FormattedMessage id="ui-marc-authorities.export-cql-query" />
-          </Icon>
-        </Button>
+            <Icon
+              icon="search"
+              size="medium"
+            >
+              <FormattedMessage id="ui-marc-authorities.export-cql-query" />
+            </Icon>
+          </Button>
+        )}
         {navigationSegmentValue !== navigationSegments.browse &&
           <MenuSection
             data-testid="menu-section-sort-by"

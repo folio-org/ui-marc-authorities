@@ -8,6 +8,7 @@ import {
 } from '@folio/jest-config-stripes/testing-library/react';
 import { runAxeTest } from '@folio/stripes-testing';
 import {
+  navigationSegments,
   searchResultListColumns,
   SearchResultsList,
 } from '@folio/stripes-authority-components';
@@ -79,6 +80,7 @@ const getAuthoritiesSearch = (props = {}, selectedRecord = null, authoritiesCtxV
       searchQuery: '',
       filters: [],
       setSortedColumn: mockSetSortedColumn,
+      navigationSegmentValue: navigationSegments.search,
       ...authoritiesCtxValue,
     }}
   >
@@ -192,6 +194,20 @@ describe('Given AuthoritiesSearch', () => {
 
       expect(exportRecordsButton).toBeDefined();
       expect(exportRecordsButton).toBeDisabled();
+    });
+
+    describe('when in Browse mode', () => {
+      it('should not display "Save authorities CQL query" button', () => {
+        const { getByRole, queryByRole } = renderAuthoritiesSearch(null, null, {
+          navigationSegmentValue: navigationSegments.browse,
+        });
+
+        fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+
+        const exportRecordsButton = queryByRole('button', { name: 'ui-marc-authorities.export-cql-query' });
+
+        expect(exportRecordsButton).not.toBeInTheDocument();
+      });
     });
 
     describe('when search results list contains at least 1 authority', () => {
