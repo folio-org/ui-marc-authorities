@@ -103,9 +103,6 @@ const marcSource = {
         }],
       },
     },
-    metadata: {
-      lastUpdatedDate: '2020-12-04T09:05:30.000+0000',
-    },
   },
   isLoading: false,
 };
@@ -117,6 +114,9 @@ const authority = {
     headingRef: 'heading-ref',
     authRefType: 'Authorized',
     tenantId: 'tenant-id',
+    metadata: {
+      updatedDate: '2020-12-04T09:05:30.000+0000',
+    },
   },
   isLoading: false,
 };

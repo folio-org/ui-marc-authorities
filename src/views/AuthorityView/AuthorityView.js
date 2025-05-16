@@ -255,7 +255,7 @@ const AuthorityView = ({
           {
             heading: authority.data.headingType,
             lastUpdatedDate: intl.formatDate(
-              marcSource.data.metadata.updatedDate,
+              authority.data.metadata.updatedDate,
             ),
           },
         )}
