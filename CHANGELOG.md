@@ -7,6 +7,7 @@
 - [UIMARCAUTH-482](https://issues.folio.org/browse/UIMARCAUTH-482) Settings > MARC authority - Display who made changes regardless of affiliation.
 - [UIMARCAUTH-442](https://issues.folio.org/browse/UIMARCAUTH-442) Actions menu: Remove "Actions" and reorder options
 - [UIMARCAUTH-490](https://issues.folio.org/browse/UIMARCAUTH-490) MARC authority app: Ability to save CQL used for searching authority records.
+- [UIMARCAUTH-493](https://issues.folio.org/browse/UIMARCAUTH-493) Authority View - show Last updated by date from mod-search metadata.
 
 ## [7.0.2] (https://github.com/folio-org/ui-marc-authorities/tree/v7.0.2) (2025-04-14)
 
