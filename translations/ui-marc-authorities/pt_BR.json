@@ -109,5 +109,6 @@
     "settings.versionHistory.pane.title": "Histórico da versão",
     "settings.versionHistory.field.pageSize": "Cartões a serem exibidos por página no histórico de versão",
     "settings.versionHistory.loadError": "Cartões do histórico de versão por página de configurações não foram carregadas.",
-    "authority-record.menuOptions": "Opções disponíveis"
+    "authority-record.menuOptions": "Opções disponíveis",
+    "export-cql-query": "Salvar consulta CQL de autoridades"
 }
