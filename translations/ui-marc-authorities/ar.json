@@ -30,7 +30,7 @@
     "authorities.rows.recordsSelected": "تم تحديد {count, number} {count, plural, one {تسجيلة} other {تسجيلة}}",
     "delete.buttonLabel": "حذف",
     "delete.label": "تأكيد حذف اتسجيلة الاستناد",
-    "delete.description": "Are you sure you want to permanently delete the authority record: <strong> {headingRef} </strong>?",
+    "delete.description": "هل أنت متأكد من أنك تريد حذف تسجيلة الاستناد: <strong>{headingRef}</strong> نهائياً؟",
     "authorities.rows.select": "حدد تسجيلة استناد",
     "search-results-list.numberOfTitles": "Number of titles",
     "delete.linkedRecord.description": "هل أنت متأكد من أنك تريد حذف تسجيلة الاستناد <strong>{headingRef} </strong>؟ إذا تابعت الحذف، فسوف تحتفظ  <strong>{count, number}</strong> {count, plural, one {تسجيلة} other {تسجيلات}} الببليوغرافية المرتبطة بقيمة الاستناد وستصبح غير خاضعة للتحكم.",
@@ -109,5 +109,6 @@
     "settings.versionHistory.pane.title": "سجل الإصدارات",
     "settings.versionHistory.field.pageSize": "بطاقات للعرض لكل صفحة في سجل الإصدارات",
     "settings.versionHistory.loadError": "فشل تحميل إعدادات البطاقات لكل صفحة في سجل الإصدارات.",
-    "authority-record.menuOptions": "الخيارات المتاحة"
+    "authority-record.menuOptions": "الخيارات المتاحة",
+    "export-cql-query": "Save authorities CQL query"
 }

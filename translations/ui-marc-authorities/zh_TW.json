@@ -109,5 +109,6 @@
     "settings.versionHistory.pane.title": "版本歷史",
     "settings.versionHistory.field.pageSize": "Cards to display per page on Version history",
     "settings.versionHistory.loadError": "Version history Cards per page settings failed to load.",
-    "authority-record.menuOptions": "可用選項"
+    "authority-record.menuOptions": "可用選項",
+    "export-cql-query": "Save authorities CQL query"
 }

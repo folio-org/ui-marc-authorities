@@ -109,5 +109,6 @@
     "settings.versionHistory.pane.title": "Historie verzí",
     "settings.versionHistory.field.pageSize": "Karty k zobrazení na stránce v historii verzí",
     "settings.versionHistory.loadError": "Nastavení historie verzí Karet se nepodařilo načíst.",
-    "authority-record.menuOptions": "Dostupné možnosti"
+    "authority-record.menuOptions": "Dostupné možnosti",
+    "export-cql-query": "Uložit CQL dotaz na autority"
 }
