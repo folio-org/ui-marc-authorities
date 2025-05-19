@@ -73,6 +73,9 @@ const propTypes = {
       tenantId: PropTypes.string,
     }),
     isLoading: PropTypes.bool.isRequired,
+    metadata: PropTypes.shape({
+      updatedDate: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
   marcSource: PropTypes.shape({
     data: PropTypes.object,
