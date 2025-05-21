@@ -68,14 +68,14 @@ const propTypes = {
       headingRef: PropTypes.string,
       headingType: PropTypes.string,
       id: PropTypes.string,
+      metadata: PropTypes.shape({
+        updatedDate: PropTypes.string.isRequired,
+      }).isRequired,
       numberOfTitles: PropTypes.number,
       shared: PropTypes.bool,
       tenantId: PropTypes.string,
     }),
     isLoading: PropTypes.bool.isRequired,
-    metadata: PropTypes.shape({
-      updatedDate: PropTypes.string.isRequired,
-    }).isRequired,
   }).isRequired,
   marcSource: PropTypes.shape({
     data: PropTypes.object,
