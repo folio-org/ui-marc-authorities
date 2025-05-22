@@ -109,5 +109,6 @@
     "settings.versionHistory.pane.title": "Historia wersji",
     "settings.versionHistory.field.pageSize": "Karty do wyświetlania na stronie w historii wersji",
     "settings.versionHistory.loadError": "Historia wersji ustawienia kart na stronę nie została załadowana.",
-    "authority-record.menuOptions": "Dostępne opcje"
+    "authority-record.menuOptions": "Dostępne opcje",
+    "export-cql-query": "Save authorities CQL query"
 }

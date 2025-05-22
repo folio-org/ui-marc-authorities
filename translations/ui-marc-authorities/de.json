@@ -109,5 +109,6 @@
     "settings.versionHistory.pane.title": "Versionsgeschichte",
     "settings.versionHistory.field.pageSize": "Karten, die pro Seite der Versionsgeschichte angezeigt werden",
     "settings.versionHistory.loadError": "Einstellungen für Karten pro Seite der Versionsgeschichte konnten nicht geladen werden.",
-    "authority-record.menuOptions": "Verfügbare Optionen"
+    "authority-record.menuOptions": "Verfügbare Optionen",
+    "export-cql-query": "Save authorities CQL query"
 }
