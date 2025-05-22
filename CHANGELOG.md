@@ -1,5 +1,9 @@
 # Change history for ui-marc-authorities
 
+## [7.0.3] (IN PROGRESS)
+
+- [UIMARCAUTH-493](https://issues.folio.org/browse/UIMARCAUTH-493) Authority View - show Last updated by date from mod-search metadata.
+
 ## [7.0.2](https://github.com/folio-org/ui-marc-authorities/tree/v7.0.2) (2025-04-14)
 
 - [UIMARCAUTH-476](https://issues.folio.org/browse/UIMARCAUTH-476) Add the permission users.collection.get to 'MARC Authority: View MARC authority record'.

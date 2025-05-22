@@ -66,6 +66,9 @@ const propTypes = {
       headingRef: PropTypes.string,
       headingType: PropTypes.string,
       id: PropTypes.string,
+      metadata: PropTypes.shape({
+        updatedDate: PropTypes.string.isRequired,
+      }).isRequired,
       numberOfTitles: PropTypes.number,
       shared: PropTypes.bool,
       tenantId: PropTypes.string,
@@ -243,7 +246,7 @@ const AuthorityView = ({
           {
             heading: authority.data.headingType,
             lastUpdatedDate: intl.formatDate(
-              marcSource.data.metadata.updatedDate,
+              authority.data.metadata.updatedDate,
             ),
           },
         )}
