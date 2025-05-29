@@ -110,5 +110,5 @@
     "settings.versionHistory.field.pageSize": "Weer te geven kaarten per pagina op Versiegeschiedenis",
     "settings.versionHistory.loadError": "Versiegeschiedenis Kaarten per pagina-instellingen zijn niet ingevoerd.",
     "authority-record.menuOptions": "Beschikbare opties",
-    "export-cql-query": "Save authorities CQL query"
+    "export-cql-query": "Auteur CQL query Opslaan"
 }
