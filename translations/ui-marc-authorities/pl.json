@@ -102,7 +102,7 @@
     "documentTitle.browse": "MARC authority - {query} - Browse",
     "documentTitle.record": "Kartoteka Haseł Wzorcowych - {headingRef}",
     "shortcut.nextSubfield": "quickMARC only: Move to the next subfield in a text box",
-    "shortcut.prevSubfield": "quickMARC only: Move to the previous subfield in a text box",
+    "shortcut.prevSubfield": "Tylko quickMARC: przejdź do poprzedniego podpola w polu tekstowym",
     "authority-record.export": "Export (MARC)",
     "goBack": "Go back",
     "permission.settings.version-history.view": "Ustawienia (KHW): Konfigurowanie historii wersji",
