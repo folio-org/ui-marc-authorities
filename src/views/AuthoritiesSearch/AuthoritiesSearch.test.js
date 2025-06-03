@@ -22,7 +22,10 @@ import {
   sortableColumns,
   sortOrders,
 } from '../../constants';
-import { useSortColumnManager } from '../../hooks';
+import {
+  useSortColumnManager,
+  useResourcesIds,
+} from '../../hooks';
 
 const mockHistoryPush = jest.fn();
 const mockSetSelectedAuthorityRecordContext = jest.fn();
@@ -66,6 +69,9 @@ jest.mock('../../hooks', () => ({
   ...jest.requireActual('../../hooks'),
   useSortColumnManager: jest.fn(),
   useReportGenerator: jest.fn(),
+  useResourcesIds: jest.fn().mockReturnValue({
+    getResourcesIds: jest.fn(),
+  }),
 }));
 
 const mockHandleLoadMore = jest.fn();
@@ -196,6 +202,17 @@ describe('Given AuthoritiesSearch', () => {
       expect(exportRecordsButton).toBeDisabled();
     });
 
+    it('should show Save Authorities UUIDs button', async () => {
+      renderAuthoritiesSearch();
+
+      fireEvent.click(screen.getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+
+      const saveAuthoritiesUIIDSButton = screen.getByRole('button', { name: 'ui-marc-authorities.actions.saveAuthoritiesUIIDS' });
+
+      expect(saveAuthoritiesUIIDSButton).toBeVisible();
+      expect(saveAuthoritiesUIIDSButton).toBeDisabled();
+    });
+
     describe('when in Browse mode', () => {
       it('should not display "Save authorities CQL query" button', () => {
         const { getByRole, queryByRole } = renderAuthoritiesSearch(null, null, {
@@ -216,6 +233,7 @@ describe('Given AuthoritiesSearch', () => {
           authorities: [{
             id: 'testid',
           }],
+          query: 'keyword all test',
         });
 
         fireEvent.click(screen.getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
@@ -232,6 +250,26 @@ describe('Given AuthoritiesSearch', () => {
           fireEvent.click(screen.getByRole('button', { name: 'ui-marc-authorities.export-cql-query' }));
 
           expect(saveAs).toHaveBeenCalledWith(expect.any(Object), expect.stringContaining('SearchAuthorityCQLQuery'));
+        });
+      });
+
+      it('should enable the "Save authorities UUIDs" button', () => {
+        const saveAuthoritiesUUIDsButton = screen.getByRole('button', { name: 'ui-marc-authorities.actions.saveAuthoritiesUIIDS' });
+
+        expect(saveAuthoritiesUUIDsButton).toBeEnabled();
+      });
+
+      describe('when clicking the "Save authorities CQL query" button', () => {
+        const mockGetResourcesIds = jest.fn();
+
+        useResourcesIds.mockClear().mockReturnValue({
+          getResourcesIds: mockGetResourcesIds,
+        });
+
+        it('should fetch uuids with correct query', () => {
+          fireEvent.click(screen.getByRole('button', { name: 'ui-marc-authorities.actions.saveAuthoritiesUIIDS' }));
+
+          expect(mockGetResourcesIds).toHaveBeenCalledWith('keyword all test', 'AUTHORITY');
         });
       });
     });
