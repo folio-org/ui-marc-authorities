@@ -1,6 +1,6 @@
 # Change history for ui-marc-authorities
 
-## [7.0.3] (IN PROGRESS)
+## [7.0.3](https://github.com/folio-org/ui-marc-authorities/tree/v7.0.3) (2025-06-03)
 
 - [UIMARCAUTH-493](https://issues.folio.org/browse/UIMARCAUTH-493) Authority View - show Last updated by date from mod-search metadata.
 
