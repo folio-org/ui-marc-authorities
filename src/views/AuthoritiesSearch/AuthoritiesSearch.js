@@ -24,6 +24,8 @@ import queryString from 'query-string';
 import saveAs from 'file-saver';
 import pick from 'lodash/pick';
 import omit from 'lodash/omit';
+import isEmpty from 'lodash/isEmpty';
+import uniqBy from 'lodash/uniqBy';
 
 import {
   Button,
@@ -70,19 +72,24 @@ import { useHighlightEditedRecord } from '@folio/stripes-authority-components/li
 import { ReportsMenu } from './ReportsMenu';
 import { ReportsModal } from './ReportsModal/ReportsModal';
 import { useExportReport } from '../../queries';
-import { useAuthorityExport } from '../../hooks';
+import {
+  useAuthorityExport,
+  useReportGenerator,
+  useResourcesIds,
+} from '../../hooks';
 import {
   createAuthorityRoute,
   sortableColumns,
   sortableSearchResultListColumns,
   sortOrders,
 } from '../../constants';
+import { REPORT_TYPES } from './constants';
 
 import css from './AuthoritiesSearch.css';
-import { REPORT_TYPES } from './constants';
 
 const prefix = 'authorities';
 const NON_INTERACTIVE_HEADERS = [searchResultListColumns.SELECT];
+const AUTHORITIES_ID_REPORT_TIMEOUT = 2000;
 
 const propTypes = {
   authorities: PropTypes.arrayOf(AuthorityShape).isRequired,
@@ -153,6 +160,8 @@ const AuthoritiesSearch = ({
   const [isFilterPaneVisible, setIsFilterPaneVisible] = useState(storedFilterPaneVisibility);
   const [reportsModalOpen, setReportsModalOpen] = useState(false);
   const selectedReport = useRef(null);
+  const [isUUIDsExportInProgress, setIsUUIDsExportInProgress] = useState(false);
+  const authorityUUIDsReportGenerator = useReportGenerator('SearchAuthorityUUIDs');
 
   const uniqueAuthoritiesCount = useMemo(() => {
     // determine count of unique ids in authorities array.
@@ -312,6 +321,8 @@ const AuthoritiesSearch = ({
 
   const { exportRecords } = useAuthorityExport(selectedRowsIds, resetSelectedRows);
 
+  const { getResourcesIds } = useResourcesIds();
+
   const { doExport } = useExportReport({
     onSuccess: res => {
       setReportsModalOpen(false);
@@ -470,6 +481,39 @@ const AuthoritiesSearch = ({
     saveAs(new Blob([query], { type: 'text/plain;charset=utf-8;' }), fileName);
   }, [query]);
 
+  const onGenerateAuthoritiesUUIDsReport = useCallback(async () => {
+    if (isUUIDsExportInProgress) return;
+
+    setIsUUIDsExportInProgress(true);
+    let infoCalloutTimer;
+
+    try {
+      infoCalloutTimer = setTimeout(() => {
+        callout.sendCallout({
+          type: 'info',
+          message: <FormattedMessage id="ui-marc-authorities.actions.saveAuthoritiesUIIDS.info" />,
+        });
+      }, AUTHORITIES_ID_REPORT_TIMEOUT);
+
+      const items = await getResourcesIds(query, 'AUTHORITY');
+
+      clearTimeout(infoCalloutTimer);
+
+      if (!isEmpty(items)) {
+        authorityUUIDsReportGenerator.toCSV(uniqBy(items, 'id'), record => record.id);
+      }
+    } catch (e) {
+      clearTimeout(infoCalloutTimer);
+
+      callout.sendCallout({
+        type: 'error',
+        message: <FormattedMessage id="ui-marc-authorities.actions.saveAuthoritiesUIIDS.error" />,
+      });
+    } finally {
+      setIsUUIDsExportInProgress(false);
+    }
+  }, [query, getResourcesIds, isUUIDsExportInProgress, authorityUUIDsReportGenerator, callout]);
+
   const renderActionMenu = useCallback(({ onToggle }) => {
     return (
       <>
@@ -484,6 +528,16 @@ const AuthoritiesSearch = ({
             </Icon>
           </Button>
         </IfPermission>
+        <Button
+          buttonStyle="dropdownItem"
+          id="dropdown-clickable-export-uuids"
+          disabled={!authorities.length}
+          onClick={onGenerateAuthoritiesUUIDsReport}
+        >
+          <Icon icon="save">
+            <FormattedMessage id="ui-marc-authorities.actions.saveAuthoritiesUIIDS" />
+          </Icon>
+        </Button>
         <IfPermission perm="ui-data-export.edit">
           <Button
             buttonStyle="dropdownItem"

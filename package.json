@@ -1,6 +1,6 @@
 {
   "name": "@folio/marc-authorities",
-  "version": "7.1.0",
+  "version": "8.0.0",
   "description": "MARC Authorities module",
   "main": "src/index.js",
   "repository": "https://github.com/folio-org/ui-marc-authorities",
@@ -87,7 +87,8 @@
       "source-storage-records": "3.3",
       "marc-records-editor": "6.0",
       "audit-config": "1.0",
-      "audit-marc": "1.0"
+      "audit-marc": "1.0",
+      "resource-ids-streaming": "0.3"
     },
     "stripesDeps": [
       "@folio/stripes-acq-components",
@@ -126,7 +127,10 @@
           "audit.marc.authority.collection.get",
           "audit.config.groups.settings.collection.get",
           "audit.config.groups.settings.audit.authority.collection.get",
-          "users.collection.get"
+          "users.collection.get",
+          "search.resources.ids.collection.get",
+          "search.resources.ids.jobs.get",
+          "search.resources.ids.jobs.post"
         ],
         "visible": true
       },

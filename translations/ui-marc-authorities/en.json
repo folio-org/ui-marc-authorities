@@ -15,6 +15,9 @@
 
   "actions": "Actions",
   "actions.create": "New",
+  "actions.saveAuthoritiesUIIDS": "Save authorities UUIDs",
+  "actions.saveAuthoritiesUIIDS.info": "Request to save authorities UUIDs has been received. File download may take a few minutes.",
+  "actions.saveAuthoritiesUIIDS.error": "Error occurred while saving authorities UUIDs. Please try again.",
   "actions.menuSection.sortBy": "Sort by",
   "actions.menuSection.sortBy.relevance": "Relevance",
 
