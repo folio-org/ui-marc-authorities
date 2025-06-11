@@ -1,6 +1,6 @@
 # Change history for ui-marc-authorities
 
-## [7.1.0] IN PROGRESS
+## [8.0.0] IN PROGRESS
 
 - [UIMARCAUTH-462](https://issues.folio.org/browse/UIMARCAUTH-462) replace moment with day.js
 - [UIMARCAUTH-477](https://issues.folio.org/browse/UIMARCAUTH-477) Move focus on the detail view pane when record is opened automatically.
@@ -8,6 +8,7 @@
 - [UIMARCAUTH-442](https://issues.folio.org/browse/UIMARCAUTH-442) Actions menu: Remove "Actions" and reorder options
 - [UIMARCAUTH-490](https://issues.folio.org/browse/UIMARCAUTH-490) MARC authority app: Ability to save CQL used for searching authority records.
 - [UIMARCAUTH-493](https://issues.folio.org/browse/UIMARCAUTH-493) Authority View - show Last updated by date from mod-search metadata.
+- [UIMARCAUTH-491](https://issues.folio.org/browse/UIMARCAUTH-491) *BREAKING* MARC authority app: Ability to save all authority UUIDs.
 
 ## [7.0.2] (https://github.com/folio-org/ui-marc-authorities/tree/v7.0.2) (2025-04-14)
 
