@@ -110,5 +110,5 @@
     "settings.versionHistory.field.pageSize": "版本历史记录中每页显示的卡片",
     "settings.versionHistory.loadError": "版本历史记录每页卡片设置加载失败。",
     "authority-record.menuOptions": "可用选项",
-    "export-cql-query": "Save authorities CQL query"
+    "export-cql-query": "保存规范CQL查询"
 }
