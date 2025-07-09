@@ -110,5 +110,8 @@
     "settings.versionHistory.field.pageSize": "بطاقات للعرض لكل صفحة في سجل الإصدارات",
     "settings.versionHistory.loadError": "فشل تحميل إعدادات البطاقات لكل صفحة في سجل الإصدارات.",
     "authority-record.menuOptions": "الخيارات المتاحة",
-    "export-cql-query": "Save authorities CQL query"
+    "export-cql-query": "Save authorities CQL query",
+    "actions.saveAuthoritiesUIIDS": "Save authorities UUIDs",
+    "actions.saveAuthoritiesUIIDS.info": "Request to save authorities UUIDs has been received. File download may take a few minutes.",
+    "actions.saveAuthoritiesUIIDS.error": "Error occurred while saving authorities UUIDs. Please try again."
 }

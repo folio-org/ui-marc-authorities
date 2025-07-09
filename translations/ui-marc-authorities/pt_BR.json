@@ -110,5 +110,8 @@
     "settings.versionHistory.field.pageSize": "Cartões a serem exibidos por página no histórico de versão",
     "settings.versionHistory.loadError": "Cartões do histórico de versão por página de configurações não foram carregadas.",
     "authority-record.menuOptions": "Opções disponíveis",
-    "export-cql-query": "Salvar consulta CQL de autoridades"
+    "export-cql-query": "Salvar consulta CQL de autoridades",
+    "actions.saveAuthoritiesUIIDS": "Salvar UUIDs de autoridades",
+    "actions.saveAuthoritiesUIIDS.info": "A solicitação para salvar UUIDs de autoridades foi recebida. O download do arquivo pode demorar alguns minutos.",
+    "actions.saveAuthoritiesUIIDS.error": "Ocorreu um erro ao salvar UUIDs de autoridades. Por favor, tente novamente."
 }

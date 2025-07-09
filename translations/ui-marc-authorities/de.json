@@ -110,5 +110,8 @@
     "settings.versionHistory.field.pageSize": "Karten, die pro Seite der Versionsgeschichte angezeigt werden",
     "settings.versionHistory.loadError": "Einstellungen für Karten pro Seite der Versionsgeschichte konnten nicht geladen werden.",
     "authority-record.menuOptions": "Verfügbare Optionen",
-    "export-cql-query": "Save authorities CQL query"
+    "export-cql-query": "Save authorities CQL query",
+    "actions.saveAuthoritiesUIIDS": "Save authorities UUIDs",
+    "actions.saveAuthoritiesUIIDS.info": "Request to save authorities UUIDs has been received. File download may take a few minutes.",
+    "actions.saveAuthoritiesUIIDS.error": "Error occurred while saving authorities UUIDs. Please try again."
 }
