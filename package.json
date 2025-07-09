@@ -82,13 +82,14 @@
       }
     ],
     "okapiInterfaces": {
-      "search": "1.0 1.3",
-      "browse": "1.0 2.0",
+      "search-authorities": "1.0",
+      "search-facets": "1.0",
+      "browse-authorities": "1.0",
       "source-storage-records": "3.3",
       "marc-records-editor": "6.0",
       "audit-config": "1.0",
       "audit-marc": "1.0",
-      "resource-ids-streaming": "0.3"
+      "resource-ids-streaming": "1.0"
     },
     "stripesDeps": [
       "@folio/stripes-acq-components",

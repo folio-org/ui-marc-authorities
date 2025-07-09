@@ -9,6 +9,7 @@
 - [UIMARCAUTH-490](https://issues.folio.org/browse/UIMARCAUTH-490) MARC authority app: Ability to save CQL used for searching authority records.
 - [UIMARCAUTH-493](https://issues.folio.org/browse/UIMARCAUTH-493) Authority View - show Last updated by date from mod-search metadata.
 - [UIMARCAUTH-491](https://issues.folio.org/browse/UIMARCAUTH-491) *BREAKING* MARC authority app: Ability to save all authority UUIDs.
+- [UIMARCAUTH-501](https://issues.folio.org/browse/UIMARCAUTH-501) *BREAKING* Update for split search & browse APIs.
 
 ## [7.0.2] (https://github.com/folio-org/ui-marc-authorities/tree/v7.0.2) (2025-04-14)
 
