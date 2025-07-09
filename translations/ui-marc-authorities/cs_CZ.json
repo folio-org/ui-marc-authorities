@@ -110,5 +110,8 @@
     "settings.versionHistory.field.pageSize": "Karty k zobrazení na stránce v historii verzí",
     "settings.versionHistory.loadError": "Nastavení historie verzí Karet se nepodařilo načíst.",
     "authority-record.menuOptions": "Dostupné možnosti",
-    "export-cql-query": "Uložit CQL dotaz na autority"
+    "export-cql-query": "Uložit CQL dotaz na autority",
+    "actions.saveAuthoritiesUIIDS": "Uložit UUID autorit",
+    "actions.saveAuthoritiesUIIDS.info": "Byl přijat požadavek na uložení UUID autorit. Stahování souboru může trvat několik minut.",
+    "actions.saveAuthoritiesUIIDS.error": "Při ukládání UUID autorit došlo k chybě. Zkuste to prosím znovu."
 }

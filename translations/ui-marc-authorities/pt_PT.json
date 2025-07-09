@@ -110,5 +110,8 @@
     "settings.versionHistory.field.pageSize": "Cards to display per page on Version history",
     "settings.versionHistory.loadError": "Version history Cards per page settings failed to load.",
     "authority-record.menuOptions": "Available options",
-    "export-cql-query": "Save authorities CQL query"
+    "export-cql-query": "Save authorities CQL query",
+    "actions.saveAuthoritiesUIIDS": "Save authorities UUIDs",
+    "actions.saveAuthoritiesUIIDS.info": "Request to save authorities UUIDs has been received. File download may take a few minutes.",
+    "actions.saveAuthoritiesUIIDS.error": "Error occurred while saving authorities UUIDs. Please try again."
 }

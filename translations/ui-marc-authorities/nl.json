@@ -110,5 +110,8 @@
     "settings.versionHistory.field.pageSize": "Weer te geven kaarten per pagina op Versiegeschiedenis",
     "settings.versionHistory.loadError": "Versiegeschiedenis Kaarten per pagina-instellingen zijn niet ingevoerd.",
     "authority-record.menuOptions": "Beschikbare opties",
-    "export-cql-query": "Auteur CQL query Opslaan"
+    "export-cql-query": "Auteur CQL query Opslaan",
+    "actions.saveAuthoritiesUIIDS": "Autoriteiten UUID's Opslaan",
+    "actions.saveAuthoritiesUIIDS.info": "Aanvraag voor het Opslaan van Authoriteiten UUID's is ontvangen. Het downloaden van het bestand kan enkele minuten duren.",
+    "actions.saveAuthoritiesUIIDS.error": "Fout opgetreden tijdens het opslaan van Authorities UUIDs. Probeer het opnieuw."
 }
