@@ -67,7 +67,7 @@
     "settings.manageAuthoritySourceFiles.column.startNumber": "HRID починається з",
     "settings.manageAuthoritySourceFiles.column.baseUrl": "Базова URL-адреса",
     "settings.manageAuthoritySourceFiles.column.selectable": "Активно",
-    "settings.manageAuthoritySourceFiles.column.selectable.info": "Встановіть стан файлу як \"Активний\", якщо потрібно, щоб користувачі мали можливість створювати новий авторитетний запис для файлу.",
+    "settings.manageAuthoritySourceFiles.column.selectable.info": "Встановіть стан файлу як \"Активно\", якщо потрібно, щоб користувачі мали можливість створювати новий авторитетний запис для файлу.",
     "settings.manageAuthoritySourceFiles.column.source": "Джерело",
     "settings.manageAuthoritySourceFiles.column.lastUpdated": "Востаннє оновлено за",
     "settings.manageAuthoritySourceFiles.column.source.local": "Локальне",
