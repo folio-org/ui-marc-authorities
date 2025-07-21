@@ -225,6 +225,16 @@ describe('Given AuthoritiesSearch', () => {
 
         expect(exportRecordsButton).not.toBeInTheDocument();
       });
+
+      it('should not show Save Authorities UUIDs button', () => {
+        renderAuthoritiesSearch();
+
+        fireEvent.click(screen.getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+
+        const saveAuthoritiesUIIDSButton = screen.queryByRole('button', { name: 'ui-marc-authorities.actions.saveAuthoritiesUIIDS' });
+
+        expect(saveAuthoritiesUIIDSButton).toBeNull();
+      });
     });
 
     describe('when search results list contains at least 1 authority', () => {

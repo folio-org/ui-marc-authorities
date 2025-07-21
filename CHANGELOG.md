@@ -10,6 +10,7 @@
 - [UIMARCAUTH-493](https://issues.folio.org/browse/UIMARCAUTH-493) Authority View - show Last updated by date from mod-search metadata.
 - [UIMARCAUTH-491](https://issues.folio.org/browse/UIMARCAUTH-491) *BREAKING* MARC authority app: Ability to save all authority UUIDs.
 - [UIMARCAUTH-501](https://issues.folio.org/browse/UIMARCAUTH-501) *BREAKING* Update for split search & browse APIs.
+- [UIMARCAUTH-497](https://issues.folio.org/browse/UIMARCAUTH-497) Do not show Save authorities UUIDs (CSV) option when user selects Browse toggle.
 
 ## [7.0.2] (https://github.com/folio-org/ui-marc-authorities/tree/v7.0.2) (2025-04-14)
 

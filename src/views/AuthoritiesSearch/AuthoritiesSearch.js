@@ -528,16 +528,21 @@ const AuthoritiesSearch = ({
             </Icon>
           </Button>
         </IfPermission>
-        <Button
-          buttonStyle="dropdownItem"
-          id="dropdown-clickable-export-uuids"
-          disabled={!authorities.length}
-          onClick={onGenerateAuthoritiesUUIDsReport}
-        >
-          <Icon icon="save">
-            <FormattedMessage id="ui-marc-authorities.actions.saveAuthoritiesUIIDS" />
-          </Icon>
-        </Button>
+        {navigationSegmentValue === navigationSegments.search && (
+          <Button
+            buttonStyle="dropdownItem"
+            id="dropdown-clickable-export-uuids"
+            disabled={!authorities.length}
+            onClick={() => {
+              onGenerateAuthoritiesUUIDsReport();
+              onToggle();
+            }}
+          >
+            <Icon icon="save">
+              <FormattedMessage id="ui-marc-authorities.actions.saveAuthoritiesUIIDS" />
+            </Icon>
+          </Button>
+        )}
         <IfPermission perm="ui-data-export.edit">
           <Button
             buttonStyle="dropdownItem"
