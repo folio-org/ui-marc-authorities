@@ -227,13 +227,15 @@ describe('Given AuthoritiesSearch', () => {
       });
 
       it('should not show Save Authorities UUIDs button', () => {
-        renderAuthoritiesSearch();
+        renderAuthoritiesSearch(null, null, {
+          navigationSegmentValue: navigationSegments.browse,
+        });
 
         fireEvent.click(screen.getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
 
         const saveAuthoritiesUIIDSButton = screen.queryByRole('button', { name: 'ui-marc-authorities.actions.saveAuthoritiesUIIDS' });
 
-        expect(saveAuthoritiesUIIDSButton).toBeNull();
+        expect(saveAuthoritiesUIIDSButton).not.toBeInTheDocument();
       });
     });
 
