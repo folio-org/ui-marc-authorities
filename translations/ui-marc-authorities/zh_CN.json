@@ -111,7 +111,7 @@
     "settings.versionHistory.loadError": "版本历史记录每页卡片设置加载失败。",
     "authority-record.menuOptions": "可用选项",
     "export-cql-query": "保存规范CQL查询",
-    "actions.saveAuthoritiesUIIDS": "Save authorities UUIDs",
-    "actions.saveAuthoritiesUIIDS.info": "Request to save authorities UUIDs has been received. File download may take a few minutes.",
-    "actions.saveAuthoritiesUIIDS.error": "Error occurred while saving authorities UUIDs. Please try again."
+    "actions.saveAuthoritiesUIIDS": "保存规范UUID",
+    "actions.saveAuthoritiesUIIDS.info": "已收到保存规范UUID的请求。文件下载可能需要几分钟。",
+    "actions.saveAuthoritiesUIIDS.error": "保存规范UUID时出错。请重试。"
 }
