@@ -20,7 +20,8 @@ import {
   SearchRoute,
   BrowseRoute,
   AuthorityViewRoute,
-  AuthorityQuickMarcRoute,
+  CreateMarcAuthorityRoute,
+  EditMarcAuthorityRoute,
 } from './routes';
 import { MarcAuthoritySettings } from './settings';
 import {
@@ -69,7 +70,8 @@ const MarcAuthorities = ({
           <KeyShortCutsWrapper focusSearchField={focusSearchField}>
             <AuthorityTitleManager>
               <Switch>
-                <Route path={`${path}/quick-marc`} component={AuthorityQuickMarcRoute} />
+                <Route path={`${path}/quick-marc/create-authority`} component={CreateMarcAuthorityRoute} />
+                <Route path={`${path}/quick-marc/edit-authority/:id`} component={EditMarcAuthorityRoute} />
                 <Route
                   path={path}
                   component={RouteComponent}
