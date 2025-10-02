@@ -98,7 +98,7 @@ const propTypes = {
     PropTypes.arrayOf(PropTypes.node),
   ]).isRequired,
   error: PropTypes.object,
-  firstPageQuery: PropTypes.string.isRequired,
+  firstPageQuery: PropTypes.string,
   handleLoadMore: PropTypes.func.isRequired,
   hasNextPage: PropTypes.bool,
   hasPrevPage: PropTypes.bool,
