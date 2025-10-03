@@ -12,7 +12,7 @@ import {
 } from '@folio/stripes-authority-components';
 
 const propTypes = {
-  children: PropTypes.oneOfType(PropTypes.node, PropTypes.arrayOf(PropTypes.node)),
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
 };
 
 const AuthorityTitleManager = ({ children = null }) => {

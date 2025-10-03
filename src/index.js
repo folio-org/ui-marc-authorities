@@ -33,7 +33,7 @@ import commands from './commands';
 const propTypes = {
   focusSearchField: PropTypes.func,
   match: PropTypes.object.isRequired,
-  showSettings: PropTypes.bool.isRequired,
+  showSettings: PropTypes.bool,
 };
 
 const MarcAuthorities = ({
