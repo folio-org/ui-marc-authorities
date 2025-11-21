@@ -69,7 +69,7 @@
     "settings.manageAuthoritySourceFiles.column.selectable": "Aktivní",
     "settings.manageAuthoritySourceFiles.column.selectable.info": "Vyberte soubor jako \"Aktivní\", pokud by uživatelé měli mít možnost vytvořit nový záznam autority pro daný soubor",
     "settings.manageAuthoritySourceFiles.column.source": "Zdroj",
-    "settings.manageAuthoritySourceFiles.column.lastUpdated": "Naposledy aktualizoval",
+    "settings.manageAuthoritySourceFiles.column.lastUpdated": "Naposledy aktualizoval/a",
     "settings.manageAuthoritySourceFiles.column.source.local": "Místní",
     "settings.manageAuthoritySourceFiles.labelSingular": "soubor autority",
     "settings.manageAuthoritySourceFiles.error.name.empty": "Chyba při ukládání dat. Je vyžadován název.",
