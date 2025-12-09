@@ -94,6 +94,7 @@ const AuthorityView = ({
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [isHistoryPaneOpen, setIsHistoryPaneOpen] = useState(false);
   const paneTitleRef = useRef(null);
+  const closeButtonRef = useRef(null);
 
   const id = authority.data?.id;
   const isShared = authority.data?.shared;
@@ -185,9 +186,13 @@ const AuthorityView = ({
 
   useEffect(() => {
     if (!marcSource.isLoading && !authority.isLoading && !isCentralTenantPermissionsLoading) {
-      paneTitleRef.current?.focus();
+      if (location.state?.isClosingFocused) {
+        closeButtonRef.current?.focus();
+      } else {
+        paneTitleRef.current?.focus();
+      }
     }
-  }, [isCentralTenantPermissionsLoading, marcSource.isLoading, authority.isLoading]);
+  }, [isCentralTenantPermissionsLoading, marcSource.isLoading, authority.isLoading, location.state?.isClosingFocused]);
 
   if (marcSource.isLoading || authority.isLoading || isCentralTenantPermissionsLoading) {
     return <LoadingPane id="marc-view-pane" />;
@@ -268,9 +273,9 @@ const AuthorityView = ({
         tenantId={authority.data.tenantId}
         firstMenu={(
           <PaneCloseLink
-            autoFocus={location.state?.isClosingFocused}
             onClick={onClose}
             aria-label={intl.formatMessage({ id: 'stripes-components.closeItem' }, { item: paneTitle })}
+            closeButtonRef={closeButtonRef}
           />
         )}
         lastMenu={
