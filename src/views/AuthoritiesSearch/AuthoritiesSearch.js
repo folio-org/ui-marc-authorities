@@ -448,8 +448,8 @@ const AuthoritiesSearch = ({
 
   const redirectToAuthorityRecord = useCallback(authority => {
     setSelectedAuthorityRecord(null);
-    history.push(formatAuthorityRecordLink(authority));
-  }, [history, formatAuthorityRecordLink]);
+    history.push(formatAuthorityRecordLink(authority), location.state);
+  }, [history, formatAuthorityRecordLink, location.state, setSelectedAuthorityRecord]);
 
   const urlAuthorityId = location.pathname.split('/')[3];
 

@@ -495,6 +495,7 @@ describe('Given AuthoritiesSearch', () => {
       });
       expect(mockHistoryPush).toHaveBeenCalledWith(
         '/authorities/5a404f5d-2c46-4426-9f28-db8d26881b30?authRefType=Auth%2FRef&headingRef=Twain%2C%20Mark',
+        expect.any(Object),
       );
     });
 
@@ -578,7 +579,10 @@ describe('Given AuthoritiesSearch', () => {
         headingRef: 'Springfield',
       }));
 
-      expect(mockHistoryPush).toHaveBeenCalledWith('/authorities/cbc03a36-2870-4184-9777-0c44d07edfe4?authRefType=Reference&headingRef=SpringfieldEDITED');
+      expect(mockHistoryPush).toHaveBeenCalledWith(
+        '/authorities/cbc03a36-2870-4184-9777-0c44d07edfe4?authRefType=Reference&headingRef=SpringfieldEDITED',
+        expect.any(Object),
+      );
     });
   });
 
