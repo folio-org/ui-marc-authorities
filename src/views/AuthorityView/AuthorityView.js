@@ -134,6 +134,7 @@ const AuthorityView = ({
 
   const canRunExport = stripes.hasPerm('ui-data-export.edit');
   const isVersionHistoryEnabled = settings?.find(setting => setting.key === VERSION_HISTORY_ENABLED_SETTING)?.value;
+  const showAuditButton = !isLoadingSettings && isVersionHistoryEnabled && stripes.hasInterface('audit-marc');
 
   const onClose = useCallback(
     () => {
@@ -344,7 +345,7 @@ const AuthorityView = ({
                     </DropdownMenu>
                   )}
                 />
-                {!isLoadingSettings && isVersionHistoryEnabled && (
+                {showAuditButton && (
                   <VersionHistoryButton
                     onClick={() => setIsHistoryPaneOpen(true)}
                   />
