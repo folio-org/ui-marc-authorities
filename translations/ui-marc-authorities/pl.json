@@ -110,7 +110,7 @@
     "settings.versionHistory.field.pageSize": "Liczba kart na stronę dla historii wersji",
     "settings.versionHistory.loadError": "Nie udało sie załadować ustawionej liczby kart historii wersji.",
     "authority-record.menuOptions": "Dostępne opcje",
-    "export-cql-query": "Save authorities CQL query",
+    "export-cql-query": "Zapisz zapytanie CQL dla rekordów KHW",
     "actions.saveAuthoritiesUIIDS": "Zapisz UUIDy KHW",
     "actions.saveAuthoritiesUIIDS.info": "Otrzymano prośbę o zapisanie UUIDów KHW. Pobieranie pliku może potrwać kilka minut.",
     "actions.saveAuthoritiesUIIDS.error": "Wystąpił błąd podczas zapisywania UUIDów KHW. Spróbuj ponownie."
