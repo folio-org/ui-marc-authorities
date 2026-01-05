@@ -12,6 +12,7 @@
 - [UIMARCAUTH-501](https://issues.folio.org/browse/UIMARCAUTH-501) *BREAKING* Update for split search & browse APIs.
 - [UIMARCAUTH-497](https://issues.folio.org/browse/UIMARCAUTH-497) Do not show Save authorities UUIDs (CSV) option when user selects Browse toggle.
 - [UIMARCAUTH-513](https://issues.folio.org/browse/UIMARCAUTH-513) Remove unused `useAuthorityLinksCount` hook.
+- [UIMARCAUTH-520](https://issues.folio.org/browse/UIMARCAUTH-520) Handle audit-marc dependency: hide audit button.
 
 ## [7.0.2] (https://github.com/folio-org/ui-marc-authorities/tree/v7.0.2) (2025-04-14)
 
