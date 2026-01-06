@@ -39,6 +39,7 @@ const Harness = ({
   stripes,
   children,
   history = defaultHistory,
+  routerProps = {},
   authoritiesCtxValue,
   selectedRecordCtxValue,
 }) => {
@@ -53,7 +54,7 @@ const Harness = ({
   return (
     <QueryClientProvider client={queryClient}>
       <StripesContext.Provider value={stripes || STRIPES}>
-        <Router history={history}>
+        <Router history={history} {...routerProps}>
           <IntlProvider>
             <AuthoritiesCtxProviderComponent ctxValue={authoritiesCtxValue}>
               <SelectedAuthorityRecordCtxProviderComponent ctxValue={selectedRecordCtxValue}>
