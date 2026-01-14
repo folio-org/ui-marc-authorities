@@ -14,6 +14,7 @@
 - [UIMARCAUTH-513](https://issues.folio.org/browse/UIMARCAUTH-513) Remove unused `useAuthorityLinksCount` hook.
 - [UIMARCAUTH-520](https://issues.folio.org/browse/UIMARCAUTH-520) Handle audit-marc dependency: hide audit button.
 - [UIMARCAUTH-518](https://issues.folio.org/browse/UIMARCAUTH-518) Define separate routes for Create/Edit MARC Authorities.
+- [UIMARCAUTH-519](https://issues.folio.org/browse/UIMARCAUTH-519) MARC authority hit list does not stay on selected entry after "quickmarc" pane closing.
 
 
 ## [7.0.2] (https://github.com/folio-org/ui-marc-authorities/tree/v7.0.2) (2025-04-14)
