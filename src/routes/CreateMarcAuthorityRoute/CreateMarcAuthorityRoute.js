@@ -26,7 +26,7 @@ export const CreateMarcAuthorityRoute = () => {
     newSearchParams.delete('shared');
 
     history.push({
-      pathname: `/marc-authorities/view/${recordRoute ?? ''}`,
+      pathname: `/marc-authorities/authorities/${recordRoute ?? ''}`,
       search: newSearchParams.toString(),
       state: {
         isClosingFocused: true,
@@ -44,7 +44,7 @@ export const CreateMarcAuthorityRoute = () => {
         type="quick-marc"
         onClose={onClose}
         onSave={onClose}
-        externalRecordPath="/marc-authorities/view"
+        externalRecordPath="/marc-authorities/authorities"
         action="create"
         marcType="authority"
         isShared={isShared}

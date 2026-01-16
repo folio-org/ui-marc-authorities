@@ -56,7 +56,7 @@ export const EditMarcAuthorityRoute = () => {
     newSearchParams.delete('shared');
 
     history.push({
-      pathname: `/marc-authorities/view/${recordRoute ?? ''}`,
+      pathname: `/marc-authorities/authorities/${recordRoute ?? ''}`,
       search: newSearchParams.toString(),
       state: {
         isClosingFocused: true,
@@ -81,7 +81,7 @@ export const EditMarcAuthorityRoute = () => {
         basePath={match.path}
         onClose={onClose}
         onSave={onSave}
-        externalRecordPath="/marc-authorities/view"
+        externalRecordPath="/marc-authorities/authorities"
         action="edit"
         marcType="authority"
         externalId={externalId}
