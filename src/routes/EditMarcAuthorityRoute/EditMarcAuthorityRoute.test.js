@@ -98,7 +98,7 @@ describe('EditMarcAuthorityRoute', () => {
 
       fireEvent.click(screen.getByText('Save'));
       waitFor(() => expect(mockPush).toHaveBeenCalledWith({
-        pathname: '/marc-authorities/view/id',
+        pathname: '/marc-authorities/authorities/id',
         search: '',
         state: { isClosingFocused: true },
       }));
@@ -111,7 +111,7 @@ describe('EditMarcAuthorityRoute', () => {
 
       fireEvent.click(screen.getByText('Close'));
       waitFor(() => expect(mockPush).toHaveBeenCalledWith({
-        pathname: '/marc-authorities/view/id',
+        pathname: '/marc-authorities/authorities/id',
         search: '',
         state: { isClosingFocused: true },
       }));
