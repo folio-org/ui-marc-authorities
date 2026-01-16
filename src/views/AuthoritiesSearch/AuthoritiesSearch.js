@@ -239,7 +239,16 @@ const AuthoritiesSearch = ({
     [searchResultListColumns.HEADING_TYPE]: <FormattedMessage id="stripes-authority-components.search-results-list.headingType" />,
     [searchResultListColumns.AUTHORITY_SOURCE]: intl.formatMessage({ id: 'stripes-authority-components.search-results-list.authoritySource' }),
     [searchResultListColumns.NUMBER_OF_TITLES]: <FormattedMessage id="ui-marc-authorities.search-results-list.numberOfTitles" />,
-  }), [selectAll, selectAllLabel, toggleSelectAll]);
+  }), [selectAll, selectAllLabel, toggleSelectAll, intl]);
+
+  const columnWidths = useMemo(() => ({
+    [searchResultListColumns.SELECT]: '30px',
+    [searchResultListColumns.NUMBER_OF_TITLES]: '140px',
+    [searchResultListColumns.AUTH_REF_TYPE]: '190px',
+    [searchResultListColumns.HEADING_REF]: { max: '350px' }, // define as object to let MCL re-calculate widths and save scroll positions
+    [searchResultListColumns.HEADING_TYPE]: '170px',
+    [searchResultListColumns.AUTHORITY_SOURCE]: '250px',
+  }), []);
 
   const {
     visibleColumns,
@@ -709,14 +718,7 @@ const AuthoritiesSearch = ({
           <SearchResultsList
             authorities={authorities}
             columnMapping={columnMapping}
-            columnWidths={{
-              [searchResultListColumns.SELECT]: '30px',
-              [searchResultListColumns.NUMBER_OF_TITLES]: '140px',
-              [searchResultListColumns.AUTH_REF_TYPE]: '190px',
-              [searchResultListColumns.HEADING_REF]: '350px',
-              [searchResultListColumns.HEADING_TYPE]: '170px',
-              [searchResultListColumns.AUTHORITY_SOURCE]: '250px',
-            }}
+            columnWidths={columnWidths}
             error={error}
             formatter={formatter}
             hasNextPage={hasNextPage}
