@@ -22,7 +22,7 @@
     "permission.authority-record.delete": "MARC Otorite: MARC Otorite kaydını sil",
     "authority-record.delete": "Silme",
     "authority-record.delete.success": "MARC Otorite kaydı <strong> {headingRef} </strong> silindi",
-    "authority-record.delete.error": "MARC Otorite kaydı silinemiyor <strong> {headingRef} </strong>. Lütfen tekrar deneyin. ",
+    "authority-record.delete.error": "MARC Otorite kaydı silinemiyor <strong> {headingRef} </strong>. Lütfen tekrar deneyin.",
     "export-selected-records": "Seçilen kayıtları dışa aktarma (CSV/MARC)",
     "export.success": "{exportJobName} tamamlandı. İndirilen .csv dosyası seçilen kayıtların UIID'lerini içerir. .mrc dosyasını almak için lütfen Veri dışa aktarma uygulamasına gidin.",
     "export.failure": "Talep tamamlanamadı, lütfen tekrar deneyin.",
