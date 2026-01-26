@@ -60,6 +60,7 @@ export const EditMarcAuthorityRoute = () => {
       search: newSearchParams.toString(),
       state: {
         isClosingFocused: true,
+        editSuccessful: true,
       },
     });
   }, [location.search, history, setIsGoingToBaseURL]);
