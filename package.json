@@ -86,7 +86,6 @@
       "search-facets": "1.0",
       "browse-authorities": "1.0",
       "source-storage-records": "3.3",
-      "marc-records-editor": "6.0",
       "resource-ids-streaming": "1.0"
     },
     "optionalOkapiInterfaces": {
