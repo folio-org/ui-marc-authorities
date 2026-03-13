@@ -34,19 +34,18 @@ export const EditMarcAuthorityRoute = () => {
 
   const { externalId } = match.params;
   const searchParams = new URLSearchParams(location.search);
+  const headingRef = searchParams.get('headingRef');
+  const authRefType = searchParams.get('authRefType');
+
   const isShared = searchParams.get('shared') === 'true';
   const centralTenantId = stripes.user.user?.consortium?.centralTenantId;
 
-  const { refetch } = useAuthority({
+  const { fetchAuthority } = useAuthority({
     recordId: externalId,
+    headingRef,
+    authRefType,
     tenantId: isShared ? centralTenantId : '',
   });
-
-  const fetchAuthority = async () => {
-    const { data } = await refetch();
-
-    return data;
-  };
 
   const onClose = useCallback(recordRoute => {
     setIsGoingToBaseURL(false);
