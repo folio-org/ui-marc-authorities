@@ -81,6 +81,8 @@ describe('EditMarcAuthorityRoute', () => {
     renderEditMarcAuthorityRoute();
 
     expect(useAuthority).toHaveBeenCalledWith({
+      authRefType: null,
+      headingRef: null,
       recordId: 'id',
       tenantId: '',
     });
