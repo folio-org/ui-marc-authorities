@@ -17,6 +17,7 @@
 - [UIMARCAUTH-519](https://issues.folio.org/browse/UIMARCAUTH-519) MARC authority hit list does not stay on selected entry after "quickmarc" pane closing.
 - [UIMARCAUTH-514](https://issues.folio.org/browse/UIMARCAUTH-514) include global permissions in package.json base permissions.
 - [UIMARCAUTH-527](https://issues.folio.org/browse/UIMARCAUTH-527) Remove unused marc-records-editor interface.
+- [UIMARCAUTH-528](https://issues.folio.org/browse/UIMARCAUTH-528) use the new `fetchAuthority` function from `useAuthority` hook.
 
 ## [7.0.2] (https://github.com/folio-org/ui-marc-authorities/tree/v7.0.2) (2025-04-14)
 
