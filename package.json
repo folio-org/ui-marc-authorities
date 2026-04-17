@@ -18,16 +18,15 @@
   "devDependencies": {
     "@folio/eslint-config-stripes": "^8.0.0",
     "@folio/jest-config-stripes": "^3.0.0",
-    "@folio/stripes": "^10.0.0",
-    "@folio/stripes-authority-components": "^6.0.0",
-    "@folio/stripes-marc-components": "^2.0.0",
+    "@folio/stripes": "^10.1.0",
+    "@folio/stripes-authority-components": "^7.0.0",
+    "@folio/stripes-marc-components": "^2.1.0",
     "@folio/stripes-cli": "^4.0.0",
-    "@folio/stripes-connect": "^10.0.0",
-    "@folio/stripes-components": "^13.0.0",
-    "@folio/stripes-core": "^11.0.0",
+    "@folio/stripes-connect": "^10.1.0",
+    "@folio/stripes-components": "^13.1.0",
     "@folio/stripes-final-form": "^9.0.0",
-    "@folio/stripes-form": "^10.0.0",
-    "@folio/stripes-smart-components": "^10.0.0",
+    "@folio/stripes-form": "^10.1.0",
+    "@folio/stripes-smart-components": "^10.1.0",
     "@folio/stripes-testing": "^5.0.0",
     "@folio/stripes-util" :"^7.0.0",
     "axe-core": "^4.1.4",
@@ -49,18 +48,18 @@
     "rxjs": "^6.6.3"
   },
   "dependencies": {
-    "@folio/stripes-acq-components": "^7.0.0",
+    "@folio/stripes-acq-components": "^7.1.0",
     "@rehooks/local-storage": "^2.4.4",
     "file-saver": "^2.0.0",
     "query-string": "^7.0.1"
   },
   "optionalDependencies": {
-    "@folio/quick-marc": "^10.0.0"
+    "@folio/quick-marc": "^11.0.0"
   },
   "peerDependencies": {
-    "@folio/stripes": "^10.0.0",
-    "@folio/stripes-authority-components": "^6.0.0",
-    "@folio/stripes-marc-components": "^2.0.0",
+    "@folio/stripes": "^10.1.0",
+    "@folio/stripes-authority-components": "^7.0.0",
+    "@folio/stripes-marc-components": "^2.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-intl": "^7.1.5",
