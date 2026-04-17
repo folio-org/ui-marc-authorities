@@ -1,6 +1,6 @@
 # Change history for ui-marc-authorities
 
-## [8.0.0] IN PROGRESS
+## [8.0.0] (https://github.com/folio-org/ui-marc-authorities/tree/v8.0.0) (2026-04-17)
 
 - [UIMARCAUTH-462](https://issues.folio.org/browse/UIMARCAUTH-462) replace moment with day.js
 - [UIMARCAUTH-477](https://issues.folio.org/browse/UIMARCAUTH-477) Move focus on the detail view pane when record is opened automatically.
