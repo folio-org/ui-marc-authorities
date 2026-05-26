@@ -88,7 +88,7 @@ describe('CreateMarcAuthorityRoute', () => {
       expect(mockPush).toHaveBeenCalledWith({
         pathname: '/marc-authorities/authorities/id',
         search: '',
-        state: { isClosingFocused: true },
+        state: { isClosingFocused: true, isNewRecord: true },
       });
     });
   });
@@ -101,7 +101,7 @@ describe('CreateMarcAuthorityRoute', () => {
       expect(mockPush).toHaveBeenCalledWith({
         pathname: '/marc-authorities/authorities/id',
         search: '',
-        state: { isClosingFocused: true },
+        state: { isClosingFocused: true, isNewRecord: false },
       });
     });
   });

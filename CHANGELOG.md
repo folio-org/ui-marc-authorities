@@ -1,5 +1,9 @@
 # Change history for ui-marc-authorities
 
+## [8.1.0] (IN PROGRESS)
+
+- [UIMARCAUTH-530](https://issues.folio.org/browse/UIMARCAUTH-530) Retry fetching a created Authority record when reindexing is still in progress.
+
 ## [8.0.0] (https://github.com/folio-org/ui-marc-authorities/tree/v8.0.0) (2026-04-17)
 
 - [UIMARCAUTH-462](https://issues.folio.org/browse/UIMARCAUTH-462) replace moment with day.js

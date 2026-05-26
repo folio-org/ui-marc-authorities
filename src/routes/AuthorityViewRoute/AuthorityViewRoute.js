@@ -83,7 +83,7 @@ const AuthorityViewRoute = () => {
   };
 
   // There is no need to change the tenant for this API.
-  const authority = useAuthority({ recordId: id, authRefType, headingRef }, {
+  const authority = useAuthority({ recordId: id, authRefType, headingRef, refetchOnEmptyResults: location.state?.isNewRecord }, {
     onError: handleAuthorityLoadError,
   });
 
@@ -99,10 +99,18 @@ const AuthorityViewRoute = () => {
   });
 
   useEffect(() => {
-    if (authority && !selectedAuthority) {
-      setSelectedAuthority(authority.data);
+    if (authority?.data && !selectedAuthority) {
+      setSelectedAuthority(authority?.data);
     }
-  }, [authority?.data?.id]);
+  }, [authority?.data, setSelectedAuthority, selectedAuthority]);
+
+  useEffect(() => {
+    if (authority?.data) {
+      history.replace({
+        state: { ...location.state, isNewRecord: false },
+      });
+    }
+  }, [authority?.data]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <AuthorityView
