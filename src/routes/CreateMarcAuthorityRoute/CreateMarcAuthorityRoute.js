@@ -18,7 +18,7 @@ export const CreateMarcAuthorityRoute = () => {
   const searchParams = new URLSearchParams(location.search);
   const isShared = searchParams.get('shared') === 'true';
 
-  const onClose = useCallback(recordRoute => {
+  const redirectToAuthorityView = useCallback((recordRoute, isNewRecord = false) => {
     setIsGoingToBaseURL(false);
 
     const newSearchParams = new URLSearchParams(location.search);
@@ -30,9 +30,18 @@ export const CreateMarcAuthorityRoute = () => {
       search: newSearchParams.toString(),
       state: {
         isClosingFocused: true,
+        isNewRecord,
       },
     });
   }, [location.search, history, setIsGoingToBaseURL]);
+
+  const onClose = useCallback(recordRoute => {
+    redirectToAuthorityView(recordRoute);
+  }, [redirectToAuthorityView]);
+
+  const onSave = useCallback(recordRoute => {
+    redirectToAuthorityView(recordRoute, true);
+  }, [redirectToAuthorityView]);
 
   const onCreateAndKeepEditing = useCallback(id => {
     history.push(`edit-authority/${id}`);
@@ -43,7 +52,7 @@ export const CreateMarcAuthorityRoute = () => {
       <Pluggable
         type="quick-marc"
         onClose={onClose}
-        onSave={onClose}
+        onSave={onSave}
         externalRecordPath="/marc-authorities/authorities"
         action="create"
         marcType="authority"
