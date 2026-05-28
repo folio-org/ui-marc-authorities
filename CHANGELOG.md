@@ -1,6 +1,6 @@
 # Change history for ui-marc-authorities
 
-## [8.1.0] (IN PROGRESS)
+## [8.0.1] (https://github.com/folio-org/ui-marc-authorities/tree/v8.0.1) (2026-05-28)
 
 - [UIMARCAUTH-530](https://issues.folio.org/browse/UIMARCAUTH-530) Retry fetching a created Authority record when reindexing is still in progress.
 
