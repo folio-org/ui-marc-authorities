@@ -1,5 +1,6 @@
-import { render } from '@folio/jest-config-stripes/testing-library/react';
+import { useHistory } from 'react-router';
 
+import { render } from '@folio/jest-config-stripes/testing-library/react';
 import {
   useMarcSource,
   useAuthority,
@@ -11,6 +12,11 @@ import AuthorityViewRoute from './AuthorityViewRoute';
 import Harness from '../../../test/jest/helpers/harness';
 
 const mockSendCallout = jest.fn().mockName('sendCalloutMock');
+
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  useHistory: jest.fn(),
+}));
 
 jest.mock('@folio/stripes/core', () => ({
   ...jest.requireActual('@folio/stripes/core'),
@@ -36,7 +42,9 @@ jest.mock('@folio/stripes/core', () => ({
 jest.mock('@folio/stripes-authority-components', () => ({
   ...jest.requireActual('@folio/stripes-authority-components'),
   useMarcSource: jest.fn(),
-  useAuthority: jest.fn(),
+  useAuthority: jest.fn().mockReturnValue({
+    data: {},
+  }),
 }));
 
 jest.mock('../../views/AuthorityView/AuthorityView', () => function () {
@@ -49,9 +57,15 @@ const renderAuthorityViewRoute = (selectedRecordCtxValue) => render(
   </Harness>,
 );
 
+const mockHistoryReplace = jest.fn();
+
 describe('Given AuthorityViewRoute', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    useHistory.mockReturnValue({
+      replace: mockHistoryReplace,
+      push: jest.fn(),
+    });
   });
 
   it('should render with no axe errors', async () => {
@@ -66,6 +80,16 @@ describe('Given AuthorityViewRoute', () => {
     const { getByText } = renderAuthorityViewRoute();
 
     expect(getByText('AuthorityView')).toBeDefined();
+  });
+
+  describe('when authority is loaded', () => {
+    it('should reset `isNewRecord` history state parameter', () => {
+      renderAuthorityViewRoute();
+
+      expect(mockHistoryReplace).toHaveBeenCalledWith(expect.objectContaining({
+        state: { isNewRecord: false },
+      }));
+    });
   });
 
   describe('when marc source request failed', () => {
