@@ -105,7 +105,7 @@ const AuthorityViewRoute = () => {
   }, [authority?.data, setSelectedAuthority, selectedAuthority]);
 
   useEffect(() => {
-    if (authority?.data) {
+    if (authority?.data && location.state?.isNewRecord) {
       history.replace({
         state: { ...location.state, isNewRecord: false },
       });

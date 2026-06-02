@@ -1,4 +1,7 @@
-import { useHistory } from 'react-router';
+import {
+  useHistory,
+  useLocation,
+} from 'react-router';
 
 import { render } from '@folio/jest-config-stripes/testing-library/react';
 import {
@@ -16,6 +19,9 @@ const mockSendCallout = jest.fn().mockName('sendCalloutMock');
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
   useHistory: jest.fn(),
+  useLocation: jest.fn().mockReturnValue({
+    state: {},
+  }),
 }));
 
 jest.mock('@folio/stripes/core', () => ({
@@ -66,6 +72,7 @@ describe('Given AuthorityViewRoute', () => {
       replace: mockHistoryReplace,
       push: jest.fn(),
     });
+    mockHistoryReplace.mockClear();
   });
 
   it('should render with no axe errors', async () => {
@@ -83,12 +90,38 @@ describe('Given AuthorityViewRoute', () => {
   });
 
   describe('when authority is loaded', () => {
-    it('should reset `isNewRecord` history state parameter', () => {
-      renderAuthorityViewRoute();
+    describe('and `isNewRecord` state parameter is true', () => {
+      beforeEach(() => {
+        useLocation.mockReturnValue({
+          state: {
+            isNewRecord: true,
+          },
+        });
+      });
 
-      expect(mockHistoryReplace).toHaveBeenCalledWith(expect.objectContaining({
-        state: { isNewRecord: false },
-      }));
+      it('should reset `isNewRecord` history state parameter', () => {
+        renderAuthorityViewRoute();
+
+        expect(mockHistoryReplace).toHaveBeenCalledWith(expect.objectContaining({
+          state: { isNewRecord: false },
+        }));
+      });
+    });
+
+    describe('and `isNewRecord` state parameter is false', () => {
+      beforeEach(() => {
+        useLocation.mockReturnValue({
+          state: {
+            isNewRecord: false,
+          },
+        });
+      });
+
+      it('should reset `isNewRecord` history state parameter', () => {
+        renderAuthorityViewRoute();
+
+        expect(mockHistoryReplace).not.toHaveBeenCalled();
+      });
     });
   });
 
@@ -113,39 +146,7 @@ describe('Given AuthorityViewRoute', () => {
     });
   });
 
-  describe('when authority is shared/local', () => {
-    it('should fetch the authority from the current tenant', () => {
-      const authority = {
-        shared: true,
-      };
-      const selectedAuthorityCtxValue = [authority];
-
-      renderAuthorityViewRoute(selectedAuthorityCtxValue);
-
-      expect(useAuthority.mock.calls[0][0]).toEqual({
-        tenantId: undefined,
-      });
-    });
-  });
-
   describe('when authority is shared', () => {
-    it('should fetch data from central tenant', () => {
-      const authority = {
-        shared: true,
-      };
-      const selectedAuthorityCtxValue = [authority];
-
-      renderAuthorityViewRoute(selectedAuthorityCtxValue);
-
-      expect(useMarcSource.mock.calls[0][0]).toEqual({
-        enabled: true,
-        tenantId: 'consortia',
-      });
-      expect(useAuthority.mock.calls[0][0]).toEqual({
-        tenantId: undefined,
-      });
-    });
-
     describe('when consortium info is not loaded', () => {
       beforeEach(() => {
         useStripes.mockReturnValueOnce({
@@ -174,7 +175,7 @@ describe('Given AuthorityViewRoute', () => {
   });
 
   describe('when authority is local', () => {
-    it('should fetch data with authority.tenantId', () => {
+    it('should fetch marc source data with authority.tenantId', () => {
       const authority = {
         shared: false,
         tenantId: 'university',
@@ -186,9 +187,6 @@ describe('Given AuthorityViewRoute', () => {
       expect(useMarcSource.mock.calls[0][0]).toEqual({
         enabled: true,
         tenantId: authority.tenantId,
-      });
-      expect(useAuthority.mock.calls[0][0]).toEqual({
-        tenantId: undefined,
       });
     });
 
