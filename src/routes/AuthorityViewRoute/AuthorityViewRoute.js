@@ -105,6 +105,11 @@ const AuthorityViewRoute = () => {
   }, [authority?.data, setSelectedAuthority, selectedAuthority]);
 
   useEffect(() => {
+    // `isNewRecord` is set in `CreateMarcAuthorityRoute` and is needed to
+    // retry feching a created Authority record. The record might not be
+    // available via search immediately after creation since reindexing might take
+    // a few moments.
+    // After we've successfully fetched this record - we should reset `isNewRecord` to false
     if (authority?.data && location.state?.isNewRecord) {
       history.replace({
         state: { ...location.state, isNewRecord: false },
