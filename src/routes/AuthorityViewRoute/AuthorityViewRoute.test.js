@@ -4,10 +4,7 @@ import {
 } from 'react-router';
 
 import { render } from '@folio/jest-config-stripes/testing-library/react';
-import {
-  useMarcSource,
-  useAuthority,
-} from '@folio/stripes-authority-components';
+import { useMarcSource } from '@folio/stripes-authority-components';
 import { useStripes } from '@folio/stripes/core';
 import { runAxeTest } from '@folio/stripes-testing';
 
