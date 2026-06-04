@@ -3,6 +3,7 @@
 ## [8.1.0] (IN PROGRESS)
 
 - [UIMARCAUTH-537](https://issues.folio.org/browse/UIMARCAUTH-537) Fix Authority View pane keeps opening and closing in Browse.
+- [UIMARCAUTH-539](https://issues.folio.org/browse/UIMARCAUTH-539) Clear `selectedAuthority` on Authority View page unmount.
 
 ## [8.0.1] (https://github.com/folio-org/ui-marc-authorities/tree/v8.0.1) (2026-05-28)
 

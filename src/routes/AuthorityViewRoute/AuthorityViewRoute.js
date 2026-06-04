@@ -105,6 +105,12 @@ const AuthorityViewRoute = () => {
   }, [authority?.data, setSelectedAuthority, selectedAuthority]);
 
   useEffect(() => {
+    return () => {
+      setSelectedAuthority(null);
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
     // `isNewRecord` is set in `CreateMarcAuthorityRoute` and is needed to
     // retry feching a created Authority record. The record might not be
     // available via search immediately after creation since reindexing might take
