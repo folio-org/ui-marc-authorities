@@ -1,5 +1,9 @@
 # Change history for ui-marc-authorities
 
+## [8.1.0] (IN PROGRESS)
+
+- [UIMARCAUTH-537](https://issues.folio.org/browse/UIMARCAUTH-537) Fix Authority View pane keeps opening and closing in Browse.
+
 ## [8.0.1] (https://github.com/folio-org/ui-marc-authorities/tree/v8.0.1) (2026-05-28)
 
 - [UIMARCAUTH-530](https://issues.folio.org/browse/UIMARCAUTH-530) Retry fetching a created Authority record when reindexing is still in progress.
