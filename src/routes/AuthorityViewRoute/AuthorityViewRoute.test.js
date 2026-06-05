@@ -54,7 +54,8 @@ jest.mock('../../views/AuthorityView/AuthorityView', () => function () {
   return <div>AuthorityView</div>;
 });
 
-const renderAuthorityViewRoute = (selectedRecordCtxValue) => render(
+const defaultSelectedRecordCtxValue = [null, jest.fn()];
+const renderAuthorityViewRoute = (selectedRecordCtxValue = defaultSelectedRecordCtxValue) => render(
   <Harness selectedRecordCtxValue={selectedRecordCtxValue}>
     <AuthorityViewRoute />
   </Harness>,
@@ -162,7 +163,7 @@ describe('Given AuthorityViewRoute', () => {
         const authority = {
           shared: true,
         };
-        const selectedAuthorityCtxValue = [authority];
+        const selectedAuthorityCtxValue = [authority, jest.fn()];
 
         renderAuthorityViewRoute(selectedAuthorityCtxValue);
 
@@ -177,7 +178,7 @@ describe('Given AuthorityViewRoute', () => {
         shared: false,
         tenantId: 'university',
       };
-      const selectedAuthorityCtxValue = [authority];
+      const selectedAuthorityCtxValue = [authority, jest.fn()];
 
       renderAuthorityViewRoute(selectedAuthorityCtxValue);
 
@@ -206,7 +207,7 @@ describe('Given AuthorityViewRoute', () => {
           shared: false,
           tenantId: 'university',
         };
-        const selectedAuthorityCtxValue = [authority];
+        const selectedAuthorityCtxValue = [authority, jest.fn()];
 
         renderAuthorityViewRoute(selectedAuthorityCtxValue);
 
