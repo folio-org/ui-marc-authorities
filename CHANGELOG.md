@@ -1,6 +1,6 @@
 # Change history for ui-marc-authorities
 
-## [8.1.0] (IN PROGRESS)
+## [8.0.2] (https://github.com/folio-org/ui-marc-authorities/tree/v8.0.2) (2026-06-04)
 
 - [UIMARCAUTH-537](https://issues.folio.org/browse/UIMARCAUTH-537) Fix Authority View pane keeps opening and closing in Browse.
 
