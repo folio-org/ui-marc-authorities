@@ -104,6 +104,14 @@ const AuthorityViewRoute = () => {
     }
   }, [authority?.data, setSelectedAuthority, selectedAuthority]);
 
+  // clear selected authority on unmount, so that we won't have any remaining data
+  // that could affect other parts of the app
+  useEffect(() => {
+    return () => {
+      setSelectedAuthority(null);
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     // `isNewRecord` is set in `CreateMarcAuthorityRoute` and is needed to
     // retry feching a created Authority record. The record might not be
