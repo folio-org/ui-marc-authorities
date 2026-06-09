@@ -104,6 +104,8 @@ const AuthorityViewRoute = () => {
     }
   }, [authority?.data, setSelectedAuthority, selectedAuthority]);
 
+  // clear selected authority on unmount, so that we won't have any remaining data
+  // that could affect other parts of the app
   useEffect(() => {
     return () => {
       setSelectedAuthority(null);
