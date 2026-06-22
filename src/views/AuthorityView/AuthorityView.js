@@ -285,9 +285,7 @@ const AuthorityView = ({
                     <DropdownButton
                       buttonStyle="primary"
                       marginBottom0
-                      actionMenuToggleProps={{
-                        'aria-label': intl.formatMessage({ id: 'ui-marc-authorities.authority-record.actionsMenu' }),
-                      }}
+                      aria-label={intl.formatMessage({ id: 'ui-marc-authorities.authority-record.actionsMenu' })}
                       {...getTriggerProps()}
                     >
                       <FormattedMessage id="ui-marc-authorities.actions" />
