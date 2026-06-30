@@ -24,8 +24,10 @@
   "authorities.rows.recordsSelected": "{count, number} {count, plural, one {record} other {records}} selected",
   "authorities.rows.select": "Select Authority record",
 
+  "search-results-list.actionsMenu": "Show results list actions",
   "search-results-list.numberOfTitles": "Number of titles",
 
+  "authority-record.actionsMenu": "Show detail record actions",
   "authority-record.menuOptions": "Available options",
   "authority-record.edit": "Edit",
   "authority-record.export": "Export (MARC)",

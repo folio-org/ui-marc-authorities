@@ -712,6 +712,9 @@ const AuthoritiesSearch = ({
           paneSub={renderPaneSub()}
           firstMenu={renderResultsFirstMenu()}
           actionMenu={renderActionMenu}
+          actionMenuToggleProps={{
+            'aria-label': intl.formatMessage({ id: 'ui-marc-authorities.search-results-list.actionsMenu' }),
+          }}
           padContent={false}
           noOverflow
         >
