@@ -145,7 +145,7 @@ describe('Given AuthoritiesSearch', () => {
   it('should display "Actions" button', () => {
     const { getByRole } = renderAuthoritiesSearch();
 
-    expect(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' })).toBeDefined();
+    expect(getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' })).toBeDefined();
   });
 
   it('should not display count of selected rows on panesub untill no rows are selected', () => {
@@ -183,7 +183,7 @@ describe('Given AuthoritiesSearch', () => {
     it('should display disabled "Export selected records (CSV/MARC)" button', () => {
       const { getByRole } = renderAuthoritiesSearch();
 
-      fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+      fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
 
       const exportRecordsButton = getByRole('button', { name: 'ui-marc-authorities.export-selected-records' });
 
@@ -194,7 +194,7 @@ describe('Given AuthoritiesSearch', () => {
     it('should display disabled "Save authorities CQL query" button', () => {
       const { getByRole } = renderAuthoritiesSearch();
 
-      fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+      fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
 
       const exportRecordsButton = getByRole('button', { name: 'ui-marc-authorities.export-cql-query' });
 
@@ -205,7 +205,7 @@ describe('Given AuthoritiesSearch', () => {
     it('should show Save Authorities UUIDs button', async () => {
       renderAuthoritiesSearch();
 
-      fireEvent.click(screen.getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+      fireEvent.click(screen.getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
 
       const saveAuthoritiesUIIDSButton = screen.getByRole('button', { name: 'ui-marc-authorities.actions.saveAuthoritiesUIIDS' });
 
@@ -219,7 +219,7 @@ describe('Given AuthoritiesSearch', () => {
           navigationSegmentValue: navigationSegments.browse,
         });
 
-        fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+        fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
 
         const exportRecordsButton = queryByRole('button', { name: 'ui-marc-authorities.export-cql-query' });
 
@@ -231,7 +231,7 @@ describe('Given AuthoritiesSearch', () => {
           navigationSegmentValue: navigationSegments.browse,
         });
 
-        fireEvent.click(screen.getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+        fireEvent.click(screen.getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
 
         const saveAuthoritiesUIIDSButton = screen.queryByRole('button', { name: 'ui-marc-authorities.actions.saveAuthoritiesUIIDS' });
 
@@ -248,7 +248,7 @@ describe('Given AuthoritiesSearch', () => {
           query: 'keyword all test',
         });
 
-        fireEvent.click(screen.getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+        fireEvent.click(screen.getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
       });
 
       it('should enable the "Save authorities CQL query" button', () => {
@@ -292,7 +292,7 @@ describe('Given AuthoritiesSearch', () => {
         getByText,
       } = renderAuthoritiesSearch();
 
-      fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+      fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
 
       expect(getByText('ui-marc-authorities.actions.menuSection.sortBy')).toBeDefined();
     });
@@ -303,7 +303,7 @@ describe('Given AuthoritiesSearch', () => {
         getByText,
       } = renderAuthoritiesSearch();
 
-      fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+      fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
 
       expect(getByText('ui-marc-authorities.actions.menuSection.sortBy.relevance')).toBeDefined();
     });
@@ -314,7 +314,7 @@ describe('Given AuthoritiesSearch', () => {
         getByText,
       } = renderAuthoritiesSearch();
 
-      fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+      fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
 
       expect(getByText('stripes-smart-components.columnManager.showColumns')).toBeDefined();
     });
@@ -322,7 +322,7 @@ describe('Given AuthoritiesSearch', () => {
     it('should display "Authorized/Reference" and "Type of heading" checkboxes', () => {
       const { getByRole } = renderAuthoritiesSearch();
 
-      fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+      fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
 
       expect(getByRole('checkbox', { name: 'stripes-authority-components.search-results-list.authRefType' })).toBeDefined();
       expect(getByRole('checkbox', { name: 'stripes-authority-components.search-results-list.headingType' })).toBeDefined();
@@ -331,7 +331,7 @@ describe('Given AuthoritiesSearch', () => {
     it('should be checked by the default', () => {
       const { getByRole } = renderAuthoritiesSearch();
 
-      fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+      fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
 
       expect(getByRole('checkbox', { name: 'stripes-authority-components.search-results-list.authRefType' })).toBeChecked();
       expect(getByRole('checkbox', { name: 'stripes-authority-components.search-results-list.headingType' })).toBeChecked();
@@ -340,7 +340,7 @@ describe('Given AuthoritiesSearch', () => {
     it('should display reports', () => {
       const { getByRole } = renderAuthoritiesSearch();
 
-      fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+      fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
 
       const marcAuthorityHeadingsButton = getByRole('button', { name: 'ui-marc-authorities.reports.marcAuthorityHeadings' });
       // const failedUpdatesButton = getByRole('button', { name: 'ui-marc-authorities.reports.failedUpdates' });
@@ -353,7 +353,7 @@ describe('Given AuthoritiesSearch', () => {
       it('"Export selected records (CSV/MARC)" button should be enabled', () => {
         const { getAllByTestId, getByRole } = renderAuthoritiesSearch({ authorities });
 
-        fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+        fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
 
         const rowToggleButtons = getAllByTestId('row-toggle-button');
 
@@ -377,7 +377,7 @@ describe('Given AuthoritiesSearch', () => {
 
           fireEvent.click(rowToggleButtons[0]);
 
-          fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+          fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
           fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.export-selected-records' }));
 
           expect(queryByText('ui-marc-authorities.export.success')).toBeDefined();
@@ -395,7 +395,7 @@ describe('Given AuthoritiesSearch', () => {
 
           fireEvent.click(rowToggleButtons[0]);
 
-          fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+          fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
           fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.export-selected-records' }));
 
           expect(queryByText('ui-marc-authorities.export.failure')).toBeDefined();
@@ -410,7 +410,7 @@ describe('Given AuthoritiesSearch', () => {
           getByTestId,
         } = renderAuthoritiesSearch();
 
-        fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+        fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
 
         fireEvent.change(getByTestId('sort-by-selection'), { target: { value: 'headingType' } });
 
@@ -424,7 +424,7 @@ describe('Given AuthoritiesSearch', () => {
             getByTestId,
           } = renderAuthoritiesSearch();
 
-          fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+          fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
 
           fireEvent.change(getByTestId('sort-by-selection'), { target: { value: 'headingType' } });
           fireEvent.change(getByTestId('sort-by-selection'), { target: { value: '' } });
@@ -441,7 +441,7 @@ describe('Given AuthoritiesSearch', () => {
           queryByRole,
         } = renderAuthoritiesSearch({ authorities });
 
-        fireEvent.click(getByRole('button', { name: 'stripes-components.paneMenuActionsToggleLabel' }));
+        fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
         fireEvent.click(getByRole('checkbox', { name: 'stripes-authority-components.search-results-list.headingType' }));
 
         expect(queryByRole('button', { name: 'stripes-authority-components.search-results-list.headingType' })).toBeNull();
