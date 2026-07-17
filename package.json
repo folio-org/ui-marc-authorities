@@ -31,27 +31,27 @@
     "@folio/stripes-util" :"^7.0.0",
     "axe-core": "^4.1.4",
     "core-js": "^3.6.1",
-    "eslint-plugin-jest": "^24.3.5",
+    "eslint-plugin-jest": "^29.15.4",
     "history": "^5.0.0",
     "identity-obj-proxy": "^3.0.0",
     "inflected": "^2.0.4",
     "lodash": "^4.17.4",
     "prop-types": "^15.6.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-intl": "^7.1.5",
-    "react-router": "^5.2.0",
-    "react-router-dom": "^5.2.0",
-    "redux": "^4.2.0",
-    "redux-observable": "^1.2.0",
-    "regenerator-runtime": "^0.13.3",
-    "rxjs": "^6.6.3"
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-intl": "^10.1.17",
+    "react-router": "^8.2.0",
+    "react-router-dom": "^7.18.1",
+    "redux": "^5.0.1",
+    "redux-observable": "^2.0.0",
+    "regenerator-runtime": "^0.14.1",
+    "rxjs": "^7.8.2"
   },
   "dependencies": {
     "@folio/stripes-acq-components": "^7.1.0",
     "@rehooks/local-storage": "^2.4.4",
     "file-saver": "^2.0.0",
-    "query-string": "^7.0.1"
+    "query-string": "^9.4.1"
   },
   "optionalDependencies": {
     "@folio/quick-marc": "^11.0.0"
@@ -60,11 +60,11 @@
     "@folio/stripes": "^10.1.0",
     "@folio/stripes-authority-components": "^7.0.0",
     "@folio/stripes-marc-components": "^2.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-intl": "^7.1.5",
-    "react-router": "^5.2.0",
-    "react-router-dom": "^5.2.0"
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-intl": "^10.1.17",
+    "react-router": "^8.2.0",
+    "react-router-dom": "^7.18.1"
   },
   "stripes": {
     "actsAs": [
