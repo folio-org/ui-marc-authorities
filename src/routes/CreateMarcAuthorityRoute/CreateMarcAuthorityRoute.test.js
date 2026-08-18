@@ -86,7 +86,7 @@ describe('CreateMarcAuthorityRoute', () => {
           ]),
         }),
       }),
-      {}
+      {},
     );
   });
 
