@@ -4,4 +4,5 @@ export * from './sortableColumns';
 export * from './queryKeys';
 export * from './exportAuthorityJobProfileId';
 export * from './createAuthorityRoute';
+export * from './createAuthorityMarcInitialValues';
 export * from './constants';

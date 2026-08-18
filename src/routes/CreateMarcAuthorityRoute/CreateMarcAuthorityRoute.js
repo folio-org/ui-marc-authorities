@@ -11,6 +11,8 @@ import { FormattedMessage } from 'react-intl';
 import { Pluggable } from '@folio/stripes/core';
 import { AuthoritiesSearchContext } from '@folio/stripes-authority-components';
 
+import { INITIAL_AUTHORITY_VALUES } from '../../constants';
+
 export const CreateMarcAuthorityRoute = () => {
   const history = useHistory();
   const location = useLocation();
@@ -59,6 +61,7 @@ export const CreateMarcAuthorityRoute = () => {
         isShared={isShared}
         useRoutes={false}
         onCreateAndKeepEditing={onCreateAndKeepEditing}
+        initialValues={INITIAL_AUTHORITY_VALUES}
       >
         <span data-test-marc-authorities-quick-marc-no-plugin>
           <FormattedMessage id="ui-marc-authorities.quickMarcNotAvailable" />
