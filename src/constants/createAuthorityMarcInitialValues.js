@@ -5,16 +5,13 @@ export const INITIAL_AUTHORITY_VALUES = {
     {
       tag: '001',
       content: '',
-      isProtected: true,
     },
     {
       tag: '005',
       content: '',
-      isProtected: true,
     },
     {
       tag: '008',
-      isProtected: false,
       content: {
         'Undef_18': '\\\\\\\\\\\\\\\\\\\\',
         'Undef_30': '\\',
@@ -42,7 +39,6 @@ export const INITIAL_AUTHORITY_VALUES = {
     },
     {
       tag: '999',
-      isProtected: true,
       indicators: [
         'f',
         'f',

@@ -9,7 +9,7 @@ import {
   render,
   screen,
 } from '@folio/jest-config-stripes/testing-library/react';
-import { useStripes } from '@folio/stripes/core';
+import { useStripes, Pluggable } from '@folio/stripes/core';
 
 import { CreateMarcAuthorityRoute } from './CreateMarcAuthorityRoute';
 import buildStripes from '../../../test/jest/__mock__/stripesCore.mock';
@@ -69,6 +69,25 @@ describe('CreateMarcAuthorityRoute', () => {
     renderCreateMarcAuthorityRoute();
 
     expect(screen.getByText('Pluggable')).toBeInTheDocument();
+
+    expect(Pluggable).toHaveBeenCalledWith(
+      expect.objectContaining({
+        initialValues: expect.objectContaining({
+          marcFormat: 'AUTHORITY',
+          leader: expect.stringMatching(/^00000nz/),
+          fields: expect.arrayContaining([
+            expect.objectContaining({ tag: '001' }),
+            expect.objectContaining({ tag: '005' }),
+            expect.objectContaining({
+              tag: '008',
+              content: expect.objectContaining({ RecUpd: 'a' }),
+            }),
+            expect.objectContaining({ tag: '999' }),
+          ]),
+        }),
+      }),
+      {}
+    );
   });
 
   describe('when handling save and keep editing', () => {
