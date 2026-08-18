@@ -1,6 +1,6 @@
 export const INITIAL_AUTHORITY_VALUES = {
   marcFormat: 'AUTHORITY',
-  leader: '00000nz\\\\a2200000o\\\\4500',
+  leader: String.raw`00000nz\\a2200000o\\4500`,
   fields: [
     {
       tag: '001',
