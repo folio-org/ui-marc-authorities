@@ -26,6 +26,7 @@
 
   "search-results-list.actionsMenu": "Show results list actions",
   "search-results-list.numberOfTitles": "Number of titles",
+  "search-results-list.lastUpdated": "Last updated",
 
   "authority-record.actionsMenu": "Show detail record actions",
   "authority-record.menuOptions": "Available options",

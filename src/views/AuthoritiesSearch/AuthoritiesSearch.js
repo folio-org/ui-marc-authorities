@@ -12,6 +12,7 @@ import {
 } from 'react-router-dom';
 import { useRouteMatch } from 'react-router';
 import {
+  FormattedDate,
   FormattedMessage,
   useIntl,
 } from 'react-intl';
@@ -89,6 +90,7 @@ import css from './AuthoritiesSearch.css';
 
 const prefix = 'authorities';
 const NON_INTERACTIVE_HEADERS = [searchResultListColumns.SELECT];
+const LAST_UPDATED_COLUMN = 'lastUpdated';
 const AUTHORITIES_ID_REPORT_TIMEOUT = 2000;
 
 const propTypes = {
@@ -239,6 +241,7 @@ const AuthoritiesSearch = ({
     [searchResultListColumns.HEADING_TYPE]: <FormattedMessage id="stripes-authority-components.search-results-list.headingType" />,
     [searchResultListColumns.AUTHORITY_SOURCE]: intl.formatMessage({ id: 'stripes-authority-components.search-results-list.authoritySource' }),
     [searchResultListColumns.NUMBER_OF_TITLES]: <FormattedMessage id="ui-marc-authorities.search-results-list.numberOfTitles" />,
+    [LAST_UPDATED_COLUMN]: <FormattedMessage id="ui-marc-authorities.search-results-list.lastUpdated" />,
   }), [selectAll, selectAllLabel, toggleSelectAll, intl]);
 
   const columnWidths = useMemo(() => ({
@@ -248,12 +251,18 @@ const AuthoritiesSearch = ({
     [searchResultListColumns.HEADING_REF]: { max: '350px' }, // define as object to let MCL re-calculate widths and save scroll positions
     [searchResultListColumns.HEADING_TYPE]: '170px',
     [searchResultListColumns.AUTHORITY_SOURCE]: '250px',
+    [LAST_UPDATED_COLUMN]: '140px',
   }), []);
+
+  // "Last updated" defaults to hidden; every other column keeps its current default-visible behavior.
+  const defaultVisibleColumns = useMemo(() => (
+    Object.keys(columnMapping).filter(key => key !== LAST_UPDATED_COLUMN)
+  ), [columnMapping]);
 
   const {
     visibleColumns,
     toggleColumn,
-  } = useColumnManager(prefix, columnMapping);
+  } = useColumnManager(prefix, columnMapping, false, defaultVisibleColumns);
 
   useEffect(() => {
     const selectedIndex = searchIndex !== searchableIndexesValues.KEYWORD ? searchIndex : '';
@@ -420,6 +429,10 @@ const AuthoritiesSearch = ({
         </TextLink>
       );
     },
+    // eslint-disable-next-line react/prop-types, react/no-multi-comp
+    [LAST_UPDATED_COLUMN]: ({ metadata }) => (
+      metadata?.updatedDate ? <FormattedDate value={metadata.updatedDate} /> : null
+    ),
   };
 
   const options = useMemo(() => Object.values(sortableSearchResultListColumns).map(option => ({

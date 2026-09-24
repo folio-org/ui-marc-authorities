@@ -3,7 +3,10 @@
   "headingType": "Personal name",
   "authRefType": "Auth/Ref",
   "headingRef": "Twain, Mark",
-  "shared": true
+  "shared": true,
+  "metadata": {
+    "updatedDate": "2021-11-04T09:05:30.000+0000"
+  }
 }, {
   "id": "5a404f5d-2c46-4426-9f28-db8d26881b31",
   "headingType": "Personal name",

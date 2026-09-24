@@ -5,6 +5,7 @@ import {
   render,
   fireEvent,
   screen,
+  within,
 } from '@folio/jest-config-stripes/testing-library/react';
 import { runAxeTest } from '@folio/stripes-testing';
 import {
@@ -337,6 +338,17 @@ describe('Given AuthoritiesSearch', () => {
       expect(getByRole('checkbox', { name: 'stripes-authority-components.search-results-list.headingType' })).toBeChecked();
     });
 
+    it('should display "Last updated" checkbox unchecked by default', () => {
+      const { getByRole } = renderAuthoritiesSearch();
+
+      fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
+
+      const lastUpdatedCheckbox = getByRole('checkbox', { name: 'ui-marc-authorities.search-results-list.lastUpdated' });
+
+      expect(lastUpdatedCheckbox).toBeDefined();
+      expect(lastUpdatedCheckbox).not.toBeChecked();
+    });
+
     it('should display reports', () => {
       const { getByRole } = renderAuthoritiesSearch();
 
@@ -445,6 +457,69 @@ describe('Given AuthoritiesSearch', () => {
         fireEvent.click(getByRole('checkbox', { name: 'stripes-authority-components.search-results-list.headingType' }));
 
         expect(queryByRole('button', { name: 'stripes-authority-components.search-results-list.headingType' })).toBeNull();
+      });
+    });
+
+    describe('when click on "Last updated" checkbox', () => {
+      it('should show "Last updated" column and persist the choice', () => {
+        const {
+          getByRole,
+          queryByRole,
+        } = renderAuthoritiesSearch({ authorities });
+
+        fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
+
+        expect(queryByRole('columnheader', { name: 'ui-marc-authorities.search-results-list.lastUpdated' })).toBeNull();
+
+        fireEvent.click(getByRole('checkbox', { name: 'ui-marc-authorities.search-results-list.lastUpdated' }));
+
+        expect(getByRole('columnheader', { name: 'ui-marc-authorities.search-results-list.lastUpdated' })).toBeVisible();
+        expect(JSON.parse(sessionStorage.getItem('authorities-storage'))).toContain('lastUpdated');
+      });
+
+      it('should not add the column to the sort-by options', () => {
+        const {
+          getByRole,
+          getByTestId,
+        } = renderAuthoritiesSearch({ authorities });
+
+        fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
+        fireEvent.click(getByRole('checkbox', { name: 'ui-marc-authorities.search-results-list.lastUpdated' }));
+
+        const sortBySelect = getByTestId('sort-by-selection');
+        const optionValues = Array.from(sortBySelect.querySelectorAll('option')).map(option => option.value);
+
+        expect(optionValues).not.toContain('lastUpdated');
+      });
+
+      it('should display a formatted date for a record with an updated date, and an empty cell otherwise', () => {
+        const {
+          getByRole,
+          getAllByRole,
+        } = renderAuthoritiesSearch({
+          authorities: authorities.slice(0, 4),
+          totalRecords: 4,
+        });
+
+        fireEvent.click(getByRole('button', { name: 'ui-marc-authorities.search-results-list.actionsMenu' }));
+        fireEvent.click(getByRole('checkbox', { name: 'ui-marc-authorities.search-results-list.lastUpdated' }));
+
+        const expectedDate = new Intl.DateTimeFormat('en').format(new Date(authorities[0].metadata.updatedDate));
+        const rows = getAllByRole('row');
+
+        // "Last updated" is appended last, so it's the final gridcell in each row.
+        // row[0] is the header, row[1..4] correspond to authorities[0..3]
+        const getLastUpdatedCell = row => {
+          const cells = within(row).getAllByRole('gridcell');
+
+          return cells[cells.length - 1];
+        };
+
+        expect(getLastUpdatedCell(rows[1]).textContent).toBe(expectedDate);
+
+        const emptyCell = getLastUpdatedCell(rows[4]);
+
+        expect(emptyCell.textContent).toBe('');
       });
     });
   });
@@ -591,13 +666,14 @@ describe('Given AuthoritiesSearch', () => {
   });
 
   it('should display columns', () => {
-    const { getByRole } = renderAuthoritiesSearch({ authorities });
+    const { getByRole, queryByRole } = renderAuthoritiesSearch({ authorities });
 
     expect(getByRole('columnheader', { name: 'stripes-authority-components.search-results-list.authRefType' })).toBeVisible();
     expect(getByRole('columnheader', { name: 'stripes-authority-components.search-results-list.headingRef' })).toBeVisible();
     expect(getByRole('columnheader', { name: 'stripes-authority-components.search-results-list.headingType' })).toBeVisible();
     expect(getByRole('columnheader', { name: 'stripes-authority-components.search-results-list.authoritySource' })).toBeVisible();
     expect(getByRole('columnheader', { name: 'ui-marc-authorities.search-results-list.numberOfTitles' })).toBeVisible();
+    expect(queryByRole('columnheader', { name: 'ui-marc-authorities.search-results-list.lastUpdated' })).toBeNull();
   });
 
   it('should have correct props in SearchResultsList', () => {
