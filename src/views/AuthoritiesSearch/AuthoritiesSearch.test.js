@@ -3,6 +3,7 @@ import saveAs from 'file-saver';
 import {
   waitFor,
   render,
+  cleanup,
   fireEvent,
   screen,
 } from '@folio/jest-config-stripes/testing-library/react';
@@ -609,5 +610,99 @@ describe('Given AuthoritiesSearch', () => {
     };
 
     expect(SearchResultsList).toHaveBeenCalledWith(expect.objectContaining(expectedProps), {});
+  });
+
+  describe('when marking checked rows', () => {
+    const getRow = (container, rowIndex) => container
+      .querySelector(`[data-row-index="row-${rowIndex}"]`)
+      .firstChild;
+
+    it('should mark only the checked row, and unmark it when unchecked again', () => {
+      const { container, getAllByTestId } = renderAuthoritiesSearch({ authorities: authorities.slice(0, 2) });
+
+      const rowToggleButtons = getAllByTestId('row-toggle-button');
+
+      fireEvent.click(rowToggleButtons[0]);
+
+      expect(getRow(container, 0)).toHaveAttribute('aria-selected', 'true');
+      expect(getRow(container, 1)).toHaveAttribute('aria-selected', 'false');
+      expect(getRow(container, 0).className).toMatch(/\bcheckedRow\b/);
+      expect(getRow(container, 1).className).not.toMatch(/checkedRow/);
+
+      fireEvent.click(rowToggleButtons[0]);
+
+      expect(getRow(container, 0)).toHaveAttribute('aria-selected', 'false');
+      expect(getRow(container, 0).className).not.toMatch(/checkedRow/);
+    });
+
+    it('should mark every row when "select all" is clicked, and clear every row when "Reset all" is clicked', () => {
+      const { container, getByTestId } = renderAuthoritiesSearch({ authorities: authorities.slice(0, 3) });
+
+      fireEvent.click(getByTestId('select-all-rows-toggle-button'));
+
+      expect(getRow(container, 0)).toHaveAttribute('aria-selected', 'true');
+      expect(getRow(container, 1)).toHaveAttribute('aria-selected', 'true');
+      expect(getRow(container, 2)).toHaveAttribute('aria-selected', 'true');
+      expect(getRow(container, 0).className).toMatch(/\bcheckedRow\b/);
+      expect(getRow(container, 1).className).toMatch(/\bcheckedRow\b/);
+      expect(getRow(container, 2).className).toMatch(/\bcheckedRow\b/);
+
+      fireEvent.click(getByTestId('reset-all'));
+
+      expect(getRow(container, 0)).toHaveAttribute('aria-selected', 'false');
+      expect(getRow(container, 1)).toHaveAttribute('aria-selected', 'false');
+      expect(getRow(container, 2)).toHaveAttribute('aria-selected', 'false');
+      expect(getRow(container, 0).className).not.toMatch(/checkedRow/);
+      expect(getRow(container, 1).className).not.toMatch(/checkedRow/);
+      expect(getRow(container, 2).className).not.toMatch(/checkedRow/);
+    });
+
+    it('should visually distinguish a row that is both checked and open from a row that is only checked or only open', () => {
+      const openOnly = renderAuthoritiesSearch(
+        { authorities: authorities.slice(0, 2) },
+        authorities[0],
+      );
+      const openOnlyClass = getRow(openOnly.container, 0).className;
+
+      cleanup();
+
+      const checkedOnly = renderAuthoritiesSearch({ authorities: authorities.slice(0, 2) });
+
+      fireEvent.click(checkedOnly.getAllByTestId('row-toggle-button')[0]);
+      const checkedOnlyClass = getRow(checkedOnly.container, 0).className;
+
+      cleanup();
+
+      const checkedAndOpen = renderAuthoritiesSearch(
+        { authorities: authorities.slice(0, 2) },
+        authorities[0],
+      );
+
+      fireEvent.click(checkedAndOpen.getAllByTestId('row-toggle-button')[0]);
+      const checkedAndOpenClass = getRow(checkedAndOpen.container, 0).className;
+
+      expect(checkedAndOpenClass).not.toEqual(openOnlyClass);
+      expect(checkedAndOpenClass).not.toEqual(checkedOnlyClass);
+      expect(checkedAndOpenClass).toMatch(/\bcheckedRowOpen\b/);
+      expect(checkedOnlyClass).toMatch(/\bcheckedRow\b/);
+      expect(checkedOnlyClass).not.toMatch(/checkedRowOpen/);
+      expect(openOnlyClass).not.toMatch(/checkedRow/);
+    });
+
+    it('should keep existing checked rows marked, and leave newly loaded rows unmarked, when more data is loaded', () => {
+      const props = { authorities: authorities.slice(0, 2) };
+
+      const { container, getAllByTestId, rerender } = renderAuthoritiesSearch(props);
+
+      fireEvent.click(getAllByTestId('row-toggle-button')[0]);
+
+      expect(getRow(container, 0)).toHaveAttribute('aria-selected', 'true');
+
+      rerender(getAuthoritiesSearch({ authorities: authorities.slice(0, 3) }));
+
+      expect(getRow(container, 0)).toHaveAttribute('aria-selected', 'true');
+      expect(getRow(container, 1)).toHaveAttribute('aria-selected', 'false');
+      expect(getRow(container, 2)).toHaveAttribute('aria-selected', 'false');
+    });
   });
 });

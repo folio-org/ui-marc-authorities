@@ -744,6 +744,7 @@ const AuthoritiesSearch = ({
             hidePageIndices={hidePageIndices}
             renderHeadingRef={renderHeadingRef}
             nonInteractiveHeaders={NON_INTERACTIVE_HEADERS}
+            checkedRecordsIds={selectedRowsIds}
           />
         </Pane>
         {children}
