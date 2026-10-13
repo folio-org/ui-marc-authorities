@@ -1,5 +1,11 @@
 const path = require('path');
-const config = require('@folio/jest-config-stripes');
+const stripesJestConfig = require('@folio/jest-config-stripes');
+
+const config = stripesJestConfig.config || stripesJestConfig;
+const additionalModules = [
+  'keyboardjs',
+].join('|');
+const combinedModules = config.transformIgnorePatterns[0].replace(')', `|${additionalModules})`);
 
 module.exports = {
   ...config,
@@ -11,4 +17,5 @@ module.exports = {
     ...config.setupFilesAfterEnv,
     path.join(__dirname, './test/jest/jest.setup.js'),
   ],
+  transformIgnorePatterns: [combinedModules],
 };
