@@ -51,7 +51,7 @@
     "@folio/stripes-acq-components": "^7.1.0",
     "@rehooks/local-storage": "^2.4.4",
     "file-saver": "^2.0.0",
-    "query-string": "^7.0.1"
+    "query-string": "^9.0.0"
   },
   "optionalDependencies": {
     "@folio/quick-marc": "^11.0.0"
